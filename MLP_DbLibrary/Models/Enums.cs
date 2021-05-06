@@ -2,14 +2,14 @@
 
 namespace MLP_DbLibrary.Models
 {
-    public enum Level
+    public enum LessonLevel
     {
         Novice,
         Intermediate,
         Expert
     }
 
-    public enum Style
+    public enum InstrumentStyle
     {
         Classic,
         Rock,

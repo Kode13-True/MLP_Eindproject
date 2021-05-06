@@ -3,18 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31025.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLP_Eindproject.API", "MLP_Eindproject.API\MLP_Eindproject.API.csproj", "{163CB36F-577E-4EC9-BFC8-C9E00EB85224}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MLP_Eindproject.API", "MLP_Eindproject.API\MLP_Eindproject.API.csproj", "{163CB36F-577E-4EC9-BFC8-C9E00EB85224}"
 	ProjectSection(ProjectDependencies) = postProject
 		{DA117E99-565C-461A-8747-895D982D0515} = {DA117E99-565C-461A-8747-895D982D0515}
 		{D70698E3-88AB-4EB7-B175-118C413C9BA6} = {D70698E3-88AB-4EB7-B175-118C413C9BA6}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLP_DbLibrary", "MLP_DbLibrary\MLP_DbLibrary.csproj", "{D70698E3-88AB-4EB7-B175-118C413C9BA6}"
-	ProjectSection(ProjectDependencies) = postProject
-		{DA117E99-565C-461A-8747-895D982D0515} = {DA117E99-565C-461A-8747-895D982D0515}
-	EndProjectSection
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MLP_DbLibrary", "MLP_DbLibrary\MLP_DbLibrary.csproj", "{D70698E3-88AB-4EB7-B175-118C413C9BA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLP_MigrationLibrary", "MLP_MigrationLibrary\MLP_MigrationLibrary.csproj", "{DA117E99-565C-461A-8747-895D982D0515}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MLP_MigrationLibrary", "MLP_MigrationLibrary\MLP_MigrationLibrary.csproj", "{DA117E99-565C-461A-8747-895D982D0515}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D70698E3-88AB-4EB7-B175-118C413C9BA6} = {D70698E3-88AB-4EB7-B175-118C413C9BA6}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

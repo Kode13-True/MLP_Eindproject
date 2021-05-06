@@ -6,8 +6,8 @@ namespace MLP_DbLibrary.Models
     {
         public int Id { get; set; }
         public InstrumentName InstrumentName { get; set; }
-        public Style Style { get; set; }
-        public List<PersonInstrument> Persons { get; set; }
-        public List<Lesson> Lessons { get; set; }
+        public InstrumentStyle InstrumentStyle { get; set; }
+        public List<PersonInstrument> PersonInstruments { get; set; }
+       
     }
 }

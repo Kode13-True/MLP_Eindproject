@@ -13,9 +13,8 @@ namespace MLP_DbLibrary.Models
         public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public  Location Location { get; set; }
-        public List<PersonInstrument> Instruments { get; set; }
-        public List<Lesson> Lessons { get; set; }
+        public List<PersonInstrument> PersonInstruments { get; set; }
+        public List<PersonLesson> PersonLessons { get; set; }
         public bool IsTeacher { get; set; }
         public bool IsAdmin { get; set; }
         public double Rating { get; set; }

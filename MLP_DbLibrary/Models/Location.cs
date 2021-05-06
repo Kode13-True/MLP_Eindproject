@@ -9,7 +9,6 @@ namespace MLP_DbLibrary.Models
         public string Number { get; set; }
         public string Postal { get; set; }
         public string Township { get; set; }
-        public int LessonId { get; set; }
-        public Lesson Lesson { get; set; }
+        public List<Lesson> Lessons { get; set; }
     }
 }
