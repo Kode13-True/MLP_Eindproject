@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MLP_DbLibrary.DTO
+namespace MLP_DbLibrary.DTO.Instrument
 {
     public class CreateInstrumentDTO
     {
