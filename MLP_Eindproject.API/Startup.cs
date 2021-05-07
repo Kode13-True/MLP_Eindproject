@@ -9,6 +9,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using MLP_DbLibrary.MLPContext;
+using MLP_Eindproject.API.Services;
+using MLP_Eindproject.API.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,8 +38,8 @@ namespace MLP_Eindproject.API
             });
             services.AddDbContext<MLPDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("MLPDb").ToString(), x => x.MigrationsAssembly("MLP_MigrationLibrary")));
-
-        }
+            services.AddScoped<IInstrumentService, InstrumentService>();
+            }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
