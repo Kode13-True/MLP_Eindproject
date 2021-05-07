@@ -21,30 +21,31 @@ namespace MLP_DbLibrary.MLPContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<PersonInstrument>(pi =>
-            {
-                pi.HasKey(pi => new { pi.PersonId, pi.InstrumentId });
-                pi.HasOne(p => p.Person).WithMany(i => i.PersonInstruments).HasForeignKey(pi => pi.PersonId);
-                pi.HasOne(i => i.Instrument).WithMany(p => p.PersonInstruments).HasForeignKey(pi => pi.InstrumentId);
-            });
-            modelBuilder.Entity<PersonLesson>(pl => 
-            {
-                pl.HasKey(pl => new { pl.PersonId, pl.LessonId });
-                pl.HasOne(p => p.Person).WithMany(li => li.PersonLessons).HasForeignKey(pi => pi.PersonId);
-                pl.HasOne(l => l.Lesson).WithMany(li => li.PersonLessons).HasForeignKey(li => li.LessonId);
-            });
-            modelBuilder.Entity<Person>(p => 
+
+            modelBuilder.Entity<Person>(p =>
             {
                 p.HasKey(x => x.Id);
                 p.Property(x => x.Email).IsRequired(true);
                 p.Property(x => x.Password).IsRequired(true);
                 p.Property(x => x.LastName).IsRequired(true);
-
+                p.ToTable("Persons");
             });
+            modelBuilder.Entity<Teacher>(t => 
+            {
+                t.HasMany(x => x.Lessons).WithOne(t => t.Teacher).HasForeignKey(x => x.TeacherId);
+                t.HasMany(x => x.Instruments).WithOne(t => t.Teacher).HasForeignKey(x => x.TeacherId);
+            });
+            modelBuilder.Entity<Student>(s =>
+            {
+                s.HasMany(x => x.Lessons).WithOne(s => s.Student).HasForeignKey(x => x.StudentId);
+            });
+            modelBuilder.Entity<Admin>(a =>
+            {  
+            });
+
             modelBuilder.Entity<Instrument>(i => 
             {
-                i.HasKey(i => i.Id);                
-                
+                i.HasKey(i => i.Id);
             });
             modelBuilder.Entity<Lesson>(l =>
             {
@@ -60,10 +61,12 @@ namespace MLP_DbLibrary.MLPContext
             });
         }
         public DbSet<Instrument> Instruments {get; set;}
-        public DbSet<Person> Persons {get; set;}
+        public DbSet<Teacher> Teachers { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Admin> Admins { get; set; }
         public DbSet<Lesson> Lessons {get; set;}
         public DbSet<Location> Locations {get; set;}
-        public DbSet<PersonInstrument> PersonInstruments {get; set;}
+        
 
     }
 }

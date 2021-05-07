@@ -4,16 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MLP_DbLibrary.Models
+namespace MLP_DbLibrary.DTO.PersonDTO
 {
-    public abstract class Person
+    public class EditPersonDTO
     {
-        public int Id { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        
-        
+        public string Description { get; set; }
     }
 }

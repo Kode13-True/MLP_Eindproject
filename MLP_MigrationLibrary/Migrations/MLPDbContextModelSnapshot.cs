@@ -32,7 +32,12 @@ namespace MLP_MigrationLibrary.Migrations
                     b.Property<int>("InstrumentStyle")
                         .HasColumnType("int");
 
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("Instruments");
                 });
@@ -62,9 +67,19 @@ namespace MLP_MigrationLibrary.Migrations
                     b.Property<DateTime>("Stop")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TeacherId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("LocationId");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("TeacherId");
 
                     b.ToTable("Lessons");
                 });
@@ -100,18 +115,16 @@ namespace MLP_MigrationLibrary.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsAdmin")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsTeacher")
-                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -121,42 +134,49 @@ namespace MLP_MigrationLibrary.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Rating")
-                        .HasColumnType("float");
-
                     b.HasKey("Id");
 
                     b.ToTable("Persons");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Person");
                 });
 
-            modelBuilder.Entity("MLP_DbLibrary.Models.PersonInstrument", b =>
+            modelBuilder.Entity("MLP_DbLibrary.Models.Admin", b =>
                 {
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
+                    b.HasBaseType("MLP_DbLibrary.Models.Person");
 
-                    b.Property<int>("InstrumentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PersonId", "InstrumentId");
-
-                    b.HasIndex("InstrumentId");
-
-                    b.ToTable("PersonInstruments");
+                    b.HasDiscriminator().HasValue("Admin");
                 });
 
-            modelBuilder.Entity("MLP_DbLibrary.Models.PersonLesson", b =>
+            modelBuilder.Entity("MLP_DbLibrary.Models.Student", b =>
                 {
-                    b.Property<int>("PersonId")
-                        .HasColumnType("int");
+                    b.HasBaseType("MLP_DbLibrary.Models.Person");
 
-                    b.Property<int>("LessonId")
-                        .HasColumnType("int");
+                    b.HasDiscriminator().HasValue("Student");
+                });
 
-                    b.HasKey("PersonId", "LessonId");
+            modelBuilder.Entity("MLP_DbLibrary.Models.Teacher", b =>
+                {
+                    b.HasBaseType("MLP_DbLibrary.Models.Person");
 
-                    b.HasIndex("LessonId");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("PersonLesson");
+                    b.Property<double>("Rating")
+                        .HasColumnType("float");
+
+                    b.HasDiscriminator().HasValue("Teacher");
+                });
+
+            modelBuilder.Entity("MLP_DbLibrary.Models.Instrument", b =>
+                {
+                    b.HasOne("MLP_DbLibrary.Models.Teacher", "Teacher")
+                        .WithMany("Instruments")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("MLP_DbLibrary.Models.Lesson", b =>
@@ -167,55 +187,19 @@ namespace MLP_MigrationLibrary.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("MLP_DbLibrary.Models.Student", "Student")
+                        .WithMany("Lessons")
+                        .HasForeignKey("StudentId");
+
+                    b.HasOne("MLP_DbLibrary.Models.Teacher", "Teacher")
+                        .WithMany("Lessons")
+                        .HasForeignKey("TeacherId");
+
                     b.Navigation("Location");
-                });
 
-            modelBuilder.Entity("MLP_DbLibrary.Models.PersonInstrument", b =>
-                {
-                    b.HasOne("MLP_DbLibrary.Models.Instrument", "Instrument")
-                        .WithMany("PersonInstruments")
-                        .HasForeignKey("InstrumentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Student");
 
-                    b.HasOne("MLP_DbLibrary.Models.Person", "Person")
-                        .WithMany("PersonInstruments")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Instrument");
-
-                    b.Navigation("Person");
-                });
-
-            modelBuilder.Entity("MLP_DbLibrary.Models.PersonLesson", b =>
-                {
-                    b.HasOne("MLP_DbLibrary.Models.Lesson", "Lesson")
-                        .WithMany("PersonLessons")
-                        .HasForeignKey("LessonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MLP_DbLibrary.Models.Person", "Person")
-                        .WithMany("PersonLessons")
-                        .HasForeignKey("PersonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Lesson");
-
-                    b.Navigation("Person");
-                });
-
-            modelBuilder.Entity("MLP_DbLibrary.Models.Instrument", b =>
-                {
-                    b.Navigation("PersonInstruments");
-                });
-
-            modelBuilder.Entity("MLP_DbLibrary.Models.Lesson", b =>
-                {
-                    b.Navigation("PersonLessons");
+                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("MLP_DbLibrary.Models.Location", b =>
@@ -223,11 +207,16 @@ namespace MLP_MigrationLibrary.Migrations
                     b.Navigation("Lessons");
                 });
 
-            modelBuilder.Entity("MLP_DbLibrary.Models.Person", b =>
+            modelBuilder.Entity("MLP_DbLibrary.Models.Student", b =>
                 {
-                    b.Navigation("PersonInstruments");
+                    b.Navigation("Lessons");
+                });
 
-                    b.Navigation("PersonLessons");
+            modelBuilder.Entity("MLP_DbLibrary.Models.Teacher", b =>
+                {
+                    b.Navigation("Instruments");
+
+                    b.Navigation("Lessons");
                 });
 #pragma warning restore 612, 618
         }

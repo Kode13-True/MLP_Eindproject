@@ -10,8 +10,11 @@ namespace MLP_DbLibrary.Models
         public DateTime Stop { get; set; }
         public int LocationId { get; set; }
         public decimal Price { get; set; }
-        public Location Location { get; set; }       
-        public List<PersonLesson> PersonLessons { get; set; }       
+        public Location Location { get; set; }      
+        public int? TeacherId { get; set; }
+        public Teacher Teacher { get; set; }  
+        public int? StudentId { get; set; }
+        public Student Student { get; set; }
         public LessonLevel LessonLevel { get; set; }
         public bool Completed { get; set; }
     }
