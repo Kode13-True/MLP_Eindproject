@@ -20,10 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MLP_DbLibrary\MLP_DbLibrary.csproj" />
     <ProjectReference Include="..\MLP_MigrationLibrary\MLP_MigrationLibrary.csproj" />
   </ItemGroup>
