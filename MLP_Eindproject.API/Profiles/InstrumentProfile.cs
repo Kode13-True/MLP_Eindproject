@@ -1,5 +1,5 @@
-﻿using AutoMapper;
-using MLP_DbLibrary.DTO.Instrument;
+using AutoMapper;
+using MLP_DbLibrary.DTO.InstrumentDTO;
 using MLP_DbLibrary.Models;
 using System;
 using System.Collections.Generic;

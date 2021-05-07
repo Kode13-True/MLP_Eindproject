@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MLP_DbLibrary.DTO.Instrument
+namespace MLP_DbLibrary.DTO.InstrumentDTO
 {
-    public class ResponseInstrumentDTO
+    public class CreateInstrumentDTO
     {
-        public int Id { get; set; }
         public InstrumentName InstrumentName { get; set; }
         public InstrumentStyle InstrumentStyle { get; set; }
     }

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MLP_DbLibrary.DTO;
-using MLP_DbLibrary.DTO.Instrument;
+using MLP_DbLibrary.DTO.InstrumentDTO;
 using MLP_DbLibrary.Models;
 using MLP_Eindproject.API.Services.Interfaces;
 using System;
@@ -31,8 +31,8 @@ namespace MLP_Eindproject.API.Controllers
         public ActionResult<Instrument> CreateNewInstrument(CreateInstrumentDTO createInstrumentDTO)
         {
             Instrument newInstrument = _mapper.Map<Instrument>(createInstrumentDTO);
-            var instrumentFromDB = _instrumentService.CreateInstrument(newInstrument);
-            return Ok(instrumentFromDB);
+            var instrument = _instrumentService.CreateInstrument(newInstrument);
+            return Ok(instrument);
         }
 
         // GET api/<InstrumentController>/5

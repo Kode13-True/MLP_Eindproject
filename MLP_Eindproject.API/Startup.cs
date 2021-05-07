@@ -39,8 +39,11 @@ namespace MLP_Eindproject.API
             services.AddDbContext<MLPDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("MLPDb").ToString(), x => x.MigrationsAssembly("MLP_MigrationLibrary")));
             services.AddScoped<IInstrumentService, InstrumentService>();
-            services.AddScoped<ILessonService, LessonService>();
+
+            //services.AddScoped<ILessonService, LessonService>();
+            services.AddScoped<IPersonService, PersonService>();
             services.AddScoped<ILocationService, LocationService>();
+
         }
 
 
