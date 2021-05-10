@@ -49,8 +49,14 @@ namespace MLP_MigrationLibrary.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("Booked")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("Completed")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime>("DOC")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("LessonLevel")
                         .HasColumnType("int");
@@ -114,6 +120,9 @@ namespace MLP_MigrationLibrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DOC")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()

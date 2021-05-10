@@ -6,6 +6,7 @@ namespace MLP_DbLibrary.Models
     public class Lesson
     {
         public int Id { get; set; }
+        public DateTime DOC { get; set; }
         public DateTime Start { get; set; }
         public DateTime Stop { get; set; }
         public int LocationId { get; set; }
@@ -16,6 +17,7 @@ namespace MLP_DbLibrary.Models
         public int? StudentId { get; set; }
         public Student Student { get; set; }
         public LessonLevel LessonLevel { get; set; }
+        public DateTime Booked { get; set; }
         public bool Completed { get; set; }
     }
 }

@@ -29,6 +29,7 @@ namespace MLP_MigrationLibrary.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    DOC = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -69,6 +70,7 @@ namespace MLP_MigrationLibrary.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    DOC = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Start = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Stop = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LocationId = table.Column<int>(type: "int", nullable: false),
@@ -76,6 +78,7 @@ namespace MLP_MigrationLibrary.Migrations
                     TeacherId = table.Column<int>(type: "int", nullable: true),
                     StudentId = table.Column<int>(type: "int", nullable: true),
                     LessonLevel = table.Column<int>(type: "int", nullable: false),
+                    Booked = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Completed = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>

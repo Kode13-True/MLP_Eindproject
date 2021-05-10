@@ -41,8 +41,10 @@ namespace MLP_Eindproject.API
             services.AddScoped<IInstrumentService, InstrumentService>();
 
             //services.AddScoped<ILessonService, LessonService>();
-            services.AddScoped<IPersonService, PersonService>();
+            services.AddScoped<ITeacherService, TeacherService>();
             services.AddScoped<ILocationService, LocationService>();
+            services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<IAdminService, AdminService>();
 
         }
 

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MLP_MigrationLibrary.Migrations
 {
     [DbContext(typeof(MLPDbContext))]
-    [Migration("20210507145528_InitialCreate")]
+    [Migration("20210510070457_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,8 +51,14 @@ namespace MLP_MigrationLibrary.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("Booked")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("Completed")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime>("DOC")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("LessonLevel")
                         .HasColumnType("int");
@@ -116,6 +122,9 @@ namespace MLP_MigrationLibrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DOC")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
