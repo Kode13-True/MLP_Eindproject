@@ -40,7 +40,7 @@ namespace MLP_Eindproject.API
                     options.UseSqlServer(Configuration.GetConnectionString("MLPDb").ToString(), x => x.MigrationsAssembly("MLP_MigrationLibrary")));
             services.AddScoped<IInstrumentService, InstrumentService>();
 
-            //services.AddScoped<ILessonService, LessonService>();
+            services.AddScoped<ILessonService, LessonService>();
             services.AddScoped<ITeacherService, TeacherService>();
             services.AddScoped<ILocationService, LocationService>();
             services.AddScoped<IStudentService, StudentService>();
