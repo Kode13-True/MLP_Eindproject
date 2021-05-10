@@ -24,7 +24,7 @@ namespace MLP_Eindproject.API.Controllers
             _mapper = mapper;
         }
         // GET: api/<LocationController>
-        [HttpGet("GetMany")]
+        [HttpGet("GetAll")]
         public ActionResult<List<ResponseLocationDTO>> Get()
         {
             var responseLocations = new List<ResponseLocationDTO>();
@@ -68,6 +68,11 @@ namespace MLP_Eindproject.API.Controllers
         [HttpPut("Update/{id}")]
         public async Task<ActionResult<ResponseLocationDTO>> Update(int id, [FromBody] CreateLocationDTO createLocationDTO)
         {
+            if (createLocationDTO is null)
+            {
+                throw new ArgumentNullException(nameof(createLocationDTO));
+            }
+
             var location = _mapper.Map<Location>(createLocationDTO);
             var locationResponse = await _locationService.UpdateLocation(id, location);
             var responseLocationDTO = _mapper.Map<ResponseLocationDTO>(locationResponse);

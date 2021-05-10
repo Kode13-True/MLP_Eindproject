@@ -17,7 +17,7 @@ namespace MLP_Eindproject.API.Services
         }
         public async Task<Location> CreateLocation(Location location)
         {
-            _context.Locations.Add(location);
+            await _context.Locations.AddAsync(location);
             await _context.SaveChangesAsync();
             return location;
         }
