@@ -11,5 +11,6 @@ namespace MLP_DbLibrary.DTO.InstrumentDTO
     {
         public InstrumentName InstrumentName { get; set; }
         public InstrumentStyle InstrumentStyle { get; set; }
+        public int TeacherId { get; set; }
     }
 }

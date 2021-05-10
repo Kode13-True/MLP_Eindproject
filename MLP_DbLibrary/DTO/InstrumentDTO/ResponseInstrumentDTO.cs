@@ -10,6 +10,7 @@ namespace MLP_DbLibrary.DTO.InstrumentDTO
     public class ResponseInstrumentDTO
     {
         public int Id { get; set; }
+        public int TeacherId { get; set; }
         public InstrumentName InstrumentName { get; set; }
         public InstrumentStyle InstrumentStyle { get; set; }
     }
