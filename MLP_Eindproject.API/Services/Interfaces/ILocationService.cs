@@ -8,10 +8,10 @@ namespace MLP_Eindproject.API.Services.Interfaces
 {
     public interface ILocationService
     {
-        Location CreateLocation(Location location);
+        Task<Location> CreateLocation(Location location);
         List<Location> GetAllLocations();
-        Location GetLocationById(int id);
-        Location UpdateLocation(int id, Location location);
-        Location DeleteLocationById(int id);
+        Task<Location> GetLocationById(int id);
+        Task<Location> UpdateLocation(int id, Location location);
+        Task<Location> DeleteLocationById(int id);
     }
 }
