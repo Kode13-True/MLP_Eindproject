@@ -61,8 +61,11 @@ namespace MLP_Eindproject.API.Services
         public async Task<Lesson> DeleteLesson(int id)
         {
             var lessonToDelete = await _context.Lessons.FindAsync(id);
-            _context.Remove(lessonToDelete);
-            await _context.SaveChangesAsync();
+            if (lessonToDelete.StudentId is null)
+            {
+                _context.Remove(lessonToDelete);
+                await _context.SaveChangesAsync();
+            }
             return lessonToDelete;
         }
 
