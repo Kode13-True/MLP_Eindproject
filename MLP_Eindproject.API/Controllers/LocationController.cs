@@ -39,9 +39,9 @@ namespace MLP_Eindproject.API.Controllers
 
         // GET api/<LocationController>/5
         [HttpGet("GetOne/{id}")]
-        public ActionResult<ResponseLocationDTO> Get(int id)
+        public async Task<ActionResult<ResponseLocationDTO>> Get(int id)
         {
-            var location = _locationService.GetLocationById(id);
+            var location = await _locationService.GetLocationById(id);
             if(location is null)
             {
                 return NotFound();
@@ -53,33 +53,34 @@ namespace MLP_Eindproject.API.Controllers
 
         // POST api/<LocationController>
         [HttpPost("Create")]
-        public ActionResult<ResponseLocationDTO> Post([FromBody] CreateLocationDTO createLocationDTO)
+        public async Task<ActionResult<ResponseLocationDTO>> Post([FromBody] CreateLocationDTO createLocationDTO)
         {
             if (createLocationDTO is null)
             {
                 throw new ArgumentNullException(nameof(createLocationDTO));
             }
             var location = _mapper.Map<Location>(createLocationDTO);
-            var locationResponse = _locationService.CreateLocation(location);
+            var locationResponse = await _locationService.CreateLocation(location);
             return Ok(locationResponse);
         }
 
         // PUT api/<LocationController>/5
         [HttpPut("Update/{id}")]
-        public ActionResult<ResponseLocationDTO> Update(int id, [FromBody] CreateLocationDTO createLocationDTO)
+        public async Task<ActionResult<ResponseLocationDTO>> Update(int id, [FromBody] CreateLocationDTO createLocationDTO)
         {
             var location = _mapper.Map<Location>(createLocationDTO);
-            var locationResponse = _locationService.UpdateLocation(id, location);
+            var locationResponse = await _locationService.UpdateLocation(id, location);
             var responseLocationDTO = _mapper.Map<ResponseLocationDTO>(locationResponse);
             return Ok(responseLocationDTO);
         }
 
         // DELETE api/<LocationController>/5
         [HttpDelete("Delete/{id}")]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult<ResponseLocationDTO>> Delete(int id)
         {
-            _locationService.DeleteLocationById(id);
-            return Ok();
+            var removedLocation = await _locationService.DeleteLocationById(id);
+            var locationToReturn = _mapper.Map<ResponseLocationDTO>(removedLocation);
+            return Ok(locationToReturn);
         }
     }
 }

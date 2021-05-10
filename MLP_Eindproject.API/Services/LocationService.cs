@@ -15,31 +15,40 @@ namespace MLP_Eindproject.API.Services
         {
             _context = context;
         }
-        public Location CreateLocation(Location location)
+        public async Task<Location> CreateLocation(Location location)
         {
             _context.Locations.Add(location);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return location;
         }
 
-        public Location DeleteLocationById(int id)
+        public async Task<Location> DeleteLocationById(int id)
         {
-            throw new NotImplementedException();
+            var locationToRemove = await _context.Locations.FindAsync(id);
+            _context.Locations.Remove(locationToRemove);
+            await _context.SaveChangesAsync();
+            return locationToRemove;
         }
 
         public List<Location> GetAllLocations()
         {
-            throw new NotImplementedException();
+            return _context.Locations.ToList();
         }
 
-        public Location GetLocationById(int id)
+        public async Task<Location> GetLocationById(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Locations.FindAsync(id);
         }
 
-        public Location UpdateLocation(int id, Location location)
+        public async Task<Location> UpdateLocation(int id, Location location)
         {
-            throw new NotImplementedException();
+            var locationToEdit = await _context.Locations.FindAsync(id);
+            locationToEdit.Street = location.Street;
+            locationToEdit.Number = location.Number;
+            locationToEdit.Postal = location.Postal;
+            locationToEdit.Township = location.Township;
+            await _context.SaveChangesAsync();
+            return locationToEdit;
         }
     }
 }
