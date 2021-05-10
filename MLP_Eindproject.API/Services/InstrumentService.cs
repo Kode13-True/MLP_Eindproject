@@ -17,16 +17,17 @@ namespace MLP_Eindproject.API.Services
             _context = context;
         }
         
-        public Instrument CreateInstrument(Instrument instrument)
+        public async Task<Instrument> CreateInstrument(Instrument instrument, int teacherId)
         {
-           
-            _context.Instruments.Add(instrument);
-            _context.SaveChanges();
-            return instrument;            
+                instrument.TeacherId = teacherId;
+                await _context.Instruments.AddAsync(instrument);
+                await _context.SaveChangesAsync();
+                return instrument;            
         }
-        public Instrument GetInstrument(int instrumentId)
+
+        public async Task<Instrument> GetInstrument(int instrumentId)
         {
-                var instrument = _context.Instruments.FirstOrDefault(i => i.Id == instrumentId);
+                var instrument = await _context.Instruments.FindAsync(instrumentId);
                 return instrument;
         }
 
@@ -36,11 +37,11 @@ namespace MLP_Eindproject.API.Services
                 return listOfInstruments; 
         }
 
-        public void DeleteInstrumentById(int instrumentId)
+        public async Task DeleteInstrumentById(int instrumentId)
         {
                 var InstrumentToDelete = _context.Instruments.Find(instrumentId);
                 _context.Instruments.Remove(InstrumentToDelete);
-                _context.SaveChanges();        
+                await _context.SaveChangesAsync();        
         }
     }
 }

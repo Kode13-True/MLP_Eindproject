@@ -26,18 +26,19 @@ namespace MLP_Eindproject.API.Controllers
 
         // POST api/<TeacherController>
         [HttpPost("Create")]
-        public ActionResult<Teacher> CreateNewTeacher(CreateTeacherDTO createTeacherDTO)
+        public async Task<ActionResult<ResponseTeacherDTO>> CreateNewTeacher(CreateTeacherDTO createTeacherDTO)
         {
             var newTeacher = _mapper.Map<Teacher>(createTeacherDTO);
-            var teacher = _teacherService.CreateTeacher(newTeacher);
-            return Ok(teacher);
+            var teacher = await _teacherService.CreateTeacher(newTeacher);
+            var teacherDTO = _mapper.Map<ResponseTeacherDTO>(teacher);
+            return Ok(teacherDTO);
         }
 
         // GET: api/<TeacherController>
         [HttpGet("One/{Id}")]
-        public ActionResult<ResponseTeacherDTO> GetTeacher(int Id)
+        public async Task<ActionResult<ResponseTeacherDTO>> GetTeacher(int Id)
         {
-            var teacher = _teacherService.GetTeacher(Id);
+            var teacher = await _teacherService.GetTeacher(Id);
             if (teacher == null)
             {
                 return NotFound();
@@ -57,19 +58,19 @@ namespace MLP_Eindproject.API.Controllers
 
         // PUT api/<TeacherController>/5
         [HttpPut("Update/{id}")]
-        public ActionResult<ResponseTeacherDTO> Update(int id, [FromBody] CreateTeacherDTO createTeacherDTO)
+        public async Task<ActionResult<ResponseTeacherDTO>> Update(int id, [FromBody] EditTeacherDTO editTeacherDTO)
         {
-            var teacher = _mapper.Map<Teacher>(createTeacherDTO);
-            var teacherResponse = _teacherService.UpdateTeacherById(id, teacher);
+            var teacher = _mapper.Map<Teacher>(editTeacherDTO);
+            var teacherResponse = await _teacherService.UpdateTeacherById(id, teacher);
             var responseTeacherDTO = _mapper.Map<ResponseTeacherDTO>(teacherResponse);
             return Ok(responseTeacherDTO);
         }
 
         // DELETE api/<TeacherController>/5
         [HttpDelete("Delete/{id}")]
-        public ActionResult DeleteTeacherById(int id)
+        public async Task<ActionResult> DeleteTeacherById(int id)
         {
-            _teacherService.DeleteTeacherById(id);
+            await _teacherService.DeleteTeacherById(id);
             return Ok();
         }
     }

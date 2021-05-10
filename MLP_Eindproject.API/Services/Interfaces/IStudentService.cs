@@ -1,15 +1,16 @@
 ﻿using MLP_DbLibrary.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MLP_Eindproject.API.Services.Interfaces
 {
     public interface IStudentService
     {
-        Student CreateStudent(Student student);
-        Student GetStudent(int personId);
+        Task<Student> CreateStudent(Student student);
+        Task<Student> GetStudent(int personId);
         List<Student> GetAllStudents();
-        Student UpdateStudentById(int personIdToEdit, Student studentEditValue);
-        void DeleteStudentById(int personId);
-
+        Task<Student> UpdateStudentById(int personIdToEdit, Student studentEditValue);
+        Task DeleteStudentById(int personId);
+        List<Lesson> GetStudentLessons(int personId);
     }
 }

@@ -2,8 +2,10 @@
 using MLP_DbLibrary.MLPContext;
 using MLP_DbLibrary.Models;
 using MLP_Eindproject.API.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MLP_Eindproject.API.Services
 {
@@ -16,15 +18,16 @@ namespace MLP_Eindproject.API.Services
             _context = context;
         }
 
-        public Student CreateStudent(Student student)
+        public async Task<Student> CreateStudent(Student student)
         {
-            _context.Students.Add(student);
-            _context.SaveChanges();
+            student.DOC = DateTime.Now;
+            await _context.Students.AddAsync(student);
+            await _context.SaveChangesAsync();
             return student;
         }
-        public Student GetStudent(int personId)
+        public async Task<Student> GetStudent(int personId)
         {
-            var student = _context.Students.FirstOrDefault(t => t.Id == personId);
+            var student = await _context.Students.FindAsync(personId);
             return student;
         }
 
@@ -34,22 +37,23 @@ namespace MLP_Eindproject.API.Services
             return listOfStudents;
         }
 
-        public Student UpdateStudentById(int personIdToEdit, Student studentEditValue)
+        public async Task<Student> UpdateStudentById(int personIdToEdit, Student studentEditValue)
         {
-            var personToEdit = _context.Students.First(s => s.Id == personIdToEdit);
+            var personToEdit = await _context.Students.FindAsync(personIdToEdit);
             personToEdit.FirstName = studentEditValue.FirstName;
             personToEdit.LastName = studentEditValue.LastName;
             personToEdit.Email = studentEditValue.Email;
+            personToEdit.Password = studentEditValue.Password;
             _context.Students.Update(personToEdit);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return personToEdit;
         }
 
-        public void DeleteStudentById(int personId)
+        public async Task DeleteStudentById(int personId)
         {
             var PersonToDelete = _context.Students.Find(personId);
             _context.Students.Remove(PersonToDelete);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public List<Lesson> GetStudentLessons(int personId)
