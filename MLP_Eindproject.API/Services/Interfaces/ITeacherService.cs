@@ -8,11 +8,11 @@ namespace MLP_Eindproject.API.Services.Interfaces
 {
     public interface ITeacherService
     {
-        Teacher CreateTeacher(Teacher teacher);
-        Teacher GetTeacher(int personId);
+        Task<Teacher> CreateTeacher(Teacher teacher);
+        Task<Teacher> GetTeacher(int personId);
         List<Teacher> GetAllTeachers();
-        Teacher UpdateTeacherById(int personIdToEdit, Teacher teacherEditValue);
-        void DeleteTeacherById(int personId);
+        Task<Teacher> UpdateTeacherById(int personIdToEdit, Teacher teacherEditValue);
+        Task DeleteTeacherById(int personId);
 
     }
 }

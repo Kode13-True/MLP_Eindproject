@@ -25,18 +25,19 @@ namespace MLP_Eindproject.API.Controllers
 
         // POST api/<StudentController>
         [HttpPost("Create")]
-        public ActionResult<Student> CreateNewStudent(CreateStudentDTO createStudentDTO)
+        public async Task<ActionResult<ResponseStudentDTO>> CreateNewStudent(CreateStudentDTO createStudentDTO)
         {
             var newStudent = _mapper.Map<Student>(createStudentDTO);
-            var student = _studentService.CreateStudent(newStudent);
-            return Ok(student);
+            var student = await _studentService.CreateStudent(newStudent);
+            var studentDTO = _mapper.Map<ResponseStudentDTO>(student);
+            return Ok(studentDTO);
         }
 
         // GET: api/<StudentController>
         [HttpGet("One/{Id}")]
-        public ActionResult<ResponseStudentDTO> GetStudent(int Id)
+        public async Task<ActionResult<ResponseStudentDTO>> GetStudent(int Id)
         {
-            var student = _studentService.GetStudent(Id);
+            var student = await _studentService.GetStudent(Id);
             if (student == null)
             {
                 return NotFound();
@@ -56,19 +57,19 @@ namespace MLP_Eindproject.API.Controllers
 
         // PUT api/<StudentController>/5
         [HttpPut("Update/{id}")]
-        public ActionResult<ResponseStudentDTO> Update(int id, [FromBody] CreateStudentDTO createStudentDTO)
+        public async Task<ActionResult<ResponseStudentDTO>> Update(int id, [FromBody] EditStudentDTO editStudentDTO)
         {
-            var student = _mapper.Map<Student>(createStudentDTO);
-            var studentResponse = _studentService.UpdateStudentById(id, student);
+            var student = _mapper.Map<Student>(editStudentDTO);
+            var studentResponse = await _studentService.UpdateStudentById(id, student);
             var responseStudentDTO = _mapper.Map<ResponseStudentDTO>(studentResponse);
             return Ok(responseStudentDTO);
         }
 
         // DELETE api/<StudentController>/5
         [HttpDelete("Delete/{id}")]
-        public ActionResult DeleteStudentById(int id)
+        public async Task <ActionResult> DeleteStudentById(int id)
         {
-            _studentService.DeleteStudentById(id);
+            await _studentService.DeleteStudentById(id);
             return Ok();
         }
     }

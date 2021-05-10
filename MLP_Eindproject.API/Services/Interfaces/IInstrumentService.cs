@@ -8,9 +8,9 @@ namespace MLP_Eindproject.API.Services.Interfaces
 {
     public interface IInstrumentService
     {
-        Instrument CreateInstrument(Instrument instrument);
-        Instrument GetInstrument(int instrumentId);
+        Task<Instrument> CreateInstrument(Instrument instrument, int teacherId);
+        Task<Instrument> GetInstrument(int instrumentId);
         List<Instrument> GetAllInstruments();
-        void DeleteInstrumentById(int instrumentId);
+        Task DeleteInstrumentById(int instrumentId);
     }
 }

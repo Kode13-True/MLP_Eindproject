@@ -8,11 +8,11 @@ namespace MLP_Eindproject.API.Services.Interfaces
 {
     public interface IAdminService
     {
-        Admin CreateAdmin(Admin admin);
-        Admin GetAdmin(int personId);
+        Task<Admin> CreateAdmin(Admin admin);
+        Task<Admin> GetAdmin(int personId);
         List<Admin> GetAllAdmins();
-        Admin UpdateAdminById(int personIdToEdit, Admin adminEditValue);
-        void DeleteAdminById(int personId);
+        Task<Admin> UpdateAdminById(int personIdToEdit, Admin adminEditValue);
+        Task DeleteAdminById(int personId);
         int GetNumberOfUsers();
     }
 }

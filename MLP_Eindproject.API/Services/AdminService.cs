@@ -17,15 +17,16 @@ namespace MLP_Eindproject.API.Services
             _context = context;
         }
 
-        public Admin CreateAdmin(Admin admin)
+        public async Task<Admin> CreateAdmin(Admin admin)
         {
-            _context.Admins.Add(admin);
-            _context.SaveChanges();
+            admin.DOC = DateTime.Now;
+            await _context.Admins.AddAsync(admin);
+            await _context.SaveChangesAsync();
             return admin;
         }
-        public Admin GetAdmin(int personId)
+        public async Task<Admin> GetAdmin(int personId)
         {
-            var admin = _context.Admins.FirstOrDefault(t => t.Id == personId);
+            var admin = await _context.Admins.FindAsync(personId);
             return admin;
         }
 
@@ -44,22 +45,23 @@ namespace MLP_Eindproject.API.Services
             return NumberOfUsers;
         }
 
-        public Admin UpdateAdminById(int personIdToEdit, Admin adminEditValue)
+        public async Task<Admin> UpdateAdminById(int personIdToEdit, Admin adminEditValue)
         {
-            var personToEdit = _context.Admins.First(a => a.Id == personIdToEdit);
+            var personToEdit = await _context.Admins.FindAsync(personIdToEdit);
             personToEdit.FirstName = adminEditValue.FirstName;
             personToEdit.LastName = adminEditValue.LastName;
             personToEdit.Email = adminEditValue.Email;
+            personToEdit.Password = adminEditValue.Password;
             _context.Admins.Update(personToEdit);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return personToEdit;
         }
 
-        public void DeleteAdminById(int personId)
+        public async Task DeleteAdminById(int personId)
         {
             var AdminToDelete = _context.Admins.Find(personId);
             _context.Admins.Remove(AdminToDelete);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();            
         }
     }
 }

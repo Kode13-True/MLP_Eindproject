@@ -27,19 +27,20 @@ namespace MLP_Eindproject.API.Controllers
         }
 
         // POST api/<InstrumentController>
-        [HttpPost("Create")]
-        public ActionResult<Instrument> CreateNewInstrument(CreateInstrumentDTO createInstrumentDTO)
+        [HttpPost("Create/{teacherId}")]
+        public async Task<ActionResult<CreateInstrumentDTO>> CreateNewInstrument(int teacherId, [FromBody] CreateInstrumentDTO createInstrumentDTO)
         {
-            Instrument newInstrument = _mapper.Map<Instrument>(createInstrumentDTO);
-            var instrument = _instrumentService.CreateInstrument(newInstrument);
-            return Ok(instrument);
+            var newInstrument = _mapper.Map<Instrument>(createInstrumentDTO);
+            var instrument = await _instrumentService.CreateInstrument(newInstrument, teacherId);
+            var instrumentDTO = _mapper.Map<ResponseInstrumentDTO>(instrument);
+            return Ok(instrumentDTO);
         }
 
         // GET api/<InstrumentController>/5
         [HttpGet("One/{Id}")]
-        public ActionResult<ResponseInstrumentDTO> GetInstrument(int Id)
+        public async Task<ActionResult<ResponseInstrumentDTO>> GetInstrument(int Id)
         {
-            var instrument = _instrumentService.GetInstrument(Id);
+            var instrument = await _instrumentService.GetInstrument(Id);
             if (instrument == null)
             {
                 return NotFound();
@@ -59,9 +60,9 @@ namespace MLP_Eindproject.API.Controllers
 
         // DELETE api/<InstrumentController>/5
         [HttpDelete("Delete/{id}")]
-        public ActionResult DeleteInstrumentById(int id)
+        public async Task<ActionResult> DeleteInstrumentById(int id)
         {
-            _instrumentService.DeleteInstrumentById(id);
+            await _instrumentService.DeleteInstrumentById(id);
             return Ok();
         }
     }

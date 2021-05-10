@@ -25,23 +25,23 @@ namespace MLP_Eindproject.API.Controllers
 
         // POST api/<AdminController>
         [HttpPost("Create")]
-            public ActionResult<Admin> CreateNewAdmin(CreateAdminDTO createAdminDTO)
+            public async Task<ActionResult<Admin>> CreateNewAdmin(CreateAdminDTO createAdminDTO)
             {
                 var newAdmin = _mapper.Map<Admin>(createAdminDTO);
-                var admin = _adminService.CreateAdmin(newAdmin);
+                var admin = await _adminService.CreateAdmin(newAdmin);
                 return Ok(admin);
             }
 
         // GET: api/<AdminController>
         [HttpGet("One/{Id}")]
-            public ActionResult<ResponseAdminDTO> GetAdmin(int Id)
+            public async Task<ActionResult<ResponseAdminDTO>> GetAdmin(int Id)
             {
-                var admin = _adminService.GetAdmin(Id);
+                var admin = await _adminService.GetAdmin(Id);
                 if (admin == null)
                 {
                     return NotFound();
                 }
-                var adminDTO = _mapper.Map<ResponseStudentDTO>(admin);
+                var adminDTO = _mapper.Map<ResponseAdminDTO>(admin);
                 return Ok(adminDTO);
             }
 
@@ -64,19 +64,19 @@ namespace MLP_Eindproject.API.Controllers
 
         // PUT api/<AdminController>/5
         [HttpPut("Update/{id}")]
-            public ActionResult<ResponseAdminDTO> Update(int id, [FromBody] CreateAdminDTO createAdminDTO)
+            public async Task<ActionResult<ResponseAdminDTO>> Update(int id, [FromBody] EditAdminDTO editAdminDTO)
             {
-                var admin = _mapper.Map<Admin>(createAdminDTO);
-                var adminResponse = _adminService.UpdateAdminById(id, admin);
+                var admin = _mapper.Map<Admin>(editAdminDTO);
+                var adminResponse = await _adminService.UpdateAdminById(id, admin);
                 var responseAdminDTO = _mapper.Map<ResponseAdminDTO>(adminResponse);
                 return Ok(responseAdminDTO);
             }
 
         // DELETE api/<AdminController>/5
         [HttpDelete("Delete/{id}")]
-            public ActionResult DeleteAdminById(int id)
+            public async Task<ActionResult> DeleteAdminById(int id)
             {
-                _adminService.DeleteAdminById(id);
+                await _adminService.DeleteAdminById(id);
                 return Ok();
             }
     }
