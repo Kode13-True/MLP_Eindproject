@@ -33,7 +33,13 @@ namespace MLP_Eindproject.API.Controllers
             var unbookedLessons = _lessonService.GetAllUnbookedLessons();
             foreach(var l in unbookedLessons)
             {
-               unbookedLessonsDTO.Add(_mapper.Map<ResponseLessonDTO>(l));
+                var responseLessonDTO = _mapper.Map<ResponseLessonDTO>(l);
+                responseLessonDTO.TeacherInstrumentNames = new List<string>();
+                foreach (var i in l.Teacher.Instruments)
+                {
+                    responseLessonDTO.TeacherInstrumentNames.Add(i.InstrumentName.ToString());
+                }
+                unbookedLessonsDTO.Add(responseLessonDTO);
             }
             return Ok(unbookedLessonsDTO);
         }// GET: api/<LessonController>
@@ -44,7 +50,13 @@ namespace MLP_Eindproject.API.Controllers
             var lessons = _lessonService.GetAllTeacherLessons(teacherId);
             foreach(var l in lessons)
             {
-               responseLessonsDTO.Add(_mapper.Map<ResponseLessonDTO>(l));
+                var responseLessonDTO = _mapper.Map<ResponseLessonDTO>(l);
+                responseLessonDTO.TeacherInstrumentNames = new List<string>();
+                foreach (var i in l.Teacher.Instruments)
+                {
+                    responseLessonDTO.TeacherInstrumentNames.Add(i.InstrumentName.ToString());
+                }
+                responseLessonsDTO.Add(responseLessonDTO);
             }
             return Ok(responseLessonsDTO);
         }// GET: api/<LessonController>
@@ -55,7 +67,14 @@ namespace MLP_Eindproject.API.Controllers
             var lessons = _lessonService.GetAllStudentLessons(studentId);
             foreach(var l in lessons)
             {
-               responseLessonsDTO.Add(_mapper.Map<ResponseLessonDTO>(l));
+                var responseLessonDTO = _mapper.Map<ResponseLessonDTO>(l);
+                responseLessonDTO.TeacherInstrumentNames = new List<string>();
+                foreach (var i in l.Teacher.Instruments)
+                {
+                    responseLessonDTO.TeacherInstrumentNames.Add(i.InstrumentName.ToString());
+                }
+                responseLessonsDTO.Add(responseLessonDTO);
+                
             }
             return Ok(responseLessonsDTO);
         }
@@ -66,6 +85,11 @@ namespace MLP_Eindproject.API.Controllers
         {
             var lesson = await _lessonService.GetOneLessonById(id);
             var responseLessonDTO = _mapper.Map<ResponseLessonDTO>(lesson);
+            responseLessonDTO.TeacherInstrumentNames = new List<string>();
+            foreach (var i in lesson.Teacher.Instruments)
+            {
+                responseLessonDTO.TeacherInstrumentNames.Add(i.InstrumentName.ToString());
+            }
             return Ok(responseLessonDTO);
         }
 
@@ -96,6 +120,11 @@ namespace MLP_Eindproject.API.Controllers
             var lessonToCreate = _mapper.Map<Lesson>(createLessonDTO);
             var responseLesson = await _lessonService.UpdateLessonByTeacherId(lessonId, lessonToCreate);
             var responseLessonDTO = _mapper.Map<ResponseLessonDTO>(responseLesson);
+            responseLessonDTO.TeacherInstrumentNames = new List<string>();
+            foreach (var i in responseLesson.Teacher.Instruments)
+            {
+                responseLessonDTO.TeacherInstrumentNames.Add(i.InstrumentName.ToString());
+            }
             return Ok(responseLessonDTO);
 
         }
@@ -105,6 +134,11 @@ namespace MLP_Eindproject.API.Controllers
         {
             var responseLesson = await _lessonService.BookLesson(studentId, lessonId);
             var responseLessonDTO = _mapper.Map<ResponseLessonDTO>(responseLesson);
+            responseLessonDTO.TeacherInstrumentNames = new List<string>();
+            foreach (var i in responseLesson.Teacher.Instruments)
+            {
+                responseLessonDTO.TeacherInstrumentNames.Add(i.InstrumentName.ToString());
+            }
             return Ok(responseLessonDTO);
         }
         // PUT api/<LessonController>/5
@@ -113,6 +147,11 @@ namespace MLP_Eindproject.API.Controllers
         {
             var responseLesson = await _lessonService.CancelLesson(lessonId);
             var responseLessonDTO = _mapper.Map<ResponseLessonDTO>(responseLesson);
+            responseLessonDTO.TeacherInstrumentNames = new List<string>();
+            foreach (var i in responseLesson.Teacher.Instruments)
+            {
+                responseLessonDTO.TeacherInstrumentNames.Add(i.InstrumentName.ToString());
+            }
             return Ok(responseLessonDTO);
         }
 
