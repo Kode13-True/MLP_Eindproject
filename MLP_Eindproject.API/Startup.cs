@@ -46,6 +46,7 @@ namespace MLP_Eindproject.API
             services.AddScoped<ILocationService, LocationService>();
             services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<IAdminService, AdminService>();
+            services.AddScoped<IAlertService, AlertService>();
 
         }
 

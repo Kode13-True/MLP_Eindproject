@@ -16,7 +16,7 @@ namespace MLP_DbLibrary.Seeding
             if (!db.Admins.Any())
             {
                 db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "abubakr.Boone@gmail.com", FirstName = "Abubakr", LastName = "Boone", Password = "Test1234" });
-                db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "dougie.caseygmail.com", FirstName = "Dougie", LastName = "Casey", Password = "Test1234" });
+                db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "dougie.casey@gmail.com", FirstName = "Dougie", LastName = "Casey", Password = "Test1234" });
                 db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "duncan.schultz@hotmail.com", FirstName = "Duncan", LastName = "Schultz", Password = "Test1234" });
                 db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "martine.matthams@skynet.be", FirstName = "Martine", LastName = "Matthams", Password = "Test1234" });
                 db.SaveChanges();
@@ -220,7 +220,7 @@ namespace MLP_DbLibrary.Seeding
                     StudentId = 14,
                     Completed = true
                 });
-                    
+
                 db.Lessons.Add(new Lesson
                 {
                     DOC = DateTime.Now.AddHours(-24),
@@ -397,8 +397,123 @@ namespace MLP_DbLibrary.Seeding
                     Completed = true
                 });
                 db.SaveChanges();
+                if (!db.Alerts.Any())
+                {
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-24),
+                        AlertType = AlertType.Booked,
+                        Message = "Lesson has been booked",
+                        PersonId = 5
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-48),
+                        AlertType = AlertType.Cancelled,
+                        Message = "Lesson has been cancelled",
+                        PersonId = 6
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-8),
+                        AlertType = AlertType.Rate,
+                        Message = "Lesson has ended, please rate the teacher",
+                        PersonId = 15
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-4),
+                        AlertType = AlertType.Booked,
+                        Message = "Lesson has been booked",
+                        PersonId = 7
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-1),
+                        AlertType = AlertType.Report,
+                        Message = "Report Alert 1",
+                        PersonId = 1
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-72),
+                        AlertType = AlertType.Cancelled,
+                        Message = "Lesson has been cancelled by Student",
+                        PersonId = 11
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-26),
+                        AlertType = AlertType.Cancelled,
+                        Message = "Lesson has been cancelled by Student",
+                        PersonId = 5
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-24),
+                        AlertType = AlertType.Report,
+                        Message = "Report Alert 2",
+                        PersonId = 2
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-24),
+                        AlertType = AlertType.Rate,
+                        Message = "Lesson has ended, please rate the teacher",
+                        PersonId = 16
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-58),
+                        AlertType = AlertType.Booked,
+                        Message = "Lesson has been booked",
+                        PersonId = 9
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-36),
+                        AlertType = AlertType.Booked,
+                        Message = "Lesson has been booked",
+                        PersonId = 10
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-4),
+                        AlertType = AlertType.Booked,
+                        Message = "Lesson has been booked",
+                        PersonId = 7
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-42),
+                        AlertType = AlertType.Cancelled,
+                        Message = "Lesson has been cancelled by teacher",
+                        PersonId = 12
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-18),
+                        AlertType = AlertType.Booked,
+                        Message = "Lesson has been booked",
+                        PersonId = 6
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-24),
+                        AlertType = AlertType.Report,
+                        Message = "Alert Report 3",
+                        PersonId = 4
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-24),
+                        AlertType = AlertType.Booked,
+                        Message = "Lesson has been booked",
+                        PersonId = 5
+                    });
+                    db.SaveChanges();
+                }
             }
-            
         }
     }
 }

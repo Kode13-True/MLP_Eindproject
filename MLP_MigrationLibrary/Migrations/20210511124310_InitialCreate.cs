@@ -44,6 +44,28 @@ namespace MLP_MigrationLibrary.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Alerts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DOC = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AlertType = table.Column<int>(type: "int", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PersonId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Alerts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Alerts_Persons_PersonId",
+                        column: x => x.PersonId,
+                        principalTable: "Persons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Instruments",
                 columns: table => new
                 {
@@ -105,6 +127,11 @@ namespace MLP_MigrationLibrary.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Alerts_PersonId",
+                table: "Alerts",
+                column: "PersonId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Instruments_TeacherId",
                 table: "Instruments",
                 column: "TeacherId");
@@ -127,6 +154,9 @@ namespace MLP_MigrationLibrary.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Alerts");
+
             migrationBuilder.DropTable(
                 name: "Instruments");
 
