@@ -28,8 +28,9 @@ namespace MLP_DbLibrary.MLPContext
                 p.Property(x => x.Email).IsRequired(true);
                 p.Property(x => x.Password).IsRequired(true);
                 p.Property(x => x.LastName).IsRequired(true);
+                p.HasMany(x => x.Alerts).WithOne(p => p.Person).HasForeignKey(x => x.PersonId);
                 p.ToTable("Persons");
-            });
+                            });
             modelBuilder.Entity<Teacher>(t => 
             {
                 t.HasMany(x => x.Lessons).WithOne(t => t.Teacher).HasForeignKey(x => x.TeacherId);
@@ -66,7 +67,7 @@ namespace MLP_DbLibrary.MLPContext
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Lesson> Lessons {get; set;}
         public DbSet<Location> Locations {get; set;}
-        
+        public DbSet<Alert> Alerts { get; set; }       
 
     }
 }

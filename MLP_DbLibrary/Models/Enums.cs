@@ -31,4 +31,12 @@ namespace MLP_DbLibrary.Models
         Trumpet,
         Harp
     }
+    
+    public enum AlertType
+    {
+        Booked,
+        Cancelled,
+        Rate,
+        Report
+    }
 }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MLP_MigrationLibrary.Migrations
 {
     [DbContext(typeof(MLPDbContext))]
-    [Migration("20210510070457_InitialCreate")]
+    [Migration("20210511124310_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,32 @@ namespace MLP_MigrationLibrary.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.5")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("MLP_DbLibrary.Models.Alert", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AlertType")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DOC")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonId");
+
+                    b.ToTable("Alerts");
+                });
 
             modelBuilder.Entity("MLP_DbLibrary.Models.Instrument", b =>
                 {
@@ -179,6 +205,17 @@ namespace MLP_MigrationLibrary.Migrations
                     b.HasDiscriminator().HasValue("Teacher");
                 });
 
+            modelBuilder.Entity("MLP_DbLibrary.Models.Alert", b =>
+                {
+                    b.HasOne("MLP_DbLibrary.Models.Person", "Person")
+                        .WithMany("Alerts")
+                        .HasForeignKey("PersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Person");
+                });
+
             modelBuilder.Entity("MLP_DbLibrary.Models.Instrument", b =>
                 {
                     b.HasOne("MLP_DbLibrary.Models.Teacher", "Teacher")
@@ -216,6 +253,11 @@ namespace MLP_MigrationLibrary.Migrations
             modelBuilder.Entity("MLP_DbLibrary.Models.Location", b =>
                 {
                     b.Navigation("Lessons");
+                });
+
+            modelBuilder.Entity("MLP_DbLibrary.Models.Person", b =>
+                {
+                    b.Navigation("Alerts");
                 });
 
             modelBuilder.Entity("MLP_DbLibrary.Models.Student", b =>
