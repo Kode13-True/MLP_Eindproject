@@ -20,7 +20,8 @@ namespace MLP_DbLibrary.DTO.LessonDTO
         public string Township { get; set; }
         public string TeacherFirstName { get; set; }
         public string TeacherLastName { get; set; }
-        public List<string> TeacherInstrumentNames { get; set; }
+        public string InstrumentName { get; set; }
+        public string InstrumentStyle { get; set; }
         public string TeacherDescription { get; set; }
         public double TeacherRating { get; set; }
         public string StudentFirstName { get; set; }
