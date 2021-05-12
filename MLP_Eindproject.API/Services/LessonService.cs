@@ -27,7 +27,7 @@ namespace MLP_Eindproject.API.Services
 
         public async Task<Lesson> BookLesson(int studentId, int lessonId)
         {
-            var lessonToBook = await _context.Lessons.Include(x => x.Location).Include(x => x.Teacher).Include(x => x.Student).FirstOrDefaultAsync(x => x.Id == lessonId);
+            var lessonToBook = await _context.Lessons.Include(x => x.Location).Include(x => x.Teacher).Include(x => x.Student).Include(x => x.Instrument).FirstOrDefaultAsync(x => x.Id == lessonId);
             lessonToBook.StudentId = studentId;
             lessonToBook.Booked = DateTime.Now;
             await _context.SaveChangesAsync();
@@ -35,7 +35,7 @@ namespace MLP_Eindproject.API.Services
         }
         public async Task<Lesson> CancelLesson(int lessonId)
         {
-            var lessonToCancel = await _context.Lessons.Include(x => x.Location).Include(x => x.Teacher).Include(x => x.Student).FirstOrDefaultAsync(x => x.Id == lessonId);
+            var lessonToCancel = await _context.Lessons.Include(x => x.Location).Include(x => x.Teacher).Include(x => x.Student).Include(x => x.Instrument).FirstOrDefaultAsync(x => x.Id == lessonId);
             if(lessonToCancel.Start > DateTime.Now.AddHours(48))
             {
                 lessonToCancel.StudentId = null;
@@ -46,7 +46,7 @@ namespace MLP_Eindproject.API.Services
         }
         public async Task<Lesson> UpdateLessonByTeacherId(int lessonId, Lesson lesson)
         {
-            var lessonToUpdate = await _context.Lessons.Include(x => x.Location).Include(x => x.Teacher).Include(x => x.Student).FirstOrDefaultAsync(x => x.Id == lessonId);
+            var lessonToUpdate = await _context.Lessons.Include(x => x.Location).Include(x => x.Teacher).Include(x => x.Student).Include(x => x.Instrument).FirstOrDefaultAsync(x => x.Id == lessonId);
             if (lessonToUpdate.StudentId is null)
             {
                 lessonToUpdate.LessonLevel = lesson.LessonLevel;
@@ -71,19 +71,19 @@ namespace MLP_Eindproject.API.Services
 
         public List<Lesson> GetAllUnbookedLessons()
         {
-            return _context.Lessons.Include(x => x.Location).Include(x => x.Teacher).Include(x => x.Student).Where(x => x.StudentId == null).ToList();
+            return _context.Lessons.Include(x => x.Location).Include(x => x.Teacher).Include(x => x.Student).Include(x => x.Instrument).Where(x => x.StudentId == null).ToList();
         }        
         public List<Lesson> GetAllTeacherLessons(int teacherId)
         {
-            return _context.Lessons.Include(x => x.Location).Include(x => x.Teacher).Include(x => x.Student).Where(x => x.TeacherId == teacherId).ToList();
+            return _context.Lessons.Include(x => x.Location).Include(x => x.Teacher).Include(x => x.Student).Include(x => x.Instrument).Where(x => x.TeacherId == teacherId).ToList();
         }
         public List<Lesson> GetAllStudentLessons(int studentId)
         {
-            return _context.Lessons.Include(x => x.Location).Include(x => x.Teacher).Where(x => x.StudentId == studentId).ToList();
+            return _context.Lessons.Include(x => x.Location).Include(x => x.Teacher).Include(x => x.Instrument).Where(x => x.StudentId == studentId).ToList();
         }
         public async Task<Lesson> GetOneLessonById(int id)
         {
-            return await _context.Lessons.Include(x => x.Location).Include(x => x.Teacher).Include(x => x.Student).FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Lessons.Include(x => x.Location).Include(x => x.Teacher).Include(x => x.Student).Include(x => x.Instrument).FirstOrDefaultAsync(x => x.Id == id);
         }
 
 
