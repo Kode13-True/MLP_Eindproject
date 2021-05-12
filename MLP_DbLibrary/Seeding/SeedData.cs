@@ -115,38 +115,7 @@ namespace MLP_DbLibrary.Seeding
                 db.Locations.Add(new Location { Street = "Vilvoordsesteenweg", Number = "230", Postal = "1800", Township = "Vilvoorde" });
                 db.SaveChanges();
             }
-            if (!db.Instruments.Any()) 
-            {
-                db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Cello, InstrumentStyle = InstrumentStyle.Classic, TeacherId = 5 });
-                db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Clarinet, InstrumentStyle = InstrumentStyle.Classic, TeacherId = 5 });
-                db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Fluit, InstrumentStyle = InstrumentStyle.Classic, TeacherId = 5 });
-                
-                db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Saxophone, InstrumentStyle = InstrumentStyle.Jazz, TeacherId = 6 });
-                db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Trumpet, InstrumentStyle = InstrumentStyle.Jazz, TeacherId = 6 });
-                db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Piano, InstrumentStyle = InstrumentStyle.Jazz, TeacherId = 6 });
-                
-                db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Guitar, InstrumentStyle = InstrumentStyle.Pop, TeacherId = 7 });
-                db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Piano, InstrumentStyle = InstrumentStyle.Pop, TeacherId = 7 });
-                db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Drums, InstrumentStyle = InstrumentStyle.Pop, TeacherId = 7 });
-                
-                db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Drums, InstrumentStyle = InstrumentStyle.Reggae, TeacherId = 8 });
-                db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Guitar, InstrumentStyle = InstrumentStyle.Reggae, TeacherId = 8 });
-                db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Trumpet, InstrumentStyle = InstrumentStyle.Reggae, TeacherId = 8 });
-                
-                db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Drums, InstrumentStyle = InstrumentStyle.Rock, TeacherId = 9 });
-                db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Guitar, InstrumentStyle = InstrumentStyle.Rock, TeacherId = 9 });
-                db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Piano, InstrumentStyle = InstrumentStyle.Rock, TeacherId = 9 });
-                
-                db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Cello, InstrumentStyle = InstrumentStyle.Classic, TeacherId = 10 });
-                db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Clarinet, InstrumentStyle = InstrumentStyle.Reggae, TeacherId = 10 });
-                db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Fluit, InstrumentStyle = InstrumentStyle.Pop, TeacherId = 10 });
-                
-                db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Harp, InstrumentStyle = InstrumentStyle.Reggae, TeacherId = 11 });
-                db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Piano, InstrumentStyle = InstrumentStyle.Rock, TeacherId = 11 });
-                db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Violin, InstrumentStyle = InstrumentStyle.Jazz, TeacherId = 11 });
-
-                db.SaveChanges();
-            }
+            
             if (!db.Lessons.Any())
             {
                 db.Lessons.Add(new Lesson
@@ -512,6 +481,38 @@ namespace MLP_DbLibrary.Seeding
                         PersonId = 5
                     });
                     db.SaveChanges();
+                    if (!db.Instruments.Any())
+                    {
+                        db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Cello, InstrumentStyle = InstrumentStyle.Classic, LessonId = 1 });
+                        db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Clarinet, InstrumentStyle = InstrumentStyle.Classic, LessonId = 2 });
+                        db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Fluit, InstrumentStyle = InstrumentStyle.Classic, LessonId = 3 });
+
+                        db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Saxophone, InstrumentStyle = InstrumentStyle.Jazz, LessonId = 4 });
+                        db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Trumpet, InstrumentStyle = InstrumentStyle.Jazz, LessonId = 5 });
+                        db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Piano, InstrumentStyle = InstrumentStyle.Jazz, LessonId = 6 });
+
+                        db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Guitar, InstrumentStyle = InstrumentStyle.Pop, LessonId = 7 });
+                        db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Piano, InstrumentStyle = InstrumentStyle.Pop, LessonId = 8 });
+                        db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Drums, InstrumentStyle = InstrumentStyle.Pop, LessonId = 9 });
+
+                        db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Drums, InstrumentStyle = InstrumentStyle.Reggae, LessonId = 10 });
+                        db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Guitar, InstrumentStyle = InstrumentStyle.Reggae, LessonId = 11 });
+                        db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Trumpet, InstrumentStyle = InstrumentStyle.Reggae, LessonId = 12 });
+
+                        db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Drums, InstrumentStyle = InstrumentStyle.Rock, LessonId = 13 });
+                        db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Guitar, InstrumentStyle = InstrumentStyle.Rock, LessonId = 14 });
+                        db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Piano, InstrumentStyle = InstrumentStyle.Rock, LessonId = 15 });
+
+                        db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Cello, InstrumentStyle = InstrumentStyle.Classic, LessonId = 16 });
+                        db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Clarinet, InstrumentStyle = InstrumentStyle.Reggae, LessonId = 17 });
+                        db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Fluit, InstrumentStyle = InstrumentStyle.Pop, LessonId = 18 });
+
+                        db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Harp, InstrumentStyle = InstrumentStyle.Reggae, LessonId = 19 });
+                        db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Piano, InstrumentStyle = InstrumentStyle.Rock, LessonId = 20 });
+                        db.Instruments.Add(new Instrument { InstrumentName = InstrumentName.Violin, InstrumentStyle = InstrumentStyle.Jazz, LessonId = 21 });
+
+                        db.SaveChanges();
+                    }
                 }
             }
         }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MLP_MigrationLibrary.Migrations
 {
     [DbContext(typeof(MLPDbContext))]
-    [Migration("20210511124310_InitialCreate")]
+    [Migration("20210512065143_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,12 +60,13 @@ namespace MLP_MigrationLibrary.Migrations
                     b.Property<int>("InstrumentStyle")
                         .HasColumnType("int");
 
-                    b.Property<int>("TeacherId")
+                    b.Property<int>("LessonId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TeacherId");
+                    b.HasIndex("LessonId")
+                        .IsUnique();
 
                     b.ToTable("Instruments");
                 });
@@ -218,13 +219,13 @@ namespace MLP_MigrationLibrary.Migrations
 
             modelBuilder.Entity("MLP_DbLibrary.Models.Instrument", b =>
                 {
-                    b.HasOne("MLP_DbLibrary.Models.Teacher", "Teacher")
-                        .WithMany("Instruments")
-                        .HasForeignKey("TeacherId")
+                    b.HasOne("MLP_DbLibrary.Models.Lesson", "Lesson")
+                        .WithOne("Instrument")
+                        .HasForeignKey("MLP_DbLibrary.Models.Instrument", "LessonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Teacher");
+                    b.Navigation("Lesson");
                 });
 
             modelBuilder.Entity("MLP_DbLibrary.Models.Lesson", b =>
@@ -250,6 +251,11 @@ namespace MLP_MigrationLibrary.Migrations
                     b.Navigation("Teacher");
                 });
 
+            modelBuilder.Entity("MLP_DbLibrary.Models.Lesson", b =>
+                {
+                    b.Navigation("Instrument");
+                });
+
             modelBuilder.Entity("MLP_DbLibrary.Models.Location", b =>
                 {
                     b.Navigation("Lessons");
@@ -267,8 +273,6 @@ namespace MLP_MigrationLibrary.Migrations
 
             modelBuilder.Entity("MLP_DbLibrary.Models.Teacher", b =>
                 {
-                    b.Navigation("Instruments");
-
                     b.Navigation("Lessons");
                 });
 #pragma warning restore 612, 618

@@ -33,8 +33,7 @@ namespace MLP_DbLibrary.MLPContext
                             });
             modelBuilder.Entity<Teacher>(t => 
             {
-                t.HasMany(x => x.Lessons).WithOne(t => t.Teacher).HasForeignKey(x => x.TeacherId);
-                t.HasMany(x => x.Instruments).WithOne(t => t.Teacher).HasForeignKey(x => x.TeacherId);
+                t.HasMany(x => x.Lessons).WithOne(t => t.Teacher).HasForeignKey(x => x.TeacherId);                
             });
             modelBuilder.Entity<Student>(s =>
             {
@@ -54,7 +53,8 @@ namespace MLP_DbLibrary.MLPContext
                 l.Property(l => l.Price).IsRequired(true);
                 l.Property(l => l.Start).IsRequired(true);
                 l.Property(l => l.Stop).IsRequired(true);
-                l.HasOne(l => l.Location).WithMany(l => l.Lessons).HasForeignKey(l => l.LocationId);                
+                l.HasOne(l => l.Location).WithMany(l => l.Lessons).HasForeignKey(l => l.LocationId);
+                l.HasOne(l => l.Instrument).WithOne(i => i.Lesson).HasForeignKey<Instrument>(i => i.LessonId);
             });
             modelBuilder.Entity<Location>(l =>
             {

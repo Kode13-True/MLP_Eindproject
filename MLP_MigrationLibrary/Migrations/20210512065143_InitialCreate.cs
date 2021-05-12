@@ -66,27 +66,6 @@ namespace MLP_MigrationLibrary.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Instruments",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    InstrumentName = table.Column<int>(type: "int", nullable: false),
-                    InstrumentStyle = table.Column<int>(type: "int", nullable: false),
-                    TeacherId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Instruments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Instruments_Persons_TeacherId",
-                        column: x => x.TeacherId,
-                        principalTable: "Persons",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Lessons",
                 columns: table => new
                 {
@@ -126,15 +105,37 @@ namespace MLP_MigrationLibrary.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Instruments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InstrumentName = table.Column<int>(type: "int", nullable: false),
+                    InstrumentStyle = table.Column<int>(type: "int", nullable: false),
+                    LessonId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Instruments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Instruments_Lessons_LessonId",
+                        column: x => x.LessonId,
+                        principalTable: "Lessons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Alerts_PersonId",
                 table: "Alerts",
                 column: "PersonId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Instruments_TeacherId",
+                name: "IX_Instruments_LessonId",
                 table: "Instruments",
-                column: "TeacherId");
+                column: "LessonId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Lessons_LocationId",

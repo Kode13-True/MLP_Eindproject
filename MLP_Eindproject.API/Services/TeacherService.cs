@@ -45,7 +45,6 @@ namespace MLP_Eindproject.API.Services
             personToEdit.Email = teacherEditValue.Email;
             personToEdit.Password = teacherEditValue.Password;
             personToEdit.Description = teacherEditValue.Description;
-            personToEdit.Instruments = teacherEditValue.Instruments;
             _context.Teachers.Update(personToEdit);
             await _context.SaveChangesAsync();
             return personToEdit;
@@ -65,11 +64,6 @@ namespace MLP_Eindproject.API.Services
             return teacherLessons;
         }
 
-        public List<Instrument> GetTeacherInstruments(int personId)
-        {
-            var teacher = _context.Teachers.Include(x => x.Instruments).FirstOrDefault(x => x.Id == personId);
-            var teacherInstruments = teacher.Instruments.ToList();
-            return teacherInstruments;
-        }
+        
     }
 }
