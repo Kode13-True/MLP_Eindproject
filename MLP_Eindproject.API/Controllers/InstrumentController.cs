@@ -27,11 +27,11 @@ namespace MLP_Eindproject.API.Controllers
         }
 
         // POST api/<InstrumentController>
-        [HttpPost("Create/{teacherId}")]
-        public async Task<ActionResult<CreateInstrumentDTO>> CreateNewInstrument(int teacherId, [FromBody] CreateInstrumentDTO createInstrumentDTO)
+        [HttpPost("Create/{lessonId}")]
+        public async Task<ActionResult<CreateInstrumentDTO>> CreateNewInstrument(int lessonId, [FromBody] CreateInstrumentDTO createInstrumentDTO)
         {
             var newInstrument = _mapper.Map<Instrument>(createInstrumentDTO);
-            var instrument = await _instrumentService.CreateInstrument(newInstrument, teacherId);
+            var instrument = await _instrumentService.CreateInstrument(newInstrument, lessonId);
             var instrumentDTO = _mapper.Map<ResponseInstrumentDTO>(instrument);
             return Ok(instrumentDTO);
         }

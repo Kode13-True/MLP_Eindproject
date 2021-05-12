@@ -16,6 +16,7 @@ namespace MLP_DbLibrary.Models
         public Teacher Teacher { get; set; }  
         public int? StudentId { get; set; }
         public Student Student { get; set; }
+        public Instrument Instrument { get; set; }
         public LessonLevel LessonLevel { get; set; }
         public DateTime Booked { get; set; }
         public bool Completed { get; set; }

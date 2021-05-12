@@ -17,9 +17,9 @@ namespace MLP_Eindproject.API.Services
             _context = context;
         }
         
-        public async Task<Instrument> CreateInstrument(Instrument instrument, int teacherId)
+        public async Task<Instrument> CreateInstrument(Instrument instrument, int lessonId)
         {
-                instrument.TeacherId = teacherId;
+                instrument.LessonId = lessonId;
                 await _context.Instruments.AddAsync(instrument);
                 await _context.SaveChangesAsync();
                 return instrument;            
