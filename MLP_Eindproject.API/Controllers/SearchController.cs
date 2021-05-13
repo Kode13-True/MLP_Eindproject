@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using MLP_DbLibrary.DTO.LessonDTO;
+using MLP_DbLibrary.Models;
+using MLP_Eindproject.API.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,36 +16,28 @@ namespace MLP_Eindproject.API.Controllers
     [ApiController]
     public class SearchController : ControllerBase
     {
-        // GET: api/<SearchController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly ISearchService _searchService;
+        private readonly IMapper _mapper;
+
+        public SearchController(ISearchService searchService, IMapper mapper)
         {
-            return new string[] { "value1", "value2" };
+            _mapper = mapper;
+            _searchService = searchService;
+        }
+        // GET: api/<SearchController> 
+        [HttpGet ("SearchLessons")]
+        public ActionResult<List<ResponseLessonDTO>> SearchLessons (InstrumentName? instrumentName, InstrumentStyle? instrumentStyle, decimal? price, string postal, string teacherName)
+        {
+            var searchLessonsDTO = new List<ResponseLessonDTO>();
+            var searchedLessons = _searchService.SearchLessons(instrumentName,instrumentStyle,price,postal,teacherName);
+            foreach (var l in searchedLessons)
+            {
+                var responseLessonDTO = _mapper.Map<ResponseLessonDTO>(l);
+                searchLessonsDTO.Add(responseLessonDTO);
+            }
+            return Ok(searchLessonsDTO);
         }
 
-        // GET api/<SearchController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<SearchController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<SearchController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<SearchController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+       
     }
 }
