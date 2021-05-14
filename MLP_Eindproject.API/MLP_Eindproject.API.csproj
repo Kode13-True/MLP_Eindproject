@@ -24,4 +24,8 @@
     <ProjectReference Include="..\MLP_MigrationLibrary\MLP_MigrationLibrary.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
+
 </Project>

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MLP_DbLibrary.DTO.PersonDTO;
+using MLP_DbLibrary.DTO.UserDTO;
 using MLP_DbLibrary.Models;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace MLP_Eindproject.API.Profiles
             CreateMap<ResponseStudentDTO, Student>().ReverseMap();
             CreateMap<CreateStudentDTO, Student>().ReverseMap();
             CreateMap<EditStudentDTO, Student>().ReverseMap();
+            CreateMap<RegisterUserDTO, Student>().ReverseMap();
         }
     }
 }
