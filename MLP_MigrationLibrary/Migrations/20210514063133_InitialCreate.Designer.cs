@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MLP_MigrationLibrary.Migrations
 {
     [DbContext(typeof(MLPDbContext))]
-    [Migration("20210512162508_InitialCreate")]
+    [Migration("20210514063133_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -170,6 +170,9 @@ namespace MLP_MigrationLibrary.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Token")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
