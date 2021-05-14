@@ -4,17 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MLP_DbLibrary.Models
+namespace MLP_DbLibrary.DTO.UserDTO
 {
-    public abstract class Person
+    public class RegisterUserDTO
     {
-        public int Id { get; set; }
-        public DateTime DOC {get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public string PasswordConfirmation { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Token { get; set; }
-        public List<Alert> Alerts { get; set; }
+        public bool IsTeacher { get; set; }
     }
 }

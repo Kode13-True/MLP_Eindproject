@@ -17,6 +17,7 @@ namespace TestLibrary.LessonController
     public class CreateLessonTests
     {
         [TestCase(5, LessonLevel.Novice, 25, "2021-6-6 15:00", "2021-6-6 16:00", 1)]
+        [TestCase(6, LessonLevel.Intermediate, 50, "2021-6-6 15:00", "2021-6-6 16:00", 2)]
         public void CreateLessons_Succeeds(int teacherId, LessonLevel lessonLevel, decimal price, string startString, string stopString, int locationId)
         {
             //Arrange
