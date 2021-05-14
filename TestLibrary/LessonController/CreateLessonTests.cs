@@ -9,9 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestLibrary.Extensions;
+using MLP_TestLibrary.Extensions;
 
-namespace TestLibrary.LessonController
+namespace MLP_TestLibrary.LessonController
 {
     [TestFixture]
     public class CreateLessonTests

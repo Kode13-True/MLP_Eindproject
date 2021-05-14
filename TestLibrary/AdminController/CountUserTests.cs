@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLibrary.AdminController
+namespace MLP_TestLibrary.AdminController
 {
     [TestFixture]
     public class CountUserTests

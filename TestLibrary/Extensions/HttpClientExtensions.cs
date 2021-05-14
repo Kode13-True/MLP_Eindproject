@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestLibrary.Extensions
+namespace MLP_TestLibrary.Extensions
 {
     public static class HttpClientExtensions
     {
