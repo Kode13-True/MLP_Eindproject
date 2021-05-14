@@ -12,7 +12,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Net.Http;
 
-namespace TestLibrary
+namespace MLP_TestLibrary
 {
     [SetUpFixture]
     public class TestFixture

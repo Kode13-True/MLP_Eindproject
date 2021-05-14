@@ -16,9 +16,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MLP_MigrationLibrary", "MLP
 		{D70698E3-88AB-4EB7-B175-118C413C9BA6} = {D70698E3-88AB-4EB7-B175-118C413C9BA6}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestLibrary", "TestLibrary\TestLibrary.csproj", "{EFDD1E03-EBA2-43FA-9058-385D25E28DE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MLP_TestLibrary", "TestLibrary\MLP_TestLibrary.csproj", "{EFDD1E03-EBA2-43FA-9058-385D25E28DE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLP_Blazor", "MLP_Blazor\MLP_Blazor.csproj", "{1716DA85-C120-41E5-96E4-954FE40CB5B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MLP_Blazor", "MLP_Blazor\MLP_Blazor.csproj", "{1716DA85-C120-41E5-96E4-954FE40CB5B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
