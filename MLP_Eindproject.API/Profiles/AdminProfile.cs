@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MLP_DbLibrary.DTO.UserDTO;
 
 namespace MLP_Eindproject.API.Profiles
 {
@@ -15,6 +16,7 @@ namespace MLP_Eindproject.API.Profiles
             CreateMap<ResponseAdminDTO, Admin>().ReverseMap();
             CreateMap<CreateAdminDTO, Admin>().ReverseMap();
             CreateMap<EditAdminDTO, Admin>().ReverseMap();
+            CreateMap<RegisterUserDTO, Admin>().ReverseMap();
             }
     }
 }
