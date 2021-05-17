@@ -18,5 +18,6 @@ namespace MLP_Eindproject.API.Services.Interfaces
         bool UserExistanceByToken(string token);
         Task AddAdminToDb(Admin admin);
         Task LogUserOut(string token);
+        bool CheckEmailAvailability(string email);
     }
 }

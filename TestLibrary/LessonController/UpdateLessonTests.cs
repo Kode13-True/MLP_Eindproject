@@ -3,55 +3,55 @@ using MLP_DbLibrary.DTO.LessonDTO;
 using MLP_DbLibrary.MLPContext;
 using MLP_DbLibrary.Models;
 using MLP_DbLibrary.Seeding;
+using MLP_TestLibrary.Extensions;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MLP_TestLibrary.Extensions;
 
 namespace MLP_TestLibrary.LessonController
 {
     [TestFixture]
-    public class CreateLessonTests
+    public class UpdateLessonTests
     {
-        [TestCase(5, LessonLevel.Novice, 25, "2021-6-6 15:00", "2021-6-6 16:00", 1)]
-        [TestCase(6, LessonLevel.Intermediate, 50, "2021-6-6 15:00", "2021-6-6 16:00", 2)]
-        public void CreateLessons_Succeeds(int teacherId, LessonLevel lessonLevel, decimal price, string startString, string stopString, int locationId)
+        [TestCase(1, "2021-6-6 15:00", "2021-6-6 16:00", 1, 25, LessonLevel.Expert)]
+        [TestCase(2, "2021-6-6 15:00", "2021-6-6 16:00", 1, 25, LessonLevel.Expert)]        
+        public void Update_Lesson_Succeeds(int lessonId, DateTime start, DateTime stop, int locationId, decimal price, LessonLevel lessonLevel)
         {
             //Arrange
-            var start = DateTime.Parse(startString);
-            var stop = DateTime.Parse(stopString);
-            var testItem = new CreateLessonDTO
+            var lessonToUpdate = new CreateLessonDTO
             {
-                LessonLevel = lessonLevel,
-                Price = price,
                 Start = start,
                 Stop = stop,
-                LocationId = locationId
+                Price = price,
+                LessonLevel = lessonLevel,
+                LocationId = locationId                
             };
-            using(var scope = TestFixture.ServiceProvider.CreateScope())
+            using (var scope = TestFixture.ServiceProvider.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
                 SeedData.DatabaseSeeding(db);
             }
-           
             //Act
-            var response = TestFixture.Client.PostJson($"api/Lesson/CreateLesson/{teacherId}", testItem);
+            var response = TestFixture.Client.PutJson($"api/Lesson/UpdateLesson/{lessonId}", lessonToUpdate);
+            var content = response.GetContent<ResponseLessonDTO>();
+
             Lesson lesson;
             using (var scope = TestFixture.ServiceProvider.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
-                lesson = db.Lessons.Where(x => x.TeacherId == teacherId && x.Price == price && x.Start == start && x.Stop == stop).FirstOrDefault();
+                lesson = db.Lessons.Where(x => x.Id == lessonId).FirstOrDefault();
             }
+
             //Assert
             Assert.Multiple(() =>
             {
                 Assert.That(response.IsSuccessStatusCode, "Statuscode");
-                Assert.That(lesson is not null, "Saved in Db");
+                Assert.That(lesson.Start == lessonToUpdate.Start, "Content is updated");
             });
         }
     }

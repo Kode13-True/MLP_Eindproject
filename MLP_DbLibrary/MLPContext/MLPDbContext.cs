@@ -25,7 +25,7 @@ namespace MLP_DbLibrary.MLPContext
             modelBuilder.Entity<Person>(p =>
             {
                 p.HasKey(x => x.Id);
-                p.Property(x => x.Email).IsRequired(true);
+                p.HasIndex(x => x.Email).IsUnique(true);
                 p.Property(x => x.Password).IsRequired(true);
                 p.Property(x => x.LastName).IsRequired(true);
                 p.HasMany(x => x.Alerts).WithOne(p => p.Person).HasForeignKey(x => x.PersonId);

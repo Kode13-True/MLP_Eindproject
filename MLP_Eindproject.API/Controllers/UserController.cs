@@ -26,7 +26,7 @@ namespace MLP_Eindproject.API.Controllers
         }
 
         [HttpPost("Authenticate")]
-        public ActionResult<int> Authenticate(string token)
+        public ActionResult<int> Authenticate([FromBody] string token)
         {
             
             var activeUser = _userService.UserExistanceByToken(token);
@@ -47,9 +47,9 @@ namespace MLP_Eindproject.API.Controllers
         [HttpPost("LogIn")]
         public async Task<ActionResult<string>> LogIn(LoginUserDTO loginUserDTO)
         {
-            var encryptedEmail = _userService.HashForRegistrationAndLogin(loginUserDTO.Email); ;
+            //var encryptedEmail = _userService.HashForRegistrationAndLogin(loginUserDTO.Email); ;
             var encryptedPassword = _userService.HashForRegistrationAndLogin(loginUserDTO.Password);
-            var user = _userService.GetUserFromDb(encryptedEmail, encryptedPassword);
+            var user = _userService.GetUserFromDb(loginUserDTO.Email, encryptedPassword);
             if(user is null) { return BadRequest("user does not exist"); }
             var token = _userService.EncryptTokenForAuthentication(user);
             await _userService.AddTokenToUser(user ,token);          
@@ -63,7 +63,11 @@ namespace MLP_Eindproject.API.Controllers
             {
                 throw new ArgumentNullException(nameof(registerUserDTO));
             }
-            registerUserDTO.Email = _userService.HashForRegistrationAndLogin(registerUserDTO.Email);
+            var isEmailNotAvailable = _userService.CheckEmailAvailability(registerUserDTO.Email);
+            if(isEmailNotAvailable == true)
+            {
+                return BadRequest("Email not available");
+            }
             registerUserDTO.Password = _userService.HashForRegistrationAndLogin(registerUserDTO.Password);
             if (registerUserDTO.IsAdmin is true)
             {
@@ -80,7 +84,7 @@ namespace MLP_Eindproject.API.Controllers
                     await _userService.AddStudentToDb(_mapper.Map<Student>(registerUserDTO));
                 }
             }
-            if(registerUserDTO.IsAdmin == false & registerUserDTO.IsTeacher == false) { return BadRequest(); }
+            
             
             return Ok();
         }

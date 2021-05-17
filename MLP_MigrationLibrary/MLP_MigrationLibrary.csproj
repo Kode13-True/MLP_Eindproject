@@ -22,8 +22,4 @@
     <ProjectReference Include="..\MLP_DbLibrary\MLP_DbLibrary.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

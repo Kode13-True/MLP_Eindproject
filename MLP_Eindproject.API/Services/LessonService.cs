@@ -36,7 +36,7 @@ namespace MLP_Eindproject.API.Services
         public async Task<Lesson> CancelLesson(int lessonId)
         {
             var lessonToCancel = await _context.Lessons.Include(x => x.Location).Include(x => x.Teacher).Include(x => x.Student).Include(x => x.Instrument).FirstOrDefaultAsync(x => x.Id == lessonId);
-            if(lessonToCancel.Start > DateTime.Now.AddHours(48))
+            if (lessonToCancel.Start > DateTime.Now.AddHours(48))
             {
                 lessonToCancel.StudentId = null;
                 lessonToCancel.Booked = DateTime.MinValue;
