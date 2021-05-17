@@ -17,7 +17,7 @@ namespace MLP_TestLibrary.LessonController
         [TestCase(4)]
         [TestCase(7)]
         [TestCase(13)]
-        [TestCase(18)]
+        [TestCase(8)]
         public void Cancel_Lesson_Succeeds(int lessonId)
         {
             //Arrange

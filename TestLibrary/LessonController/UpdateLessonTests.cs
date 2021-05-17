@@ -16,7 +16,7 @@ namespace MLP_TestLibrary.LessonController
     [TestFixture]
     public class UpdateLessonTests
     {
-        [TestCase(1, "2021-6-6 15:00", "2021-6-6 16:00", 1, 25, LessonLevel.Expert)]
+        [TestCase(19, "2021-6-6 15:00", "2021-6-6 16:00", 1, 25, LessonLevel.Expert)]
         [TestCase(2, "2021-6-6 15:00", "2021-6-6 16:00", 1, 25, LessonLevel.Expert)]        
         public void Update_Lesson_Succeeds(int lessonId, DateTime start, DateTime stop, int locationId, decimal price, LessonLevel lessonLevel)
         {
