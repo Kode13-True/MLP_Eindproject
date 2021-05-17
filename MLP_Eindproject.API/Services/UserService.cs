@@ -202,5 +202,16 @@ namespace MLP_Eindproject.API.Services
             if (admin is not null) { admin.Token = null; };
             await _context.SaveChangesAsync();
         }
+
+        public bool CheckEmailAvailability(string email)
+        {
+            bool emailIsNotAvailable = false;
+            emailIsNotAvailable = _context.Admins.Any(x => x.Email == email);
+            if(emailIsNotAvailable is true) { return emailIsNotAvailable; }
+            emailIsNotAvailable = _context.Teachers.Any(x => x.Email == email);
+            if (emailIsNotAvailable is true) { return emailIsNotAvailable; }
+            emailIsNotAvailable = _context.Students.Any(x => x.Email == email);
+            return emailIsNotAvailable;
+        }
     }
 }

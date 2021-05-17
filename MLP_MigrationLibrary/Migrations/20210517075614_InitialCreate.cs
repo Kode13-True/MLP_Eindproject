@@ -30,7 +30,7 @@ namespace MLP_MigrationLibrary.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DOC = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -152,6 +152,13 @@ namespace MLP_MigrationLibrary.Migrations
                 name: "IX_Lessons_TeacherId",
                 table: "Lessons",
                 column: "TeacherId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Persons_Email",
+                table: "Persons",
+                column: "Email",
+                unique: true,
+                filter: "[Email] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
