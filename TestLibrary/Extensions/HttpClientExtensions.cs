@@ -17,7 +17,6 @@ namespace MLP_TestLibrary.Extensions
             var contentString = JsonConvert.SerializeObject(content, settings);
             return client.PostAsync(requestUri, new StringContent(contentString, Encoding.UTF8, "application/json")).Result;
         }
-        
         public static HttpResponseMessage PutJson(this HttpClient client, string requestUri, object content)
         {
             var settings = new JsonSerializerSettings();

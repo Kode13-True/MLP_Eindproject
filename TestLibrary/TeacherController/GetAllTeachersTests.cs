@@ -1,6 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MLP_DbLibrary.DTO.PersonDTO;
 using MLP_DbLibrary.MLPContext;
+using MLP_DbLibrary.Models;
 using MLP_DbLibrary.Seeding;
+using MLP_TestLibrary.Extensions;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -8,15 +11,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MLP_TestLibrary.AdminController
+namespace MLP_TestLibrary.TeacherController
 {
     [TestFixture]
-    public class CountUserTests
+    class GetAllTeachersTests
     {
         [TestCase]
-        public void CountUsers_Succeeds()
+
+        public void GetAllTeachers_Succeed()
         {
-            //Arrange
+            // Arrange
             using (var scope = TestFixture.ServiceProvider.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
@@ -24,22 +28,23 @@ namespace MLP_TestLibrary.AdminController
                 SeedData.DatabaseSeeding(db);
             }
             //Act
-            var response = TestFixture.Client.GetAsync("api/Admin/GetNumberOfUsers").Result;
-            var userCount = 0;
+            var response = TestFixture.Client.GetAsync($"api/Teacher/GetAll").Result;
+            List<ResponseTeacherDTO> responseTeachers = response.GetContent<List<ResponseTeacherDTO>>();
+            var teachers = new List<Teacher>();
             using (var scope = TestFixture.ServiceProvider.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
-                userCount += db.Admins.Count();
-                userCount += db.Teachers.Count();
-                userCount += db.Students.Count();
+                teachers = db.Teachers.ToList();
+
             }
             //Assert
             Assert.Multiple(() =>
             {
-                Assert.That(response.IsSuccessStatusCode, "statuscode");
-                Assert.That(userCount.ToString() == response.Content.ReadAsStringAsync().Result, "Count Correct");
+                Assert.That(response.IsSuccessStatusCode, "Completed Succesfully");
+                Assert.That(responseTeachers.Count == teachers.Count, "Equal number of members");
             });
         }
+
     }
 }

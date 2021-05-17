@@ -93,6 +93,17 @@ namespace MLP_DbLibrary.Seeding
                     Description = "Its a pleasure to meet you!",
                     Rating = 0
                 });
+                db.Teachers.Add(new Teacher
+                {
+                    
+                    DOC = DateTime.Now,
+                    Email = "sean.jean@gmail.com",
+                    Password = "Test1234",
+                    FirstName = "Sean",
+                    LastName = "Jean",
+                    Description = "99 problems but piano ain't one",
+                    Rating = 0
+                });
                 db.SaveChanges();
             }
             if (!db.Students.Any())
@@ -102,6 +113,7 @@ namespace MLP_DbLibrary.Seeding
                 db.Students.Add(new Student { DOC = DateTime.Now, Email = "kayia.summons@telenet.be", Password = "Test1234", FirstName = "Kayia", LastName = "Summons" });
                 db.Students.Add(new Student { DOC = DateTime.Now, Email = "bill.york@newyork.com", Password = "Test1234", FirstName = "Bill", LastName = "York" });
                 db.Students.Add(new Student { DOC = DateTime.Now, Email = "keanu.beard@gmail.com", Password = "Test1234", FirstName = "Keanu", LastName = "Beard" });
+                db.Students.Add(new Student { DOC = DateTime.Now, Email = "dick.tracey@syntra.be", Password = "Test1234", FirstName = "Dick", LastName = "Tracey" });
                 db.SaveChanges();
             }
             if (!db.Locations.Any())
@@ -138,7 +150,7 @@ namespace MLP_DbLibrary.Seeding
                     LocationId = 1,
                     TeacherId = 5,
                     Booked = DateTime.Now.AddHours(-24),
-                    StudentId = 12
+                    StudentId = 13
                 });
                 db.Lessons.Add(new Lesson
                 {
@@ -150,7 +162,7 @@ namespace MLP_DbLibrary.Seeding
                     LocationId = 1,
                     TeacherId = 5,
                     Booked = DateTime.Now.AddHours(-24),
-                    StudentId = 13,
+                    StudentId = 14,
                     Completed = true
                 });
 
@@ -292,7 +304,7 @@ namespace MLP_DbLibrary.Seeding
                     LocationId = 5,
                     TeacherId = 9,
                     Booked = DateTime.Now.AddHours(-44),
-                    StudentId = 12,
+                    StudentId = 17,
                     Completed = true
                 });
                 db.Lessons.Add(new Lesson
@@ -315,7 +327,7 @@ namespace MLP_DbLibrary.Seeding
                     LocationId = 6,
                     TeacherId = 10,
                     Booked = DateTime.Now.AddHours(-4),
-                    StudentId = 12
+                    StudentId = 17
                 });
                 db.Lessons.Add(new Lesson
                 {
@@ -457,7 +469,7 @@ namespace MLP_DbLibrary.Seeding
                         DOC = DateTime.Now.AddHours(-42),
                         AlertType = AlertType.Cancelled,
                         Message = "Lesson has been cancelled by teacher",
-                        PersonId = 12
+                        PersonId = 10
                     });
                     db.Alerts.Add(new Alert
                     {

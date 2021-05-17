@@ -25,7 +25,7 @@ namespace MLP_Eindproject.API.Controllers
 
         // POST api/<AdminController>
         [HttpPost("Create")]
-            public async Task<ActionResult<Admin>> CreateNewAdmin(CreateAdminDTO createAdminDTO)
+            public async Task<ActionResult<Admin>> CreateAdmin(CreateAdminDTO createAdminDTO)
             {
                 var newAdmin = _mapper.Map<Admin>(createAdminDTO);
                 var admin = await _adminService.CreateAdmin(newAdmin);
