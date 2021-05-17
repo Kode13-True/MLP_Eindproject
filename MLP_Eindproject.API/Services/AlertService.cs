@@ -19,7 +19,7 @@ namespace MLP_Eindproject.API.Services
         public async Task<Alert> CreateAlert(Alert alert, int personId)
         {
             alert.DOC = DateTime.Now;
-            alert.PersonId = personId;
+            //alert.PersonId = personId;
             await _context.Alerts.AddAsync(alert);
             await _context.SaveChangesAsync();
             return alert;
