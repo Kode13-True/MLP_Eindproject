@@ -104,7 +104,7 @@ namespace MLP_Eindproject.API.Controllers
 
         }
         // PUT api/<LessonController>/5
-        [HttpPut("BookLesson/{studentId}/{lessonId}")]
+        [HttpGet("BookLesson/{studentId}/{lessonId}")]
         public async Task<ActionResult<ResponseLessonDTO>> BookLesson(int studentId, int lessonId)
         {
             var responseLesson = await _lessonService.BookLesson(studentId, lessonId);
@@ -112,15 +112,13 @@ namespace MLP_Eindproject.API.Controllers
             return Ok(responseLessonDTO);
         }
         // PUT api/<LessonController>/5
-        [HttpPut("CancelLesson/{lessonId}")]
+        [HttpGet("CancelLesson/{lessonId}")]
         public async Task<ActionResult<ResponseLessonDTO>> CancelLesson(int lessonId)
         {
             var responseLesson = await _lessonService.CancelLesson(lessonId);
             var responseLessonDTO = _mapper.Map<ResponseLessonDTO>(responseLesson);
             return Ok(responseLessonDTO);
         }
-
-
 
         // DELETE api/<LessonController>/5
         [HttpDelete("DeleteLesson/{id}")]

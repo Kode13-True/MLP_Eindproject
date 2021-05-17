@@ -24,6 +24,5 @@ namespace MLP_TestLibrary.Extensions
             var contentString = JsonConvert.SerializeObject(content, settings);
             return client.PutAsync(requestUri, new StringContent(contentString, Encoding.UTF8, "application/json")).Result;
         }
-        
     }
 }
