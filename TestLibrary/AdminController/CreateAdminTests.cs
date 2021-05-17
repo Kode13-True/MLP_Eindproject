@@ -1,6 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MLP_DbLibrary.DTO.PersonDTO;
 using MLP_DbLibrary.MLPContext;
+using MLP_DbLibrary.Models;
 using MLP_DbLibrary.Seeding;
+using MLP_TestLibrary.Extensions;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -11,35 +14,44 @@ using System.Threading.Tasks;
 namespace MLP_TestLibrary.AdminController
 {
     [TestFixture]
-    public class CountUserTests
+    public class CreateAdminTests
     {
-        [TestCase]
-        public void CountUsers_Succeeds()
+        [TestCase("john.doe@testmail.com","Test1234","John","Doe")]
+
+        public void CreateAdmin_Succeeds(string email, string password, string firstName, string lastName)
         {
             //Arrange
+            
+            var testItem = new CreateAdminDTO
+            {
+                Email = email,
+                Password = password,
+                FirstName = firstName,
+                LastName = lastName,
+            };
             using (var scope = TestFixture.ServiceProvider.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
                 SeedData.DatabaseSeeding(db);
             }
+
             //Act
-            var response = TestFixture.Client.GetAsync("api/Admin/GetNumberOfUsers").Result;
-            var userCount = 0;
+            var response = TestFixture.Client.PostJson("api/Admin/Create", testItem);
+            Admin admin = null;
             using (var scope = TestFixture.ServiceProvider.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
-                userCount += db.Admins.Count();
-                userCount += db.Teachers.Count();
-                userCount += db.Students.Count();
+                admin = db.Admins.Where(x => x.Email == email && x.Password == password && x.FirstName == firstName && x.LastName == lastName).FirstOrDefault();
             }
             //Assert
             Assert.Multiple(() =>
             {
-                Assert.That(response.IsSuccessStatusCode, "statuscode");
-                Assert.That(userCount.ToString() == response.Content.ReadAsStringAsync().Result, "Count Correct");
+                Assert.That(response.IsSuccessStatusCode, "Statuscode");
+                Assert.That(admin is not null, "Saved in Db");
             });
+
         }
     }
 }

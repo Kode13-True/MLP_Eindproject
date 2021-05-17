@@ -15,5 +15,6 @@ namespace MLP_TestLibrary.Extensions
             string contentString = responseMessage.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             return (T)JsonConvert.DeserializeObject(contentString, typeof(T));
         }
+       
     }
 }

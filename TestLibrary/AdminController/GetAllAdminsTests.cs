@@ -1,6 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MLP_DbLibrary.DTO.PersonDTO;
 using MLP_DbLibrary.MLPContext;
+using MLP_DbLibrary.Models;
 using MLP_DbLibrary.Seeding;
+using MLP_TestLibrary.Extensions;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -11,12 +14,13 @@ using System.Threading.Tasks;
 namespace MLP_TestLibrary.AdminController
 {
     [TestFixture]
-    public class CountUserTests
+    class GetAllAdminsTests
     {
         [TestCase]
-        public void CountUsers_Succeeds()
+
+        public void GetAllAdmins_Succeed()
         {
-            //Arrange
+            // Arrange
             using (var scope = TestFixture.ServiceProvider.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
@@ -24,22 +28,23 @@ namespace MLP_TestLibrary.AdminController
                 SeedData.DatabaseSeeding(db);
             }
             //Act
-            var response = TestFixture.Client.GetAsync("api/Admin/GetNumberOfUsers").Result;
-            var userCount = 0;
+            var response = TestFixture.Client.GetAsync($"api/Admin/GetAll").Result;
+            List<ResponseAdminDTO> responseAdmins = response.GetContent<List<ResponseAdminDTO>>();
+            var admins = new List<Admin>();
             using (var scope = TestFixture.ServiceProvider.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
-                userCount += db.Admins.Count();
-                userCount += db.Teachers.Count();
-                userCount += db.Students.Count();
+                admins = db.Admins.ToList();
+
             }
             //Assert
             Assert.Multiple(() =>
             {
-                Assert.That(response.IsSuccessStatusCode, "statuscode");
-                Assert.That(userCount.ToString() == response.Content.ReadAsStringAsync().Result, "Count Correct");
+                Assert.That(response.IsSuccessStatusCode, "Completed Succesfully");
+                Assert.That(responseAdmins.Count == admins.Count, "Equal number of members");
             });
         }
+
     }
 }
