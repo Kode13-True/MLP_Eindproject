@@ -35,7 +35,7 @@ namespace MLP_Eindproject.API.Services
                .ToList();
             }
             //option 02
-            if (instrumentName != null && instrumentStyle != null && price != null && postal != null)
+            else if (instrumentName != null && instrumentStyle != null && price != null && postal != null)
             {
                 return _context.Lessons
                .Where(x => x.Price <= price)
@@ -49,12 +49,13 @@ namespace MLP_Eindproject.API.Services
                .ToList();
             }
             //option 03
-            if (instrumentName != null && instrumentStyle != null && price != null)
+            else if (instrumentName != null && instrumentStyle != null && price != null && teacherName != null)
             {
                 return _context.Lessons
                .Where(x => x.Price <= price)
                .Include(x => x.Location)
                .Include(x => x.Teacher)
+               .Where(x => x.Teacher.LastName == teacherName)
                .Include(x => x.Instrument)
                .Where(x => x.Instrument.InstrumentName == instrumentName && x.Instrument.InstrumentStyle == instrumentStyle)
                .Include(x => x.Student)
@@ -62,11 +63,13 @@ namespace MLP_Eindproject.API.Services
                .ToList();
             }
             //option 04
-            if (instrumentName != null && instrumentStyle != null)
+            else if (instrumentName != null && instrumentStyle != null && postal != null && teacherName != null)
             {
                 return _context.Lessons
                .Include(x => x.Location)
+               .Where(x => x.Location.Postal == postal)
                .Include(x => x.Teacher)
+               .Where(x => x.Teacher.LastName == teacherName)
                .Include(x => x.Instrument)
                .Where(x => x.Instrument.InstrumentName == instrumentName && x.Instrument.InstrumentStyle == instrumentStyle)
                .Include(x => x.Student)
@@ -74,11 +77,14 @@ namespace MLP_Eindproject.API.Services
                .ToList();
             }
             //option 05
-            if (instrumentName != null)
+            else if (instrumentName != null && price != null && postal != null && teacherName != null)
             {
                 return _context.Lessons
+               .Where(x => x.Price <= price)
                .Include(x => x.Location)
+               .Where(x => x.Location.Postal == postal)
                .Include(x => x.Teacher)
+               .Where(x => x.Teacher.LastName == teacherName)
                .Include(x => x.Instrument)
                .Where(x => x.Instrument.InstrumentName == instrumentName)
                .Include(x => x.Student)
@@ -86,7 +92,7 @@ namespace MLP_Eindproject.API.Services
                .ToList();
             }
             //option 06
-            if (instrumentStyle != null && price != null && postal != null && teacherName != null)
+            else if (instrumentStyle != null && price != null && postal != null && teacherName != null)
             {
                 return _context.Lessons
                .Where(x => x.Price <= price)
@@ -101,37 +107,93 @@ namespace MLP_Eindproject.API.Services
                .ToList();
             }
             //option 07
-            if (instrumentStyle != null && price != null && postal != null)
+            else if (instrumentName != null && instrumentStyle != null && price != null)
             {
                 return _context.Lessons
                .Where(x => x.Price <= price)
                .Include(x => x.Location)
-               .Where(x => x.Location.Postal == postal)
                .Include(x => x.Teacher)
                .Include(x => x.Instrument)
-               .Where(x => x.Instrument.InstrumentStyle == instrumentStyle)
+               .Where(x => x.Instrument.InstrumentName == instrumentName && x.Instrument.InstrumentStyle == instrumentStyle)
                .Include(x => x.Student)
                .Where(x => x.StudentId == null)
                .ToList();
             }
             //option 08
-            if (instrumentStyle != null && price != null)
+            else if (instrumentName != null && instrumentStyle != null && postal != null)
             {
                 return _context.Lessons
-               .Where(x => x.Price <= price)
                .Include(x => x.Location)
+               .Where(x => x.Location.Postal == postal)
                .Include(x => x.Teacher)
                .Include(x => x.Instrument)
-               .Where(x => x.Instrument.InstrumentStyle == instrumentStyle)
+               .Where(x => x.Instrument.InstrumentName == instrumentName && x.Instrument.InstrumentStyle == instrumentStyle)
                .Include(x => x.Student)
                .Where(x => x.StudentId == null)
                .ToList();
             }
             //option 09
-            if (instrumentStyle != null)
+            else if (instrumentName != null && instrumentStyle != null && teacherName != null)
             {
                 return _context.Lessons
                .Include(x => x.Location)
+               .Include(x => x.Teacher)
+               .Where(x => x.Teacher.LastName == teacherName)
+               .Include(x => x.Instrument)
+               .Where(x => x.Instrument.InstrumentName == instrumentName && x.Instrument.InstrumentStyle == instrumentStyle)
+               .Include(x => x.Student)
+               .Where(x => x.StudentId == null)
+               .ToList();
+            }
+            //option 10
+            else if (instrumentName != null && price != null && postal != null)
+            {
+                return _context.Lessons
+               .Where(x => x.Price <= price)
+               .Include(x => x.Location)
+               .Where(x => x.Location.Postal == postal)
+               .Include(x => x.Teacher)
+               .Include(x => x.Instrument)
+               .Where(x => x.Instrument.InstrumentName == instrumentName)
+               .Include(x => x.Student)
+               .Where(x => x.StudentId == null)
+               .ToList();
+            }
+            //option 11
+            else if (instrumentName != null && price != null && teacherName != null)
+            {
+                return _context.Lessons
+               .Where(x => x.Price <= price)
+               .Include(x => x.Location)
+               .Include(x => x.Teacher)
+               .Where(x => x.Teacher.LastName == teacherName)
+               .Include(x => x.Instrument)
+               .Where(x => x.Instrument.InstrumentName == instrumentName)
+               .Include(x => x.Student)
+               .Where(x => x.StudentId == null)
+               .ToList();
+            }
+            //option 12
+            else if (instrumentName != null && postal != null && teacherName != null)
+            {
+                return _context.Lessons
+               .Include(x => x.Location)
+               .Where(x => x.Location.Postal == postal)
+               .Include(x => x.Teacher)
+               .Where(x => x.Teacher.LastName == teacherName)
+               .Include(x => x.Instrument)
+               .Where(x => x.Instrument.InstrumentName == instrumentName)
+               .Include(x => x.Student)
+               .Where(x => x.StudentId == null)
+               .ToList();
+            }
+            //option 13
+            else if (instrumentStyle != null && price != null && postal != null)
+            {
+                return _context.Lessons
+               .Where(x => x.Price <= price)
+               .Include(x => x.Location)
+               .Where(x => x.Location.Postal == postal)
                .Include(x => x.Teacher)
                .Include(x => x.Instrument)
                .Where(x => x.Instrument.InstrumentStyle == instrumentStyle)
@@ -139,84 +201,36 @@ namespace MLP_Eindproject.API.Services
                .Where(x => x.StudentId == null)
                .ToList();
             }
-            //option 10
-            if (price != null && postal != null && teacherName != null)
-            {
-                return _context.Lessons
-               .Where(x => x.Price <= price)
-               .Include(x => x.Location)
-               .Where(x => x.Location.Postal == postal)
-               .Include(x => x.Teacher)
-               .Where(x => x.Teacher.LastName == teacherName)
-               .Include(x => x.Instrument)
-               .Include(x => x.Student)
-               .Where(x => x.StudentId == null)
-               .ToList();
-            }
-            //option 11
-            if (price != null && postal != null)
-            {
-                return _context.Lessons
-               .Where(x => x.Price <= price)
-               .Include(x => x.Location)
-               .Where(x => x.Location.Postal == postal)
-               .Include(x => x.Teacher)
-               .Include(x => x.Instrument)
-               .Include(x => x.Student)
-               .Where(x => x.StudentId == null)
-               .ToList();
-            }
-            //option 12
-            if (price != null)
-            {
-                return _context.Lessons
-               .Where(x => x.Price <= price)
-               .Include(x => x.Location)
-               .Include(x => x.Teacher)
-               .Include(x => x.Instrument)
-               .Include(x => x.Student)
-               .Where(x => x.StudentId == null)
-               .ToList();
-            }
-            //option 13
-            if (postal != null && teacherName != null)
-            {
-                return _context.Lessons
-               .Include(x => x.Location)
-               .Where(x => x.Location.Postal == postal)
-               .Include(x => x.Teacher)
-               .Where(x => x.Teacher.LastName == teacherName)
-               .Include(x => x.Instrument)
-               .Include(x => x.Student)
-               .Where(x => x.StudentId == null)
-               .ToList();
-            }
             //option 14
-            if (postal != null)
+            else if (instrumentStyle != null && price != null && teacherName != null)
             {
                 return _context.Lessons
+               .Where(x => x.Price <= price)
                .Include(x => x.Location)
-               .Where(x => x.Location.Postal == postal)
                .Include(x => x.Teacher)
+               .Where(x => x.Teacher.LastName == teacherName)
                .Include(x => x.Instrument)
+               .Where(x => x.Instrument.InstrumentStyle == instrumentStyle)
                .Include(x => x.Student)
                .Where(x => x.StudentId == null)
                .ToList();
             }
             //option 15
-            if (teacherName != null)
+            else if (instrumentStyle != null && postal != null && teacherName != null)
             {
                 return _context.Lessons
                .Include(x => x.Location)
+               .Where(x => x.Location.Postal == postal)
                .Include(x => x.Teacher)
                .Where(x => x.Teacher.LastName == teacherName)
                .Include(x => x.Instrument)
+               .Where(x => x.Instrument.InstrumentStyle == instrumentStyle)
                .Include(x => x.Student)
                .Where(x => x.StudentId == null)
                .ToList();
             }
             //option 16
-            if (instrumentName != null && price != null && postal != null && teacherName != null)
+            else if (price != null && postal != null && teacherName != null)
             {
                 return _context.Lessons
                .Where(x => x.Price <= price)
@@ -225,27 +239,24 @@ namespace MLP_Eindproject.API.Services
                .Include(x => x.Teacher)
                .Where(x => x.Teacher.LastName == teacherName)
                .Include(x => x.Instrument)
-               .Where(x => x.Instrument.InstrumentName == instrumentName)
                .Include(x => x.Student)
                .Where(x => x.StudentId == null)
                .ToList();
             }
             //option 17
-            if (instrumentName != null && price != null && postal != null)
+            else if (instrumentName != null && instrumentStyle != null )
             {
                 return _context.Lessons
-               .Where(x => x.Price <= price)
                .Include(x => x.Location)
-               .Where(x => x.Location.Postal == postal)
                .Include(x => x.Teacher)
                .Include(x => x.Instrument)
-               .Where(x => x.Instrument.InstrumentName == instrumentName)
+               .Where(x => x.Instrument.InstrumentName == instrumentName && x.Instrument.InstrumentStyle == instrumentStyle)
                .Include(x => x.Student)
                .Where(x => x.StudentId == null)
                .ToList();
             }
             //option 18
-            if (instrumentName != null && price != null)
+            else if (instrumentName != null && price != null)
             {
                 return _context.Lessons
                .Where(x => x.Price <= price)
@@ -258,51 +269,48 @@ namespace MLP_Eindproject.API.Services
                .ToList();
             }
             //option 19
-            if (instrumentName != null && instrumentStyle != null && postal != null && teacherName != null)
+            else if (instrumentName != null && postal != null)
             {
                 return _context.Lessons
                .Include(x => x.Location)
                .Where(x => x.Location.Postal == postal)
                .Include(x => x.Teacher)
-               .Where(x => x.Teacher.LastName == teacherName)
                .Include(x => x.Instrument)
-               .Where(x => x.Instrument.InstrumentName == instrumentName && x.Instrument.InstrumentStyle == instrumentStyle)
+               .Where(x => x.Instrument.InstrumentName == instrumentName)
                .Include(x => x.Student)
                .Where(x => x.StudentId == null)
                .ToList();
             }
             //option 20
-            if (instrumentName != null && instrumentStyle != null && postal != null)
+            else if (instrumentName != null && teacherName != null)
             {
                 return _context.Lessons
                .Include(x => x.Location)
-               .Where(x => x.Location.Postal == postal)
                .Include(x => x.Teacher)
+               .Where(x => x.Teacher.LastName == teacherName)
                .Include(x => x.Instrument)
-               .Where(x => x.Instrument.InstrumentName == instrumentName && x.Instrument.InstrumentStyle == instrumentStyle)
+               .Where(x => x.Instrument.InstrumentName == instrumentName)
                .Include(x => x.Student)
                .Where(x => x.StudentId == null)
                .ToList();
             }
             //option 21
-            if (instrumentName != null && instrumentStyle != null && price != null && teacherName != null)
+            else if (instrumentStyle != null && price != null)
             {
                 return _context.Lessons
                .Where(x => x.Price <= price)
                .Include(x => x.Location)
                .Include(x => x.Teacher)
-               .Where(x => x.Teacher.LastName == teacherName)
                .Include(x => x.Instrument)
-               .Where(x => x.Instrument.InstrumentName == instrumentName && x.Instrument.InstrumentStyle == instrumentStyle)
+               .Where(x => x.Instrument.InstrumentStyle == instrumentStyle)
                .Include(x => x.Student)
                .Where(x => x.StudentId == null)
                .ToList();
             }
             //option 22
-            if (instrumentStyle != null && price != null && postal != null)
+            else if ( instrumentStyle != null && postal != null)
             {
                 return _context.Lessons
-               .Where(x => x.Price <= price)
                .Include(x => x.Location)
                .Where(x => x.Location.Postal == postal)
                .Include(x => x.Teacher)
@@ -313,7 +321,33 @@ namespace MLP_Eindproject.API.Services
                .ToList();
             }
             //option 23
-            if (instrumentName != null && price != null && teacherName != null)
+            else if (instrumentStyle != null && teacherName != null)
+            {
+                return _context.Lessons
+               .Include(x => x.Location)
+               .Include(x => x.Teacher)
+               .Where(x => x.Teacher.LastName == teacherName)
+               .Include(x => x.Instrument)
+               .Where(x => x.Instrument.InstrumentStyle == instrumentStyle)
+               .Include(x => x.Student)
+               .Where(x => x.StudentId == null)
+               .ToList();
+            }
+            //option 24
+            else if (price != null && postal != null)
+            {
+                return _context.Lessons
+               .Where(x => x.Price <= price)
+               .Include(x => x.Location)
+               .Where(x => x.Location.Postal == postal)
+               .Include(x => x.Teacher)
+               .Include(x => x.Instrument)
+               .Include(x => x.Student)
+               .Where(x => x.StudentId == null)
+               .ToList();
+            }
+            //option 25
+            else if (price != null && teacherName != null)
             {
                 return _context.Lessons
                .Where(x => x.Price <= price)
@@ -321,58 +355,29 @@ namespace MLP_Eindproject.API.Services
                .Include(x => x.Teacher)
                .Where(x => x.Teacher.LastName == teacherName)
                .Include(x => x.Instrument)
-               .Where(x => x.Instrument.InstrumentName == instrumentName)
-               .Include(x => x.Student)
-               .Where(x => x.StudentId == null)
-               .ToList();
-            }
-            //option 24
-            if (instrumentName != null && teacherName != null)
-            {
-                return _context.Lessons
-               .Include(x => x.Location)
-               .Include(x => x.Teacher)
-               .Where(x => x.Teacher.LastName == teacherName)
-               .Include(x => x.Instrument)
-               .Where(x => x.Instrument.InstrumentName == instrumentName)
-               .Include(x => x.Student)
-               .Where(x => x.StudentId == null)
-               .ToList();
-            }
-            //option 25
-            if (instrumentStyle != null && postal != null)
-            {
-                return _context.Lessons
-               .Include(x => x.Location)
-               .Where(x => x.Location.Postal == postal)
-               .Include(x => x.Teacher)
-               .Include(x => x.Instrument)
-               .Where(x => x.Instrument.InstrumentStyle == instrumentStyle)
                .Include(x => x.Student)
                .Where(x => x.StudentId == null)
                .ToList();
             }
             //option 26
-            if (instrumentName != null && instrumentStyle != null && teacherName != null)
-            {
-                return _context.Lessons
-               .Include(x => x.Location)
-               .Include(x => x.Teacher)
-               .Where(x => x.Teacher.LastName == teacherName)
-               .Include(x => x.Instrument)
-               .Where(x => x.Instrument.InstrumentName == instrumentName && x.Instrument.InstrumentStyle == instrumentStyle)
-               .Include(x => x.Student)
-               .Where(x => x.StudentId == null)
-               .ToList();
-            }
-            //option 27
-            if (instrumentName != null && postal != null && teacherName != null)
+            else if (postal != null && teacherName != null)
             {
                 return _context.Lessons
                .Include(x => x.Location)
                .Where(x => x.Location.Postal == postal)
                .Include(x => x.Teacher)
                .Where(x => x.Teacher.LastName == teacherName)
+               .Include(x => x.Instrument)
+               .Include(x => x.Student)
+               .Where(x => x.StudentId == null)
+               .ToList();
+            }
+            //option 27
+            else if (instrumentName != null)
+            {
+                return _context.Lessons
+               .Include(x => x.Location)
+               .Include(x => x.Teacher)
                .Include(x => x.Instrument)
                .Where(x => x.Instrument.InstrumentName == instrumentName)
                .Include(x => x.Student)
@@ -380,51 +385,45 @@ namespace MLP_Eindproject.API.Services
                .ToList();
             }
             //option 28
-            if (instrumentName != null && price != null && postal != null)
+            else if (instrumentStyle != null)
             {
                 return _context.Lessons
-               .Where(x => x.Price <= price)
                .Include(x => x.Location)
-               .Where(x => x.Location.Postal == postal)
                .Include(x => x.Teacher)
                .Include(x => x.Instrument)
-               .Where(x => x.Instrument.InstrumentName == instrumentName)
+               .Where(x => x.Instrument.InstrumentStyle == instrumentStyle)
                .Include(x => x.Student)
                .Where(x => x.StudentId == null)
                .ToList();
             }
             //option 29
-            if (instrumentStyle != null && price != null && teacherName != null)
+            else if (price != null)
             {
                 return _context.Lessons
                .Where(x => x.Price <= price)
                .Include(x => x.Location)
                .Include(x => x.Teacher)
-               .Where(x => x.Teacher.LastName == teacherName)
                .Include(x => x.Instrument)
-               .Where(x => x.Instrument.InstrumentStyle == instrumentStyle)
                .Include(x => x.Student)
                .Where(x => x.StudentId == null)
                .ToList();
             }
             //option 30
-            if (instrumentStyle != null && teacherName != null)
+            else if (postal != null)
             {
                 return _context.Lessons
                .Include(x => x.Location)
+               .Where(x => x.Location.Postal == postal)
                .Include(x => x.Teacher)
-               .Where(x => x.Teacher.LastName == teacherName)
                .Include(x => x.Instrument)
-               .Where(x => x.Instrument.InstrumentStyle == instrumentStyle)
                .Include(x => x.Student)
                .Where(x => x.StudentId == null)
                .ToList();
             }
             //option 31
-            if (price != null && teacherName != null)
+            else if (teacherName != null)
             {
                 return _context.Lessons
-               .Where(x => x.Price <= price)
                .Include(x => x.Location)
                .Include(x => x.Teacher)
                .Where(x => x.Teacher.LastName == teacherName)
