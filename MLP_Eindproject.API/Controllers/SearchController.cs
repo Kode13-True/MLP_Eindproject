@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MLP_DbLibrary.DTO.LessonDTO;
+using MLP_DbLibrary.DTO.SearchDTO;
 using MLP_DbLibrary.Models;
 using MLP_Eindproject.API.Services.Interfaces;
 using System;
@@ -24,12 +25,12 @@ namespace MLP_Eindproject.API.Controllers
             _mapper = mapper;
             _searchService = searchService;
         }
-        // GET: api/<SearchController> 
-        [HttpGet ("SearchLessons")]
-        public ActionResult<List<ResponseLessonDTO>> SearchLessons (InstrumentName? instrumentName, InstrumentStyle? instrumentStyle, decimal? price, string postal, string teacherName)
+        // POST: api/<SearchController> 
+        [HttpPost ("SearchLessons")]
+        public ActionResult<List<ResponseLessonDTO>> SearchLessons (SearchLessonDTO searchLessonDTO)
         {
             var searchLessonsDTO = new List<ResponseLessonDTO>();
-            var searchedLessons = _searchService.SearchLessons(instrumentName,instrumentStyle,price,postal,teacherName);
+            var searchedLessons = _searchService.SearchLessons(searchLessonDTO.InstrumentName, searchLessonDTO.InstrumentStyle, searchLessonDTO.Price,searchLessonDTO.Postal,searchLessonDTO.TeacherName);
             foreach (var l in searchedLessons)
             {
                 var responseLessonDTO = _mapper.Map<ResponseLessonDTO>(l);
