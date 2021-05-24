@@ -1,17 +1,18 @@
-﻿@inherits LayoutComponentBase
+﻿
+@inherits LayoutComponentBase
+    <link href="~/css/main.css" rel="stylesheet" />
+<header>
+    <NavMenu />
+</header>
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <div class="main">
-        <div class="top-row px-4">
-            <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
-        </div>
-
-        <div class="content px-4">
+<body>
+    <div class="container-fluid p-0">
+        <main role="main" class="pb-3 pt-5">
             @Body
-        </div>
+        </main>
     </div>
-</div>
+</body>
+
+
+
+

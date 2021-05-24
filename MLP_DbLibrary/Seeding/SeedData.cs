@@ -143,8 +143,8 @@ namespace MLP_DbLibrary.Seeding
                 db.Lessons.Add(new Lesson
                 {
                     DOC = DateTime.Now.AddHours(-25),
-                    Start = DateTime.Now.AddHours(120),
-                    Stop = DateTime.Now.AddHours(121),
+                    Start = DateTime.Now.AddHours(220),
+                    Stop = DateTime.Now.AddHours(221),
                     Price = 25,
                     LessonLevel = LessonLevel.Intermediate,
                     LocationId = 1,
@@ -169,8 +169,8 @@ namespace MLP_DbLibrary.Seeding
                 db.Lessons.Add(new Lesson
                 {
                     DOC = DateTime.Now.AddHours(-24),
-                    Start = DateTime.Now.AddHours(120),
-                    Stop = DateTime.Now.AddHours(121),
+                    Start = DateTime.Now.AddHours(320),
+                    Stop = DateTime.Now.AddHours(321),
                     Price = 5,
                     LessonLevel = LessonLevel.Novice,
                     LocationId = 2,
@@ -179,8 +179,8 @@ namespace MLP_DbLibrary.Seeding
                 db.Lessons.Add(new Lesson
                 {
                     DOC = DateTime.Now.AddHours(-48),
-                    Start = DateTime.Now.AddHours(120),
-                    Stop = DateTime.Now.AddHours(121),
+                    Start = DateTime.Now.AddHours(420),
+                    Stop = DateTime.Now.AddHours(421),
                     Price = 15,
                     LessonLevel = LessonLevel.Intermediate,
                     LocationId = 2,
@@ -205,8 +205,8 @@ namespace MLP_DbLibrary.Seeding
                 db.Lessons.Add(new Lesson
                 {
                     DOC = DateTime.Now.AddHours(-24),
-                    Start = DateTime.Now.AddHours(120),
-                    Stop = DateTime.Now.AddHours(121),
+                    Start = DateTime.Now.AddHours(520),
+                    Stop = DateTime.Now.AddHours(521),
                     Price = 25,
                     LessonLevel = LessonLevel.Novice,
                     LocationId = 3,
@@ -215,8 +215,8 @@ namespace MLP_DbLibrary.Seeding
                 db.Lessons.Add(new Lesson
                 {
                     DOC = DateTime.Now.AddHours(-24),
-                    Start = DateTime.Now.AddHours(120),
-                    Stop = DateTime.Now.AddHours(121),
+                    Start = DateTime.Now.AddHours(620),
+                    Stop = DateTime.Now.AddHours(621),
                     Price = 25,
                     LessonLevel = LessonLevel.Intermediate,
                     LocationId = 3,
@@ -240,8 +240,8 @@ namespace MLP_DbLibrary.Seeding
                 db.Lessons.Add(new Lesson
                 {
                     DOC = DateTime.Now.AddHours(-24),
-                    Start = DateTime.Now.AddHours(120),
-                    Stop = DateTime.Now.AddHours(121),
+                    Start = DateTime.Now.AddHours(720),
+                    Stop = DateTime.Now.AddHours(721),
                     Price = 25,
                     LessonLevel = LessonLevel.Novice,
                     LocationId = 4,
@@ -250,8 +250,8 @@ namespace MLP_DbLibrary.Seeding
                 db.Lessons.Add(new Lesson
                 {
                     DOC = DateTime.Now.AddHours(-48),
-                    Start = DateTime.Now.AddHours(120),
-                    Stop = DateTime.Now.AddHours(121),
+                    Start = DateTime.Now.AddHours(820),
+                    Stop = DateTime.Now.AddHours(921),
                     Price = 25,
                     LessonLevel = LessonLevel.Intermediate,
                     LocationId = 4,
@@ -275,8 +275,8 @@ namespace MLP_DbLibrary.Seeding
                 db.Lessons.Add(new Lesson
                 {
                     DOC = DateTime.Now.AddHours(-12),
-                    Start = DateTime.Now.AddHours(120),
-                    Stop = DateTime.Now.AddHours(121),
+                    Start = DateTime.Now.AddHours(170),
+                    Stop = DateTime.Now.AddHours(171),
                     Price = 25,
                     LessonLevel = LessonLevel.Novice,
                     LocationId = 5,
@@ -285,8 +285,8 @@ namespace MLP_DbLibrary.Seeding
                 db.Lessons.Add(new Lesson
                 {
                     DOC = DateTime.Now.AddHours(-24),
-                    Start = DateTime.Now.AddHours(120),
-                    Stop = DateTime.Now.AddHours(121),
+                    Start = DateTime.Now.AddHours(118),
+                    Stop = DateTime.Now.AddHours(119),
                     Price = 25,
                     LessonLevel = LessonLevel.Intermediate,
                     LocationId = 5,
@@ -310,8 +310,8 @@ namespace MLP_DbLibrary.Seeding
                 db.Lessons.Add(new Lesson
                 {
                     DOC = DateTime.Now.AddHours(-24),
-                    Start = DateTime.Now.AddHours(120),
-                    Stop = DateTime.Now.AddHours(121),
+                    Start = DateTime.Now.AddHours(245),
+                    Stop = DateTime.Now.AddHours(246),
                     Price = 25,
                     LessonLevel = LessonLevel.Novice,
                     LocationId = 6,
@@ -320,8 +320,8 @@ namespace MLP_DbLibrary.Seeding
                 db.Lessons.Add(new Lesson
                 {
                     DOC = DateTime.Now.AddHours(-24),
-                    Start = DateTime.Now.AddHours(120),
-                    Stop = DateTime.Now.AddHours(121),
+                    Start = DateTime.Now.AddHours(130),
+                    Stop = DateTime.Now.AddHours(131),
                     Price = 25,
                     LessonLevel = LessonLevel.Intermediate,
                     LocationId = 6,
@@ -345,8 +345,8 @@ namespace MLP_DbLibrary.Seeding
                 db.Lessons.Add(new Lesson
                 {
                     DOC = DateTime.Now.AddHours(-24),
-                    Start = DateTime.Now.AddHours(120),
-                    Stop = DateTime.Now.AddHours(121),
+                    Start = DateTime.Now.AddHours(250),
+                    Stop = DateTime.Now.AddHours(251),
                     Price = 25,
                     LessonLevel = LessonLevel.Novice,
                     LocationId = 7,
@@ -355,8 +355,8 @@ namespace MLP_DbLibrary.Seeding
                 db.Lessons.Add(new Lesson
                 {
                     DOC = DateTime.Now.AddHours(-96),
-                    Start = DateTime.Now.AddHours(120),
-                    Stop = DateTime.Now.AddHours(121),
+                    Start = DateTime.Now.AddHours(430),
+                    Stop = DateTime.Now.AddHours(431),
                     Price = 25,
                     LessonLevel = LessonLevel.Intermediate,
                     LocationId = 7,
