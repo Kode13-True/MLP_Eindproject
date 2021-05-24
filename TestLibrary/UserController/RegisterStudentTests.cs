@@ -50,7 +50,7 @@ namespace MLP_TestLibrary.UserController
             var token = loginResponse.Content.ReadAsStringAsync().Result;
 
             var authenticateResponse = TestFixture.Client.PostJson("api/User/Authenticate", token);
-            var studentId = authenticateResponse.GetContent<int>();
+            var responseStudent = authenticateResponse.GetContent<ResponseAuthenticationDTO>();
 
             var logoutResponse = TestFixture.Client.PostJson("api/User/LogOut", token);
             //Assert
@@ -62,7 +62,8 @@ namespace MLP_TestLibrary.UserController
                 Assert.That(loginResponse.IsSuccessStatusCode, "Login Statuscode");
 
                 Assert.That(authenticateResponse.IsSuccessStatusCode, "Authentication Statuscode");
-                Assert.That(student.Id == studentId, "Id is correct after authentication");
+                Assert.That(student.Id == responseStudent.Id, "Id is correct after authentication");
+                Assert.That(responseStudent.PersonType == PersonType.Student, "Correct persontype");
 
                 Assert.That(logoutResponse.IsSuccessStatusCode, "Log out Statuscode");
             });

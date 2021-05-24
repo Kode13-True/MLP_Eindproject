@@ -31,6 +31,13 @@ namespace MLP_DbLibrary.Models
         Trumpet,
         Harp
     }
+
+    public enum PersonType
+    {
+        Admin = 1, 
+        Teacher = 2, 
+        Student = 3
+    }
     
     public enum AlertType
     {

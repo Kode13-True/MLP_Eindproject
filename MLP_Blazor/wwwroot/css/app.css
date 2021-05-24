@@ -9,9 +9,15 @@ a, .btn-link {
 }
 
 .btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    color: white;
+    background-color: mediumblue;
+    border-color: mediumblue;
+}
+
+.btn-secondary{
+    color: black;
+    background-color: white;
+    border-color: black;
 }
 
 .content {
@@ -30,6 +36,59 @@ a, .btn-link {
     color: red;
 }
 
+.middle-box {
+    margin: auto;
+    margin-top: 10px;
+    width: 350px;
+    height: auto;
+    padding: 10px;
+    box-shadow: 5px 10px 18px #888888;
+    border-radius: 20px;
+    background-color: #1C3144;
+    color: aliceblue;
+}
+
+*{box-sizing: border-box}
+.container{
+    
+}
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 4px 0;
+    display: inline-block;
+    border: medium;
+    background: #E1E7F4;
+    color: #1C3144;
+    font-size: small;
+}
+input[type=text]:focus, input[type=password]:focus {
+    background-color: #E1E7F4;
+    color: #1C3144;
+    outline: none;
+    font-size: small;
+}
+a {
+    color: #FA9500;
+}
+.btn-register {
+    background-color: aliceblue;
+    color: #1C3144;
+    margin: auto;
+    border: none;
+    cursor: pointer;
+    width: 45%;
+    opacity: 0.9;
+    font-size: small;
+    align-content: center;     
+}
+label {
+    margin-top: 8px;
+    margin-left: 4px;
+    font-weight: bold;
+    font-size: small;
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
@@ -42,9 +101,10 @@ a, .btn-link {
     z-index: 1000;
 }
 
-    #blazor-error-ui .dismiss {
-        cursor: pointer;
-        position: absolute;
-        right: 0.75rem;
-        top: 0.5rem;
-    }
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}
+    
