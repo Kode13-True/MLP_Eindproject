@@ -213,5 +213,14 @@ namespace MLP_Eindproject.API.Services
             emailIsNotAvailable = _context.Students.Any(x => x.Email == email);
             return emailIsNotAvailable;
         }
+
+        public PersonType GetPersonType(int id)
+        {
+            var admin = _context.Admins.Find(id);
+            if(admin is not null) { return PersonType.Admin; }
+            var teacher = _context.Teachers.Find(id);
+            if (teacher is not null) { return PersonType.Teacher; } 
+            else { return PersonType.Student; }
+        }
     }
 }

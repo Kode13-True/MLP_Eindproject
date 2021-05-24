@@ -19,5 +19,6 @@ namespace MLP_Eindproject.API.Services.Interfaces
         Task AddAdminToDb(Admin admin);
         Task LogUserOut(string token);
         bool CheckEmailAvailability(string email);
+        PersonType GetPersonType(int id);
     }
 }

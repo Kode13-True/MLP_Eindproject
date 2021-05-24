@@ -26,7 +26,7 @@ namespace MLP_Eindproject.API.Controllers
         }
 
         [HttpPost("Authenticate")]
-        public ActionResult<int> Authenticate([FromBody] string token)
+        public ActionResult<ResponseAuthenticationDTO> Authenticate([FromBody] string token)
         {
             
             var activeUser = _userService.UserExistanceByToken(token);
@@ -41,8 +41,9 @@ namespace MLP_Eindproject.API.Controllers
             {
                 return BadRequest("Your session has been ended, please log in again");
             }
-
-            return Ok(id);
+            var personType = _userService.GetPersonType(id);
+            var responseUserInfo = new ResponseAuthenticationDTO { Id = id, PersonType = personType };
+            return Ok(responseUserInfo);
         }
         [HttpPost("LogIn")]
         public async Task<ActionResult<string>> LogIn(LoginUserDTO loginUserDTO)
@@ -57,16 +58,17 @@ namespace MLP_Eindproject.API.Controllers
             return Ok(token);
         }
         [HttpPost("Register")]
-        public async Task<ActionResult> Register(RegisterUserDTO registerUserDTO)
+        public async Task<ActionResult<ResponseRegisterUserDTO>> Register(RegisterUserDTO registerUserDTO)
         {            
             if (registerUserDTO is null)
             {
                 throw new ArgumentNullException(nameof(registerUserDTO));
             }
+            ResponseRegisterUserDTO registerUser;
             var isEmailNotAvailable = _userService.CheckEmailAvailability(registerUserDTO.Email);
             if(isEmailNotAvailable == true)
             {
-                return BadRequest("Email not available");
+                return BadRequest(registerUser = new ResponseRegisterUserDTO { Message = "Email is already in use", IsSucces = false });
             }
             registerUserDTO.Password = _userService.HashForRegistrationAndLogin(registerUserDTO.Password);
             if (registerUserDTO.IsAdmin is true)
@@ -86,7 +88,7 @@ namespace MLP_Eindproject.API.Controllers
             }
             
             
-            return Ok();
+            return Ok(registerUser = new ResponseRegisterUserDTO { Message = "You registered correctly", IsSucces = true });
         }
         [HttpPost("LogOut")]
         public async Task<ActionResult> LogOut(string token)

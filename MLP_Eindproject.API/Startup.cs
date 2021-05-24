@@ -35,7 +35,9 @@ namespace MLP_Eindproject.API
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder =>
-                builder.WithOrigins("https://localhost:44320"));
+
+                builder.WithOrigins("https://localhost:44320").AllowAnyHeader().AllowAnyMethod());
+
             });
             services.AddControllers();
             services.AddSwaggerGen(c =>
