@@ -32,6 +32,11 @@ namespace MLP_Eindproject.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(typeof(Startup));
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                builder.WithOrigins("https://localhost:44320"));
+            });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -68,6 +73,8 @@ namespace MLP_Eindproject.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 

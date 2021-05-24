@@ -20,6 +20,7 @@ namespace MLP_DbLibrary.Models
 
     public enum InstrumentName
     {
+        Vocals,
         Piano,
         Guitar,
         Violin,
