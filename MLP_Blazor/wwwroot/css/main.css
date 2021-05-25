@@ -7520,7 +7520,7 @@ a, .btn-link {
   background-color: #E1E7F4 !important;
   border-color: #679289 !important; }
 
-.btn, .btn-primary {
+.btn-primary {
   color: #679289 !important;
   background-color: #1C3144 !important;
   border-color: #679289 !important; }
@@ -7577,6 +7577,10 @@ input[type=text]:focus, input[type=password]:focus {
   width: 45%;
   opacity: 0.9;
   align-content: center; }
+
+.btn-logout {
+  background-color: aliceblue;
+  color: #1C3144; }
 
 label {
   margin-top: 8px;

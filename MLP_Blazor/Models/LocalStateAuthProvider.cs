@@ -31,10 +31,17 @@ namespace MLP_Blazor.Models
 
                 var identity = new ClaimsIdentity(claims, "BearerToken");
                 var user = new ClaimsPrincipal(identity);
-
-                return new AuthenticationState(user);
+                var state = new AuthenticationState(user);
+                NotifyAuthenticationStateChanged(Task.FromResult(state));
+                return state;
             }
             return new AuthenticationState(new ClaimsPrincipal());
+        }
+
+        public async Task LogoutAsync()
+        {
+            await _localStorageService.RemoveItemAsync("User");
+            NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(new ClaimsPrincipal())));
         }
     }
 }
