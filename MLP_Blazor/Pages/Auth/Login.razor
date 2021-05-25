@@ -5,6 +5,7 @@
 @inject HttpClient Client
 @inject NavigationManager NavManager
 @inject ILocalStorageService LocalStorage
+@inject AuthenticationStateProvider AuthStateProvider
 
 <div class="container-fluid pt-5 d-flex justify-content-center">
     <div class="row g-3">
@@ -72,6 +73,7 @@
             };
 
             await LocalStorage.SetItemAsync<LocalAuthUser>("User", userInfo);
+            await AuthStateProvider.GetAuthenticationStateAsync();
             NavManager.NavigateTo($"/");
         }
         else
