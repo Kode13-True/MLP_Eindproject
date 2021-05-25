@@ -1,8 +1,72 @@
 ﻿@page "/Teachers"
+@inject HttpClient Client
+@using MLP_DbLibrary.DTO.PersonDTO
 
-<div class="mt-5 pt-5"></div>
-<h3>Teachers</h3>
+<div class="container-fluid p-5">
+    <br /><br />
+    <h1 class="display-3">Teachers Overview</h1>
+</div>
+@if (teachers == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+<div class="card-columns">
+    <div class="row g-2">
+        <div class="col-md-4 g-2">
+            @foreach (var teacher in teachers)
+            {
+
+                <div class="card inline-block" style="width: 18rem;">
+                    <img src="/images/user.png" class="card-img-top" alt="...">
+                    <div class="card-body align-content-center">
+                        <h5 class="card-title text-center">@teacher.FirstName @teacher.LastName</h5>
+                        <p class="card-text">@teacher.Description</p>
+                        <p class="card-footer">Rating = @teacher.Rating</p>
+                        <a href="#" class="btn btn-primary w-100">Available Lessons</a>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-3">
+        @foreach (var teacher in teachers)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center">@teacher.FirstName @teacher.LastName</h5>
+                    <p class="card-text">@teacher.Description</p>
+                    <p class="card-footer">Rating = @teacher.Rating</p>
+                    <a href="#" class="btn btn-primary w-100">Available Lessons</a>
+                </div>
+            </div>
+         }
+    </div>
+    <div class="col-sm-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Special title treatment</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+}
 
 @code {
+    private List<ResponseTeacherDTO> teachers = new List<ResponseTeacherDTO>();
 
+    protected override async Task OnInitializedAsync()
+    {
+        teachers = await Client.GetFromJsonAsync<List<ResponseTeacherDTO>>("https://localhost:44397/api/Teacher/GetAll");
+
+    }
 }
