@@ -1,8 +1,9 @@
 ﻿@page "/"
 
 @inject HttpClient Client
-@using MLP_DbLibrary.DTO.LessonDTO
 
+@using MLP_DbLibrary.DTO.LessonDTO
+@using Microsoft.AspNetCore.Components.Authorization; 
 
 
 @if (lessons == null)
@@ -11,30 +12,30 @@
 }
 else
 {
-<div class="jumbotron p-5" style="background-image: url(/images/dominik-vanyi-horses.jpg); background-size: cover; background-position-x: center; height:95vh;">
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <h1 class="display-4">your Music Hub </h1>
-    <h3>Music is a dish best served cold. </h3>
-    <br />
-    <br />
-    <p class="lead">Learn or Teach music skills in a "1 ON 1" relationship.</p>
-    <hr class="my-4">
-    <br />
-    <br />
-    <br />
-    <br />
-    <p>the MUB provides a private music lesson platform for your needs, check out the lessons below or go to the teacher overview to get to know the teachers.</p>
-    <p>Musicians/Teachers, make that offer that can't be refused!</p>
-    <br />
-    <br />
-    <br />
-    <br />
-</div>
+    <div class="jumbotron p-5" style="background-image: url(/images/dominik-vanyi-horses.jpg); background-size: cover; background-position-x: center; height:95vh;">
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <h1 class="display-4">your Music Hub </h1>
+        <h3>Music is a dish best served cold. </h3>
+        <br />
+        <br />
+        <p class="lead">Learn or Teach music skills in a "1 ON 1" relationship.</p>
+        <hr class="my-4">
+        <br />
+        <br />
+        <br />
+        <br />
+        <p>the MUB provides a private music lesson platform for your needs, check out the lessons below or go to the teacher overview to get to know the teachers.</p>
+        <p>Musicians/Teachers, make that offer that can't be refused!</p>
+        <br />
+        <br />
+        <br />
+        <br />
+    </div>
     <div class="container-fluid">
         <div class="container"></div>
         <table class="table table-striped table-hover m-auto ">
@@ -67,8 +68,24 @@ else
             </tbody>
         </table>
     </div>
-
-
+    @* Preview Authentication + role usage
+        <div>
+        <CascadingAuthenticationState>
+            <AuthorizeView>
+                <Authorized>
+                    if(@context.User.IsInRole("Admin"))
+                    {
+                     
+                    }
+                    
+                </Authorized>
+                <NotAuthorized>
+                    
+                </NotAuthorized>
+            </AuthorizeView>
+        </CascadingAuthenticationState>
+    </div>*@
+    
 }
 
 @code {
