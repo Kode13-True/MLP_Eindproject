@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,6 +43,22 @@ namespace MLP_Blazor.Models
         {
             await _localStorageService.RemoveItemAsync("User");
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(new ClaimsPrincipal())));
+        }
+
+        public async Task<bool> AuthenticationForLoginSession(HttpResponseMessage response)
+        {
+            
+            if (response.IsSuccessStatusCode)
+            {
+                return false;
+            }
+            else
+            {
+                await LogoutAsync();
+                return true;
+            }
+
+
         }
     }
 }
