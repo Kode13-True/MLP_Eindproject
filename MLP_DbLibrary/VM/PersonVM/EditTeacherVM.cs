@@ -4,16 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MLP_DbLibrary.DTO.PersonDTO
+namespace MLP_DbLibrary.VM.PersonVM
 {
-    public class ResponseTeacherDTO
+    public class EditTeacherVM
     {
-        public int Id { get; set; }
-        public DateTime DOC { get; set; }
         public string Email { get; set; }
+        public string Password { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Description { get; set; }
-        public double Rating { get; set; }
     }
 }

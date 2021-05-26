@@ -1,13 +1,4 @@
-﻿@code {
-    bool collapseNavMenu = true;
-
-    string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}
+﻿
 <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom mb-3 fixed-top">
 
     <div class="container-fluid px-5">
@@ -37,3 +28,13 @@
         </div>
     </div>
 </nav>
+@code {
+    bool collapseNavMenu = true;
+
+    string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

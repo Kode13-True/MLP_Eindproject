@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MLP_DbLibrary.DTO.PersonDTO
+namespace MLP_DbLibrary.VM.PersonVM
 {
-    public class ResponseTeacherDTO
+    public class ResponseTeacherVM
     {
         public int Id { get; set; }
         public DateTime DOC { get; set; }
