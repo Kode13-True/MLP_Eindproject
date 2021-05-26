@@ -1,5 +1,5 @@
 ﻿@page "/"
-
+@using Microsoft.AspNetCore.Components.Authorization; 
 @inject IMapper _mapper
 @inject HttpClient Client
 @inject NavigationManager NavManager
@@ -10,6 +10,7 @@
 }
 else
 {
+
     <div class="jumbotron p-5" style="background-image: url(/images/dominik-vanyi-horses.jpg); background-size: cover; background-position-x: center; height:95vh;">
         <br />
         <br />
@@ -43,19 +44,19 @@ else
             <hr class="my-4">
             <table class="table table-striped table-hover m-auto">
                 <thead>
-                    <tr>
-                        <th><div class="d-inline-block">Instrument</div></th>
-                        <th><div class="d-inline-block">Style</div></th>
-                        <th><div class="d-none d-md-inline-block">Level</div></th>
-                        <th><div class="d-inline-block">Location</div></th>
-                        <th><div class="d-inline-block">Date</div></th>
-                        <th><div class="d-none d-md-inline-block">Start</div></th>
-                        <th><div class="d-none d-md-inline-block">End</div></th>
-                        <th><div class="d-none d-md-inline-block">Teacher</div></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var lesson in lessonsVM)
+                <tr>
+                    <th><div class="d-inline-block">Instrument</div></th>
+                    <th><div class="d-inline-block">Style</div></th>
+                    <th><div class="d-none d-md-inline-block">Level</div></th>
+                    <th><div class="d-inline-block">Location</div></th>
+                    <th><div class="d-inline-block">Date</div></th>
+                    <th><div class="d-none d-md-inline-block">Start</div></th>
+                    <th><div class="d-none d-md-inline-block">End</div></th>
+                    <th><div class="d-none d-md-inline-block">Teacher</div></th>
+                </tr>
+            </thead>
+            <tbody>
+                 @foreach (var lesson in lessonsVM)
                     {
                         <tr>
                             <td><div class="d-inline-block">@lesson.InstrumentName</div></td>
@@ -72,9 +73,25 @@ else
             </table>
         </div>
     </section>
-
-
 }
+    @* Preview Authentication + role usage
+        <div>
+        <CascadingAuthenticationState>
+            <AuthorizeView>
+                <Authorized>
+                    if(@context.User.IsInRole("Admin"))
+                    {
+                     
+                    }
+                    
+                </Authorized>
+                <NotAuthorized>
+                    
+                </NotAuthorized>
+            </AuthorizeView>
+        </CascadingAuthenticationState>
+    </div>*@
+
 
 @code {
     private List<ResponseLessonVM> lessonsVM = new List<ResponseLessonVM>();

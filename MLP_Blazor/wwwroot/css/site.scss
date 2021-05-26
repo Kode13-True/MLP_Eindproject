@@ -94,6 +94,64 @@ a, .btn-link {
     color: #679289;
 }
 
+.valid.modified:not([type=checkbox]) {
+    outline: 1px solid #26b050;
+}
+
+.invalid {
+    outline: 1px solid red;
+}
+
+.validation-message {
+    color: red;
+}
+
+.form-control {
+    background-color: #E1E7F4;
+    border-color: #1C3144;
+}
+input[type=text], input[type=password], input[type=email] {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 4px 0;
+    display: inline-block;
+    border: solid, thin;
+    border-color: #1C3144;
+    background-color: #E1E7F4;
+    color: #1C3144;
+   
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    background-color: #E1E7F4;
+    color: #1C3144;
+    outline: none;
+    
+}
+
+.btn-register {
+    background-color: aliceblue;
+    color: #1C3144;
+    margin: auto;
+    border: solid, thin;
+    cursor: pointer;
+    width: 45%;
+    opacity: 0.9;    
+    align-content: center;
+   
+}
+.btn-logout {
+    background-color: aliceblue;
+    color: #1C3144;
+}
+
+label {
+    margin-top: 8px;
+    margin-left: 4px;
+    font-weight: bold;   
+}
+
+
 #blazor-error-ui {
     background: #A63A50;
     bottom: 0;
