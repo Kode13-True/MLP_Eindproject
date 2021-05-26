@@ -30,8 +30,8 @@ namespace MLP_DbLibrary.Seeding
                     Password = "Test1234",
                     FirstName = "Zaine",
                     LastName = "Rodrigues",
-                    Description = "Darker Zach Effron, better singer too!",
-                    Rating = 0
+                    Description = "Now enrolling in Music Theory for Everyday Guitarists, a group class especially for guitarists eager to understand music and the guitar at a deeper level.  You'll learn to find the notes on the fretboard and how to construct chords and scales independently of charts and diagrams.",
+                    Rating = 4.2
                 });
                 db.Teachers.Add(new Teacher
                 {
@@ -40,8 +40,8 @@ namespace MLP_DbLibrary.Seeding
                     Password = "Test1234",
                     FirstName = "Mallory",
                     LastName = "Kearns",
-                    Description = "Pretty not so young thing!",
-                    Rating = 0
+                    Description = "Mallory Kearns guitar, piano, ukulele, voice, banjo, songwriting.  Mallory graduated Cum Laude from Berklee College of Music as a guitar principle with a B.A. in Songwriting.  He plays and teaches rock, jazz, blues, classical, pop, folk, bluegrass and other traditional music genres.",
+                    Rating = 4.6
                 });
                 db.Teachers.Add(new Teacher
                 {
@@ -51,7 +51,7 @@ namespace MLP_DbLibrary.Seeding
                     FirstName = "Rehaan",
                     LastName = "Hamer",
                     Description = "Den enigen echte!",
-                    Rating = 0
+                    Rating = 3.8
                 });
                 db.Teachers.Add(new Teacher
                 {
@@ -61,7 +61,7 @@ namespace MLP_DbLibrary.Seeding
                     FirstName = "Ferne",
                     LastName = "Woolley",
                     Description = "I'm cuddly!",
-                    Rating = 0
+                    Rating = 4.8
                 });
                 db.Teachers.Add(new Teacher
                 {
@@ -71,7 +71,7 @@ namespace MLP_DbLibrary.Seeding
                     FirstName = "Usman",
                     LastName = "Mata",
                     Description = "I always Mata!",
-                    Rating = 0
+                    Rating = 4.1
                 });
                 db.Teachers.Add(new Teacher
                 {
@@ -81,7 +81,7 @@ namespace MLP_DbLibrary.Seeding
                     FirstName = "Nicole",
                     LastName = "Nunez",
                     Description = "I'm the old harsh spanish teacher lady!",
-                    Rating = 0
+                    Rating = 3.7
                 });
                 db.Teachers.Add(new Teacher
                 {
@@ -91,7 +91,7 @@ namespace MLP_DbLibrary.Seeding
                     FirstName = "Claire",
                     LastName = "Soto",
                     Description = "Its a pleasure to meet you!",
-                    Rating = 0
+                    Rating = 4.5
                 });
                 db.Teachers.Add(new Teacher
                 {
@@ -102,7 +102,7 @@ namespace MLP_DbLibrary.Seeding
                     FirstName = "Sean",
                     LastName = "Jean",
                     Description = "99 problems but piano ain't one",
-                    Rating = 0
+                    Rating = 3.9
                 });
                 db.SaveChanges();
             }

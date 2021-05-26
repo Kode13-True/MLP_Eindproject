@@ -33,7 +33,7 @@ namespace MLP_Eindproject.API.Services
 
         public List<Teacher> GetAllTeachers()
         {
-            var listOfTeachers = _context.Teachers.ToList();
+            var listOfTeachers = _context.Teachers.OrderByDescending(t => t.Rating).ToList();
             return listOfTeachers;
         }
 

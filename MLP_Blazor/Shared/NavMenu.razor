@@ -1,23 +1,5 @@
-﻿@inject AuthenticationStateProvider authenticationStateProvider
+@inject AuthenticationStateProvider authenticationStateProvider
 @inject NavigationManager navManager
-
-@code {
-    bool collapseNavMenu = true;
-
-    string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-
-    async void logout()
-    {
-        var localStateAuthProvider = (LocalStateAuthProvider)authenticationStateProvider;
-        await localStateAuthProvider.LogoutAsync();
-        navManager.NavigateTo("/auth/login");
-    }
-}
 
 <CascadingAuthenticationState>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom mb-3 fixed-top">
@@ -60,5 +42,20 @@
     </nav>
 </CascadingAuthenticationState>
 
+@code {
+    bool collapseNavMenu = true;
 
+    string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
+    void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    async void logout()
+    {
+        var localStateAuthProvider = (LocalStateAuthProvider)authenticationStateProvider;
+        await localStateAuthProvider.LogoutAsync();
+        navManager.NavigateTo("/auth/login");
+    }
+}

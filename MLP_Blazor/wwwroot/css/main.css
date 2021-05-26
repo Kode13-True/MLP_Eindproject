@@ -7495,6 +7495,28 @@ html, body {
 h1, .h1, p, .jumbotron {
   color: #E1E7F4 !important; }
 
+.table {
+  background-color: #1C3144 !important;
+  color: #E1E7F4 !important;
+  border-width: medium !important; }
+
+.tr {
+  border-width: medium !important; }
+
+.table-striped > tbody > tr:nth-child(odd) > td {
+  background-color: #679289 !important;
+  color: #1C3144 !important; }
+
+.table-striped > tbody > tr:nth-child(even) > td {
+  background-color: #E1E7F4 !important;
+  color: #1C3144 !important; }
+
+.table-hover > tbody > tr:hover {
+  border-color: #FA9500 !important;
+  border-top-width: medium !important;
+  border-bottom-width: medium !important;
+  cursor: pointer; }
+
 .navbar {
   color: #1C3144 !important;
   background-color: #E1E7F4 !important;
@@ -7514,6 +7536,12 @@ h1, .h1, p, .jumbotron {
 
 h3, .h3, .display-3 {
   color: #1C3144 !important; }
+
+.card {
+  background-color: #1C3144 !important; }
+
+h5, .h5, .card-title {
+  color: #679289 !important; }
 
 a, .btn-link {
   color: #679289 !important;
