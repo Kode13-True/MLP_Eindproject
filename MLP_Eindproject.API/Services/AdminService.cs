@@ -51,7 +51,6 @@ namespace MLP_Eindproject.API.Services
             personToEdit.FirstName = adminEditValue.FirstName;
             personToEdit.LastName = adminEditValue.LastName;
             personToEdit.Email = adminEditValue.Email;
-            personToEdit.Password = adminEditValue.Password;
             _context.Admins.Update(personToEdit);
             await _context.SaveChangesAsync();
             return personToEdit;

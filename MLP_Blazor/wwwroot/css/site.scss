@@ -32,7 +32,9 @@ h1, p, .jumbotron {
     border-bottom-width: medium !important;
     cursor: pointer;
 }
-
+textarea {
+    background-color: #E1E7F4;
+}
 
 .navbar {
     color: #1C3144 !important;
@@ -61,9 +63,13 @@ h5, .card-title {
     color: #679289 !important;
 }
 
-a, .btn-link {
+.btn-link {
     color: #679289 !important;
     background-color: #E1E7F4 !important;
+    border-color: #679289 !important;
+}
+a {
+    color: #679289 !important;
     border-color: #679289 !important;
 }
 
@@ -109,13 +115,13 @@ a, .btn-link {
 .form-control {
     background-color: #E1E7F4;
     border-color: #1C3144;
+    border-width: thin; 
 }
 input[type=text], input[type=password], input[type=email] {
     width: 100%;
     padding: 8px;
     margin: 5px 0 4px 0;
     display: inline-block;
-    border: solid, thin;
     border-color: #1C3144;
     background-color: #E1E7F4;
     color: #1C3144;
@@ -145,11 +151,11 @@ input[type=text]:focus, input[type=password]:focus {
     color: #1C3144;
 }
 
-label {
+/*label {
     margin-top: 8px;
     margin-left: 4px;
     font-weight: bold;   
-}
+}*/
 
 
 #blazor-error-ui {

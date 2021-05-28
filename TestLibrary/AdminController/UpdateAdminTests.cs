@@ -24,7 +24,6 @@ namespace MLP_TestLibrary.AdminController
             var testItem = new EditAdminDTO
             {
                 Email = email,
-                Password = password,
                 FirstName = firstName,
                 LastName = lastName,
             };
