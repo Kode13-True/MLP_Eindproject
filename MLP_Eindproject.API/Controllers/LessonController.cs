@@ -108,6 +108,7 @@ namespace MLP_Eindproject.API.Controllers
         public async Task<ActionResult<ResponseLessonDTO>> BookLesson(int studentId, int lessonId)
         {
             var responseLesson = await _lessonService.BookLesson(studentId, lessonId);
+            if(responseLesson is null) { return BadRequest(); }
             var responseLessonDTO = _mapper.Map<ResponseLessonDTO>(responseLesson);
             return Ok(responseLessonDTO);
         }

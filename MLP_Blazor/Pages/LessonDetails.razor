@@ -1,0 +1,285 @@
+﻿@page "/LessonDetails/{lessonId:int}"
+
+
+@inject IMapper _mapper
+@inject HttpClient Client
+@inject NavigationManager NavManager
+@inject ILocalStorageService LocalStorageService
+@inject AuthenticationStateProvider AuthStateProvider
+
+<CascadingAuthenticationState>
+    <div class="container-fluid p-5">
+        <h1 class="display-3">Lesson Details</h1>
+        <hr class="my-4">
+        <div class="container align-content-center p-5">
+            <div class="card-columns">
+                <div class="row">
+                    <div class="card d-inline-block m-auto" style="width: 54rem;">
+
+                        <div class="card-body align-content-center">
+                            <h5 class="card-title text-center">@lesson.InstrumentName @lesson.InstrumentStyle</h5>
+                            <hr />
+                            <div id="errorMessage" hidden="@hiddenMessage" class="alert alert-info col-md-12">@message <span @onclick="HideMessage">x</span></div>
+                            <div id="AreYouSureMessage" hidden="@hiddenDeleteMessage" class="alert alert-info col-md-12">
+                                Are you sure?<span @onclick="YesDelete">[yes]</span>/<span @onclick="NoDelete">[no]</span>
+                            </div>
+                            <div id="AreYouSureMessage" hidden="@hiddenCancelMessage" class="alert alert-info col-md-12">
+                                Are you sure?<span @onclick="YesCancel">[yes]</span>/<span @onclick="NoCancel">[no]</span>
+                            </div>
+                            <p class="card-text text-center">Difficulty: @lesson.LessonLevel</p>
+                            <p class="card-text text-center">Start: @lesson.Start.ToShortTimeString() @lesson.Start.ToShortDateString()</p>
+                            <p class="card-text text-center">Stop: @lesson.Stop.ToShortTimeString() @lesson.Stop.ToShortDateString()</p>
+                            <p class="card-text text-center">Address: @lesson.Street @lesson.Number, @lesson.Postal @lesson.Township</p>
+                            <p class="card-text text-center">Teacher: @lesson.TeacherFirstName @lesson.TeacherLastName</p>
+                            <p class="card-text text-center">Rating: @lesson.TeacherRating</p>
+                            <AuthorizeView>
+                                <Authorized>
+                                    @if (context.User.IsInRole("Student"))
+                                    {
+                                        <button hidden="@hiddenBookButton" class="btn btn-primary w-100" @onclick="BookLesson">Book Lesson</button>
+                                        <button hidden="@hiddenCancelButton" class="btn btn-primary w-100" @onclick="CancelLesson">Cancel Lesson</button>
+                                    }
+                                    @if (context.User.IsInRole("Teacher"))
+                                    {
+                                        <button hidden="@hiddenEditButton" @onclick="EditLesson" class="btn btn-primary w-100">Edit Lesson</button>
+                                        <button hidden="@hiddenDeleteButton" @onclick="DeleteLesson" class="btn btn-primary w-100">Delete Lesson</button>
+                                    }
+                                </Authorized>
+                            </AuthorizeView>
+
+                            <a href="/" class="btn btn-primary w-100">Back to list</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</CascadingAuthenticationState>
+
+@code {
+    public ResponseLessonVM lesson = new ResponseLessonVM();
+
+    LocalAuthUser user;
+
+    string message = string.Empty;
+
+
+    public bool hiddenMessage = true;
+    public bool hiddenDeleteMessage = true;
+    public bool hiddenCancelMessage = true;
+    public bool hiddenBookButton = false;
+    public bool hiddenCancelButton = true;
+    public bool hiddenEditButton = true;
+    public bool hiddenDeleteButton = true;
+
+    ResponseLessonDTO lessonDTO;
+
+    [Parameter]
+    public int lessonId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Authentication();
+
+        user = await LocalStorageService.GetItemAsync<LocalAuthUser>("User");
+
+        lessonDTO = await Client.GetFromJsonAsync<ResponseLessonDTO>("https://localhost:44397/api/lesson/GetOne/" + lessonId);
+        lesson = _mapper.Map<ResponseLessonVM>(lessonDTO);
+        if (lesson.StudentId is not null)
+        {
+            hiddenBookButton = true;
+        }
+        if(user is not null)
+        {
+            if (lesson.StudentId == user.Id && lesson.Start > DateTime.Now.AddHours(48))
+            {
+                hiddenCancelButton = false;
+            }
+
+            if(lesson.TeacherId == user.Id)
+            {
+                if (lesson.StudentId is null)
+                {
+                    hiddenEditButton = false;
+                    hiddenDeleteButton = false;
+                }
+            }
+        }
+
+
+    }
+
+    //bookingForStudent
+
+    public async void BookLesson()
+    {
+        if (user is not null)
+        {
+            await Authentication();
+            var bookingResponse = await Client.GetFromJsonAsync<HttpResponseMessage>("https://localhost:44397/api/lesson/BookLesson/" + user.Id + "/" + lessonId);
+            if (bookingResponse.IsSuccessStatusCode)
+            {
+                message = "Lesson was succesfully booked";
+                hiddenMessage = false;
+
+            }
+            else
+            {
+                message = "Lesson has already been booked.";
+                hiddenMessage = false;
+            }
+        }
+        else
+        {
+            NavManager.NavigateTo("/Auth/login");
+        }
+        lessonDTO = await Client.GetFromJsonAsync<ResponseLessonDTO>("https://localhost:44397/api/lesson/getone/" + lessonId);
+        lesson = _mapper.Map<ResponseLessonVM>(lessonDTO);
+        if (lesson.StudentId is not null)
+        {
+            hiddenBookButton = true;
+        }
+        if (lesson.StudentId == user.Id && lesson.Start > DateTime.Now.AddHours(48))
+        {
+            hiddenCancelButton = false;
+        }
+
+        NotifyChangedState();
+    }
+
+
+
+    //CancelLessonForStudent
+
+    public async void CancelLesson()
+    {
+        await Authentication();
+        hiddenCancelMessage = false;
+        NotifyChangedState();
+    }
+
+    public async void YesCancel()
+    {
+        hiddenCancelMessage = true;
+
+        if (user is not null)
+        {
+            var cancelResponse = await Client.GetFromJsonAsync<HttpResponseMessage>("https://localhost:44397/api/lesson/CancelLesson/" + lessonId);
+            if (cancelResponse.IsSuccessStatusCode)
+            {
+                message = "Lesson cancelled succesfully.";
+                hiddenMessage = false;
+            }
+            else
+            {
+                message = "Lesson cancel did not succeed.";
+                hiddenMessage = false;
+            }
+
+        }
+        else
+        {
+            NavManager.NavigateTo("/Auth/login");
+        }
+        lessonDTO = await Client.GetFromJsonAsync<ResponseLessonDTO>("https://localhost:44397/api/lesson/getone/" + lessonId);
+        lesson = _mapper.Map<ResponseLessonVM>(lessonDTO);
+        if (lesson.StudentId is null)
+        {
+            hiddenBookButton = false;
+            hiddenCancelButton = true;
+        }
+
+        NotifyChangedState();
+    }
+    public void NoCancel()
+    {
+        hiddenCancelMessage = true;
+    }
+
+    //EditLesson
+
+    public async void EditLesson()
+    {
+        await Authentication();
+        NavManager.NavigateTo("/lessondetails/editlesson/");
+
+    }
+
+
+    //LessonDeleteForTeacher
+
+    public async void DeleteLesson()
+    {
+        await Authentication();
+
+        hiddenDeleteMessage = false;
+        NotifyChangedState();
+    }
+
+    public async void YesDelete()
+    {
+        hiddenDeleteMessage = true;
+
+        if(user is not null)
+        {
+            var responseGet = await Client.GetFromJsonAsync<HttpResponseMessage>("https://localhost:44397/api/instrument/GetOneByLessonId/" + lessonId);
+            if (responseGet.IsSuccessStatusCode)
+            {
+                var instrumentString = await responseGet.Content.ReadAsStringAsync();
+                var instrumentToDelete = (ResponseInstrumentDTO)JsonConvert.DeserializeObject(instrumentString, typeof(ResponseInstrumentDTO));
+
+                var responseInstrumentDelete = await Client.DeleteAsync("https://localhost:44397/api/instrument/Delete/" + instrumentToDelete.Id);
+            }
+
+        }
+        else
+        {
+            NavManager.NavigateTo("/auth/login");
+        }
+        NotifyChangedState();
+    }
+
+    public void NoDelete()
+    {
+        hiddenDeleteMessage = true;
+    }
+
+
+
+    //Methods
+
+    private void NotifyChangedState() => StateHasChanged();
+
+
+    public void HideMessage()
+    {
+        hiddenMessage = true;
+    }
+
+    public async Task Authentication()
+    {
+        var localStateAuthProvider = (LocalStateAuthProvider)AuthStateProvider;
+        var sessionExpired = await localStateAuthProvider.AuthenticationForLoginSession(Client);
+        if (sessionExpired is true)
+        {
+            NavManager.NavigateTo("/auth/login");
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        var navUri = NavManager.Uri;
+        if (firstRender)
+        {
+            var timer = new Timer(new TimerCallback(_ =>
+            {
+                if (navUri == NavManager.Uri)
+                {
+                    NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
+                }
+
+            }), null, 600000, 600000);
+        }
+    }
+
+}

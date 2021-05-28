@@ -20,6 +20,7 @@
 
                             <DataAnnotationsValidator />
                             <ValidationSummary />
+                            <div hidden="@hiddenMessage" class="alert alert-info col-md-12">@message <span @onclick="HideMessage">x</span></div>
 
                             <div class="col-md-12">
                                 <label class="label">Email</label>
@@ -33,10 +34,9 @@
                                 <label class="label">Confirm Password</label>
                                 <input type="password" placeholder="Confrim Password" @bind-value="model.PasswordConfirm" />
                             </div>
-                            @if (!string.IsNullOrWhiteSpace(message))
-                            {
-                                <div class="alert alert-info col-md-12">@message <span @onclick="HideMessage">x</span></div>
-                            }
+
+
+
                             <div class="col-md-12">
                                 <label class="label">First Name</label>
                                 <input type="text" placeholder="Enter First Name" @bind-value="model.FirstName" />
@@ -59,7 +59,7 @@
                                 Already have an account?
                             </div>
                             <div class="col-12 d-flex justify-content-center" style="font-size: small">
-                                <a disabled="@isBusy" href="/auth/LogIn">Sign in</a>
+                                <a href="/auth/LogIn">Sign in</a>
                             </div>
                         </EditForm>
                     </NotAuthorized>
@@ -74,6 +74,8 @@
     @code {
         RegisterUserVM model = new RegisterUserVM { IsAdmin = false };
         bool isBusy = false;
+
+        bool hiddenMessage = true;
 
         string message = string.Empty;
 
@@ -90,16 +92,26 @@
                 {
 
                     NavManager.NavigateTo($"/auth/LogIn");
-                }                
+                }
+                else
+                {
+                    message = "Email is already in use.";
+                    hiddenMessage = false;
+                }
             }
             else
             {
-                message = "Password is not the same!";
+                message = "Passwords are not the same.";
+                hiddenMessage = false;
             }
             isBusy = false;
+            NotifyChangedState();
         }
+
         public void HideMessage()
         {
-            message = string.Empty;
+            hiddenMessage = true;
         }
+
+        private void NotifyChangedState() => StateHasChanged();
     }

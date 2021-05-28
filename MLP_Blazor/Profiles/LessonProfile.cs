@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using MLP_DbLibrary.DTO.InstrumentDTO;
 using MLP_DbLibrary.DTO.LessonDTO;
+using MLP_DbLibrary.DTO.LocationDTO;
 using MLP_DbLibrary.VM.LessonVM;
 using System;
 using System.Collections.Generic;
@@ -13,6 +15,9 @@ namespace MLP_Blazor.Profiles
         public LessonProfile()
         {
             CreateMap<ResponseLessonDTO, ResponseLessonVM>().ReverseMap();
+            CreateMap<CreateLessonDTO, CreateLessonVM>().ReverseMap();
+            CreateMap<CreateInstrumentDTO, CreateLessonVM>().ReverseMap();
+            CreateMap<CreateLocationDTO, CreateLessonVM>().ReverseMap();
         }
     }
 }

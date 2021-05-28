@@ -31,6 +31,11 @@ namespace MLP_Eindproject.API.Services
                 return instrument;
         }
 
+        public Instrument GetInstrumentByLessonId(int lessonId)
+        {
+            var instrument = _context.Instruments.Where(x => x.LessonId == lessonId).FirstOrDefault();
+            return instrument;
+        }
         public List<Instrument> GetAllInstruments()
         {
                 var listOfInstruments = _context.Instruments.ToList();
@@ -43,5 +48,7 @@ namespace MLP_Eindproject.API.Services
                 _context.Instruments.Remove(InstrumentToDelete);
                 await _context.SaveChangesAsync();        
         }
+
+       
     }
 }

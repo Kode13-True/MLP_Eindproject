@@ -32,10 +32,18 @@ namespace MLP_Eindproject.API.Services
                                                         .Include(x => x.Student)
                                                         .Include(x => x.Instrument)
                                                         .FirstOrDefaultAsync(x => x.Id == lessonId);
-            lessonToBook.StudentId = studentId;
-            lessonToBook.Booked = DateTime.Now;
-            await _context.SaveChangesAsync();
-            return lessonToBook;
+            if(lessonToBook.StudentId == null)
+            {
+                lessonToBook.StudentId = studentId;
+                lessonToBook.Booked = DateTime.Now;
+                await _context.SaveChangesAsync();
+                return lessonToBook;
+            }
+            else
+            {
+                return null;
+            }
+           
         }
         public async Task<Lesson> CancelLesson(int lessonId)
         {

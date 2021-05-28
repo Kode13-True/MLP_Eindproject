@@ -8,7 +8,7 @@
 @inject AuthenticationStateProvider AuthStateProvider
 
     <CascadingAuthenticationState>
-        <div class="container-fluid pt-5 d-flex justify-content-center">
+        <div class="container-fluid pt-5 d-flex justify-content-center" >
             <div class="row g-3">
                 <div class="form-control col-md-6">
                     <h4>Login</h4>
@@ -20,10 +20,9 @@
                             <EditForm Context="EditformContext" Model="model" OnValidSubmit="LoginUser">
                                 <DataAnnotationsValidator />
                                 <ValidationSummary />
-                                @if (!string.IsNullOrWhiteSpace(message))
-                                {
-                                    <div class="alert alert-info col-md-12">@message <span @onclick="HideMessage">x</span></div>
-                                }
+                               
+                                 <div hidden="@hiddenMessage" class="alert alert-info col-md-12">@message <span @onclick="HideMessage">x</span></div>
+                              
                                 <div class="col-md-12">
                                     <label class="label">Email</label>
                                     <input type="text" placeholder="name@example" @bind-value="model.Email" />
@@ -42,7 +41,7 @@
                                     Don't have an account yet?
                                 </div>
                                 <div class="col-12 d-flex justify-content-center" style="font-size: small">
-                                    <a disabled="@isBusy" href="/auth/Register">Register</a>
+                                    <a href="/auth/Register">Register</a>
                                 </div>
                             </EditForm>
                         </NotAuthorized>
@@ -57,7 +56,9 @@
 
         bool isBusy = false;
 
-        string message = string.Empty;
+        bool hiddenMessage = true;
+
+        string message = "Login credentials are not correct.";
 
         public async void LoginUser()
         {
@@ -85,13 +86,16 @@
             }
             else
             {
-                message = "Login credentials are not correct.";
+                hiddenMessage = false;
+                
             }
             isBusy = false;
+            NotifyChangedState();
         }
 
         public void HideMessage()
         {
-            message = string.Empty;
+            hiddenMessage = true;
         }
+        private void NotifyChangedState() => StateHasChanged();
     }
