@@ -48,6 +48,17 @@ namespace MLP_Eindproject.API.Controllers
             var instrumentDTO = _mapper.Map<ResponseInstrumentDTO>(instrument);
             return Ok(instrumentDTO);
         }
+        [HttpGet("GetOneByLessonId/{lessonId}")]
+        public ActionResult<ResponseInstrumentDTO> GetInstrumentBylessonId(int lessonId)
+        {
+            var instrument = _instrumentService.GetInstrumentByLessonId(lessonId);
+            if(instrument == null)
+            {
+                return NotFound();
+            }
+            var instrumentDTO = _mapper.Map<ResponseInstrumentDTO>(instrument);
+            return Ok(instrumentDTO);
+        }
 
         // GET: api/<InstrumentController>
         [HttpGet("GetAll")]

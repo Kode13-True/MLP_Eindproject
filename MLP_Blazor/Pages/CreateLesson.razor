@@ -1,0 +1,221 @@
+﻿@page "/createlesson"
+@layout MainLayout
+
+@inject IMapper _mapper
+@inject HttpClient Client
+@inject NavigationManager NavManager
+@inject ILocalStorageService LocalStorageService
+@inject AuthenticationStateProvider AuthStateProvider
+
+<CascadingAuthenticationState>
+    <div class="container-fluid pt-5 d-flex justify-content-center">
+        <div class="row g-3">
+            <div class="form-control col-md-6">
+                <h4>Create Lesson</h4>
+                <AuthorizeView Context="AuthorizeContext">
+                    <Authorized>
+                        @if (AuthorizeContext.User.IsInRole("Teacher"))
+                        {
+                            <EditForm Model="lessonModel" Context="EditformContext" OnValidSubmit="SubmitLesson">
+                                <DataAnnotationsValidator />
+                                <ValidationSummary />
+
+                                <div hidden="@hiddenMessage" class="alert alert-info col-md-12">@message <span @onclick="HideMessage">x</span></div>
+
+                                <div class="col-md-12">
+                                    <label class="label">Instrument Name</label>
+                                    <InputSelect @bind-Value="lessonModel.InstrumentName">
+                                        @foreach (var value in Enum.GetValues(typeof(InstrumentName)))
+                                            {
+                                            <option>@value</option>
+                                            }
+                                    </InputSelect>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Instrument Style</label>
+                                    <InputSelect @bind-Value="lessonModel.InstrumentStyle">
+                                        @foreach (var value in Enum.GetValues(typeof(InstrumentStyle)))
+                                            {
+                                            <option>@value</option>
+                                            }
+                                    </InputSelect>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Lesson Level</label>
+                                    <InputSelect @bind-Value="lessonModel.LessonLevel">
+                                        @foreach (var value in Enum.GetValues(typeof(LessonLevel)))
+                                            {
+                                            <option>@value</option>
+                                            }
+                                    </InputSelect>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Price</label>
+                                    <input type="number" placeholder="name@example" @bind-value="lessonModel.Price" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Start</label>
+                                    <input type="datetime" placeholder="Enter Password" @bind-value="lessonModel.Start" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Stop</label>
+                                    <input type="datetime" placeholder="Enter Password" @bind-value="lessonModel.Stop" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Street</label>
+                                    <input type="text" placeholder="Enter Password" @bind-value="lessonModel.Street" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Number</label>
+                                    <input type="text" placeholder="Enter Password" @bind-value="lessonModel.Number" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Postal</label>
+                                    <input type="text" placeholder="Enter Password" @bind-value="lessonModel.Postal" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Township</label>
+                                    <input type="text" placeholder="Enter Password" @bind-value="lessonModel.Township" />
+                                </div>
+
+                                <br />
+
+                                <div class="col-12 d-flex justify-content-center">
+                                    <button disabled="@isBusy" class="btn-register" style="" type="submit">Create</button>
+                                </div>
+                                <div class="col-12 d-flex justify-content-center">
+                                    <button disabled="@isBusy" class="btn-register" style="" type="button" @onclick="CancelCreation">Cancel</button>
+                                </div>
+                            </EditForm>
+                        }
+                        else
+                        { 
+                            <h3>You have no access to this page!<br />Go to <a href="/">Home</a></h3>
+                        }
+                    </Authorized>
+                    <NotAuthorized>
+                        <h3>You have no access to this page!<br />Go to <a href="/">Home</a></h3>                        
+                    </NotAuthorized>
+                </AuthorizeView>
+            </div>
+        </div>
+    </div>
+</CascadingAuthenticationState>
+
+@code {
+    CreateLessonVM lessonModel = new CreateLessonVM();
+
+
+    string message = string.Empty;
+    LocalAuthUser user;
+
+    bool isBusy = false;
+
+    bool hiddenMessage = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await LocalStorageService.GetItemAsync<LocalAuthUser>("User");
+        if (user is null)
+        {
+            NavManager.NavigateTo("/Auth/Login");
+        }
+        await Authentication();
+    }
+
+
+    public async void SubmitLesson()
+    {
+        isBusy = true;
+        if (user is not null)
+        {
+            await Authentication();
+
+            var lessonDTO = _mapper.Map<CreateLessonDTO>(lessonModel);
+            var locationDTO = _mapper.Map<CreateLocationDTO>(lessonModel);
+            var instrumentDTO = _mapper.Map<CreateInstrumentDTO>(lessonModel);
+
+            var responseLocation = await Client.PostAsJsonAsync("https://localhost:44397/api/location/create", locationDTO);
+            if (responseLocation.IsSuccessStatusCode)
+            {
+                var locationString = await responseLocation.Content.ReadAsStringAsync();
+                var location = (ResponseLocationDTO)JsonConvert.DeserializeObject(locationString, typeof(ResponseLocationDTO));
+                lessonDTO.LocationId = location.Id;
+
+                var responseLesson = await Client.PostAsJsonAsync("https://localhost:44397/api/lesson/createlesson/" + user.Id, lessonDTO);
+                if (responseLesson.IsSuccessStatusCode)
+                {
+                    var lessonString = await responseLesson.Content.ReadAsStringAsync();
+                    var lesson = (ResponseLessonDTO)JsonConvert.DeserializeObject(lessonString, typeof(ResponseLessonDTO));
+
+                    var responseInstrument = await Client.PostAsJsonAsync("https://localhost:44397/api/instrument/Create/" + lesson.Id, instrumentDTO);
+                    if (responseInstrument.IsSuccessStatusCode)
+                    {
+                        message = "Lesson succesfully created.";
+                        hiddenMessage = false;
+                    }
+                    else
+                    {
+                        message = "Something went wrong with creating the Instrument.";
+                        hiddenMessage = false;
+                    }
+                }
+                else
+                {
+                    message = "Something went wrong with creating the Lesson.";
+                    hiddenMessage = false;
+                }
+            }
+            else
+            {
+                message = "Something went wrong with creating the location.";
+                hiddenMessage = false;
+            }
+        }
+        else
+        {
+            NavManager.NavigateTo("/Auth/Login");
+        }
+
+        isBusy = false;
+        NotifyChangedState();
+
+    }
+
+    public void CancelCreation()
+    {
+        NavManager.NavigateTo("/");
+    }
+
+    //methods
+
+    private void NotifyChangedState() => StateHasChanged();
+
+    public void HideMessage() { hiddenMessage = true; }
+
+    public async Task Authentication()
+    {
+        var localStateAuthProvider = (LocalStateAuthProvider)AuthStateProvider;
+        var sessionExpired = await localStateAuthProvider.AuthenticationForLoginSession(Client);
+        if (sessionExpired is true)
+        {
+            NavManager.NavigateTo("/auth/login");
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        var navUri = NavManager.Uri;
+        if (firstRender)
+        {
+            var timer = new Timer(new TimerCallback(_ =>
+            {
+                if (navUri == NavManager.Uri)
+                {
+                    NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
+                }
+
+            }), null, 600000, 600000);
+        }
+    }
+}

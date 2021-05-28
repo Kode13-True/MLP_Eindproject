@@ -30,7 +30,7 @@ else
                 Photo by Dominik Vanyi on Unsplash
         </figcaption>   
     </div>
-    <section id="availableLessons">
+    <section id="availableLessons"/>
         <div class="container-fluid p-md-5 vh-100">
             <h1 class="display-3">Available lessons</h1>
             <hr class="my-4">
@@ -50,7 +50,8 @@ else
             <tbody>
                  @foreach (var lesson in lessonsVM)
                     {
-                        <tr>
+
+                        <tr @onclick="() => LessonDetails(lesson.Id)">
                             <td><div class="d-block">@lesson.InstrumentName</div></td>
                             <td><div class="d-block">@lesson.InstrumentStyle</div></td>
                             <td><div class="d-none d-md-block">@lesson.LessonLevel</div></td>
@@ -64,7 +65,7 @@ else
                 </tbody>
             </table>
         </div>
-    </section>
+ 
 }
      @*Preview Authentication + role usage
         <div>
@@ -85,32 +86,29 @@ else
     </div>*@
 
 
+
 @code {
+
+
     private List<ResponseLessonVM> lessonsVM = new List<ResponseLessonVM>();
 
-    public void GetAdminData()
+    public void LessonDetails(int id)
     {
-
+        NavManager.NavigateTo($"/lessondetails/{id}");
     }
     protected override async Task OnInitializedAsync()
     {
 
         var lessons = await Client.GetFromJsonAsync<List<ResponseLessonDTO>>("https://localhost:44397/api/Lesson/GetAllUnbooked");
         lessonsVM = Mapper.Map<List<ResponseLessonVM>>(lessons);
-
-
-        var user = await LocalStorageService.GetItemAsync<LocalAuthUser>("User");
-        if (user is not null)
+               
+        var localStateAuthProvider = (LocalStateAuthProvider)AuthStateProvider;
+        var sessionExpired = await localStateAuthProvider.AuthenticationForLoginSession(Client);
+        if(sessionExpired is true)
         {
-            var token = user.AuthToken;
-            var response = await Client.PostAsJsonAsync("https://localhost:44397/api/User/Authenticate", token);
-            var localStateAuthProvider = (LocalStateAuthProvider)AuthStateProvider;
-            var sessionExpired = await localStateAuthProvider.AuthenticationForLoginSession(response);
-            if(sessionExpired is true)
-            {
-                NavManager.NavigateTo("/auth/login");
-            }
+            NavManager.NavigateTo("/auth/login");
         }
+       
     }
 
     protected override void OnAfterRender(bool firstRender)

@@ -117,22 +117,20 @@ a {
     border-color: #1C3144;
     border-width: thin; 
 }
-input[type=text], input[type=password], input[type=email] {
+input[type=text], input[type=password], input[type=email], input[type=number], input[type=datetime] {
     width: 100%;
     padding: 8px;
     margin: 5px 0 4px 0;
     display: inline-block;
     border-color: #1C3144;
     background-color: #E1E7F4;
-    color: #1C3144;
-   
+    color: #1C3144;   
 }
 
-input[type=text]:focus, input[type=password]:focus {
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=number]:focus, input[type=datetime]:focus {
     background-color: #E1E7F4;
     color: #1C3144;
     outline: none;
-    
 }
 
 .btn-register {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using MLP_DbLibrary.DTO.InstrumentDTO;
 using MLP_DbLibrary.MLPContext;
 using MLP_DbLibrary.Models;
 using MLP_DbLibrary.Seeding;
@@ -7,18 +8,16 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MLP_TestLibrary.LessonController
+namespace MLP_TestLibrary.InstrumentController
 {
     [TestFixture]
-    public class BookLessonTests
+    public class GetOneInstrumentByLessonIdTest
     {
-       
-        [TestCase(20, 15)]
-        public void Book_Lesson_Succeeds(int lessonId, int studentId)
+        [TestCase(12)]
+        public void GetOne_Instrument_Succeeds(int lessonId)
         {
             //Arrange
             using (var scope = TestFixture.ServiceProvider.CreateScope())
@@ -26,22 +25,26 @@ namespace MLP_TestLibrary.LessonController
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
                 SeedData.DatabaseSeeding(db);
+
             }
 
             //Act
-            var response = TestFixture.Client.GetAsync($"api/Lesson/BookLesson/{studentId}/{lessonId}").Result;
-            Lesson lesson;
+            var response = TestFixture.Client.GetAsync($"api/Instrument/GetOneByLessonId/{lessonId}").Result;
+            var content = response.GetContent<ResponseInstrumentDTO>();
+
+            Instrument instrument;
             using (var scope = TestFixture.ServiceProvider.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
-                lesson = db.Lessons.Where(x => x.Id == lessonId).FirstOrDefault();
+                instrument = db.Instruments.Where(x => x.Id == content.Id).FirstOrDefault();
             }
+
             //Assert
             Assert.Multiple(() =>
             {
                 Assert.That(response.IsSuccessStatusCode, "Statuscode");
-                Assert.That(lesson.StudentId == studentId, "lesson is Booked");
+                Assert.That(instrument.LessonId == content.LessonId, "LessonId is correct");
             });
         }
     }

@@ -40,12 +40,13 @@ namespace MLP_TestLibrary.LessonController
            
             //Act
             var response = TestFixture.Client.PostJson($"api/Lesson/CreateLesson/{teacherId}", testItem);
+            var lessonContent = response.GetContent<ResponseLessonDTO>();
             Lesson lesson;
             using (var scope = TestFixture.ServiceProvider.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
-                lesson = db.Lessons.Where(x => x.TeacherId == teacherId && x.Price == price && x.Start == start && x.Stop == stop).FirstOrDefault();
+                lesson = db.Lessons.Find(lessonContent.Id);
             }
             //Assert
             Assert.Multiple(() =>
@@ -53,6 +54,17 @@ namespace MLP_TestLibrary.LessonController
                 Assert.That(response.IsSuccessStatusCode, "Statuscode");
                 Assert.That(lesson is not null, "Saved in Db");
             });
+
+            //CleanUp
+            using (var scope = TestFixture.ServiceProvider.CreateScope())
+            {
+                var scopedServices = scope.ServiceProvider;
+                var db = scopedServices.GetRequiredService<MLPDbContext>();
+                lesson = db.Lessons.Find(lessonContent.Id);
+                db.Lessons.Remove(lesson);
+                db.SaveChanges();
+            }
+
         }
     }
 }

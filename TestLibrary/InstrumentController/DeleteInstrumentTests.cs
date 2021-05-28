@@ -39,15 +39,15 @@ namespace MLP_TestLibrary.InstrumentController
                 SeedData.DatabaseSeeding(db);
             }
             var lessonResponse = TestFixture.Client.PostJson($"api/Lesson/CreateLesson/8", testItemLesson);
-            var content = lessonResponse.GetContent<ResponseLessonDTO>();
-            var instrumentCreateResponse = TestFixture.Client.PostJson($"api/Instrument/Create/{content.Id}", testItemInstrument);
+            var lessonContent = lessonResponse.GetContent<ResponseLessonDTO>();
+            var instrumentCreateResponse = TestFixture.Client.PostJson($"api/Instrument/Create/{lessonContent.Id}", testItemInstrument);
 
             Lesson lesson;
             using (var scope = TestFixture.ServiceProvider.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
-                lesson = db.Lessons.Where(x => x.Id == content.Id).Include(x => x.Instrument).FirstOrDefault();
+                lesson = db.Lessons.Where(x => x.Id == lessonContent.Id).Include(x => x.Instrument).FirstOrDefault();
             }
             var instrumentId = lesson.Instrument.Id;
             //Act
@@ -60,6 +60,7 @@ namespace MLP_TestLibrary.InstrumentController
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
                 instrument = db.Instruments.Find(instrumentId);
             }
+            
 
             //Assert
             Assert.Multiple(() =>
@@ -68,6 +69,16 @@ namespace MLP_TestLibrary.InstrumentController
                 Assert.That(instrument is null, "deleted from Db");
             });
 
+
+            //CleanUp
+            using (var scope = TestFixture.ServiceProvider.CreateScope())
+            {
+                var scopedServices = scope.ServiceProvider;
+                var db = scopedServices.GetRequiredService<MLPDbContext>();
+                var lessonToRemoveAfterTest = db.Lessons.Find(lessonContent.Id);
+                db.Lessons.Remove(lessonToRemoveAfterTest);
+                db.SaveChanges();
+            }
         }
     }
 }

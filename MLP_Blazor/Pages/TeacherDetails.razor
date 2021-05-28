@@ -2,6 +2,7 @@
 
 @inject HttpClient Client
 @inject IMapper _mapper
+@inject NavigationManager NavManager
 
 
 
@@ -44,7 +45,7 @@
         <tbody>
             @foreach (var lesson in lessons)
             {
-                <tr>
+                <tr @onclick="()=>GoToLessonDetails(lesson.Id)">
                     <td><div class="d-block">@lesson.InstrumentName</div></td>
                     <td><div class="d-block">@lesson.InstrumentStyle</div></td>
                     <td><div class="d-none d-md-block">@lesson.LessonLevel</div></td>
@@ -81,6 +82,11 @@
         teacher = _mapper.Map<ResponseTeacherVM>(teacherDTO);
         lessons = _mapper.Map<List<ResponseLessonVM>>(lessonsDTO);
     }
+
+    public void GoToLessonDetails(int id)
+        {
+            NavManager.NavigateTo($"/lessondetails/{id}");
+        }
 
 }
 

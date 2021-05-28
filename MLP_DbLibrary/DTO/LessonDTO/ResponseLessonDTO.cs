@@ -18,12 +18,14 @@ namespace MLP_DbLibrary.DTO.LessonDTO
         public string Number { get; set; }
         public string Postal { get; set; }
         public string Township { get; set; }
+        public int? TeacherId { get; set; }
         public string TeacherFirstName { get; set; }
         public string TeacherLastName { get; set; }
         public string InstrumentName { get; set; }
         public string InstrumentStyle { get; set; }
         public string TeacherDescription { get; set; }
         public double TeacherRating { get; set; }
+        public int? StudentId { get; set; }
         public string StudentFirstName { get; set; }
         public string StudentLastName { get; set; }        
         public LessonLevel LessonLevel { get; set; }

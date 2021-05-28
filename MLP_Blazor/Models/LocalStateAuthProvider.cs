@@ -1,11 +1,14 @@
 ﻿using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Security.Claims;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MLP_Blazor.Models
@@ -45,20 +48,24 @@ namespace MLP_Blazor.Models
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(new ClaimsPrincipal())));
         }
 
-        public async Task<bool> AuthenticationForLoginSession(HttpResponseMessage response)
+        public async Task<bool> AuthenticationForLoginSession(HttpClient client)
         {
-            
-            if (response.IsSuccessStatusCode)
+            var user = await _localStorageService.GetItemAsync<LocalAuthUser>("User");
+            if(user is not null) 
             {
-                return false;
+                var token = user.AuthToken;
+                var response = await client.PostAsJsonAsync("https://localhost:44397/api/User/Authenticate", token);
+                if (response.IsSuccessStatusCode)
+                {
+                    return false;
+                }
+                else
+                {
+                    await LogoutAsync();
+                    return true;
+                }
             }
-            else
-            {
-                await LogoutAsync();
-                return true;
-            }
-
-
-        }
+            return false;           
+        }      
     }
 }
