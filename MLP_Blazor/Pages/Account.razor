@@ -4,6 +4,8 @@
 @inject AuthenticationStateProvider AuthStateProvider
 @inject IMapper _mapper
 @inject ILocalStorageService LocalStorageService
+@inject NavigationManager NavManager
+
 <div>
     
     <div class="container-fluid p-5">
@@ -84,7 +86,7 @@
                             <tbody>
                                 @foreach (var lesson in teacherLessons)
                                 {
-                                    <tr>
+                                    <tr @onclick="() => LessonDetails(lesson.Id)">
                                         <td><div class="d-block">@lesson.InstrumentName</div></td>
                                         <td><div class="d-block">@lesson.InstrumentStyle</div></td>
                                         <td><div class="d-none d-md-block">@lesson.LessonLevel</div></td>
@@ -186,6 +188,11 @@
             }
 
         }
+    }
+
+    public void LessonDetails(int id)
+    {
+        NavManager.NavigateTo($"/lessondetails/{id}");
     }
 
 }
