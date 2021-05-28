@@ -1,0 +1,191 @@
+﻿@page "/Account"
+
+@inject HttpClient Client
+@inject AuthenticationStateProvider AuthStateProvider
+@inject IMapper _mapper
+@inject ILocalStorageService LocalStorageService
+<div>
+    
+    <div class="container-fluid p-5">
+        <CascadingAuthenticationState>
+            <h1 class="display-3">Mubster Account</h1>
+            <hr class="my-4">
+            <AuthorizeView>
+                <Authorized>
+                    @if (@context.User.IsInRole("Admin"))
+                    {
+                        <div class="container pb-3">
+                            Mubster Name : @admin.FirstName @admin.LastName<br />
+                            Mubster Email : @admin.Email<br />
+                            Mubster Since : @admin.DOC.ToShortDateString()<br />
+                        </div>
+                        <div class="col-12 d-flex justify-content-center">
+                            <a href="AccountEdit" class="btn btn-warning w-25">Edit</a>
+                            <a href="AccountDelete" class="btn btn-danger w-25">Delete</a>
+                        </div>
+
+                    }
+                    else if (@context.User.IsInRole("Teacher"))
+                    {
+                        <div class="container pb-3">
+                            Mubster Name : @teacher.FirstName @teacher.LastName<br />
+                            Mubster Email : @teacher.Email<br />
+                            Mubster Since : @teacher.DOC.ToShortDateString()<br />
+                            Mubster Rating : @teacher.Rating / 5<br />
+                            Mubster Description : @teacher.Description<br />
+                        </div>
+                        <div class="col-12 d-flex justify-content-center">
+                            <a href="AccountEdit" class="btn btn-warning w-25">Edit</a>
+                            <a href="AccountDelete" class="btn btn-danger w-25">Delete</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="container pb-3">
+                            Mubster Name : @student.FirstName @student.LastName<br />
+                            Mubster Email : @student.Email<br />
+                            Mubster Since : @student.DOC.ToShortDateString()<br />
+                        </div>
+                        <div class="col-12 d-flex justify-content-center">
+                            <a href="AccountEdit" class="btn btn-warning w-25">Edit</a>
+                            <a href="AccountDelete" class="btn btn-danger w-25">Delete</a>
+                        </div>
+                    }
+
+                </Authorized>
+                <NotAuthorized>
+                    <div class="container">
+                        <div class="text-center"> login please !</div>
+                    </div>
+                </NotAuthorized>
+            </AuthorizeView>
+            <hr class="my-4">
+            <AuthorizeView>
+                <Authorized>
+                    @if (@context.User.IsInRole("Admin"))
+                    {
+
+                    }
+                    else if (@context.User.IsInRole("Teacher"))
+                    {
+                        <table class="table table-striped table-hover m-auto">
+                            <thead>
+                                <tr>
+                                    <th><div class="d-block">Instrument</div></th>
+                                    <th><div class="d-block">Style</div></th>
+                                    <th><div class="d-none d-md-block">Level</div></th>
+                                    <th><div class="d-block">Location</div></th>
+                                    <th><div class="d-none d-md-block">Date</div></th>
+                                    <th><div class="d-none d-md-block">Start</div></th>
+                                    <th><div class="d-none d-md-block">End</div></th>
+                                    <th><div class="d-none d-md-block">Student</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var lesson in teacherLessons)
+                                {
+                                    <tr>
+                                        <td><div class="d-block">@lesson.InstrumentName</div></td>
+                                        <td><div class="d-block">@lesson.InstrumentStyle</div></td>
+                                        <td><div class="d-none d-md-block">@lesson.LessonLevel</div></td>
+                                        <td><div class="d-block">@lesson.Township</div></td>
+                                        <td><div class="d-none d-md-block">@lesson.Start.ToShortDateString()</div></td>
+                                        <td><div class="d-none d-md-block">@lesson.Start.ToShortTimeString()</div></td>
+                                        <td><div class="d-none d-md-block">@lesson.Stop.ToShortTimeString()</div></td>
+                                        <td><div class="d-none d-md-block">@lesson.StudentFirstName @lesson.StudentLastName</div></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <table class="table table-striped table-hover m-auto">
+                            <thead>
+                                <tr>
+                                    <th><div class="d-block">Instrument</div></th>
+                                    <th><div class="d-block">Style</div></th>
+                                    <th><div class="d-none d-md-block">Level</div></th>
+                                    <th><div class="d-block">Location</div></th>
+                                    <th><div class="d-none d-md-block">Date</div></th>
+                                    <th><div class="d-none d-md-block">Start</div></th>
+                                    <th><div class="d-none d-md-block">End</div></th>
+                                    <th><div class="d-none d-md-block">Teacher</div></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var lesson in studentLessons)
+                                {
+                                    <tr>
+                                        <td><div class="d-block">@lesson.InstrumentName</div></td>
+                                        <td><div class="d-block">@lesson.InstrumentStyle</div></td>
+                                        <td><div class="d-none d-md-block">@lesson.LessonLevel</div></td>
+                                        <td><div class="d-block">@lesson.Township</div></td>
+                                        <td><div class="d-none d-md-block">@lesson.Start.ToShortDateString()</div></td>
+                                        <td><div class="d-none d-md-block">@lesson.Start.ToShortTimeString()</div></td>
+                                        <td><div class="d-none d-md-block">@lesson.Stop.ToShortTimeString()</div></td>
+                                        <td><div class="d-none d-md-block">@lesson.TeacherFirstName @lesson.TeacherLastName</div></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </Authorized>
+                <NotAuthorized>
+
+                </NotAuthorized>
+            </AuthorizeView>
+        </CascadingAuthenticationState>
+    </div>
+    
+</div>
+
+
+@code {
+
+    public ResponseTeacherVM teacher = new ResponseTeacherVM();
+    public List<ResponseLessonVM> teacherLessons = new List<ResponseLessonVM>();
+    public ResponseStudentVM student = new ResponseStudentVM();
+    public List<ResponseLessonVM> studentLessons = new List<ResponseLessonVM>();
+    public ResponseAdminVM admin = new ResponseAdminVM();
+
+    [Parameter]
+    public int personId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = await LocalStorageService.GetItemAsync<LocalAuthUser>("User");
+
+        if (user is not null)
+        {
+            var persontype = user.Role.ToString();
+            var personId = user.Id;
+
+
+            if (persontype == "Admin")
+            {
+                var adminDTO = await Client.GetFromJsonAsync<ResponseTeacherDTO>("https://localhost:44397/api/Admin/One/" + personId);
+
+                admin = _mapper.Map<ResponseAdminVM>(adminDTO);
+            }
+            else if (persontype == "Teacher")
+            {
+                var teacherDTO = await Client.GetFromJsonAsync<ResponseTeacherDTO>("https://localhost:44397/api/Teacher/One/" + personId);
+                var lessonsDTO = await Client.GetFromJsonAsync<List<ResponseLessonDTO>>("https://localhost:44397/api/Lesson/GetAllTeacherLessons/" + personId);
+
+                teacher = _mapper.Map<ResponseTeacherVM>(teacherDTO);
+                teacherLessons = _mapper.Map<List<ResponseLessonVM>>(lessonsDTO);
+            }
+            else
+            {
+                var studentDTO = await Client.GetFromJsonAsync<ResponseStudentDTO>("https://localhost:44397/api/Student/One/" + personId);
+                var lessonsDTO = await Client.GetFromJsonAsync<List<ResponseLessonDTO>>("https://localhost:44397/api/Lesson/GetAllStudentLessons/" + personId);
+
+                student = _mapper.Map<ResponseStudentVM>(studentDTO);
+                studentLessons = _mapper.Map<List<ResponseLessonVM>>(lessonsDTO);
+            }
+
+        }
+    }
+
+}

@@ -33,26 +33,26 @@
     <table class="table table-striped table-hover mt-4 container">
         <thead>
             <tr>
-                <th><div class="d-inline-block">Instrument</div></th>
-                <th><div class="d-inline-block">Style</div></th>
-                <th><div class="d-none d-md-inline-block">Level</div></th>
-                <th><div class="d-inline-block">Location</div></th>
-                <th><div class="d-inline-block">Date</div></th>
-                <th><div class="d-none d-md-inline-block">Start</div></th>
-                <th><div class="d-none d-md-inline-block">End</div></th>
+                <th><div class="d-block">Instrument</div></th>
+                <th><div class="d-block">Style</div></th>
+                <th><div class="d-none d-md-block">Level</div></th>
+                <th><div class="d-block">Location</div></th>
+                <th><div class="d-none d-md-block">Date</div></th>
+                <th><div class="d-none d-md-block">Start</div></th>
+                <th><div class="d-none d-md-block">End</div></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var lesson in lessons)
             {
                 <tr @onclick="()=>GoToLessonDetails(lesson.Id)">
-                    <td><div class="d-inline-block">@lesson.InstrumentName</div></td>
-                    <td><div class="d-inline-block">@lesson.InstrumentStyle</div></td>
-                    <td><div class="d-none d-md-inline-block">@lesson.LessonLevel</div></td>
-                    <td><div class="d-inline-block">@lesson.Township</div></td>
-                    <td><div class="d-inline-block">@lesson.Start.ToShortDateString()</div></td>
-                    <td><div class="d-none d-md-inline-block">@lesson.Start.ToShortTimeString()</div></td>
-                    <td><div class="d-none d-md-inline-block">@lesson.Stop.ToShortTimeString()</div></td>
+                    <td><div class="d-block">@lesson.InstrumentName</div></td>
+                    <td><div class="d-block">@lesson.InstrumentStyle</div></td>
+                    <td><div class="d-none d-md-block">@lesson.LessonLevel</div></td>
+                    <td><div class="d-block">@lesson.Township</div></td>
+                    <td><div class="d-none d-md-block">@lesson.Start.ToShortDateString()</div></td>
+                    <td><div class="d-none d-md-block">@lesson.Start.ToShortTimeString()</div></td>
+                    <td><div class="d-none d-md-block">@lesson.Stop.ToShortTimeString()</div></td>
                 </tr>
             }
         </tbody>

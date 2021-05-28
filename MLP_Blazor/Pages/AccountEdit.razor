@@ -1,0 +1,184 @@
+﻿@page "/AccountEdit"
+
+@inject HttpClient Client
+@inject AuthenticationStateProvider AuthStateProvider
+@inject IMapper _mapper
+@inject ILocalStorageService LocalStorageService
+@inject NavigationManager NavManager
+
+<div class="container-fluid p-5">
+
+    <CascadingAuthenticationState>
+        <h1 class="display-3">Mubster Account</h1>
+        <hr class="my-4">
+        <div class="container">
+            <AuthorizeView>
+                <Authorized>
+
+                    @if (@context.User.IsInRole("Admin"))
+                    {
+                        <EditForm Model="admin" OnSubmit="EditAdmin" Context="EditAdmin">
+                            <div class="form-control col-md-6">
+                                <div class="col-md-12">
+                                    <label class="form-label">Firstname</label>
+                                    <input type="text" class="form-control" placeholder=@admin.FirstName @bind-value="admin.FirstName" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label">Firstname</label>
+                                    <input type="text" class="form-control" placeholder=@admin.LastName @bind-value="admin.LastName" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label">Firstname</label>
+                                    <input type="text" class="form-control" placeholder=@admin.Email @bind-value="admin.Email" />
+                                </div>
+                                <div class="col-12 d-flex justify-content-center">
+                                    <button class="btn btn-primary w-25" type="submit">Save</button>
+                                    <a href="Account" class="btn btn-danger w-25">Back</a>
+                                </div>
+                            </div>
+                        </EditForm>
+                    }
+                    else if (@context.User.IsInRole("Teacher"))
+                    {
+                        <EditForm Model="teacher" OnSubmit="EditTeacher" Context="EditTeacher">
+                            <div class="form-control col-md-6">
+                                <div class="col-md-12">
+                                    <label for="firstname" class="form-label">Firstname</label>
+                                    <input type="text" class="form-control" id="firstname" placeholder=@teacher.FirstName @bind-value="teacher.FirstName" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label">Lastname</label>
+                                    <input type="text" class="form-control" placeholder=@teacher.LastName @bind-value="teacher.LastName" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label">Email</label>
+                                    <input type="text" class="form-control" placeholder=@teacher.Email @bind-value="teacher.Email" />
+                                </div>
+                                <div class="col-md-12 pb-3">
+                                    <label class="form-label">Description</label><br />
+                                    <textarea placeholder=@teacher.Description rows="5" class="form-control" @bind="teacher.Description" style="width:100%" />
+                                </div>
+                                <div class="col-12 d-flex justify-content-center p-2">
+                                    <button class="btn btn-primary w-25" type="submit">Save</button>
+                                    <a href="Account" class="btn btn-danger w-25">Back</a>
+                                </div>
+                            </div>
+                        </EditForm>
+                    }
+                    else if (@context.User.IsInRole("Student"))
+                    {
+                        <div class="container">
+                            <EditForm Model="student" OnSubmit="EditStudent" Context="EditStudent">
+                                <div class="form-control col-md-6">
+                                    <div class="col-md-12">
+                                        <label class="form-label">Firstname</label>
+                                        <input type="text" class="form-control" placeholder=@student.FirstName @bind-value="student.FirstName" />
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="form-label">Firstname</label>
+                                        <input type="text" class="form-control" placeholder=@student.LastName @bind-value="student.LastName" />
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label class="form-label">Email</label>
+                                        <input type="text" class="form-control" placeholder=@student.Email @bind-value="student.Email" />
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-center">
+                                        <button class="btn btn-primary w-25" type="submit">Save</button>
+                                        <a href="Account" class="btn btn-danger w-25">Back</a>
+                                    </div>
+                                </div>
+                            </EditForm>
+
+                        </div>
+                    }
+
+                </Authorized>
+                <NotAuthorized>
+                    <div class="container">
+                        <div class="text-center"> login please !</div>
+                    </div>
+                </NotAuthorized>
+            </AuthorizeView>
+        </div>
+        <hr class="my-4">
+    </CascadingAuthenticationState>
+
+</div>
+
+
+
+
+@code {
+
+    public EditTeacherVM teacher = new EditTeacherVM();
+    public EditStudentVM student = new EditStudentVM();
+    public EditAdminVM admin = new EditAdminVM();
+
+    [Parameter]
+    public int PersonId { get; set; }
+    public string PersonType { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = await LocalStorageService.GetItemAsync<LocalAuthUser>("User");
+
+        if (user is not null)
+        {
+            PersonType = user.Role.ToString();
+            PersonId = user.Id;
+
+
+            if (PersonType == "Admin")
+            {
+                var responseAdmin = await Client.GetFromJsonAsync<EditAdminDTO>("https://localhost:44397/api/Admin/One/" + PersonId);
+                admin = _mapper.Map<EditAdminVM>(responseAdmin);
+            }
+            else if (PersonType == "Teacher")
+            {
+
+                var responseTeacher = await Client.GetFromJsonAsync<EditTeacherDTO>("https://localhost:44397/api/Teacher/One/" + PersonId);
+                teacher = _mapper.Map<EditTeacherVM>(responseTeacher);
+
+            }
+            else
+            {
+                var studentDTO = await Client.GetFromJsonAsync<EditStudentDTO>("https://localhost:44397/api/Student/One/" + PersonId);
+                student = _mapper.Map<EditStudentVM>(studentDTO);
+            }
+
+        }
+    }
+    protected async void EditAdmin()
+    {
+        var AdminDTO = _mapper.Map<EditAdminDTO>(admin);
+        var response = await Client.PutAsJsonAsync("https://localhost:44397/api/Admin/Update/" + PersonId, AdminDTO);
+
+        if (response.IsSuccessStatusCode)
+        {
+            NavManager.NavigateTo("/Account");
+        }
+    }
+    protected async void EditTeacher()
+    {
+        var teacherDTO = _mapper.Map<EditTeacherDTO>(teacher);
+        var response = await Client.PutAsJsonAsync("https://localhost:44397/api/Teacher/Update/" + PersonId, teacherDTO);
+
+        if (response.IsSuccessStatusCode)
+        {
+            NavManager.NavigateTo("/Account");
+        }
+    }
+    protected async void EditStudent()
+    {
+        var studentDTO = _mapper.Map<EditStudentDTO>(student);
+        var response = await Client.PutAsJsonAsync("https://localhost:44397/api/Student/Update/" + PersonId, studentDTO);
+
+        if (response.IsSuccessStatusCode)
+        {
+            NavManager.NavigateTo("/Account");
+        }
+    }
+
+
+}

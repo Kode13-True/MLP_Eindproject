@@ -20,25 +20,15 @@ else
         <br />
         <h1 class="display-4">your Music Hub </h1>
         <h3>Music is a dish best served cold. </h3>
-        <br />
-        <br />
-        <br />
-        <br />
+       
         <p class="lead">Learn or Teach music skills in a "1 ON 1" relationship.</p>
         <hr class="my-4">
-        <br />
-        <br />
-        <br />
-        <br />
+        
         <p>the MUB provides a private music lesson platform for your needs, check out the lessons below or go to the teacher overview to get to know the teachers.</p>
         <p>Musicians/Teachers, make that offer that can't be refused!</p>
-        <br />
-        <br />
-        <br />
-        <br />
-        <figcaption class="blockquote-footer" style="background-color: none; color: #E1E7F4">
-            Photo by <a href=$"https://unsplash.com/@dominik_photography?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" style="background-color: none; color: #E1E7F4">Dominik Vanyi</a> on <a href="https://unsplash.com/s/photos/music?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-        </figcaption>
+        <figcaption class="blockquote-footer text-end" style="background-color: none; color: #E1E7F4">
+                Photo by Dominik Vanyi on Unsplash
+        </figcaption>   
     </div>
     <section id="availableLessons"/>
         <div class="container-fluid p-md-5 vh-100">
@@ -47,28 +37,29 @@ else
             <table class="table table-striped table-hover m-auto">
                 <thead>
                 <tr>
-                    <th><div class="d-inline-block">Instrument</div></th>
-                    <th><div class="d-inline-block">Style</div></th>
-                    <th><div class="d-none d-md-inline-block">Level</div></th>
-                    <th><div class="d-inline-block">Location</div></th>
-                    <th><div class="d-inline-block">Date</div></th>
-                    <th><div class="d-none d-md-inline-block">Start</div></th>
-                    <th><div class="d-none d-md-inline-block">End</div></th>
-                    <th><div class="d-none d-md-inline-block">Teacher</div></th>
+                    <th><div class="d-block">Instrument</div></th>
+                    <th><div class="d-block">Style</div></th>
+                    <th><div class="d-none d-md-block">Level</div></th>
+                    <th><div class="d-block">Location</div></th>
+                    <th><div class="d-none d-md-block">Date</div></th>
+                    <th><div class="d-none d-md-block">Start</div></th>
+                    <th><div class="d-none d-md-block">End</div></th>
+                    <th><div class="d-none d-md-block">Teacher</div></th>
                 </tr>
             </thead>
             <tbody>
                  @foreach (var lesson in lessonsVM)
                     {
-                        <tr @onclick="() => LessonDetails(lesson.Id)" >
-                            <td><div class="d-inline-block">@lesson.InstrumentName</div></td>
-                            <td><div class="d-inline-block">@lesson.InstrumentStyle</div></td>
-                            <td><div class="d-none d-md-inline-block">@lesson.LessonLevel</div></td>
-                            <td><div class="d-inline-block">@lesson.Township</div></td>
-                            <td><div class="d-inline-block">@lesson.Start.ToShortDateString()</div></td>
-                            <td><div class="d-none d-md-inline-block">@lesson.Start.ToShortTimeString()</div></td>
-                            <td><div class="d-none d-md-inline-block">@lesson.Stop.ToShortTimeString()</div></td>
-                            <td><div class="d-none d-md-inline-block">@lesson.TeacherFirstName @lesson.TeacherLastName</div></td>
+
+                        <tr @onclick="() => LessonDetails(lesson.Id)">
+                            <td><div class="d-block">@lesson.InstrumentName</div></td>
+                            <td><div class="d-block">@lesson.InstrumentStyle</div></td>
+                            <td><div class="d-none d-md-block">@lesson.LessonLevel</div></td>
+                            <td><div class="d-block">@lesson.Township</div></td>
+                            <td><div class="d-none d-md-block">@lesson.Start.ToShortDateString()</div></td>
+                            <td><div class="d-none d-md-block">@lesson.Start.ToShortTimeString()</div></td>
+                            <td><div class="d-none d-md-block">@lesson.Stop.ToShortTimeString()</div></td>
+                            <td><div class="d-none d-md-block">@lesson.TeacherFirstName @lesson.TeacherLastName</div></td>
                         </tr>
                     }
                 </tbody>

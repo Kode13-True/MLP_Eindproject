@@ -1,0 +1,154 @@
+﻿@page "/AccountDelete"
+
+@inject HttpClient Client
+@inject AuthenticationStateProvider AuthStateProvider
+@inject NavigationManager NavManager
+@inject IMapper _mapper
+@inject ILocalStorageService LocalStorageService
+
+
+<div class="container-fluid p-5">
+    <CascadingAuthenticationState>
+        <h1 class="display-3">Mubster Account</h1>
+        <hr class="my-4">
+        <AuthorizeView>
+            <Authorized>
+                @if (@context.User.IsInRole("Admin"))
+                {
+                    <div class="container">
+                        Mubster Name : @admin.FirstName @admin.LastName<br />
+                        Mubster Email : @admin.Email<br />
+                        Mubster Since : @admin.DOC.ToShortDateString()<br />
+                    </div>
+                    <div class="container text-center pb-4">
+                        You're account will be permanently deleted are you sure ?
+                    </div>
+                    <div class="col-12 d-flex justify-content-center">
+                        <a href="AccountEdit" class="btn btn-warning w-25">NO</a> 
+                        <button class="btn btn-primary w-25" @onclick="DeleteAdmin">YES</button>
+                    </div>
+
+                }
+                else if (@context.User.IsInRole("Teacher"))
+                {
+                    <div class="container">
+                        Mubster Name : @teacher.FirstName @teacher.LastName<br />
+                        Mubster Email : @teacher.Email<br />
+                        Mubster Since : @teacher.DOC.ToShortDateString()<br />
+                        Mubster Rating : @teacher.Rating / 5<br />
+                        Mubster Description : @teacher.Description<br />
+                    </div>
+                    <div class="container text-center pb-4">
+                        You're account will be permanently deleted are you sure ?
+                    </div>
+                    <div class="col-12 d-flex justify-content-center">
+                        <a href="AccountEdit" class="btn btn-warning w-25">NO</a> 
+                        <button class="btn btn-primary w-25" @onclick="DeleteTeacher">YES</button>
+                    </div>
+                }
+                else
+                {
+                    <div class="container">
+                        Mubster Name : @student.FirstName @student.LastName<br />
+                        Mubster Email : @student.Email<br />
+                        Mubster Since : @student.DOC.ToShortDateString()<br />
+                    </div>
+                    <div class="container text-center pb-4">
+                        You're account will be permanently deleted are you sure ?
+                    </div>
+                    <div class="col-12 d-flex justify-content-center">
+                        <a href="AccountEdit" class="btn btn-warning w-25">NO</a> 
+                        <button class="btn btn-primary w-25" @onclick="DeleteStudent">YES</button>
+                    </div>
+                }
+
+            </Authorized>
+            <NotAuthorized>
+                <div class="container">
+                    <div class="text-center"> login please !</div>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
+        <hr class="my-4">
+
+
+    </CascadingAuthenticationState>
+</div>
+
+@code {
+    public ResponseTeacherVM teacher = new ResponseTeacherVM();
+    public ResponseStudentVM student = new ResponseStudentVM();
+    public ResponseAdminVM admin = new ResponseAdminVM();
+
+    [Parameter]
+    public int PersonId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = await LocalStorageService.GetItemAsync<LocalAuthUser>("User");
+
+        if (user is not null)
+        {
+            var persontype = user.Role.ToString();
+            PersonId = user.Id;
+
+
+            if (persontype == "Admin")
+            {
+                var adminDTO = await Client.GetFromJsonAsync<ResponseTeacherDTO>("https://localhost:44397/api/Admin/One/" + PersonId);
+
+                admin = _mapper.Map<ResponseAdminVM>(adminDTO);
+            }
+            else if (persontype == "Teacher")
+            {
+                var teacherDTO = await Client.GetFromJsonAsync<ResponseTeacherDTO>("https://localhost:44397/api/Teacher/One/" + PersonId);
+
+                teacher = _mapper.Map<ResponseTeacherVM>(teacherDTO);
+            }
+            else
+            {
+                var studentDTO = await Client.GetFromJsonAsync<ResponseStudentDTO>("https://localhost:44397/api/Student/One/" + PersonId);
+
+                student = _mapper.Map<ResponseStudentVM>(studentDTO);
+            }
+
+        }
+    }
+    protected async void DeleteAdmin()
+    {
+        var teacherDTO = _mapper.Map<ResponseAdminDTO>(admin);
+        var response = await Client.DeleteAsync("https://localhost:44397/api/Admin/Delete/" + PersonId);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var localStateAuthProvider = (LocalStateAuthProvider)AuthStateProvider;
+            await localStateAuthProvider.LogoutAsync();
+            NavManager.NavigateTo("/");
+        }
+    }
+    protected async void DeleteTeacher()
+    {
+        var teacherDTO = _mapper.Map<ResponseTeacherDTO>(teacher);
+        var response = await Client.DeleteAsync ("https://localhost:44397/api/Teacher/Delete/" + PersonId);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var localStateAuthProvider = (LocalStateAuthProvider)AuthStateProvider;
+            await localStateAuthProvider.LogoutAsync();
+            NavManager.NavigateTo("/");
+        }
+    }
+    protected async void DeleteStudent()
+    {
+        var teacherDTO = _mapper.Map<ResponseStudentDTO>(student);
+        var response = await Client.DeleteAsync("https://localhost:44397/api/Student/Delete/" + PersonId);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var localStateAuthProvider = (LocalStateAuthProvider)AuthStateProvider;
+            await localStateAuthProvider.LogoutAsync();
+            NavManager.NavigateTo("/");
+        }
+    }
+
+}
