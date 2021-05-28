@@ -1,8 +1,10 @@
 ﻿@page "/"
 @using Microsoft.AspNetCore.Components.Authorization; 
-@inject IMapper _mapper
+@inject IMapper Mapper
 @inject HttpClient Client
 @inject NavigationManager NavManager
+@inject ILocalStorageService LocalStorageService
+@inject AuthenticationStateProvider AuthStateProvider 
 
 @if (lessonsVM == null)
 {
@@ -64,14 +66,14 @@ else
         </div>
     </section>
 }
-    @* Preview Authentication + role usage
+     @*Preview Authentication + role usage
         <div>
         <CascadingAuthenticationState>
             <AuthorizeView>
                 <Authorized>
                     if(@context.User.IsInRole("Admin"))
                     {
-                     
+                     <div @onload="GetAdminData"></div>
                     }
                     
                 </Authorized>
@@ -86,10 +88,45 @@ else
 @code {
     private List<ResponseLessonVM> lessonsVM = new List<ResponseLessonVM>();
 
+    public void GetAdminData()
+    {
+
+    }
     protected override async Task OnInitializedAsync()
     {
+
         var lessons = await Client.GetFromJsonAsync<List<ResponseLessonDTO>>("https://localhost:44397/api/Lesson/GetAllUnbooked");
-        lessonsVM = _mapper.Map<List<ResponseLessonVM>>(lessons);
+        lessonsVM = Mapper.Map<List<ResponseLessonVM>>(lessons);
+
+
+        var user = await LocalStorageService.GetItemAsync<LocalAuthUser>("User");
+        if (user is not null)
+        {
+            var token = user.AuthToken;
+            var response = await Client.PostAsJsonAsync("https://localhost:44397/api/User/Authenticate", token);
+            var localStateAuthProvider = (LocalStateAuthProvider)AuthStateProvider;
+            var sessionExpired = await localStateAuthProvider.AuthenticationForLoginSession(response);
+            if(sessionExpired is true)
+            {
+                NavManager.NavigateTo("/auth/login");
+            }
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        var navUri = NavManager.Uri;
+        if (firstRender)
+        {
+            var timer = new Timer(new TimerCallback(_ =>
+            {
+                if(navUri == NavManager.Uri)
+                {
+                    NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
+                }
+
+            }), null, 600000, 600000);
+        }
     }
 }
 
