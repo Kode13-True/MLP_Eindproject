@@ -13,6 +13,7 @@ namespace MLP_DbLibrary.DTO.LessonDTO
         public DateTime DOC { get; set; }
         public DateTime Start { get; set; }
         public DateTime Stop { get; set; }
+        public int LocationId { get; set; }
         public decimal Price { get; set; }
         public string Street { get; set; }
         public string Number { get; set; }

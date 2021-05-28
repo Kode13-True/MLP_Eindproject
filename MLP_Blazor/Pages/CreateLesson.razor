@@ -51,31 +51,31 @@
                                 </div>
                                 <div class="col-md-12">
                                     <label class="label">Price</label>
-                                    <input type="number" placeholder="name@example" @bind-value="lessonModel.Price" />
+                                    <input type="number"  @bind-value="lessonModel.Price" />
                                 </div>
                                 <div class="col-md-12">
                                     <label class="label">Start</label>
-                                    <input type="datetime" placeholder="Enter Password" @bind-value="lessonModel.Start" />
+                                    <input type="datetime"  @bind-value="lessonModel.Start" />
                                 </div>
                                 <div class="col-md-12">
                                     <label class="label">Stop</label>
-                                    <input type="datetime" placeholder="Enter Password" @bind-value="lessonModel.Stop" />
+                                    <input type="datetime"  @bind-value="lessonModel.Stop" />
                                 </div>
                                 <div class="col-md-12">
                                     <label class="label">Street</label>
-                                    <input type="text" placeholder="Enter Password" @bind-value="lessonModel.Street" />
+                                    <input type="text" placeholder="Street" @bind-value="lessonModel.Street" />
                                 </div>
                                 <div class="col-md-12">
                                     <label class="label">Number</label>
-                                    <input type="text" placeholder="Enter Password" @bind-value="lessonModel.Number" />
+                                    <input type="text" placeholder="Number" @bind-value="lessonModel.Number" />
                                 </div>
                                 <div class="col-md-12">
                                     <label class="label">Postal</label>
-                                    <input type="text" placeholder="Enter Password" @bind-value="lessonModel.Postal" />
+                                    <input type="text" placeholder="Postal" @bind-value="lessonModel.Postal" />
                                 </div>
                                 <div class="col-md-12">
                                     <label class="label">Township</label>
-                                    <input type="text" placeholder="Enter Password" @bind-value="lessonModel.Township" />
+                                    <input type="text" placeholder="Township" @bind-value="lessonModel.Township" />
                                 </div>
 
                                 <br />
@@ -151,8 +151,7 @@
                     var responseInstrument = await Client.PostAsJsonAsync("https://localhost:44397/api/instrument/Create/" + lesson.Id, instrumentDTO);
                     if (responseInstrument.IsSuccessStatusCode)
                     {
-                        message = "Lesson succesfully created.";
-                        hiddenMessage = false;
+                        NavManager.NavigateTo("/account");
                     }
                     else
                     {
@@ -184,7 +183,7 @@
 
     public void CancelCreation()
     {
-        NavManager.NavigateTo("/");
+        NavManager.NavigateTo("/account");
     }
 
     //methods
