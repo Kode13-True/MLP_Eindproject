@@ -24,7 +24,6 @@ namespace MLP_TestLibrary.TeacherController
             var testItem = new EditTeacherDTO
             {
                 Email = email,
-                Password = password,
                 FirstName = firstName,
                 LastName = lastName,
                 Description = description,

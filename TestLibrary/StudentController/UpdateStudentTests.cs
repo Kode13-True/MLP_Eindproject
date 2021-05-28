@@ -17,14 +17,13 @@ namespace MLP_TestLibrary.StudentController
     class UpdateStudentTests
     {
         [TestCase(14, "kaya.summons@telenet.be", "Test1234", "Kaya", "Summons")]
-        public void UpdateStudent_Succeeds(int id, string email, string password, string firstName, string lastName)
+        public void UpdateStudent_Succeeds(int id, string email, string firstName, string lastName)
         {
             //Arrange
 
             var testItem = new EditStudentDTO
             {
                 Email = email,
-                Password = password,
                 FirstName = firstName,
                 LastName = lastName,
             };

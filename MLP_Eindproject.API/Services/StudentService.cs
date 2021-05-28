@@ -43,7 +43,6 @@ namespace MLP_Eindproject.API.Services
             personToEdit.FirstName = studentEditValue.FirstName;
             personToEdit.LastName = studentEditValue.LastName;
             personToEdit.Email = studentEditValue.Email;
-            personToEdit.Password = studentEditValue.Password;
             _context.Students.Update(personToEdit);
             await _context.SaveChangesAsync();
             return personToEdit;

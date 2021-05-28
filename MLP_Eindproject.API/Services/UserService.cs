@@ -109,7 +109,7 @@ namespace MLP_Eindproject.API.Services
             {
                 throw new ArgumentNullException(nameof(admin));
             }
-
+            admin.DOC = DateTime.Now;
             _context.Admins.Add(admin);
             await _context.SaveChangesAsync();
         }
@@ -119,7 +119,7 @@ namespace MLP_Eindproject.API.Services
             {
                 throw new ArgumentNullException(nameof(teacher));
             }
-
+            teacher.DOC = DateTime.Now;
             _context.Teachers.Add(teacher);
             await _context.SaveChangesAsync();
         }
@@ -130,7 +130,7 @@ namespace MLP_Eindproject.API.Services
             {
                 throw new ArgumentNullException(nameof(student));
             }
-
+            student.DOC = DateTime.Now;
             _context.Students.Add(student);
             await _context.SaveChangesAsync();
         }
