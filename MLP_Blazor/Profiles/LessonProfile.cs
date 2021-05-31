@@ -18,6 +18,11 @@ namespace MLP_Blazor.Profiles
             CreateMap<CreateLessonDTO, CreateLessonVM>().ReverseMap();
             CreateMap<CreateInstrumentDTO, CreateLessonVM>().ReverseMap();
             CreateMap<CreateLocationDTO, CreateLessonVM>().ReverseMap();
+            CreateMap<EditLessonDTO, EditLessonVM>()
+                .ForMember(x => x.Start, x => x.MapFrom(x => x.Start))
+                .ForMember(x => x.Stop, x => x.MapFrom(x => x.Stop))
+                .ReverseMap();
+           
         }
     }
 }

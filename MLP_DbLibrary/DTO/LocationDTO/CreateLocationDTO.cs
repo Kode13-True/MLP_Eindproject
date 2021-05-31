@@ -8,7 +8,6 @@ namespace MLP_DbLibrary.DTO.LocationDTO
 {
     public class CreateLocationDTO
     {
-
         public string Street { get; set; }
         public string Number { get; set; }
         public string Postal { get; set; }

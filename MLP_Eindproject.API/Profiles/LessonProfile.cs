@@ -23,11 +23,12 @@ namespace MLP_Eindproject.API.Profiles
                 .ForMember(x => x.StudentLastName, x => x.MapFrom(x => x.Student.LastName))
                 .ForMember(x => x.TeacherFirstName, x => x.MapFrom(x => x.Teacher.FirstName))
                 .ForMember(x => x.TeacherLastName, x => x.MapFrom(x => x.Teacher.LastName))
-                .ForMember(x => x.InstrumentName, x => x.MapFrom(x => x.Instrument.InstrumentName.ToString()))
-                .ForMember(x => x.InstrumentStyle, x=> x.MapFrom(x => x.Instrument.InstrumentStyle.ToString()))                
+                .ForMember(x => x.InstrumentName, x => x.MapFrom(x => x.Instrument.InstrumentName))
+                .ForMember(x => x.InstrumentStyle, x=> x.MapFrom(x => x.Instrument.InstrumentStyle))                
                 .ForMember(x => x.TeacherRating, x => x.MapFrom(x => x.Teacher.Rating))
                 .ForMember(x => x.TeacherDescription, x => x.MapFrom(x => x.Teacher.Description))
                 .ReverseMap();
+            CreateMap<Lesson, EditLessonDTO>().ReverseMap();
         }
     }
 }

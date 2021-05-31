@@ -90,15 +90,14 @@ namespace MLP_Eindproject.API.Controllers
 
         // PUT api/<LessonController>/5
         [HttpPut("UpdateLesson/{lessonId}")]
-        public async Task<ActionResult<ResponseLessonDTO>> Put(int lessonId, [FromBody] CreateLessonDTO createLessonDTO)
+        public async Task<ActionResult<ResponseLessonDTO>> Put(int lessonId, [FromBody] EditLessonDTO editLessonDTO)
         {
-            if (createLessonDTO is null)
+            if (editLessonDTO is null)
             {
-                throw new ArgumentNullException(nameof(createLessonDTO));
+                throw new ArgumentNullException(nameof(editLessonDTO));
             }
 
-            var lessonToCreate = _mapper.Map<Lesson>(createLessonDTO);
-            var responseLesson = await _lessonService.UpdateLessonByTeacherId(lessonId, lessonToCreate);
+            var responseLesson = await _lessonService.UpdateLessonByTeacherId(lessonId, editLessonDTO);
             var responseLessonDTO = _mapper.Map<ResponseLessonDTO>(responseLesson);
             return Ok(responseLessonDTO);
 

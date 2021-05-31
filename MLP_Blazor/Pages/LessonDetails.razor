@@ -44,6 +44,12 @@
                                         <button hidden="@hiddenEditButton" @onclick="EditLesson" class="btn btn-primary w-100">Edit Lesson</button>
                                         <button hidden="@hiddenDeleteButton" @onclick="DeleteLesson" class="btn btn-primary w-100">Delete Lesson</button>
                                     }
+                                    @if (context.User.IsInRole("Admin"))
+                                    {
+                                        <button hidden="@hiddenCancelButton" class="btn btn-primary w-100" @onclick="CancelLesson">Cancel Lesson</button>
+                                        <button hidden="@hiddenEditButton" @onclick="EditLesson" class="btn btn-primary w-100">Edit Lesson</button>
+                                        <button hidden="@hiddenDeleteButton" @onclick="DeleteLesson" class="btn btn-primary w-100">Delete Lesson</button>
+                                    }
                                 </Authorized>
                             </AuthorizeView>
 
@@ -103,6 +109,13 @@
                     hiddenEditButton = false;
                     hiddenDeleteButton = false;
                 }
+            }
+
+            if (user.Role.Equals(PersonType.Admin))
+            {
+                hiddenCancelButton = false;
+                hiddenEditButton = false;
+                hiddenDeleteButton = false;
             }
         }
 
@@ -198,7 +211,7 @@
     public async void EditLesson()
     {
         await Authentication();
-        NavManager.NavigateTo("/lessondetails/editlesson/");
+        NavManager.NavigateTo($"/editlesson/{lessonId}");
 
     }
 

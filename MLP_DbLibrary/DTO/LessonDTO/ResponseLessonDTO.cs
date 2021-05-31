@@ -22,8 +22,8 @@ namespace MLP_DbLibrary.DTO.LessonDTO
         public int? TeacherId { get; set; }
         public string TeacherFirstName { get; set; }
         public string TeacherLastName { get; set; }
-        public string InstrumentName { get; set; }
-        public string InstrumentStyle { get; set; }
+        public InstrumentName InstrumentName { get; set; }
+        public InstrumentStyle InstrumentStyle { get; set; }
         public string TeacherDescription { get; set; }
         public double TeacherRating { get; set; }
         public int? StudentId { get; set; }
