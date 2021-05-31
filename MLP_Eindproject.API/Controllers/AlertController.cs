@@ -26,20 +26,20 @@ namespace MLP_Eindproject.API.Controllers
         }
 
         // POST api/<AlertController>
-        [HttpPost("Create/{personId}")]
-        public async Task<ActionResult<CreateAlertDTO>> CreateNewAlert(int personId, [FromBody] CreateAlertDTO createAlertDTO)
+        [HttpPost("Create")]
+        public async Task<ActionResult<CreateAlertDTO>> CreateNewAlert([FromBody] CreateAlertDTO createAlertDTO)
         {
             var newAlert = _mapper.Map<Alert>(createAlertDTO);
-            var alert = await _alertService.CreateAlert(newAlert, personId);
+            var alert = await _alertService.CreateAlert(newAlert);
             var alertDTO = _mapper.Map<ResponseAlertDTO>(alert);
             return Ok(alertDTO);
         }
 
         // GET: api/<AlertController>/5
         [HttpGet("One/{Id}")]
-        public async Task<ActionResult<ResponseAlertDTO>> GetAlert(int Id)
+        public ActionResult<ResponseAlertDTO> GetAlert(int Id)
         {
-            var alert = await _alertService.GetAlert(Id);
+            var alert = _alertService.GetAlert(Id);
             if (alert == null)
             {
                 return NotFound();
@@ -53,6 +53,13 @@ namespace MLP_Eindproject.API.Controllers
         public ActionResult<List<ResponseAlertDTO>> GetAllAlerts()
         {
             var alerts = _alertService.GetAllAlerts();
+            var returnList = _mapper.Map<List<ResponseAlertDTO>>(alerts);
+            return Ok(returnList);
+        }
+        [HttpGet("GetAllByPersonId/{id}")]
+        public ActionResult<List<ResponseAlertDTO>> GetAlertsByPersonId(int id)
+        {
+            var alerts = _alertService.GetAlertsByPersonId(id);
             var returnList = _mapper.Map<List<ResponseAlertDTO>>(alerts);
             return Ok(returnList);
         }

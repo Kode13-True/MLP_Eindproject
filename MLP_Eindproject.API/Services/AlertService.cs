@@ -1,4 +1,5 @@
-﻿using MLP_DbLibrary.MLPContext;
+﻿using Microsoft.EntityFrameworkCore;
+using MLP_DbLibrary.MLPContext;
 using MLP_DbLibrary.Models;
 using MLP_Eindproject.API.Services.Interfaces;
 using System;
@@ -16,18 +17,17 @@ namespace MLP_Eindproject.API.Services
         {
             _context = context;
         }
-        public async Task<Alert> CreateAlert(Alert alert, int personId)
+        public async Task<Alert> CreateAlert(Alert alert)
         {
             alert.DOC = DateTime.Now;
-            //alert.PersonId = personId;
-            await _context.Alerts.AddAsync(alert);
+            _context.Alerts.Add(alert);
             await _context.SaveChangesAsync();
             return alert;
         }
 
-        public async Task<Alert> GetAlert(int alertId)
+        public Alert GetAlert(int alertId)
         {
-            var alert = await _context.Alerts.FindAsync(alertId);
+            var alert =  _context.Alerts.Where(x => x.Id == alertId).FirstOrDefault();
             return alert;
         }
 
@@ -42,6 +42,12 @@ namespace MLP_Eindproject.API.Services
             var AlertToDelete = _context.Alerts.Find(alertId);
             _context.Alerts.Remove(AlertToDelete);
             await _context.SaveChangesAsync();
+        }
+
+        public List<Alert> GetAlertsByPersonId(int id)
+        {
+            var alerts = _context.Alerts.Where(x => x.PersonId == id).ToList();
+            return alerts;
         }
     }
 }

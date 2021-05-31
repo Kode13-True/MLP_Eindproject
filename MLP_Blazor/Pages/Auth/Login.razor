@@ -15,7 +15,7 @@
             <AuthorizeView Context="AuthorizeContext">
                 <Authorized>
                     <div class="container text-center pb-4">
-                        <h3>You are already rlogged in. <br />Go to <a href="/">Home</a></h3>
+                        <h3>You are already logged in. <br />Go to <a href="/">Home</a></h3>
                     </div>
                 </Authorized>
                 <NotAuthorized>
@@ -60,38 +60,7 @@
                         </div>
                         <div class="col-12 d-flex justify-content-center">
                             <a href="/auth/Register">Register</a>
-                        </div>
-
-
-
-                        
-
-
-
-
-
-
-                        @*<div class="col-md-12">
-             <label class="label">Email</label>
-             <input type="text" placeholder="name@example" @bind-value="model.Email" />
-         </div>
-         <div class="col-md-12">
-             <label class="label">Password</label>
-             <input type="password" placeholder="Enter Password" @bind-value="model.Password" />
-         </div>
-
-         <br />
-
-         <div class="col-12 d-flex justify-content-center">
-
-         </div>
-         <div class="col-12 d-flex justify-content-center" style="font-size: small">
-             Don't have an account yet?
-         </div>
-         <div class="col-12 d-flex justify-content-center" style="font-size: small">
-             <a href="/auth/Register">Register</a>
-        </div>*@
-
+                        </div>                                       
                     </EditForm>
                 </NotAuthorized>
             </AuthorizeView>
@@ -130,7 +99,7 @@
 
                 await LocalStorage.SetItemAsync<LocalAuthUser>("User", userInfo);
                 await AuthStateProvider.GetAuthenticationStateAsync();
-                NavManager.NavigateTo($"/");
+                NavManager.NavigateTo($"/account");
             }
             else
             {

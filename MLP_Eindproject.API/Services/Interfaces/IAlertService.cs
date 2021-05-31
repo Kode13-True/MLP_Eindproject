@@ -8,9 +8,10 @@ namespace MLP_Eindproject.API.Services.Interfaces
 {
     public interface IAlertService
     {
-        Task<Alert> CreateAlert(Alert alert, int personId);
-        Task<Alert> GetAlert(int alertId);
+        Task<Alert> CreateAlert(Alert alert);
+        Alert GetAlert(int alertId);
         List<Alert> GetAllAlerts();
         Task DeleteAlertById(int alertId);
+        List<Alert> GetAlertsByPersonId(int id);
     }
 }
