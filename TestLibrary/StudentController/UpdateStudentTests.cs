@@ -16,7 +16,7 @@ namespace MLP_TestLibrary.StudentController
     [TestFixture]
     class UpdateStudentTests
     {
-        [TestCase(14, "kaya.summons@telenet.be", "Test1234", "Kaya", "Summons")]
+        [TestCase(14, "kaya.summons@telenet.be", "Kaya", "Summons")]
         public void UpdateStudent_Succeeds(int id, string email, string firstName, string lastName)
         {
             //Arrange

@@ -27,9 +27,6 @@ h1, p, .jumbotron {
 }
 
 .table-hover > tbody > tr:hover {
-    border-color: #FA9500 !important;
-    border-top-width: medium !important;
-    border-bottom-width: medium !important;
     cursor: pointer;
 }
 textarea {
@@ -63,21 +60,20 @@ h5, .card-title {
     color: #679289 !important;
 }
 
-.btn-link {
-    color: #679289 !important;
-    background-color: #E1E7F4 !important;
-    border-color: #679289 !important;
+/*.btn-link {
+    
 }
 a {
     color: #679289 !important;
     border-color: #679289 !important;
 }
-
-.btn-primary {
+*/
+/*.btn-primary {
     color: #679289 !important;
     background-color: #1C3144 !important;
     border-color: #679289 !important;
 }
+*/
 
 
 .content {
@@ -115,13 +111,11 @@ a {
 .form-control {
     background-color: #E1E7F4;
     border-color: #1C3144;
-    border-width: thin; 
 }
 input[type=text], input[type=password], input[type=email], input[type=number], input[type=datetime] {
     width: 100%;
     padding: 8px;
     margin: 5px 0 4px 0;
-    display: inline-block;
     border-color: #1C3144;
     background-color: #E1E7F4;
     color: #1C3144;   
@@ -130,7 +124,6 @@ input[type=text], input[type=password], input[type=email], input[type=number], i
 input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=number]:focus, input[type=datetime]:focus {
     background-color: #E1E7F4;
     color: #1C3144;
-    outline: none;
 }
 
 .btn-register {
