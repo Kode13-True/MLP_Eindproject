@@ -44,6 +44,12 @@
                                         <button hidden="@hiddenEditButton" @onclick="EditLesson" class="btn btn-primary w-100">Edit Lesson</button>
                                         <button hidden="@hiddenDeleteButton" @onclick="DeleteLesson" class="btn btn-primary w-100">Delete Lesson</button>
                                     }
+                                    @if (context.User.IsInRole("Admin"))
+                                    {
+                                        <button hidden="@hiddenCancelButton" class="btn btn-primary w-100" @onclick="CancelLesson">Cancel Lesson</button>
+                                        <button hidden="@hiddenEditButton" @onclick="EditLesson" class="btn btn-primary w-100">Edit Lesson</button>
+                                        <button hidden="@hiddenDeleteButton" @onclick="DeleteLesson" class="btn btn-primary w-100">Delete Lesson</button>
+                                    }
                                 </Authorized>
                             </AuthorizeView>
 
@@ -104,6 +110,13 @@
                     hiddenDeleteButton = false;
                 }
             }
+
+            if (user.Role.Equals(PersonType.Admin))
+            {
+                hiddenCancelButton = false;
+                hiddenEditButton = false;
+                hiddenDeleteButton = false;
+            }
         }
 
 
@@ -119,9 +132,7 @@
             var bookingResponse = await Client.GetFromJsonAsync<HttpResponseMessage>("https://localhost:44397/api/lesson/BookLesson/" + user.Id + "/" + lessonId);
             if (bookingResponse.IsSuccessStatusCode)
             {
-                message = "Lesson was succesfully booked";
-                hiddenMessage = false;
-
+                NavManager.NavigateTo("/account");
             }
             else
             {
@@ -167,8 +178,7 @@
             var cancelResponse = await Client.GetFromJsonAsync<HttpResponseMessage>("https://localhost:44397/api/lesson/CancelLesson/" + lessonId);
             if (cancelResponse.IsSuccessStatusCode)
             {
-                message = "Lesson cancelled succesfully.";
-                hiddenMessage = false;
+                NavManager.NavigateTo("/account");
             }
             else
             {
@@ -201,7 +211,7 @@
     public async void EditLesson()
     {
         await Authentication();
-        NavManager.NavigateTo("/lessondetails/editlesson/");
+        NavManager.NavigateTo($"/editlesson/{lessonId}");
 
     }
 
@@ -222,20 +232,43 @@
 
         if(user is not null)
         {
-            var responseGet = await Client.GetFromJsonAsync<HttpResponseMessage>("https://localhost:44397/api/instrument/GetOneByLessonId/" + lessonId);
-            if (responseGet.IsSuccessStatusCode)
+            var instrumentDTO = await Client.GetFromJsonAsync<ResponseInstrumentDTO>("https://localhost:44397/api/instrument/GetOneByLessonId/" + lessonId);
+            if (instrumentDTO is not null)
             {
-                var instrumentString = await responseGet.Content.ReadAsStringAsync();
-                var instrumentToDelete = (ResponseInstrumentDTO)JsonConvert.DeserializeObject(instrumentString, typeof(ResponseInstrumentDTO));
+                var responseInstrumentDelete = await Client.DeleteAsync("https://localhost:44397/api/instrument/Delete/" + instrumentDTO.Id);
+                if (responseInstrumentDelete.IsSuccessStatusCode)
+                {
+                    var responseLessonDelete = await Client.DeleteAsync("https://localhost:44397/api/lesson/DeleteLesson/" + lessonId);
+                    if (responseLessonDelete.IsSuccessStatusCode)
+                    {
+                        var lessonContent = await responseLessonDelete.Content.ReadAsStringAsync();
+                        var deletedLesson = (ResponseLessonDTO)JsonConvert.DeserializeObject(lessonContent, typeof(ResponseLessonDTO));
 
-                var responseInstrumentDelete = await Client.DeleteAsync("https://localhost:44397/api/instrument/Delete/" + instrumentToDelete.Id);
+                        var responseLocationDelete = await Client.DeleteAsync("https://localhost:44397/api/location/delete/" + deletedLesson.LocationId);
+                        if (responseLessonDelete.IsSuccessStatusCode)
+                        {
+                            NavManager.NavigateTo("/account");
+                        }
+                        else
+                        {
+                            message = "Something wnet wrong while deleting the location.";
+                            hiddenMessage = false;
+                        }
+                    }
+                    else { message = "Somthing went wrong while deleting the lesson."; }
+                    hiddenMessage = false;
+                }
+                else { message = "Something went wrong while deleting the instrument."; }
+                hiddenMessage = false;
             }
-
+            else { message = "Something went wrong while trying to find the instrument."; }
+            hiddenMessage = false;
         }
         else
         {
             NavManager.NavigateTo("/auth/login");
         }
+
         NotifyChangedState();
     }
 

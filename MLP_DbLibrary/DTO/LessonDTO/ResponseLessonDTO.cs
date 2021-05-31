@@ -13,6 +13,7 @@ namespace MLP_DbLibrary.DTO.LessonDTO
         public DateTime DOC { get; set; }
         public DateTime Start { get; set; }
         public DateTime Stop { get; set; }
+        public int LocationId { get; set; }
         public decimal Price { get; set; }
         public string Street { get; set; }
         public string Number { get; set; }
@@ -21,8 +22,8 @@ namespace MLP_DbLibrary.DTO.LessonDTO
         public int? TeacherId { get; set; }
         public string TeacherFirstName { get; set; }
         public string TeacherLastName { get; set; }
-        public string InstrumentName { get; set; }
-        public string InstrumentStyle { get; set; }
+        public InstrumentName InstrumentName { get; set; }
+        public InstrumentStyle InstrumentStyle { get; set; }
         public string TeacherDescription { get; set; }
         public double TeacherRating { get; set; }
         public int? StudentId { get; set; }
