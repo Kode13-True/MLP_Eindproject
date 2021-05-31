@@ -7,65 +7,132 @@
 @inject NavigationManager NavManager
 
 <CascadingAuthenticationState>
-    <div class="container-fluid pt-5 d-flex justify-content-center">
-        <div class="row g-3">
-            <div class="form-control col-md-6">
-                <h4>Register</h4>
-                <AuthorizeView Context="AuthorizeContext">
-                    <Authorized>
-                        <h3>You are already registered. <br/>Go to <a href="/">Home</a></h3>                        
-                    </Authorized>
-                    <NotAuthorized>
-                        <EditForm Context="EditFormContent" Model="model" OnValidSubmit="RegisterUser">
+    <div class="container-fluid p-5">
+        <h1 class="display-3">Register</h1>
+        <hr class="my-4">
+        <form class="container">
+            
+            <AuthorizeView Context="AuthorizeContext">
+                <Authorized>
+                    <div class="container text-center pb-4">
+                        <h3>You are already registered. <br />Go to <a href="/">Home</a></h3>
+                    </div>
+                </Authorized>
+                <NotAuthorized>
+                    <EditForm Context="EditFormContent" Model="model" OnValidSubmit="RegisterUser">
 
-                            <DataAnnotationsValidator />
-                            <ValidationSummary />
-                            <div hidden="@hiddenMessage" class="alert alert-info col-md-12">@message <span @onclick="HideMessage">x</span></div>
+                        <DataAnnotationsValidator />
+                        <div class="row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-4">
+                                <div><ValidationSummary /></div>
+                            </div>
+                            <div class="col-md-4"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <div hidden="@hiddenMessage" class="alert alert-info text-center">@message<span @onclick="HideMessage" class="float-end" style="cursor: pointer">x</span></div>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
 
-                            <div class="col-md-12">
-                                <label class="label">Email</label>
-                                <input type="text" placeholder="Enter Email" @bind-value="model.Email" />
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <label class="col-md-2 form-label" for="email">Email</label>
+                            <div class="col-md-6">
+                                <input class="form form-control" type="text" id="email" placeholder="Enter Email" @bind-value="model.Email" />
                             </div>
-                            <div class="col-md-12">
-                                <label class="label">Password</label>
-                                <input type="password" placeholder="Enter Password" @bind-value="model.Password" />
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <label class="col-md-2 form-label">Password</label>
+                            <div class="col-md-6">
+                                <input class="form form-control" type="password" placeholder="Enter Password" @bind-value="model.Password" />
                             </div>
-                            <div class="col-md-12">
-                                <label class="label">Confirm Password</label>
-                                <input type="password" placeholder="Confrim Password" @bind-value="model.PasswordConfirm" />
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <label class="col-md-2 form-label">Confirm Password</label>
+                            <div class="col-md-6">
+                                <input class="form-control" type="password" placeholder="Confirm Password" @bind-value="model.PasswordConfirm" />
                             </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <label class="col-md-2 form-label">First Name</label>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" placeholder="Enter First Name" @bind-value="model.FirstName" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <label class="col-md-2 form-label">Last Name</label>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" placeholder="Enter Last Name" @bind-value="model.LastName" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="pb-2 col-md-2">
+                                <label class="form-check-label">Teacher</label>
+                            </div>
+                            <div class="pb-4 col-md-6">
+                                <input class="form-check-input" type="checkbox" @bind-value="model.IsTeacher" /> (leave blank if you want to login as a Student)
+                            </div>
+                            <div class="col-md-4">
+
+                            </div>
+                        </div>
 
 
 
-                            <div class="col-md-12">
-                                <label class="label">First Name</label>
-                                <input type="text" placeholder="Enter First Name" @bind-value="model.FirstName" />
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Last Name</label>
-                                <input type="text" placeholder="Enter Last Name" @bind-value="model.LastName" />
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Teacher</label>
-                                <input type="checkbox" @bind-value="model.IsTeacher" />
-                            </div>
+                        <div class="col-12 d-flex justify-content-center">
+                            <button class="btn btn-secondary w-25 mb-2" style="" type="submit" disabled="@isBusy">Register</button>
+                        </div>
+                        <div class="col-12 d-flex justify-content-center">
+                            Already have an account?
+                        </div>
+                        <div class="col-12 d-flex justify-content-center">
+                            <a href="/auth/LogIn">Sign in</a>
+                        </div>
 
-                            <br />
 
-                            <div class="col-12 d-flex justify-content-center">
-                                <button class="btn-register" style="" type="submit" disabled="@isBusy">Register</button>
-                            </div>
-                            <div class="col-12 d-flex justify-content-center" style="font-size: small">
-                                Already have an account?
-                            </div>
-                            <div class="col-12 d-flex justify-content-center" style="font-size: small">
-                                <a href="/auth/LogIn">Sign in</a>
-                            </div>
-                        </EditForm>
-                    </NotAuthorized>
-                </AuthorizeView>
-            </div>
+                        @*<div class="col-lg-4 row-cols-auto">
+            <img src="/images/dayne-topkin-glassesandpen.jpg" class="img-fluid" alt="Photo by Dayne Topkin on Unsplash" />
         </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="short-div m-2" style="background-color:red">Span 2</div>
+                <div class="short-div m-2" style="background-color:white">Span 2</div>
+                <div class="short-div m-2" style="background-color:red">Span 2</div>
+                <div class="short-div m-2" style="background-color:white">Span 2</div>
+                <div class="short-div m-2" style="background-color:red">Span 2</div>
+                <div class="short-div m-2" style="background-color:white">Span 2</div>
+            </div>
+            <div class="col-md-7">
+                <div class="short-div m-2" style="background-color:white">Span 7</div>
+                <div class="short-div m-2" style="background-color:red">Span 7</div>
+                <div class="short-div m-2" style="background-color:white">Span 7</div>
+                <div class="short-div m-2" style="background-color:red">Span 7</div>
+                <div class="short-div m-2" style="background-color:white">Span 7</div>
+                <div class="short-div m-2" style="background-color:red">Span 7</div>
+            </div>
+            <div class="col-md-3 col-xs-6 p-2" style="background-color:red">Span 3</div>
+        </div>*@
+
+
+
+
+
+
+
+                    </EditForm>
+                </NotAuthorized>
+            </AuthorizeView>
+            
+        </form>
     </div>
 </CascadingAuthenticationState>
 
