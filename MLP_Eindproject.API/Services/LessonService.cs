@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MLP_DbLibrary.DTO.LessonDTO;
 using MLP_DbLibrary.MLPContext;
 using MLP_DbLibrary.Models;
 using MLP_Eindproject.API.Services.Interfaces;
@@ -60,7 +61,7 @@ namespace MLP_Eindproject.API.Services
             }
             return lessonToCancel;
         }
-        public async Task<Lesson> UpdateLessonByTeacherId(int lessonId, Lesson lesson)
+        public async Task<Lesson> UpdateLessonByTeacherId(int lessonId, EditLessonDTO lesson)
         {
             var lessonToUpdate = await _context.Lessons.Include(x => x.Location)
                                                         .Include(x => x.Teacher)
@@ -69,11 +70,20 @@ namespace MLP_Eindproject.API.Services
                                                         .FirstOrDefaultAsync(x => x.Id == lessonId);
             if (lessonToUpdate.StudentId is null)
             {
+                //lesson
                 lessonToUpdate.LessonLevel = lesson.LessonLevel;
-                lessonToUpdate.LocationId = lesson.LocationId;
                 lessonToUpdate.Price = lesson.Price;
                 lessonToUpdate.Start = lesson.Start;
                 lessonToUpdate.Stop = lesson.Stop;
+                //instrument
+                lessonToUpdate.Instrument.InstrumentName = lesson.InstrumentName;
+                lessonToUpdate.Instrument.InstrumentStyle = lesson.InstrumentStyle;
+                //location
+                lessonToUpdate.Location.Street = lesson.Street;
+                lessonToUpdate.Location.Number = lesson.Number;
+                lessonToUpdate.Location.Postal = lesson.Postal;
+                lessonToUpdate.Location.Township = lesson.Township;
+                
                 await _context.SaveChangesAsync();
             }
             return lessonToUpdate;

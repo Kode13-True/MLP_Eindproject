@@ -16,18 +16,28 @@ namespace MLP_TestLibrary.LessonController
     [TestFixture]
     public class UpdateLessonTests
     {
-        [TestCase(19, "2021-6-6 15:00", "2021-6-6 16:00", 1, 25, LessonLevel.Expert)]
-        [TestCase(2, "2021-6-6 15:00", "2021-6-6 16:00", 1, 25, LessonLevel.Expert)]        
-        public void Update_Lesson_Succeeds(int lessonId, DateTime start, DateTime stop, int locationId, decimal price, LessonLevel lessonLevel)
+        [TestCase(19, "2021-6-6 15:00", "2021-6-6 16:00", 25, LessonLevel.Expert, InstrumentName.Drums, InstrumentStyle.Jazz, "americalaan", "654", "1682", "Zwaagdijk")]
+        [TestCase(2, "2021-6-6 15:00", "2021-6-6 16:00", 25, LessonLevel.Expert, InstrumentName.Drums, InstrumentStyle.Jazz, "americalaan", "654", "1682", "Zwaagdijk")]        
+        public void Update_Lesson_Succeeds(int lessonId, DateTime start, DateTime stop, decimal price, LessonLevel lessonLevel,
+            InstrumentName instrumentName, InstrumentStyle instrumentStyle,
+            string street, string number, string postal, string township)
         {
             //Arrange
-            var lessonToUpdate = new CreateLessonDTO
+            var lessonToUpdate = new EditLessonDTO
             {
+                //lesson
                 Start = start,
                 Stop = stop,
                 Price = price,
-                LessonLevel = lessonLevel,
-                LocationId = locationId                
+                LessonLevel = lessonLevel,   
+                //instrument
+                InstrumentName = instrumentName,
+                InstrumentStyle = instrumentStyle,
+                //location
+                Street = street,
+                Number = number,
+                Postal = postal,
+                Township = township,
             };
             using (var scope = TestFixture.ServiceProvider.CreateScope())
             {

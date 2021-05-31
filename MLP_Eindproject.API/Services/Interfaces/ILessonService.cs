@@ -1,4 +1,5 @@
-﻿using MLP_DbLibrary.Models;
+﻿using MLP_DbLibrary.DTO.LessonDTO;
+using MLP_DbLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace MLP_Eindproject.API.Services.Interfaces
         List<Lesson> GetAllUnbookedLessons();
         Task<Lesson> GetOneLessonById(int id);
         Task<Lesson> CreateLessonByTeacherId(int teacherId, Lesson lesson);
-        Task<Lesson> UpdateLessonByTeacherId(int lessonId, Lesson lesson);
+        Task<Lesson> UpdateLessonByTeacherId(int lessonId, EditLessonDTO lesson);
         Task<Lesson> CancelLesson(int lessonId);
         Task<Lesson> BookLesson(int studentId, int lessonId);
         Task<Lesson> DeleteLesson(int id);
