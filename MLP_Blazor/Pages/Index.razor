@@ -1,10 +1,10 @@
 ﻿@page "/"
-@using Microsoft.AspNetCore.Components.Authorization; 
+@using Microsoft.AspNetCore.Components.Authorization;
 @inject IMapper Mapper
 @inject HttpClient Client
 @inject NavigationManager NavManager
 @inject ILocalStorageService LocalStorageService
-@inject AuthenticationStateProvider AuthStateProvider 
+@inject AuthenticationStateProvider AuthStateProvider
 
 @if (lessonsVM == null)
 {
@@ -16,18 +16,18 @@ else
     <div class="jumbotron p-5" style="background-image: url(/images/dominik-vanyi-horses.jpg); background-size: cover; background-position-x: center; height:95vh;">
         <h1 class="display-4 mt-5 pt-5">your Music Hub </h1>
         <h3>Music is a dish best served cold. </h3>
-       
+
         <p class="lead">Learn or Teach music skills in a "1 ON 1" relationship.</p>
         <hr class="my-4">
-        
+
         <p>the MUB provides a private music lesson platform for your needs, check out the lessons below or go to the teacher overview to get to know the teachers.</p>
         <p>Musicians/Teachers, make that offer that can't be refused!</p>
         <figcaption class="blockquote-footer text-end" style="background-color: none; color: #E1E7F4">
-                Photo by Dominik Vanyi on Unsplash
-        </figcaption>   
+            Photo by Dominik Vanyi on Unsplash
+        </figcaption>
     </div>
-    <section id="availableLessons"/>
-       
+
+    <div class="p-md-3" id="availableLessons" ></div>
     <div class="container-fluid p-md-5 vh-100">
         <h1 class="display-3">Available lessons</h1>
         <hr class="my-4">
@@ -92,11 +92,9 @@ else
             </tbody>
         </table>
     </div>
+
  
 }
-    
-
-
 @code {
 
 
@@ -111,6 +109,7 @@ else
     {
 
         var lessons = await Client.GetFromJsonAsync<List<ResponseLessonDTO>>("https://localhost:44397/api/Lesson/GetAllUnbooked");
+
         var allLessonsVM = Mapper.Map<List<ResponseLessonVM>>(lessons);
 
         foreach(var lesson in allLessonsVM)
@@ -130,11 +129,9 @@ else
                 minValue = Convert.ToInt32(price);
             }
         }
-
-
         var localStateAuthProvider = (LocalStateAuthProvider)AuthStateProvider;
         var sessionExpired = await localStateAuthProvider.AuthenticationForLoginSession(Client);
-        if(sessionExpired is true)
+        if (sessionExpired is true)
         {
             NavManager.NavigateTo("/auth/login");
         }
@@ -209,7 +206,7 @@ else
         {
             var timer = new Timer(new TimerCallback(_ =>
             {
-                if(navUri == NavManager.Uri)
+                if (navUri == NavManager.Uri)
                 {
                     NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
                 }

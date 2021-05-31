@@ -36,15 +36,6 @@ namespace MLP_Eindproject.API.Services
             return listOfAdmins;
         }
 
-        public int GetNumberOfUsers()
-        {
-            var NumberOfTeachers = _context.Teachers.Count();
-            var NumberOfStudents = _context.Students.Count();
-            var NumberOfAdmins = _context.Admins.Count();
-            var NumberOfUsers = NumberOfTeachers + NumberOfStudents + NumberOfAdmins;
-            return NumberOfUsers;
-        }
-
         public async Task<Admin> UpdateAdminById(int personIdToEdit, Admin adminEditValue)
         {
             var personToEdit = await _context.Admins.FindAsync(personIdToEdit);
@@ -60,7 +51,41 @@ namespace MLP_Eindproject.API.Services
         {
             var AdminToDelete = _context.Admins.Find(personId);
             _context.Admins.Remove(AdminToDelete);
-            await _context.SaveChangesAsync();            
+            await _context.SaveChangesAsync();
+        }
+
+        public int GetNumberOfUsers()
+        {
+            var numberOfTeachers = _context.Teachers.Count();
+            var numberOfStudents = _context.Students.Count();
+            var numberOfAdmins = _context.Admins.Count();
+            var numberOfUsers = numberOfTeachers + numberOfStudents + numberOfAdmins;
+            return numberOfUsers;
+        }
+        public int GetNumberOfStudents()
+        {
+            var numberOfStudents = _context.Students.Count();
+            return numberOfStudents;
+        }
+        public int GetNumberOfTeachers()
+        {
+            var numberOfTeachers = _context.Teachers.Count();
+            return numberOfTeachers;
+        }
+        public int GetNumberOfAdmins()
+        {
+            var numberOfAdmins = _context.Admins.Count();
+            return numberOfAdmins;
+        }
+        public int GetNumberOfLessons()
+        {
+            var numberOfLessons = _context.Lessons.Count();
+            return numberOfLessons;
+        }
+        public int GetNumberOfBookedLessons()
+        {
+            var numberOfBookedLessons = _context.Lessons.Count();
+            return numberOfBookedLessons;
         }
     }
 }
