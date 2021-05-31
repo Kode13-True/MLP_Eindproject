@@ -1,10 +1,10 @@
 ﻿@page "/"
-@using Microsoft.AspNetCore.Components.Authorization; 
+@using Microsoft.AspNetCore.Components.Authorization;
 @inject IMapper Mapper
 @inject HttpClient Client
 @inject NavigationManager NavManager
 @inject ILocalStorageService LocalStorageService
-@inject AuthenticationStateProvider AuthStateProvider 
+@inject AuthenticationStateProvider AuthStateProvider
 
 @if (lessonsVM == null)
 {
@@ -16,22 +16,22 @@ else
     <div class="jumbotron p-5" style="background-image: url(/images/dominik-vanyi-horses.jpg); background-size: cover; background-position-x: center; height:95vh;">
         <h1 class="display-4 mt-5 pt-5">your Music Hub </h1>
         <h3>Music is a dish best served cold. </h3>
-       
+
         <p class="lead">Learn or Teach music skills in a "1 ON 1" relationship.</p>
         <hr class="my-4">
-        
+
         <p>the MUB provides a private music lesson platform for your needs, check out the lessons below or go to the teacher overview to get to know the teachers.</p>
         <p>Musicians/Teachers, make that offer that can't be refused!</p>
         <figcaption class="blockquote-footer text-end" style="background-color: none; color: #E1E7F4">
-                Photo by Dominik Vanyi on Unsplash
-        </figcaption>   
+            Photo by Dominik Vanyi on Unsplash
+        </figcaption>
     </div>
-    <section id="availableLessons"/>
-        <div class="container-fluid p-md-5 vh-100">
-            <h1 class="display-3">Available lessons</h1>
-            <hr class="my-4">
-            <table class="table table-striped table-hover m-auto">
-                <thead>
+   <div class="p-md-3" id="availableLessons" ></div>
+   <div class="container-fluid p-md-5 vh-100">
+        <h1 class="display-3">Available lessons</h1>
+        <hr class="my-4">
+        <table class="table table-striped table-hover m-auto">
+            <thead>
                 <tr>
                     <th><div class="d-block">Instrument</div></th>
                     <th><div class="d-block">Style</div></th>
@@ -44,26 +44,26 @@ else
                 </tr>
             </thead>
             <tbody>
-                 @foreach (var lesson in lessonsVM)
-                    {
+                @foreach (var lesson in lessonsVM)
+                {
 
-                        <tr @onclick="() => LessonDetails(lesson.Id)">
-                            <td><div class="d-block">@lesson.InstrumentName</div></td>
-                            <td><div class="d-block">@lesson.InstrumentStyle</div></td>
-                            <td><div class="d-none d-md-block">@lesson.LessonLevel</div></td>
-                            <td><div class="d-block">@lesson.Township</div></td>
-                            <td><div class="d-none d-md-block">@lesson.Start.ToShortDateString()</div></td>
-                            <td><div class="d-none d-md-block">@lesson.Start.ToShortTimeString()</div></td>
-                            <td><div class="d-none d-md-block">@lesson.Stop.ToShortTimeString()</div></td>
-                            <td><div class="d-none d-md-block">@lesson.TeacherFirstName @lesson.TeacherLastName</div></td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
- 
+                    <tr @onclick="() => LessonDetails(lesson.Id)">
+                        <td><div class="d-block">@lesson.InstrumentName</div></td>
+                        <td><div class="d-block">@lesson.InstrumentStyle</div></td>
+                        <td><div class="d-none d-md-block">@lesson.LessonLevel</div></td>
+                        <td><div class="d-block">@lesson.Township</div></td>
+                        <td><div class="d-none d-md-block">@lesson.Start.ToShortDateString()</div></td>
+                        <td><div class="d-none d-md-block">@lesson.Start.ToShortTimeString()</div></td>
+                        <td><div class="d-none d-md-block">@lesson.Stop.ToShortTimeString()</div></td>
+                        <td><div class="d-none d-md-block">@lesson.TeacherFirstName @lesson.TeacherLastName</div></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
 }
-     @*Preview Authentication + role usage
+@*Preview Authentication + role usage
         <div>
         <CascadingAuthenticationState>
             <AuthorizeView>
@@ -72,10 +72,10 @@ else
                     {
                      <div @onload="GetAdminData"></div>
                     }
-                    
+
                 </Authorized>
                 <NotAuthorized>
-                    
+
                 </NotAuthorized>
             </AuthorizeView>
         </CascadingAuthenticationState>
@@ -97,14 +97,14 @@ else
 
         var lessons = await Client.GetFromJsonAsync<List<ResponseLessonDTO>>("https://localhost:44397/api/Lesson/GetAllUnbooked");
         lessonsVM = Mapper.Map<List<ResponseLessonVM>>(lessons);
-               
+
         var localStateAuthProvider = (LocalStateAuthProvider)AuthStateProvider;
         var sessionExpired = await localStateAuthProvider.AuthenticationForLoginSession(Client);
-        if(sessionExpired is true)
+        if (sessionExpired is true)
         {
             NavManager.NavigateTo("/auth/login");
         }
-       
+
     }
 
     protected override void OnAfterRender(bool firstRender)
@@ -114,7 +114,7 @@ else
         {
             var timer = new Timer(new TimerCallback(_ =>
             {
-                if(navUri == NavManager.Uri)
+                if (navUri == NavManager.Uri)
                 {
                     NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
                 }

@@ -1,5 +1,7 @@
 ﻿
 @inherits LayoutComponentBase
+@inject NavigationManager Navigation
+@inject IJSRuntime JSRuntime
 
 <header>
     <NavMenu />
@@ -9,10 +11,43 @@
     <div class="container-fluid p-0">
         <main role="main" class="pb-3 pt-5">
             @Body
+
+            @functions {
+                protected override async Task OnInitializedAsync()
+                {
+                    await base.OnInitializedAsync();
+                    Navigation.LocationChanged += OnLocationChanges;
+                }
+
+                protected void OnLocationChanges(object sender, LocationChangedEventArgs args) => NavigateToElement();
+
+                protected void NavigateToElement()
+                {
+                    NavigateToElementAsync().Wait();
+                }
+
+                async protected override Task OnAfterRenderAsync(bool firstRender)
+                {
+                    await NavigateToElementAsync();
+                }
+
+                protected async Task NavigateToElementAsync()
+                {
+                    var fragment = new Uri(Navigation.Uri).Fragment;
+
+                    if (string.IsNullOrEmpty(fragment))
+                        return;
+
+                    var elementId = fragment.StartsWith("#") ? fragment.Substring(1) : fragment;
+
+                    if (string.IsNullOrEmpty(elementId))
+                        return;
+
+                    await JSRuntime.InvokeAsync<bool>("scrollToElementId", elementId);
+                }
+            }
         </main>
     </div>
 </body>
-
-
 
 
