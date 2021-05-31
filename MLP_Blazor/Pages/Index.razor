@@ -27,11 +27,40 @@ else
         </figcaption>   
     </div>
     <section id="availableLessons"/>
-        <div class="container-fluid p-md-5 vh-100">
-            <h1 class="display-3">Available lessons</h1>
-            <hr class="my-4">
-            <table class="table table-striped table-hover m-auto">
-                <thead>
+       
+    <div class="container-fluid p-md-5 vh-100">
+        <h1 class="display-3">Available lessons</h1>
+        <hr class="my-4">
+        <EditForm Model="searchLessonVM" OnValidSubmit="SearchLessons" >
+            <div class="col-md-12">
+                <input type="search" placeholder="Teacher last name" @bind-value="searchLessonVM.TeacherName"/>
+                <label>Max Price</label>
+                <input type="range" placeholder="Price" @bind-value="searchLessonVM.Price" min="@minValue"  max="@maxValue" />
+                <label>@searchLessonVM.Price</label>
+                <input type="search" placeholder="Postal" @bind-value="searchLessonVM.Postal"/>
+
+                <label>Instrument Name:</label>
+                <InputSelect @bind-Value="searchLessonVM.InstrumentName">
+                    <option></option>
+                    @foreach (var value in Enum.GetValues(typeof(InstrumentName)))
+                        {
+                        <option>@value</option>
+                        }
+                </InputSelect>
+                <label>Instrument Style:</label>
+                <InputSelect @bind-Value="searchLessonVM.InstrumentStyle">
+                    <option></option>
+                    @foreach (var value in Enum.GetValues(typeof(InstrumentStyle)))
+                        {
+                        <option>@value</option>
+                        }
+                </InputSelect>
+                <button class="btn btn-primary" type="submit">Search</button>
+                <button class="btn btn-primary" @onclick="ResetSearchParameters">Reset</button>
+            </div>
+        </EditForm>
+        <table class="table table-striped table-hover m-auto">
+            <thead>
                 <tr>
                     <th><div class="d-block">Instrument</div></th>
                     <th><div class="d-block">Style</div></th>
@@ -41,46 +70,31 @@ else
                     <th><div class="d-none d-md-block">Start</div></th>
                     <th><div class="d-none d-md-block">End</div></th>
                     <th><div class="d-none d-md-block">Teacher</div></th>
+                    <th><div class="d-none d-md-block">Price</div></th>
                 </tr>
             </thead>
             <tbody>
-                 @foreach (var lesson in lessonsVM)
-                    {
+                @foreach (var lesson in lessonsVM)
+                {
 
-                        <tr @onclick="() => LessonDetails(lesson.Id)">
-                            <td><div class="d-block">@lesson.InstrumentName</div></td>
-                            <td><div class="d-block">@lesson.InstrumentStyle</div></td>
-                            <td><div class="d-none d-md-block">@lesson.LessonLevel</div></td>
-                            <td><div class="d-block">@lesson.Township</div></td>
-                            <td><div class="d-none d-md-block">@lesson.Start.ToShortDateString()</div></td>
-                            <td><div class="d-none d-md-block">@lesson.Start.ToShortTimeString()</div></td>
-                            <td><div class="d-none d-md-block">@lesson.Stop.ToShortTimeString()</div></td>
-                            <td><div class="d-none d-md-block">@lesson.TeacherFirstName @lesson.TeacherLastName</div></td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+                    <tr @onclick="() => LessonDetails(lesson.Id)">
+                        <td><div class="d-block">@lesson.InstrumentName</div></td>
+                        <td><div class="d-block">@lesson.InstrumentStyle</div></td>
+                        <td><div class="d-none d-md-block">@lesson.LessonLevel</div></td>
+                        <td><div class="d-block">@lesson.Postal @lesson.Township</div></td>
+                        <td><div class="d-none d-md-block">@lesson.Start.ToShortDateString()</div></td>
+                        <td><div class="d-none d-md-block">@lesson.Start.ToShortTimeString()</div></td>
+                        <td><div class="d-none d-md-block">@lesson.Stop.ToShortTimeString()</div></td>
+                        <td><div class="d-none d-md-block">@lesson.TeacherFirstName @lesson.TeacherLastName</div></td>
+                        <td><div class="d-none d-md-block">@lesson.Price</div></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
  
 }
-     @*Preview Authentication + role usage
-        <div>
-        <CascadingAuthenticationState>
-            <AuthorizeView>
-                <Authorized>
-                    if(@context.User.IsInRole("Admin"))
-                    {
-                     <div @onload="GetAdminData"></div>
-                    }
-                    
-                </Authorized>
-                <NotAuthorized>
-                    
-                </NotAuthorized>
-            </AuthorizeView>
-        </CascadingAuthenticationState>
-    </div>*@
-
+    
 
 
 @code {
@@ -88,24 +102,105 @@ else
 
     private List<ResponseLessonVM> lessonsVM = new List<ResponseLessonVM>();
 
-    public void LessonDetails(int id)
-    {
-        NavManager.NavigateTo($"/lessondetails/{id}");
-    }
+    int maxValue = 0;
+    int minValue = 100;
+
+    SearchLessonVM searchLessonVM = new SearchLessonVM();
+
     protected override async Task OnInitializedAsync()
     {
 
         var lessons = await Client.GetFromJsonAsync<List<ResponseLessonDTO>>("https://localhost:44397/api/Lesson/GetAllUnbooked");
-        lessonsVM = Mapper.Map<List<ResponseLessonVM>>(lessons);
-               
+        var allLessonsVM = Mapper.Map<List<ResponseLessonVM>>(lessons);
+
+        foreach(var lesson in allLessonsVM)
+        {
+            if(lesson.Start > DateTime.Now)
+            {
+                lessonsVM.Add(lesson);
+            }
+            if (lesson.Price > maxValue)
+            {
+                var price = Math.Ceiling(lesson.Price);
+                maxValue = Convert.ToInt32(price);
+            }
+            if (lesson.Price < minValue)
+            {
+                var price = Math.Floor(lesson.Price);
+                minValue = Convert.ToInt32(price);
+            }
+        }
+
+
         var localStateAuthProvider = (LocalStateAuthProvider)AuthStateProvider;
         var sessionExpired = await localStateAuthProvider.AuthenticationForLoginSession(Client);
         if(sessionExpired is true)
         {
             NavManager.NavigateTo("/auth/login");
         }
-       
+
     }
+
+    public async void SearchLessons()
+    {
+        if (searchLessonVM.TeacherName is "")
+        {
+            searchLessonVM.TeacherName = null;
+        }
+        if(searchLessonVM.Postal is "")
+        {
+            searchLessonVM.Postal = null;
+        }
+
+        lessonsVM.Clear();
+        var responseSearch = await Client.PostAsJsonAsync("https://localhost:44397/api/search/SearchLessons", searchLessonVM);
+        if (responseSearch.IsSuccessStatusCode)
+        {
+            var responseString = await responseSearch.Content.ReadAsStringAsync();
+            var lessons = (List<ResponseLessonDTO>)JsonConvert.DeserializeObject(responseString, typeof(List<ResponseLessonDTO>));
+            var allLessonsVM = Mapper.Map<List<ResponseLessonVM>>(lessons);
+
+            foreach (var lesson in allLessonsVM)
+            {
+                if (lesson.Start > DateTime.Now)
+                {
+                    lessonsVM.Add(lesson);
+                }
+                if (lesson.Price > maxValue)
+                {
+                    var price = Math.Ceiling(lesson.Price);
+                    maxValue = Convert.ToInt32(price);
+                }
+                if (lesson.Price < minValue)
+                {
+                    var price = Math.Floor(lesson.Price);
+                    minValue = Convert.ToInt32(price);
+                }
+            }
+        }
+        NotifyChangedState();
+    }
+
+    public void ResetSearchParameters()
+    {
+        searchLessonVM.InstrumentName = null;
+        searchLessonVM.InstrumentStyle = null;
+        searchLessonVM.Postal = null;
+        searchLessonVM.TeacherName = null;
+        searchLessonVM.Price = null;
+    }
+
+
+
+
+    //methods
+
+    public void LessonDetails(int id)
+    {
+        NavManager.NavigateTo($"/lessondetails/{id}");
+    }
+
+    private void NotifyChangedState() => StateHasChanged();
 
     protected override void OnAfterRender(bool firstRender)
     {
