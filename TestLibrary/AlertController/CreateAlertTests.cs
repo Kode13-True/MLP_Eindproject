@@ -16,11 +16,11 @@ namespace MLP_TestLibrary.AlertController
     [TestFixture]
     public class CreateAlertTests
     {
-        [TestCase(6, AlertType.Cancelled, "Lesson Got cancelled", 16)]
-        [TestCase(6, AlertType.Booked, "Lesson Got Booked", 16)]
-        [TestCase(6, AlertType.Rate, "Lesson Got Rated", 16)]
-        [TestCase(6, AlertType.Report, "Lesson Got Reported", 16)]
-        public void Create_Alert_Succeeds(int personId, AlertType alertType, string message, int aimedPersonId)
+        [TestCase( AlertType.Cancelled, "Lesson Got cancelled", 16)]
+        [TestCase( AlertType.Booked, "Lesson Got Booked", 16)]
+        [TestCase( AlertType.Rate, "Lesson Got Rated", 16)]
+        [TestCase( AlertType.Report, "Lesson Got Reported", 16)]
+        public void Create_Alert_Succeeds(AlertType alertType, string message, int aimedPersonId)
         {
             //Arrange
             var testItem = new CreateAlertDTO { AlertType = alertType, Message = message, PersonId = aimedPersonId  };
@@ -33,7 +33,7 @@ namespace MLP_TestLibrary.AlertController
             }
 
             //Act
-            var response = TestFixture.Client.PostJson($"api/Alert/Create/{personId}", testItem);
+            var response = TestFixture.Client.PostJson($"api/Alert/Create", testItem);
             var content = response.GetContent<ResponseAlertDTO>();
 
             Alert alert;

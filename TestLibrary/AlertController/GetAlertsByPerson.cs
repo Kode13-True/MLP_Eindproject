@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using MLP_DbLibrary.DTO.PersonDTO;
+using MLP_DbLibrary.DTO.AlertDTO;
 using MLP_DbLibrary.MLPContext;
 using MLP_DbLibrary.Models;
 using MLP_DbLibrary.Seeding;
@@ -11,24 +11,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MLP_TestLibrary.AdminController
+namespace MLP_TestLibrary.AlertController
 {
     [TestFixture]
-    public class CreateAdminTests
+    public class GetAlertsByPerson
     {
-        [TestCase("john.doe@testmail.com", "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=", "John","Doe")]
-
-        public void CreateAdmin_Succeeds(string email, string password, string firstName, string lastName)
+        [TestCase(5)]
+        public void GetAlertsByPersonId_Succeeds(int id)
         {
             //Arrange
-            
-            var testItem = new CreateAdminDTO
-            {
-                Email = email,
-                Password = password,
-                FirstName = firstName,
-                LastName = lastName,
-            };
             using (var scope = TestFixture.ServiceProvider.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
@@ -37,21 +28,23 @@ namespace MLP_TestLibrary.AdminController
             }
 
             //Act
-            var response = TestFixture.Client.PostJson("api/Admin/Create", testItem);
-            Admin admin = null;
+            var response = TestFixture.Client.GetAsync($"api/Alert/GetAllByPersonId/{id}").Result;
+            var content = response.GetContent<List<ResponseAlertDTO>>();
+
+            List<Alert> alerts;
             using (var scope = TestFixture.ServiceProvider.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
-                admin = db.Admins.Where(x => x.Email == email && x.Password == password && x.FirstName == firstName && x.LastName == lastName).FirstOrDefault();
+                alerts = db.Alerts.Where(x => x.PersonId == id).ToList();
             }
+
             //Assert
             Assert.Multiple(() =>
             {
                 Assert.That(response.IsSuccessStatusCode, "Statuscode");
-                Assert.That(admin is not null, "Saved in Db");
+                Assert.That(alerts.Count == content.Count, "List is correct");
             });
-
         }
     }
 }
