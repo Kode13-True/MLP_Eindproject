@@ -7495,6 +7495,9 @@ html, body {
 h1, .h1, p, .jumbotron {
   color: #E1E7F4 !important; }
 
+*[availableLessons] {
+  scroll-behavior: smooth; }
+
 .table {
   background-color: #1C3144 !important;
   color: #E1E7F4 !important;
