@@ -37,7 +37,8 @@ namespace MLP_MigrationLibrary.Migrations
                     Token = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Rating = table.Column<double>(type: "float", nullable: true)
+                    Rating = table.Column<double>(type: "float", nullable: true),
+                    RatingCount = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
