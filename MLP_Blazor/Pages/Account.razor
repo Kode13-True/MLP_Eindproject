@@ -219,7 +219,7 @@
 
             if (persontype == "Admin")
             {
-                var adminDTO = await Client.GetFromJsonAsync<ResponseTeacherDTO>("https://localhost:44397/api/Admin/One/" + personId);
+                var adminDTO = await Client.GetFromJsonAsync<ResponseAdminDTO>("https://localhost:44397/api/Admin/One/" + personId);
 
                 admin = _mapper.Map<ResponseAdminVM>(adminDTO);
             }
