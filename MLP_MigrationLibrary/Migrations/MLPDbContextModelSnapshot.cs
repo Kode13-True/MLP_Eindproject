@@ -207,6 +207,9 @@ namespace MLP_MigrationLibrary.Migrations
                     b.Property<double>("Rating")
                         .HasColumnType("float");
 
+                    b.Property<int>("RatingCount")
+                        .HasColumnType("int");
+
                     b.HasDiscriminator().HasValue("Teacher");
                 });
 

@@ -96,6 +96,11 @@ namespace MLP_Eindproject.API.Services
                 _context.Remove(lessonToDelete);
                 await _context.SaveChangesAsync();
             }
+            else if (lessonToDelete.Start > DateTime.Now.AddHours(24))
+            {
+                _context.Remove(lessonToDelete);
+                await _context.SaveChangesAsync();
+            }
             return lessonToDelete;
         }
 

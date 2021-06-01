@@ -11,5 +11,6 @@ namespace MLP_DbLibrary.Models
         public string Description { get; set; }
         public List<Lesson> Lessons { get; set; }
         public double Rating { get; set; }
+        public int RatingCount { get; set; }
     }
 }

@@ -15,5 +15,6 @@ namespace MLP_DbLibrary.DTO.PersonDTO
         public string LastName { get; set; }
         public string Description { get; set; }
         public double Rating { get; set; }
+        public int RatingCount { get; set; }
     }
 }
