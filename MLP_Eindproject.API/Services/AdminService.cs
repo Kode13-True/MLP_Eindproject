@@ -1,4 +1,5 @@
-﻿using MLP_DbLibrary.MLPContext;
+﻿using Microsoft.EntityFrameworkCore;
+using MLP_DbLibrary.MLPContext;
 using MLP_DbLibrary.Models;
 using MLP_Eindproject.API.Services.Interfaces;
 using System;
@@ -54,38 +55,52 @@ namespace MLP_Eindproject.API.Services
             await _context.SaveChangesAsync();
         }
 
-        public int GetNumberOfUsers()
+        public int [] GetNumberOfUsers() 
         {
-            var numberOfTeachers = _context.Teachers.Count();
-            var numberOfStudents = _context.Students.Count();
-            var numberOfAdmins = _context.Admins.Count();
-            var numberOfUsers = numberOfTeachers + numberOfStudents + numberOfAdmins;
-            return numberOfUsers;
+            var countList = new int[] { _context.Students.Count(), 
+                                        _context.Teachers.Count(), 
+                                        _context.Admins.Count() };
+            return countList;
         }
-        public int GetNumberOfStudents()
+        public int [] GetNumberOfLessons()
         {
-            var numberOfStudents = _context.Students.Count();
-            return numberOfStudents;
+            var countList = new int[] { _context.Lessons.Count(), 
+                                        _context.Lessons.Where(x => x.StudentId != null).Count(), 
+                                        _context.Lessons.Where(x => x.StudentId != null).Where(x => x.Start > DateTime.Now).Count() };
+            return countList;
         }
-        public int GetNumberOfTeachers()
+        public int [] GetNumberOfLevels()
         {
-            var numberOfTeachers = _context.Teachers.Count();
-            return numberOfTeachers;
+            var countList = new int[] { _context.Lessons.Where(x => x.LessonLevel == LessonLevel.Novice).Count(), 
+                                        _context.Lessons.Where(x => x.LessonLevel == LessonLevel.Intermediate).Count(), 
+                                        _context.Lessons.Where(x => x.LessonLevel == LessonLevel.Expert).Count() };
+            return countList;
         }
-        public int GetNumberOfAdmins()
+        public int[] GetNumberOfStyles()
         {
-            var numberOfAdmins = _context.Admins.Count();
-            return numberOfAdmins;
+            var countList = new int[] { _context.Lessons.Where(x => x.Instrument.InstrumentStyle == InstrumentStyle.Classic).Count(),
+                                        _context.Lessons.Where(x => x.Instrument.InstrumentStyle == InstrumentStyle.Rock).Count(),
+                                        _context.Lessons.Where(x => x.Instrument.InstrumentStyle == InstrumentStyle.Jazz).Count(),
+                                        _context.Lessons.Where(x => x.Instrument.InstrumentStyle == InstrumentStyle.Pop).Count(),
+                                        _context.Lessons.Where(x => x.Instrument.InstrumentStyle == InstrumentStyle.Reggae).Count()};
+            return countList;
         }
-        public int GetNumberOfLessons()
+        public int[] GetNumberOfInstruments()
         {
-            var numberOfLessons = _context.Lessons.Count();
-            return numberOfLessons;
+            var countlist = new int[] { _context.Lessons.Include(x => x.Instrument).Where(x => x.Instrument.InstrumentName == InstrumentName.Vocals).Count(),
+                                        _context.Lessons.Include(x => x.Instrument).Where(x => x.Instrument.InstrumentName == InstrumentName.Piano).Count(),
+                                        _context.Lessons.Include(x => x.Instrument).Where(x => x.Instrument.InstrumentName == InstrumentName.Guitar).Count(),
+                                        _context.Lessons.Include(x => x.Instrument).Where(x => x.Instrument.InstrumentName == InstrumentName.Violin).Count(),
+                                        _context.Lessons.Include(x => x.Instrument).Where(x => x.Instrument.InstrumentName == InstrumentName.Drums).Count(),
+                                        _context.Lessons.Include(x => x.Instrument).Where(x => x.Instrument.InstrumentName == InstrumentName.Saxophone).Count(),
+                                        _context.Lessons.Include(x => x.Instrument).Where(x => x.Instrument.InstrumentName == InstrumentName.Fluit).Count(),
+                                        _context.Lessons.Include(x => x.Instrument).Where(x => x.Instrument.InstrumentName == InstrumentName.Cello).Count(),
+                                        _context.Lessons.Include(x => x.Instrument).Where(x => x.Instrument.InstrumentName == InstrumentName.Clarinet).Count(),
+                                        _context.Lessons.Include(x => x.Instrument).Where(x => x.Instrument.InstrumentName == InstrumentName.Trumpet).Count(),
+                                        _context.Lessons.Include(x => x.Instrument).Where(x => x.Instrument.InstrumentName == InstrumentName.Harp).Count()
+            };
+            return countlist;
         }
-        public int GetNumberOfBookedLessons()
-        {
-            var numberOfBookedLessons = _context.Lessons.Count();
-            return numberOfBookedLessons;
-        }
+
     }
 }

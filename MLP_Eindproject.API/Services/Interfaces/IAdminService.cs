@@ -13,6 +13,10 @@ namespace MLP_Eindproject.API.Services.Interfaces
         List<Admin> GetAllAdmins();
         Task<Admin> UpdateAdminById(int personIdToEdit, Admin adminEditValue);
         Task DeleteAdminById(int personId);
-        int GetNumberOfUsers();
+        int[] GetNumberOfUsers();
+        int[] GetNumberOfLessons();
+        public int[] GetNumberOfLevels();
+        int[] GetNumberOfStyles();
+        public int[] GetNumberOfInstruments();
     }
 }
