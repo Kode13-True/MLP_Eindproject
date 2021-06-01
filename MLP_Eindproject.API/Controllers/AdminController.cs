@@ -55,12 +55,41 @@ namespace MLP_Eindproject.API.Controllers
             }
 
         // GET: api/<AdminController>
-        [HttpGet("GetNumberOfUsers")]
-        public ActionResult<int> GetAllUsers()
+        [HttpGet("GetUserNumbers")]
+        public ActionResult<int[]> GetUserNumbers()
         {
-            var users = _adminService.GetNumberOfUsers();
-            return Ok(users);
+            var response = _adminService.GetNumberOfUsers();
+            return Ok(response);
         }
+        // GET: api/<AdminController>
+        [HttpGet("GetLessonNumbers")]
+        public ActionResult<int[]> GetLessonNumbers()
+        {
+            var response = _adminService.GetNumberOfLessons();
+            return Ok(response);
+        }
+        // GET: api/<AdminController>
+        [HttpGet("GetLevelNumbers")]
+        public ActionResult<int[]> GetLevelNumbers()
+        {
+            var response = _adminService.GetNumberOfLevels();
+            return Ok(response);
+        }
+        // GET: api/<AdminController>
+        [HttpGet("GetStyleNumbers")]
+        public ActionResult<int[]> GetStyleNumbers()
+        {
+            var response = _adminService.GetNumberOfStyles();
+            return Ok(response);
+        }
+        // GET: api/<AdminController>
+        [HttpGet("GetInstrumentNumbers")]
+        public ActionResult<int[]> GetInstrumentNumbers()
+        {
+            var response = _adminService.GetNumberOfInstruments();
+            return Ok(response);
+        }
+
 
         // PUT api/<AdminController>/5
         [HttpPut("Update/{id}")]
