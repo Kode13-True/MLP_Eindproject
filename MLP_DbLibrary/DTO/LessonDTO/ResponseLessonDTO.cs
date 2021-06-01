@@ -30,5 +30,6 @@ namespace MLP_DbLibrary.DTO.LessonDTO
         public string StudentFirstName { get; set; }
         public string StudentLastName { get; set; }        
         public LessonLevel LessonLevel { get; set; }
+        public bool Completed { get; set; }
     }
 }

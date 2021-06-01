@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MLP_DbLibrary.DTO.RatingDTO;
 using MLP_DbLibrary.MLPContext;
 using MLP_DbLibrary.Models;
 using MLP_Eindproject.API.Services.Interfaces;
@@ -60,6 +61,38 @@ namespace MLP_Eindproject.API.Services
             var student = _context.Students.Include(x => x.Lessons).FirstOrDefault(x => x.Id == personId);
             var studentLessons = student.Lessons.ToList();
             return studentLessons;
+        }
+
+        public async Task<Lesson> GiveRating(GiveRatingDTO giveRatingDTO)
+        {
+            if (giveRatingDTO is null)
+            {
+                throw new ArgumentNullException(nameof(giveRatingDTO));
+            }
+
+            var teacher = _context.Teachers.Find(giveRatingDTO.TeacherId);
+            if(teacher is not null)
+            {
+                if(teacher.Rating == 0 && teacher.RatingCount != 0) 
+                {
+                    teacher.RatingCount = 0;
+                }                
+                if(teacher.Rating != 0 && teacher.RatingCount == 0) 
+                {
+                    teacher.Rating = 0;
+                }
+                var totalRating = teacher.Rating * teacher.RatingCount;
+                teacher.RatingCount++;
+                teacher.Rating = (totalRating + giveRatingDTO.Rating) / teacher.RatingCount;
+                teacher.Rating = Math.Round(teacher.Rating, 1);
+            }
+            var lesson = _context.Lessons.Find(giveRatingDTO.LessonId);
+            if(lesson is not null)
+            {
+                lesson.Completed = true;
+            }
+            await _context.SaveChangesAsync();
+            return lesson;
         }
     }
 }

@@ -21,6 +21,7 @@ namespace MLP_Eindproject.API.Services
         {
             lesson.TeacherId = teacherId;
             lesson.DOC = DateTime.Now;
+            lesson.Completed = false;
             await _context.Lessons.AddAsync(lesson);
             await _context.SaveChangesAsync();
             return lesson;
