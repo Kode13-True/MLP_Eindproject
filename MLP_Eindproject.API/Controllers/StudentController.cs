@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using MLP_DbLibrary.DTO.LessonDTO;
 using MLP_DbLibrary.DTO.PersonDTO;
+using MLP_DbLibrary.DTO.RatingDTO;
 using MLP_DbLibrary.Models;
 using MLP_Eindproject.API.Services.Interfaces;
 using System;
@@ -27,6 +29,11 @@ namespace MLP_Eindproject.API.Controllers
         [HttpPost("Create")]
         public async Task<ActionResult<ResponseStudentDTO>> CreateNewStudent(CreateStudentDTO createStudentDTO)
         {
+            if (createStudentDTO is null)
+            {
+                throw new ArgumentNullException(nameof(createStudentDTO));
+            }
+
             var newStudent = _mapper.Map<Student>(createStudentDTO);
             var student = await _studentService.CreateStudent(newStudent);
             var studentDTO = _mapper.Map<ResponseStudentDTO>(student);
@@ -59,10 +66,28 @@ namespace MLP_Eindproject.API.Controllers
         [HttpPut("Update/{id}")]
         public async Task<ActionResult<ResponseStudentDTO>> Update(int id, [FromBody] EditStudentDTO editStudentDTO)
         {
+            if (editStudentDTO is null)
+            {
+                throw new ArgumentNullException(nameof(editStudentDTO));
+            }
+
             var student = _mapper.Map<Student>(editStudentDTO);
             var studentResponse = await _studentService.UpdateStudentById(id, student);
             var responseStudentDTO = _mapper.Map<ResponseStudentDTO>(studentResponse);
             return Ok(responseStudentDTO);
+        }
+        [HttpPut("RateTeacher")]
+        public async Task<ActionResult<ResponseLessonDTO>> RateTeacher([FromBody] GiveRatingDTO giveRatingDTO)
+        {
+            if (giveRatingDTO is null)
+            {
+                throw new ArgumentNullException(nameof(giveRatingDTO));
+            }
+
+            var completedLesson = await _studentService.GiveRating(giveRatingDTO);
+            if(completedLesson is null) { return BadRequest(); }
+            var responseLessonDTO = _mapper.Map<ResponseLessonDTO>(completedLesson);
+            return responseLessonDTO;
         }
 
         // DELETE api/<StudentController>/5

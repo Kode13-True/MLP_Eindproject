@@ -26,18 +26,32 @@
                             <div id="AreYouSureMessage" hidden="@hiddenCancelMessage" class="alert alert-info col-md-12">
                                 Are you sure?<span @onclick="YesCancel">[yes]</span>/<span @onclick="NoCancel">[no]</span>
                             </div>
+                            <div id="GiveRatingMessage" hidden="@hiddenRateMessage" class="alert alert-info col-md-12">
+                                Give a rating from 1 to 5 please:
+                                <EditForm Model="Rating" OnValidSubmit="GiveRating">
+                                    <InputSelect @bind-Value="Rating">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </InputSelect>
+                                    <button class="btn" type="submit">submit</button>
+                                </EditForm>
+                            </div>
                             <p class="card-text text-center">Difficulty: @lesson.LessonLevel</p>
                             <p class="card-text text-center">Start: @lesson.Start.ToShortTimeString() @lesson.Start.ToShortDateString()</p>
                             <p class="card-text text-center">Stop: @lesson.Stop.ToShortTimeString() @lesson.Stop.ToShortDateString()</p>
                             <p class="card-text text-center">Address: @lesson.Street @lesson.Number, @lesson.Postal @lesson.Township</p>
                             <p class="card-text text-center">Teacher: @lesson.TeacherFirstName @lesson.TeacherLastName</p>
-                            <p class="card-text text-center">Rating: @lesson.TeacherRating</p>
+                            
                             <AuthorizeView>
                                 <Authorized>
                                     @if (context.User.IsInRole("Student"))
                                     {
                                         <button hidden="@hiddenBookButton" class="btn btn-primary w-100" @onclick="BookLesson">Book Lesson</button>
                                         <button hidden="@hiddenCancelButton" class="btn btn-primary w-100" @onclick="CancelLesson">Cancel Lesson</button>
+                                        <button hidden="@hiddenRateButton" class="btn btn-primary w-100" @onclick="RateLesson">Rate Lesson</button>
                                     }
                                     @if (context.User.IsInRole("Teacher"))
                                     {
@@ -69,14 +83,17 @@
 
     string message = string.Empty;
 
+    public int Rating = 1;
 
     public bool hiddenMessage = true;
     public bool hiddenDeleteMessage = true;
     public bool hiddenCancelMessage = true;
+    public bool hiddenRateMessage = true;
     public bool hiddenBookButton = false;
     public bool hiddenCancelButton = true;
     public bool hiddenEditButton = true;
     public bool hiddenDeleteButton = true;
+    public bool hiddenRateButton = true;
 
     ResponseLessonDTO lessonDTO;
 
@@ -97,11 +114,12 @@
         }
         if(user is not null)
         {
-            if (lesson.StudentId == user.Id && lesson.Start > DateTime.Now.AddHours(48))
+            if (lesson.StudentId == user.Id)
             {
-                hiddenCancelButton = false;
-            }
+                if(lesson.Start > DateTime.Now.AddHours(48)) { hiddenCancelButton = false; }
+                if(lesson.Stop < DateTime.Now && lesson.Completed == false) { hiddenRateButton = false; }
 
+            }
             if(lesson.TeacherId == user.Id)
             {
                 if (lesson.StudentId is null)
@@ -114,7 +132,6 @@
                     hiddenDeleteButton = false;
                 }
             }
-
             if (user.Role.Equals(PersonType.Admin))
             {
                 hiddenCancelButton = false;
@@ -199,6 +216,11 @@
                 {
                     NavManager.NavigateTo("/account");
                 }
+                else
+                {
+                    message = "The alert has failed.";
+                    hiddenMessage = false;
+                }
             }
             else
             {
@@ -225,6 +247,55 @@
     {
         hiddenCancelMessage = true;
     }
+
+    //Rate Lesson
+
+    public void RateLesson()
+    {
+        hiddenRateButton = true;
+        hiddenRateMessage = false;
+    }
+
+    public async void GiveRating()
+    {
+        hiddenRateMessage = true;
+        var rating = new GiveRatingDTO { LessonId = lessonId, TeacherId = lesson.TeacherId.GetValueOrDefault(), Rating = Rating };
+
+        var ratingResponse = await Client.PutAsJsonAsync("https://localhost:44397/api/student/RateTeacher", rating);
+        if (ratingResponse.IsSuccessStatusCode)
+        {
+
+            var lessonContent = await ratingResponse.Content.ReadAsStringAsync();
+            var ratedLesson = (ResponseLessonDTO)JsonConvert.DeserializeObject(lessonContent, typeof(ResponseLessonDTO));
+            if (ratedLesson is not null)
+            {
+                var alert = new CreateAlertDTO { AlertType = AlertType.Rate, Message = $"Your lesson on {ratedLesson.Start.ToShortDateString()} has been rated {Rating}/5.", PersonId = ratedLesson.TeacherId.GetValueOrDefault() };
+                var alertResponse = await Client.PostAsJsonAsync("https://localhost:44397/api/alert/create", alert);
+                if (alertResponse.IsSuccessStatusCode)
+                {
+                    NavManager.NavigateTo("/account");
+                }
+                else
+                {
+                    message = "The alert has failed.";
+                    hiddenMessage = false;
+                }
+            }
+            else
+            {
+                message = "Rated lesson not found.";
+                hiddenMessage = false;
+            }
+
+        }
+        else
+        {
+            message = "The rating has failed, please try again at a later date.";
+            hiddenMessage = false;
+        }
+        NotifyChangedState();
+    }
+
 
     //EditLesson
 
@@ -276,9 +347,9 @@
                                     NavManager.NavigateTo("/account");
                                 }
                             }
-                            else 
+                            else
                             {
-                                NavManager.NavigateTo("/account"); 
+                                NavManager.NavigateTo("/account");
                             }
                         }
                         else
