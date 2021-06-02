@@ -9,10 +9,9 @@ namespace MLP_DbLibrary.VM.UserVM
 {
     public class LoginUserVM
     {
-        [Required]
-        [EmailAddress]
+        [Required]        
         public string Email { get; set; }
-        [Required]
+        [Required]        
         public string Password { get; set; }
     }
 }
