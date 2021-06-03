@@ -1,28 +1,79 @@
 ﻿@page "/"
 
-    <div class="jumbotron p-5 mb-0" style="background-image: url(/images/dominik-vanyi-horses.jpg); background-size: cover; background-position-x: center; height:100vh;">
-        <h1 class="display-4 mt-5 pt-5">your Music Hub </h1>
-        <h3>Music is a dish best served cold. </h3>
 
-        <p class="lead">Learn or Teach music skills in a "1 ON 1" relationship.</p>
-        <hr class="my-4">
+@inject HttpClient Client
+@inject IMapper _mapper
 
-        <p>the MUB provides a private music lesson platform for your needs, check out the lessons below or go to the teacher overview to get to know the teachers.</p>
-        <p>Musicians/Teachers, make that offer that can't be refused!</p>
-        <figcaption class="blockquote-footer text-end" style="background-color: none; color: #E1E7F4">
-            Photo by Dominik Vanyi on Unsplash
-        </figcaption>
+
+<div class="jumbotron p-5 mb-0" style="background-image: url(/images/dominik-vanyi-horses.jpg); background-size: cover; background-position-x: center; height:100vh;">
+    <h1 class="display-4 mt-5 pt-5">your Music Hub </h1>
+    <h3>Music is a dish best served cold. </h3>
+
+    <p class="lead">Learn or Teach music skills in a "1 ON 1" relationship.</p>
+    <hr class="my-4">
+
+    <p>the MUB provides a private music lesson platform for your needs, check out the lessons below or go to the teacher overview to get to know the teachers.</p>
+    <p>Musicians/Teachers, make that offer that can't be refused!</p>
+    <figcaption class="blockquote-footer text-end" style="background-color: none; color: #E1E7F4">
+        Photo by Dominik Vanyi on Unsplash
+    </figcaption>
+</div>
+
+
+<div class="container-fluid p-5">
+    <h1 class="display-3">Top 5 rated teachers</h1>
+    <hr class="my-4">
+</div>
+    <div class="container align-content-center p-5">
+        <div class="card-columns">
+            <div class="row">
+
+                @foreach (var teacher in teachers)
+                {
+
+                    <div class="card d-inline-block m-1" style="width: 14.4rem;">
+                        <img src="/images/users.png" class="card-img-top" alt="...">
+
+                        <div class="card-body align-content-center">
+                            <h5 class="card-title text-center">@teacher.FirstName @teacher.LastName</h5>
+                            <h6 class="card-title text-center">Mubster since : @teacher.DOC.ToShortDateString()</h6>
+                            <p class="card-text overflow-hidden" style="height: 10vh; max-height:10vh;">@teacher.Description</p>
+                            <p class="card-footer text-center">Rating = @teacher.Rating</p>
+                            <a href="TeacherDetails/@teacher.Id" class="btn btn-primary w-100">More info</a>
+                        </div>
+                    </div>
+
+
+                }
+
+            </div>
+        </div>
     </div>
 
-    <div class="p-sm-3" id="availableLessons" ></div>
-    
 
- 
+
+
 
 @code {
 
+    public List<ResponseTeacherVM> teachers = new List<ResponseTeacherVM>();
 
-   
+    protected override async Task OnInitializedAsync()
+    {
+        var teachersDTO = await Client.GetFromJsonAsync<List<ResponseTeacherDTO>>("https://localhost:44397/api/Teacher/GetAll");
+        var allTeachers = _mapper.Map<List<ResponseTeacherVM>>(teachersDTO);
+        var allOrderTeachers = allTeachers.OrderByDescending(x => x.Rating);
+        Queue<ResponseTeacherVM> teacherQueue = new Queue<ResponseTeacherVM>();
+        foreach (var teacher in allOrderTeachers)
+        {
+            teacherQueue.Enqueue(teacher);
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            teachers.Add(teacherQueue.Dequeue());
+        }
+    }
+
 }
 
 
