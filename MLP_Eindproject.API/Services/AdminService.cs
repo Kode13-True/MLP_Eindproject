@@ -64,8 +64,8 @@ namespace MLP_Eindproject.API.Services
         }
         public int [] GetNumberOfLessons()
         {
-            var countList = new int[] { _context.Lessons.Count(), 
-                                        _context.Lessons.Where(x => x.StudentId != null).Count(), 
+            var countList = new int[] { _context.Lessons.Where(x => x.Start > DateTime.Now).Count(), 
+                                        _context.Lessons.Where(x => x.StudentId == null).Where(x => x.Start > DateTime.Now).Count(), 
                                         _context.Lessons.Where(x => x.StudentId != null).Where(x => x.Start > DateTime.Now).Count() };
             return countList;
         }
