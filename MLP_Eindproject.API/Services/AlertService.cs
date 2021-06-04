@@ -49,5 +49,21 @@ namespace MLP_Eindproject.API.Services
             var alerts = _context.Alerts.Where(x => x.PersonId == id).ToList();
             return alerts;
         }
+
+        public async Task<Alert> ReportUser(Alert newAlert)
+        {
+            var admin = _context.Admins.First();
+            newAlert.PersonId = admin.Id;
+            _context.Alerts.Add(newAlert);
+            await _context.SaveChangesAsync();
+            return newAlert;
+        }
+
+        public object GetAlertsByAdmin()
+        {
+            var admin = _context.Admins.First();
+            var alerts = _context.Alerts.Where(x => x.PersonId == admin.Id).ToList();
+            return alerts;
+        }
     }
 }

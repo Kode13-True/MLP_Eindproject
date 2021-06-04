@@ -24,7 +24,7 @@
                         You're account will be permanently deleted are you sure ?
                     </div>
                     <div class="col-12 d-flex justify-content-center">
-                        <a href="AccountEdit" class="btn btn-warning w-25">NO</a> 
+                        <a href="Account" class="btn btn-warning w-25">NO</a> 
                         <button class="btn btn-primary w-25" @onclick="DeleteAdmin">YES</button>
                     </div>
 
@@ -42,7 +42,7 @@
                         You're account will be permanently deleted are you sure ?
                     </div>
                     <div class="col-12 d-flex justify-content-center">
-                        <a href="AccountEdit" class="btn btn-warning w-25">NO</a> 
+                        <a href="Account" class="btn btn-warning w-25">NO</a> 
                         <button class="btn btn-primary w-25" @onclick="DeleteTeacher">YES</button>
                     </div>
                 }
@@ -57,7 +57,7 @@
                         You're account will be permanently deleted are you sure ?
                     </div>
                     <div class="col-12 d-flex justify-content-center">
-                        <a href="AccountEdit" class="btn btn-warning w-25">NO</a> 
+                        <a href="Account" class="btn btn-warning w-25">NO</a> 
                         <button class="btn btn-primary w-25" @onclick="DeleteStudent">YES</button>
                     </div>
                 }
@@ -95,7 +95,7 @@
 
             if (persontype == "Admin")
             {
-                var adminDTO = await Client.GetFromJsonAsync<ResponseTeacherDTO>("https://localhost:44397/api/Admin/One/" + PersonId);
+                var adminDTO = await Client.GetFromJsonAsync<ResponseAdminDTO>("https://localhost:44397/api/Admin/One/" + PersonId);
 
                 admin = _mapper.Map<ResponseAdminVM>(adminDTO);
             }

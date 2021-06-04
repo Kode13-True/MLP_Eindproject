@@ -13,6 +13,7 @@ namespace MLP_Blazor.Profiles
         public AlertProfile()
         {
             CreateMap<ResponseAlertDTO, ResponseAlertVM>().ReverseMap();
+            
         }
     }
 }

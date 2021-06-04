@@ -1,0 +1,116 @@
+﻿@page "/Report/{personId:int}"
+
+@inject HttpClient Client
+@inject NavigationManager NavManager
+
+<CascadingAuthenticationState>
+    <div class="container-fluid p-5">
+        <h1 class="display-3">Mubster Report</h1>
+        <hr class="my-4" />
+        <div class="container">
+            <AuthorizeView Context="AuthorizeContext">
+                <Authorized>
+                    <div id="errorMessage" hidden="@hiddenMessage" class="alert alert-info col-md-12">@message <span @onclick="HideMessage">x</span></div>
+                    @if (AuthorizeContext.User.IsInRole("Teacher"))
+                    {
+                        <EditForm Model="reportAlert" OnValidSubmit="SendReport">
+                            <div class="form-control col-md-6">
+                                <div class="col-md-12 pb-3">
+                                    <label class="form-label">Reason</label>
+                                    <p></p>
+                                    @foreach (var reason in teacherReasons)
+                                    {
+                                        <input type="radio" value="@reason" id="@reason" @onchange="SelectionChanged" checked=@(selectedAnswer.Equals(reason,StringComparison.OrdinalIgnoreCase)) />
+                                        <label for="@reason">@reason</label>
+                                        <p></p>
+                                    }
+
+                                </div>
+
+                                <div class="col-md-12 pb-3">
+                                    <label class="form-label">Extra Info</label><br />
+                                    <textarea placeholder="Give us a short explanation..." rows="5" class="form-control" @bind="extraInfo" style="width:100%" />
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-center p-2">
+                                    <button class="btn btn-primary w-25" type="submit">Report</button>
+                                    <a href="Account" class="btn btn-danger w-25">Back</a>
+                                </div>
+                        </EditForm>
+                    }
+                    @if (AuthorizeContext.User.IsInRole("Student"))
+                    {
+                        <EditForm Model="reportAlert" OnValidSubmit="SendReport">
+                            <div class="form-control col-md-6">
+                                <div class="col-md-12 pb-3">
+                                    <label class="form-label">Reason</label>
+                                    <p></p>
+                                    @foreach (var reason in studentReasons)
+                                    {
+                                        <input type="radio" value="@reason" id="@reason" @onchange="SelectionChanged" checked=@(selectedAnswer.Equals(reason,StringComparison.OrdinalIgnoreCase)) />
+                                        <label for="@reason">@reason</label>
+                                        <p></p>
+                                    }
+
+                                </div>
+
+                                <div class="col-md-12 pb-3">
+                                    <label class="form-label">Extra Info</label><br />
+                                    <textarea placeholder="Give us a short explanation..." rows="5" class="form-control" @bind="extraInfo" style="width:100%" />
+                                </div>
+                            </div>
+                            <div class="col-12 d-flex justify-content-center p-2">
+                                    <button class="btn btn-primary w-25" type="submit">Report</button>
+                                    <a href="Account" class="btn btn-danger w-25">Back</a>
+                                </div>
+                        </EditForm>
+                    }
+                </Authorized>
+            </AuthorizeView>
+        </div>
+    </div>
+</CascadingAuthenticationState>
+
+@code {
+    public CreateReportDTO reportAlert = new CreateReportDTO();
+    public string extraInfo = string.Empty;
+    public string selectedAnswer = string.Empty;
+    public List<string> teacherReasons = new List<string>() { "Multiple Last-Minute Cancels", "Multiple No-Shows", "Inappropriate", "Refused to pay" };
+    public List<string> studentReasons = new List<string>() { "Multiple Last-Minute Cancels", "Multiple No-Shows", "Inappropriate", "Inadequate" };
+
+    string message = string.Empty;
+
+    public bool hiddenMessage = true;
+
+    [Parameter]
+    public int personId { get; set; }
+
+    public void SelectionChanged(ChangeEventArgs args)
+    {
+        selectedAnswer = args.Value.ToString();
+    }
+
+    public async void SendReport()
+    {
+        var alert = new CreateReportDTO { Message = $"User {personId} was reported for : " + selectedAnswer + ". With the extra message : " + extraInfo };
+        var alertResponse = await Client.PostAsJsonAsync("https://localhost:44397/api/alert/Report", alert);
+        if (alertResponse.IsSuccessStatusCode)
+        {
+            NavManager.NavigateTo("/account");
+        }
+        else
+        {
+            message = "The report has failed";
+            hiddenMessage = false;
+        }
+        NotifyChangedState();
+    }
+
+    //methods
+    private void NotifyChangedState() => StateHasChanged();
+
+    public void HideMessage()
+    {
+        hiddenMessage = true;
+    }
+}
