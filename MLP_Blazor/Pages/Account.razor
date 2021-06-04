@@ -110,7 +110,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ><td colspan="8">Upcoming Lessons</td></tr>
+                                <tr ><td colspan="8" style="cursor:default">Upcoming Lessons</td></tr>
                                 @foreach (var lesson in teacherFutureLessons)
                                 {
                                     <tr @onclick="() => LessonDetails(lesson.Id)">
@@ -126,7 +126,7 @@
                                 }
                             </tbody>                            
                             <tbody>
-                                <tr><td colspan="8">Expired Lessons</td></tr>
+                                <tr><td colspan="8" style="cursor:default">Expired Lessons</td></tr>
                                 @foreach (var lesson in teacherPastLessons)
                                 {
                                     <tr @onclick="() => LessonDetails(lesson.Id)">
@@ -159,7 +159,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td colspan="8">Upcoming Lessons</td></tr>
+                            <tr><td colspan="8" style="cursor:default">Upcoming Lessons</td></tr>
                             @foreach (var lesson in studentFutureLessons)
                             {
                                 <tr @onclick="() => LessonDetails(lesson.Id)">
@@ -175,7 +175,7 @@
                             }
                         </tbody>
                         <tbody>
-                            <tr><td colspan="8">Expired Lessons</td></tr>
+                            <tr><td colspan="8" style="cursor:default">Expired Lessons</td></tr>
                             @foreach (var lesson in studentPastLessons)
                             {
                                 <tr @onclick="() => LessonDetails(lesson.Id)">
