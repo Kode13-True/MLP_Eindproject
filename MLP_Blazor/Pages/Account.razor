@@ -226,8 +226,12 @@
     {
         user = await LocalStorageService.GetItemAsync<LocalAuthUser>("User");
 
+        await Authentication();
+
         if (user is not null)
         {
+
+
             var persontype = user.Role.ToString();
             var personId = user.Id;
 
@@ -236,7 +240,7 @@
                 var alertsResponse = await Client.GetFromJsonAsync<List<ResponseAlertDTO>>("https://localhost:44397/api/alert/GetReportsByAdmin");
                 if (alertsResponse.Count != 0)
                 {
-                    alerts = _mapper.Map<List<ResponseAlertVM>>(alertsResponse);                    
+                    alerts = _mapper.Map<List<ResponseAlertVM>>(alertsResponse);
                 }
             }
             else
@@ -304,11 +308,13 @@
 
     public void LessonDetails(int id)
     {
+        
         NavManager.NavigateTo($"/lessondetails/{id}");
     }
 
     public async void DeleteAlert(int id)
     {
+        await Authentication();
         alerts.Clear();
         var response = await Client.DeleteAsync("https://localhost:44397/api/alert/delete/" + id);
         if (response.IsSuccessStatusCode)
@@ -330,4 +336,30 @@
     //methods
 
     private void NotifyChangedState() => StateHasChanged();
+
+    public async Task Authentication()
+    {
+        var localStateAuthProvider = (LocalStateAuthProvider)AuthStateProvider;
+        var sessionExpired = await localStateAuthProvider.AuthenticationForLoginSession(Client);
+        if (sessionExpired is true)
+        {
+            NavManager.NavigateTo("/auth/login");
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        var navUri = NavManager.Uri;
+        if (firstRender)
+        {
+            var timer = new Timer(new TimerCallback(_ =>
+            {
+                if (navUri == NavManager.Uri)
+                {
+                    NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
+                }
+
+            }), null, 600000, 600000);
+        }
+    }
 }

@@ -121,6 +121,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        await Authentication();
         var user = await LocalStorageService.GetItemAsync<LocalAuthUser>("User");
 
         if (user is not null)
@@ -151,6 +152,7 @@
     }
     protected async void EditAdmin()
     {
+        await Authentication();
         var AdminDTO = _mapper.Map<EditAdminDTO>(admin);
         var response = await Client.PutAsJsonAsync("https://localhost:44397/api/Admin/Update/" + PersonId, AdminDTO);
 
@@ -161,6 +163,7 @@
     }
     protected async void EditTeacher()
     {
+        await Authentication();
         var teacherDTO = _mapper.Map<EditTeacherDTO>(teacher);
         var response = await Client.PutAsJsonAsync("https://localhost:44397/api/Teacher/Update/" + PersonId, teacherDTO);
 
@@ -171,6 +174,7 @@
     }
     protected async void EditStudent()
     {
+        await Authentication();
         var studentDTO = _mapper.Map<EditStudentDTO>(student);
         var response = await Client.PutAsJsonAsync("https://localhost:44397/api/Student/Update/" + PersonId, studentDTO);
 
@@ -180,5 +184,32 @@
         }
     }
 
+    //Methods
+
+    public async Task Authentication()
+    {
+        var localStateAuthProvider = (LocalStateAuthProvider)AuthStateProvider;
+        var sessionExpired = await localStateAuthProvider.AuthenticationForLoginSession(Client);
+        if (sessionExpired is true)
+        {
+            NavManager.NavigateTo("/auth/login");
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        var navUri = NavManager.Uri;
+        if (firstRender)
+        {
+            var timer = new Timer(new TimerCallback(_ =>
+            {
+                if (navUri == NavManager.Uri)
+                {
+                    NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
+                }
+
+            }), null, 600000, 600000);
+        }
+    }
 
 }

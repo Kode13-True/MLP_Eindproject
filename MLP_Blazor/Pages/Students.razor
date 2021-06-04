@@ -2,6 +2,8 @@
 
 @inject HttpClient Client
 @inject IMapper _mapper
+@inject NavigationManager NavManager
+@inject AuthenticationStateProvider AuthStateProvider
 <CascadingAuthenticationState>
     <AuthorizeView>
         <Authorized>
@@ -79,7 +81,36 @@
 
     protected override async Task OnInitializedAsync()
     {
+        await Authentication();
         var studentDTOs = await Client.GetFromJsonAsync<List<ResponseStudentDTO>>("https://localhost:44397/api/Student/GetAll");
         students = _mapper.Map<List<ResponseStudentVM>>(studentDTOs);
+    }
+
+
+    //method
+    public async Task Authentication()
+    {
+        var localStateAuthProvider = (LocalStateAuthProvider)AuthStateProvider;
+        var sessionExpired = await localStateAuthProvider.AuthenticationForLoginSession(Client);
+        if (sessionExpired is true)
+        {
+            NavManager.NavigateTo("/auth/login");
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        var navUri = NavManager.Uri;
+        if (firstRender)
+        {
+            var timer = new Timer(new TimerCallback(_ =>
+            {
+                if (navUri == NavManager.Uri)
+                {
+                    NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
+                }
+
+            }), null, 600000, 600000);
+        }
     }
 }

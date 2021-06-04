@@ -122,6 +122,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        
         user = await LocalStorageService.GetItemAsync<LocalAuthUser>("User");
         if (user is null)
         {
