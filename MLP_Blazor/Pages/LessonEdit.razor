@@ -157,6 +157,7 @@
 
         public async void SubmitLesson()
         {
+            await Authentication();
             isBusy = true;
             lessonModel.Start = new DateTime( date.Year, date.Month, date.Day, startTime.Hour, startTime.Minute, 0);
             lessonModel.Stop = new DateTime( date.Year, date.Month, date.Day, stopTime.Hour, stopTime.Minute, 0);
