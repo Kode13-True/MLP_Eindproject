@@ -1,0 +1,299 @@
+﻿@page "/AdminStats"
+
+@inject HttpClient Client
+@inject AuthenticationStateProvider AuthStateProvider
+@inject ILocalStorageService LocalStorageService
+@inject NavigationManager NavManager
+
+<div class="container-fluid p-5">
+    <h1 class="display-3">Administrator Statistics</h1>
+    <hr class="my-4">
+</div>
+
+<div class="container align-content-center p-5">
+    <div class="card-columns">
+        <div class="row">
+
+            <div class="card d-inline-block m-2" style="width: 24rem;">
+                <div class="card-body align-content-center">
+
+                    <h5 class="card-title text-center"># Users : @userCount</h5>
+                    <p class="card-text">Students : @studentCount/@userCount</p>
+                    <p class="card-text">Teachers : @teacherCount/@userCount</p>
+                    <p class="card-text">Admins : @adminCount/@userCount</p>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="@($"width: {studentProgress}%")" aria-valuenow="@studentProgress" aria-valuemin="0" aria-valuemax="100">students</div>
+                        <div class="progress-bar bg-warning" role="progressbar" style="@($"width: {teacherProgress}%")" aria-valuenow="@teacherProgress" aria-valuemin="0" aria-valuemax="100">teachers</div>
+                        <div class="progress-bar bg-danger" role="progressbar" style="@($"width: {adminProgress}%")" aria-valuenow="@adminProgress" aria-valuemin="0" aria-valuemax="100">admins</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card d-inline-block m-2" style="width: 24rem;">
+                <div class="card-body align-content-center">
+                    <h5 class="card-title text-center"># Future Lessons</h5>
+                    <p class="card-text">Total : @futureLessonCount</p>
+                    <p class="card-text">Booked : @futureBookedLessonCount</p>
+                    <p class="card-text">Available : @futureUnbookedLessonCount</p>
+
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="@($"width: {futureBookedLessonProgress}%")" aria-valuenow="@futureBookedLessonProgress" aria-valuemin="0" aria-valuemax="100">booked</div>
+                        <div class="progress-bar bg-danger" role="progressbar" style="@($"width: {futureUnbookedLessonProgress}%")" aria-valuenow="@futureUnbookedLessonProgress" aria-valuemin="0" aria-valuemax="100">unbooked</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card d-inline-block m-2" style="width: 24rem;">
+                <div class="card-body align-content-center">
+                    <h5 class="card-title text-center"># Level division</h5>
+                    <p class="card-text">Novice lessons : @noviceCount</p>
+                    <p class="card-text">Intermediate lessons : @intermediateCount</p>
+                    <p class="card-text">Expert lessons : @expertCount</p>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="@($"width: {noviceProgress}%")" aria-valuenow="@noviceProgress" aria-valuemin="0" aria-valuemax="100">novice</div>
+                        <div class="progress-bar bg-warning" role="progressbar" style="@($"width: {intermediateProgress}%")" aria-valuenow="@intermediateProgress" aria-valuemin="0" aria-valuemax="100">intermediate</div>
+                        <div class="progress-bar bg-danger" role="progressbar" style="@($"width: {expertProgress}%")" aria-valuenow="@expertProgress" aria-valuemin="0" aria-valuemax="100">expert</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card d-inline-block m-2" style="width: 37rem;">
+                    <div class="card-body align-content-center">
+                        <h5 class="card-title text-center"># Style division</h5>
+
+                        <div class="progress m-1">
+                            <div class="progress-bar" role="progressbar" style="@($"width: {classicProgress}%")" aria-valuenow="@classicProgress" aria-valuemin="0" aria-valuemax="100">Classic @classicProgress %</div>
+                        </div>
+                        <div class="progress m-1">
+                            <div class="progress-bar" role="progressbar" style="@($"width: {rockProgress}%")" aria-valuenow="@rockProgress" aria-valuemin="0" aria-valuemax="100">Rock @rockProgress %</div>
+                        </div>
+                        <div class="progress m-1">
+                            <div class="progress-bar" role="progressbar" style="@($"width: {jazzProgress}%")" aria-valuenow="@jazzProgress" aria-valuemin="0" aria-valuemax="100">Jazz @jazzProgress %</div>
+                        </div>
+                        <div class="progress m-1">
+                            <div class="progress-bar" role="progressbar" style="@($"width: {popProgress}%")" aria-valuenow="@popProgress" aria-valuemin="0" aria-valuemax="100">Pop @popProgress %</div>
+                        </div>
+                        <div class="progress m-1">
+                            <div class="progress-bar" role="progressbar" style="@($"width: {reggaeProgress}%")" aria-valuenow="@reggaeProgress" aria-valuemin="0" aria-valuemax="100">Reggae @reggaeProgress %</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card d-inline-block m-2" style="width: 37rem;">
+                    <div class="card-body align-content-center">
+                        <h5 class="card-title text-center"># Instrument division</h5>
+
+                        <div class="progress m-1">
+                            <div class="progress-bar" role="progressbar" style="@($"width: {vocalsProgress}%")" aria-valuenow="@vocalsProgress" aria-valuemin="0" aria-valuemax="100">Vocals @vocalsProgress %</div>
+                        </div>
+                        <div class="progress m-1">
+                            <div class="progress-bar" role="progressbar" style="@($"width: {pianoProgress}%")" aria-valuenow="@pianoProgress" aria-valuemin="0" aria-valuemax="100">Piano @pianoProgress %</div>
+                        </div>
+                        <div class="progress m-1">
+                            <div class="progress-bar" role="progressbar" style="@($"width: {guitarProgress}%")" aria-valuenow="@guitarProgress" aria-valuemin="0" aria-valuemax="100">Guitar @guitarProgress %</div>
+                        </div>
+                        <div class="progress m-1">
+                            <div class="progress-bar" role="progressbar" style="@($"width: {violinProgress}%")" aria-valuenow="@violinProgress" aria-valuemin="0" aria-valuemax="100">Violoin @violinProgress %</div>
+                        </div>
+                        <div class="progress m-1">
+                            <div class="progress-bar" role="progressbar" style="@($"width: {drumsProgress}%")" aria-valuenow="@drumsProgress" aria-valuemin="0" aria-valuemax="100">Drums @drumsProgress %</div>
+                        </div>
+                        <div class="progress m-1">
+                            <div class="progress-bar" role="progressbar" style="@($"width: {saxophoneProgress}%")" aria-valuenow="@saxophoneProgress" aria-valuemin="0" aria-valuemax="100">Reggae @saxophoneProgress %</div>
+                        </div>
+                        <div class="progress m-1">
+                            <div class="progress-bar" role="progressbar" style="@($"width: {fluitProgress}%")" aria-valuenow="@fluitProgress" aria-valuemin="0" aria-valuemax="100">Reggae @fluitProgress %</div>
+                        </div>
+                        <div class="progress m-1">
+                            <div class="progress-bar" role="progressbar" style="@($"width: {celloProgress}%")" aria-valuenow="@celloProgress" aria-valuemin="0" aria-valuemax="100">Reggae @celloProgress %</div>
+                        </div>
+                        <div class="progress m-1">
+                            <div class="progress-bar" role="progressbar" style="@($"width: {clarinetProgress}%")" aria-valuenow="@clarinetProgress" aria-valuemin="0" aria-valuemax="100">Reggae @clarinetProgress %</div>
+                        </div>
+                        <div class="progress m-1">
+                            <div class="progress-bar" role="progressbar" style="@($"width: {trumpetProgress}%")" aria-valuenow="@trumpetProgress" aria-valuemin="0" aria-valuemax="100">Reggae @trumpetProgress %</div>
+                        </div>
+                        <div class="progress m-1">
+                            <div class="progress-bar" role="progressbar" style="@($"width: {harpProgress}%")" aria-valuenow="@harpProgress" aria-valuemin="0" aria-valuemax="100">Reggae @harpProgress %</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+@code {
+
+    LocalAuthUser user;
+
+    int userCount;
+    int studentCount;
+    int teacherCount;
+    int adminCount;
+    int[] userCountArray;
+    string studentProgress;
+    string teacherProgress;
+    string adminProgress;
+    int userProgress;
+
+    int futureLessonCount;
+    int futureBookedLessonCount;
+    int futureUnbookedLessonCount;
+    int[] futureLessonCountArray;
+    string futureBookedLessonProgress;
+    string futureUnbookedLessonProgress;
+    int futureLessonProgress;
+
+    int noviceCount;
+    int intermediateCount;
+    int expertCount;
+    int[] levelCountArray;
+    string noviceProgress;
+    string intermediateProgress;
+    string expertProgress;
+
+
+    int[] styleCountArray;
+    string classicProgress;
+    string rockProgress;
+    string jazzProgress;
+    string popProgress;
+    string reggaeProgress;
+
+
+    string vocalsProgress;
+    string pianoProgress;
+    string guitarProgress;
+    string violinProgress;
+    string drumsProgress;
+    string saxophoneProgress;
+    string fluitProgress;
+    string celloProgress;
+    string clarinetProgress;
+    string trumpetProgress;
+    string harpProgress;
+
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await LocalStorageService.GetItemAsync<LocalAuthUser>("User");
+
+        if (user is not null)
+        {
+            var persontype = user.Role.ToString();
+            var personId = user.Id;
+
+            if (persontype == "Admin")
+            {
+
+                userCountArray = await Client.GetFromJsonAsync<int[]>("https://localhost:44397/api/Admin/GetUserNumbers");
+                userCount = userCountArray.Sum();
+                studentCount = userCountArray[0];
+                teacherCount = userCountArray[1];
+                adminCount = userCountArray[2];
+                studentProgress = (100.0 * studentCount / userCount).ToString("0");
+                teacherProgress = (100.0 * teacherCount / userCount).ToString("0");
+                adminProgress = (100.0 * adminCount / userCount).ToString("0");
+                userProgress = int.Parse(studentProgress) + int.Parse(teacherProgress) + int.Parse(adminProgress);
+                if (userProgress < 100)
+                {
+                    adminCount += 1;
+                    adminProgress = (100.0 * adminCount / userCount).ToString("0");
+                }
+                if (userProgress > 100)
+                {
+                    adminCount -= 1;
+                    adminProgress = (100.0 * adminCount / userCount).ToString("0");
+                }
+
+
+                futureLessonCountArray = await Client.GetFromJsonAsync<int[]>("https://localhost:44397/api/Admin/GetLessonNumbers");
+                futureLessonCount = futureLessonCountArray[0];
+                futureBookedLessonCount = futureLessonCountArray[1];
+                futureUnbookedLessonCount = futureLessonCountArray[2];
+                futureBookedLessonProgress = (100.0 * futureBookedLessonCount / futureLessonCount).ToString("0");
+                futureUnbookedLessonProgress = (100.0 * futureUnbookedLessonCount / futureLessonCount).ToString("0");
+                futureLessonProgress = int.Parse(futureBookedLessonProgress) + int.Parse(futureUnbookedLessonProgress);
+                if (futureLessonProgress < 100)
+                {
+                    futureUnbookedLessonCount += 1;
+                    futureUnbookedLessonProgress = (100.0 * adminCount / userCount).ToString("0");
+                }
+                if (futureLessonProgress > 100)
+                {
+                    futureUnbookedLessonCount -= 1;
+                    futureUnbookedLessonProgress = (100.0 * adminCount / userCount).ToString("0");
+                }
+
+
+
+
+                levelCountArray = await Client.GetFromJsonAsync<int[]>("https://localhost:44397/api/Admin/GetLevelNumbers");
+                var levelTotal = levelCountArray.Sum();
+                noviceCount = levelCountArray[0];
+                intermediateCount = levelCountArray[1];
+                expertCount = levelCountArray[2];
+                noviceProgress = (100.0 * noviceCount / levelTotal).ToString("0");
+                intermediateProgress = (100.0 * intermediateCount / levelTotal).ToString("0");
+                expertProgress = (100.0 * expertCount / levelTotal).ToString("0");
+                var levelProgress = int.Parse(noviceProgress) + int.Parse(intermediateProgress) + int.Parse(expertProgress);
+                if (levelProgress < 100)
+                {
+                    noviceCount += 1;
+                    noviceProgress = (100.0 * adminCount / userCount).ToString("0");
+                }
+                if (levelProgress > 100)
+                {
+                    noviceCount -= 1;
+                    noviceProgress = (100.0 * adminCount / userCount).ToString("0");
+                }
+
+
+                styleCountArray = await Client.GetFromJsonAsync<int[]>("https://localhost:44397/api/Admin/GetStyleNumbers");
+                var styleTotal = styleCountArray.Sum();
+                var classicCount = styleCountArray[0];
+                var rockCount = styleCountArray[1];
+                var jazzCount = styleCountArray[2];
+                var popCount = styleCountArray[3];
+                var reggaeCount = styleCountArray[4];
+                classicProgress = (100.0 * classicCount / styleTotal).ToString("0");
+                rockProgress = (100.0 * rockCount / styleTotal).ToString("0");
+                jazzProgress = (100.0 * jazzCount / styleTotal).ToString("0");
+                popProgress = (100.0 * popCount / styleTotal).ToString("0");
+                reggaeProgress = (100.0 * reggaeCount / styleTotal).ToString("0");
+
+                var instrumentCountArray = await Client.GetFromJsonAsync<int[]>("https://localhost:44397/api/Admin/GetInstrumentNumbers");
+                var instrumentTotal = instrumentCountArray.Sum();
+                var vocalsCount = instrumentCountArray[0];
+                var pianoCount = instrumentCountArray[1];
+                var guitarCount = instrumentCountArray[2];
+                var violinCount = instrumentCountArray[3];
+                var drumsCount = instrumentCountArray[4];
+                var saxophoneCount = instrumentCountArray[5];
+                var fluitCount = instrumentCountArray[6];
+                var celloCount = instrumentCountArray[7];
+                var clarinetCount = instrumentCountArray[8];
+                var trumpetCount = instrumentCountArray[9];
+                var harpCount = instrumentCountArray[10];
+                vocalsProgress = (100.0 * vocalsCount / instrumentTotal).ToString("0");
+                pianoProgress = (100.0 * pianoCount / instrumentTotal).ToString("0");
+                guitarProgress = (100.0 * guitarCount / instrumentTotal).ToString("0");
+                violinProgress = (100.0 * violinCount / instrumentTotal).ToString("0");
+                drumsProgress = (100.0 * drumsCount / instrumentTotal).ToString("0");
+                saxophoneProgress = (100.0 * saxophoneCount / instrumentTotal).ToString("0");
+                fluitProgress = (100.0 * fluitCount / instrumentTotal).ToString("0");
+                celloProgress = (100.0 * celloCount / instrumentTotal).ToString("0");
+                clarinetProgress = (100.0 * clarinetCount / instrumentTotal).ToString("0");
+                trumpetProgress = (100.0 * trumpetCount / instrumentTotal).ToString("0");
+                harpProgress = (100.0 * harpCount / instrumentTotal).ToString("0");
+
+            }
+
+        }
+    }
+}
