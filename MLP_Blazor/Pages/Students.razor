@@ -1,0 +1,85 @@
+﻿@page "/students"
+
+@inject HttpClient Client
+@inject IMapper _mapper
+<CascadingAuthenticationState>
+    <AuthorizeView>
+        <Authorized>
+            @if (context.User.IsInRole("Teacher"))
+            {
+                <div class="container-fluid p-5">
+                    <h1 class="display-3">Students Overview</h1>
+                    <hr class="my-4">
+                </div>
+                @if (students == null)
+                {
+                    <p><em>Loading...</em></p>
+                }
+                else
+                {
+                    @foreach (var student in students)
+                    {
+
+                        <div class="card d-inline-block m-2" style="width: 18rem;">
+                            <img src="/images/users.png" class="card-img-top" alt="...">
+
+                            <div class="card-body align-content-center">
+                                <h5 class="card-title text-center">@student.FirstName @student.LastName</h5>
+                               
+                                <a href="report/@student.Id" class="btn btn-primary w-100">Report Student</a>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+            @if (context.User.IsInRole("Admin"))
+            {
+                <div class="container-fluid p-5">
+                    <h1 class="display-3">Students Overview</h1>
+                    <hr class="my-4">
+                </div>
+                @if (students == null)
+                {
+                    <p><em>Loading...</em></p>
+                }
+                else
+                {
+                    @foreach (var student in students)
+                    {
+
+                        <div class="card d-inline-block m-2" style="width: 18rem;">
+                            <img src="/images/users.png" class="card-img-top" alt="...">
+
+                            <div class="card-body align-content-center">
+                                <h5 class="card-title text-center">@student.FirstName @student.LastName</h5>                                
+                                <a href="report/@student.Id" class="btn btn-primary w-100">Report Student</a>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+            @if (context.User.IsInRole("Student"))
+            {
+                <div class="container-fluid p-5">
+                    <h1 class="display-3">You are not authorized!</h1>
+                    <hr class="my-4">
+                </div>
+            }
+
+        </Authorized>
+        <NotAuthorized>
+
+        </NotAuthorized>
+    </AuthorizeView>
+</CascadingAuthenticationState>
+
+
+@code {
+    List<ResponseStudentVM> students;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var studentDTOs = await Client.GetFromJsonAsync<List<ResponseStudentDTO>>("https://localhost:44397/api/Student/GetAll");
+        students = _mapper.Map<List<ResponseStudentVM>>(studentDTOs);
+    }
+}

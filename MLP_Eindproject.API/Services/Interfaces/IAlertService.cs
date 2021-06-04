@@ -13,5 +13,7 @@ namespace MLP_Eindproject.API.Services.Interfaces
         List<Alert> GetAllAlerts();
         Task DeleteAlertById(int alertId);
         List<Alert> GetAlertsByPersonId(int id);
+        Task<Alert> ReportUser(Alert newAlert);
+        object GetAlertsByAdmin();
     }
 }

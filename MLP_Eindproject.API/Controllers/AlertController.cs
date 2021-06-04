@@ -31,6 +31,17 @@ namespace MLP_Eindproject.API.Controllers
         {
             var newAlert = _mapper.Map<Alert>(createAlertDTO);
             var alert = await _alertService.CreateAlert(newAlert);
+            if(alert == null) { return BadRequest(); }
+            var alertDTO = _mapper.Map<ResponseAlertDTO>(alert);
+            return Ok(alertDTO);
+        }
+
+        [HttpPost("Report")]
+        public async Task<ActionResult<CreateReportDTO>> ReportUserToAdmin([FromBody] CreateReportDTO createReportDTO)
+        {
+            var newAlert = new Alert() { AlertType = AlertType.Report, Message = createReportDTO.Message };
+            var alert = await _alertService.ReportUser(newAlert);
+            if(alert == null) { return BadRequest(); }
             var alertDTO = _mapper.Map<ResponseAlertDTO>(alert);
             return Ok(alertDTO);
         }
@@ -60,6 +71,13 @@ namespace MLP_Eindproject.API.Controllers
         public ActionResult<List<ResponseAlertDTO>> GetAlertsByPersonId(int id)
         {
             var alerts = _alertService.GetAlertsByPersonId(id);
+            var returnList = _mapper.Map<List<ResponseAlertDTO>>(alerts);
+            return Ok(returnList);
+        }
+        [HttpGet("GetReportsByAdmin")]
+        public ActionResult<List<ResponseAlertDTO>> GetAlertsByAdmin()
+        {
+            var alerts = _alertService.GetAlertsByAdmin();
             var returnList = _mapper.Map<List<ResponseAlertDTO>>(alerts);
             return Ok(returnList);
         }

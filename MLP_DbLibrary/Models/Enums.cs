@@ -47,6 +47,5 @@ namespace MLP_DbLibrary.Models
         Rate,
         Report
     }
-
     
 }
