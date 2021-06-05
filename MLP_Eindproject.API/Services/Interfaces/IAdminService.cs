@@ -1,4 +1,5 @@
-﻿using MLP_DbLibrary.Models;
+﻿using MLP_DbLibrary.DTO.PersonDTO;
+using MLP_DbLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,6 @@ namespace MLP_Eindproject.API.Services.Interfaces
         public int[] GetNumberOfLevels();
         int[] GetNumberOfStyles();
         public int[] GetNumberOfInstruments();
+        Task<bool> DeleteUserByAdmin(DeleteUserDTO deleteUserDTO);
     }
 }

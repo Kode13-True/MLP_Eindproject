@@ -93,21 +93,29 @@ namespace MLP_Eindproject.API.Controllers
 
         // PUT api/<AdminController>/5
         [HttpPut("Update/{id}")]
-            public async Task<ActionResult<ResponseAdminDTO>> Update(int id, [FromBody] EditAdminDTO editAdminDTO)
-            {
-                var admin = _mapper.Map<Admin>(editAdminDTO);
-                var adminResponse = await _adminService.UpdateAdminById(id, admin);
-                var responseAdminDTO = _mapper.Map<ResponseAdminDTO>(adminResponse);
-                return Ok(responseAdminDTO);
-            }
+        public async Task<ActionResult<ResponseAdminDTO>> Update(int id, [FromBody] EditAdminDTO editAdminDTO)
+        {
+            var admin = _mapper.Map<Admin>(editAdminDTO);
+            var adminResponse = await _adminService.UpdateAdminById(id, admin);
+            var responseAdminDTO = _mapper.Map<ResponseAdminDTO>(adminResponse);
+            return Ok(responseAdminDTO);
+        }
 
         // DELETE api/<AdminController>/5
         [HttpDelete("Delete/{id}")]
-            public async Task<ActionResult> DeleteAdminById(int id)
-            {
-                await _adminService.DeleteAdminById(id);
-                return Ok();
-            }
+        public async Task<ActionResult> DeleteAdminById(int id)
+        {
+            await _adminService.DeleteAdminById(id);
+            return Ok();
+        }
+
+        [HttpPut("DeleteUser")]
+        public async Task<ActionResult> DeletUserByAdmin(DeleteUserDTO deleteUserDTO)
+        {
+            bool deleteSucceed = await _adminService.DeleteUserByAdmin(deleteUserDTO);
+            if(deleteSucceed is false) { return BadRequest(); }
+            return Ok();
+        }
     }
     
 }
