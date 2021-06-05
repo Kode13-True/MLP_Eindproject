@@ -11,27 +11,27 @@
     <hr class="my-4">
 
 
-    <div class="container align-content-center p-5">
+    <div class="container align-content-center p-md-5">
         <div class="card-columns">
             <div class="row">
-                <div class="card d-inline-block m-auto" style="width: 18rem;">
+                @*<div class="card d-inline-block m-auto" style="width: 18rem;">
                     <img src="/images/users.png" class="card-img-top" alt="...">
-                </div>
-                <div class="card d-inline-block m-auto" style="width: 54rem;">
+                </div>*@
+                <div class="card d-inline-block m-auto" style="width: 36rem;">
 
                     <div class="card-body align-content-center">
-                        <h5 class="card-title text-center">@teacher.FirstName @teacher.LastName</h5>
+                        <h1 class="card-title text-center">@teacher.FirstName @teacher.LastName</h1>
                         <h6 class="card-title text-center">Mubster since : @teacher.DOC.ToShortDateString()</h6>
                         <p class="card-text">@teacher.Description</p>
                         <p class="card-footer text-center">Rating = @teacher.Rating</p>
-                        <a href="report/@teacher.Id" class="btn btn-primary w-100">Report Teacher</a>
-                        <a href="teachers" class="btn btn-primary w-100">Back to list</a>
+                        <a href="report/@teacher.Id" class="btn btn-danger w-100 m-1">Report Teacher</a>
+                        <a href="teachers" class="btn btn-info w-100 m-1">Back to list</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <table class="table table-striped table-hover mt-4 container">
+    <table class="table table-striped table-hover mt-4 container p-0">
         <thead>
             <tr>
                 <th><div class="d-block">Instrument</div></th>

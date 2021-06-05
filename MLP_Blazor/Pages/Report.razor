@@ -10,7 +10,7 @@
         <div class="container">
             <AuthorizeView Context="AuthorizeContext">
                 <Authorized>
-                    <div id="errorMessage" hidden="@hiddenMessage" class="alert alert-info col-md-12">@message <span @onclick="HideMessage">x</span></div>
+                    <div id="errorMessage" hidden="@hiddenMessage" class="alert alert-danger col-md-12">@message <span @onclick="HideMessage">x</span></div>
                     @if (AuthorizeContext.User.IsInRole("Teacher"))
                     {
                         <EditForm Model="reportAlert" OnValidSubmit="SendReport">

@@ -22,7 +22,7 @@
                     <p class="card-text">Teachers : @teacherCount/@userCount</p>
                     <p class="card-text">Admins : @adminCount/@userCount</p>
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="@($"width: {studentProgress}%")" aria-valuenow="@studentProgress" aria-valuemin="0" aria-valuemax="100">students</div>
+                        <div class="progress-bar bg-succes" role="progressbar" style="@($"width: {studentProgress}%")" aria-valuenow="@studentProgress" aria-valuemin="0" aria-valuemax="100">students</div>
                         <div class="progress-bar bg-warning" role="progressbar" style="@($"width: {teacherProgress}%")" aria-valuenow="@teacherProgress" aria-valuemin="0" aria-valuemax="100">teachers</div>
                         <div class="progress-bar bg-danger" role="progressbar" style="@($"width: {adminProgress}%")" aria-valuenow="@adminProgress" aria-valuemin="0" aria-valuemax="100">admins</div>
                     </div>
@@ -36,7 +36,7 @@
                     <p class="card-text">Available : @futureUnbookedLessonCount</p>
 
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="@($"width: {futureBookedLessonProgress}%")" aria-valuenow="@futureBookedLessonProgress" aria-valuemin="0" aria-valuemax="100">booked</div>
+                        <div class="progress-bar bg-succes" role="progressbar" style="@($"width: {futureBookedLessonProgress}%")" aria-valuenow="@futureBookedLessonProgress" aria-valuemin="0" aria-valuemax="100">booked</div>
                         <div class="progress-bar bg-danger" role="progressbar" style="@($"width: {futureUnbookedLessonProgress}%")" aria-valuenow="@futureUnbookedLessonProgress" aria-valuemin="0" aria-valuemax="100">unbooked</div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                     <p class="card-text">Intermediate lessons : @intermediateCount</p>
                     <p class="card-text">Expert lessons : @expertCount</p>
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="@($"width: {noviceProgress}%")" aria-valuenow="@noviceProgress" aria-valuemin="0" aria-valuemax="100">novice</div>
+                        <div class="progress-bar bg-succes" role="progressbar" style="@($"width: {noviceProgress}%")" aria-valuenow="@noviceProgress" aria-valuemin="0" aria-valuemax="100">novice</div>
                         <div class="progress-bar bg-warning" role="progressbar" style="@($"width: {intermediateProgress}%")" aria-valuenow="@intermediateProgress" aria-valuemin="0" aria-valuemax="100">intermediate</div>
                         <div class="progress-bar bg-danger" role="progressbar" style="@($"width: {expertProgress}%")" aria-valuenow="@expertProgress" aria-valuemin="0" aria-valuemax="100">expert</div>
                     </div>

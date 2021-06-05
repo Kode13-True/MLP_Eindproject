@@ -1,10 +1,13 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+﻿/*The Mub css overrides*/
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+
 
 html, body {
     font-family: 'Ubuntu', sans-serif !important;
     background-color: #E1E7F4 !important;
     color: #1C3144 !important;
 }
+
 h1, p, .jumbotron {
     color: #E1E7F4 !important;
 }
