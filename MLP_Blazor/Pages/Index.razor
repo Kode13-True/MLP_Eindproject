@@ -26,29 +26,25 @@
     <h1 class="display-3">Top 5 rated teachers</h1>
     <hr class="my-4">
 </div>
-<div class="container align-content-center p-5">
-    <div class="card-columns">
-        <div class="row">
+  <div class="container align-content-center p-5">
+      <div class="card-columns">
+          <div class="row">
 
-            @foreach (var teacher in teachers)
-            {
+                @foreach (var teacher in teachers)
+                {
+                    <div class="card d-inline-block m-1" style="width: 14.4rem;">
+                        @*<img src="/images/users.png" class="card-img-top" alt="...">*@
 
-                <div class="card d-inline-block m-1" style="width: 14.4rem;">
-                    <img src="/images/users.png" class="card-img-top" alt="...">
-
-                    <div class="card-body align-content-center">
-                        <h5 class="card-title text-center">@teacher.FirstName @teacher.LastName</h5>
-                        <h6 class="card-title text-center">Mubster since : @teacher.DOC.ToShortDateString()</h6>
-                        <p class="card-text overflow-hidden" style="height: 10vh; max-height:10vh;">@teacher.Description</p>
-                        <p class="card-footer text-center">Rating = @teacher.Rating</p>
-                        <a href="TeacherDetails/@teacher.Id" class="btn btn-primary w-100">More info</a>
+                        <div class="card-body align-content-center">
+                            <h5 class="card-title text-center">@teacher.FirstName @teacher.LastName</h5>
+                            <h6 class="card-title text-center">Mubster since : @teacher.DOC.ToShortDateString()</h6>
+                            <p class="card-text overflow-hidden" style="height: 10vh; max-height:10vh;">@teacher.Description</p>
+                            <p class="card-footer text-center">Rating = @teacher.Rating</p>
+                            <a href="TeacherDetails/@teacher.Id" class="btn btn-succes w-100">More info</a>
+                        </div>
                     </div>
-                </div>
-
-
-            }
-
-        </div>
+                }
+         </div>
     </div>
 </div>
 

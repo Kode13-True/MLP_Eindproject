@@ -14,60 +14,60 @@
         <div class="container align-content-center p-5">
             <div class="card-columns">
                 <div class="row">
-                    <div class="card d-inline-block m-auto" style="width: 54rem;">
+                    <div class="card d-inline-block m-auto" style="width: 36rem;">
 
                         <div class="card-body align-content-center">
-                            <h5 class="card-title text-center">@lesson.InstrumentName @lesson.InstrumentStyle</h5>
+                            <h1 class="card-title text-center">@lesson.InstrumentName @lesson.InstrumentStyle</h1>
                             <hr />
-                            <div id="errorMessage" hidden="@hiddenMessage" class="alert alert-info col-md-12">@message <span @onclick="HideMessage">x</span></div>
-                            <div id="AreYouSureMessage" hidden="@hiddenDeleteMessage" class="alert alert-info col-md-12">
-                                Are you sure?<span @onclick="YesDelete">[yes]</span>/<span @onclick="NoDelete">[no]</span>
+                            <div id="errorMessage" hidden="@hiddenMessage" class="alert alert-danger col-md-12 text-center">@message <span @onclick="HideMessage" class="float-end" style="cursor:pointer">x</span></div>
+                            <div id="AreYouSureMessage" hidden="@hiddenDeleteMessage" class="alert alert-danger col-md-12 text-center">
+                                Are you sure?<span class="float-end" @onclick="YesDelete" style="cursor:pointer">[yes]</span>/<span class="float-end" @onclick="NoDelete" style="cursor:pointer">[no]</span>
                             </div>
-                            <div id="AreYouSureMessage" hidden="@hiddenCancelMessage" class="alert alert-info col-md-12">
-                                Are you sure?<span @onclick="YesCancel">[yes]</span>/<span @onclick="NoCancel">[no]</span>
+                            <div id="AreYouSureMessage" hidden="@hiddenCancelMessage" class="alert alert-danger col-md-12 text-center">
+                                Are you sure?<span class="float-end" @onclick="YesCancel" style="cursor:pointer">[yes]</span>/<span class="float-end" @onclick="NoCancel" style="cursor:pointer">[no]</span>
                             </div>
-                            <div id="GiveRatingMessage" hidden="@hiddenRateMessage" class="alert alert-info col-md-12">
+                            <div id="GiveRatingMessage" hidden="@hiddenRateMessage" class="alert alert-succes col-md-12 text-center">
                                 Give a rating from 1 to 5 please:
                                 <EditForm Model="Rating" OnValidSubmit="GiveRating">
-                                    <InputSelect @bind-Value="Rating">
+                                    <InputSelect @bind-Value="Rating" Style="@("margin:8px 0;background-color:#679289;width:25%;border-radius:5px;padding:7px 12px;focus:invisible")">
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>
                                         <option value="5">5</option>
                                     </InputSelect>
-                                    <button class="btn" type="submit">submit</button>
+                                    <button class="btn-sm btn-succes" type="submit">submit</button>
                                 </EditForm>
                             </div>
-                            <p class="card-text text-center">Difficulty: @lesson.LessonLevel</p>
-                            <p class="card-text text-center">Start: @lesson.Start.ToShortTimeString() @lesson.Start.ToShortDateString()</p>
-                            <p class="card-text text-center">Stop: @lesson.Stop.ToShortTimeString() @lesson.Stop.ToShortDateString()</p>
-                            <p class="card-text text-center">Address: @lesson.Street @lesson.Number, @lesson.Postal @lesson.Township</p>
-                            <p class="card-text text-center">Teacher: @lesson.TeacherFirstName @lesson.TeacherLastName</p>
-                            
+                            <p class="card-text mx-md-5">Difficulty: <div class="float-end">@lesson.LessonLevel</div></p>
+                            <p class="card-text mx-md-5">Start: <div class="float-end">@lesson.Start.ToShortTimeString() @lesson.Start.ToShortDateString()</div></p>
+                            <p class="card-text mx-md-5">Stop: <div class="float-end">@lesson.Stop.ToShortTimeString() @lesson.Stop.ToShortDateString()</div></p>
+                            <p class="card-text mx-md-5">Address: <div class="float-end">@lesson.Street @lesson.Number, @lesson.Postal @lesson.Township</div></p>
+                            <p class="card-text mx-md-5">Teacher: <div class="float-end">@lesson.TeacherFirstName @lesson.TeacherLastName</div></p>
+
                             <AuthorizeView>
                                 <Authorized>
                                     @if (context.User.IsInRole("Student"))
                                     {
-                                        <button hidden="@hiddenBookButton" class="btn btn-primary w-100" @onclick="BookLesson">Book Lesson</button>
-                                        <button hidden="@hiddenCancelButton" class="btn btn-primary w-100" @onclick="CancelLesson">Cancel Lesson</button>
-                                        <button hidden="@hiddenRateButton" class="btn btn-primary w-100" @onclick="RateLesson">Rate Lesson</button>
+                                        <button hidden="@hiddenBookButton" class="btn btn-succes w-100 m-1" @onclick="BookLesson">Book Lesson</button>
+                                        <button hidden="@hiddenRateButton" class="btn btn-warning w-100 m-1" @onclick="RateLesson">Rate Lesson</button>
+                                        <button hidden="@hiddenCancelButton" class="btn btn-danger w-100 m-1" @onclick="CancelLesson">Cancel Lesson</button>
                                     }
                                     @if (context.User.IsInRole("Teacher"))
                                     {
-                                        <button hidden="@hiddenEditButton" @onclick="EditLesson" class="btn btn-primary w-100">Edit Lesson</button>
-                                        <button hidden="@hiddenDeleteButton" @onclick="DeleteLesson" class="btn btn-primary w-100">Delete Lesson</button>
+                                        <button hidden="@hiddenEditButton" class="btn btn-succes w-100 m-1" @onclick="EditLesson">Edit Lesson</button>
+                                        <button hidden="@hiddenDeleteButton" class="btn btn-danger w-100 m-1" @onclick="DeleteLesson">Delete Lesson</button>
                                     }
                                     @if (context.User.IsInRole("Admin"))
                                     {
-                                        <button hidden="@hiddenCancelButton" class="btn btn-primary w-100" @onclick="CancelLesson">Cancel Lesson</button>
-                                        <button hidden="@hiddenEditButton" @onclick="EditLesson" class="btn btn-primary w-100">Edit Lesson</button>
-                                        <button hidden="@hiddenDeleteButton" @onclick="DeleteLesson" class="btn btn-primary w-100">Delete Lesson</button>
+                                        <button hidden="@hiddenEditButton" class="btn btn-succes w-100 m-1" @onclick="EditLesson">Edit Lesson</button>
+                                        <button hidden="@hiddenCancelButton" class="btn btn-warning w-100 m-1" @onclick="CancelLesson">Cancel Lesson</button>
+                                        <button hidden="@hiddenDeleteButton" class="btn btn-danger w-100 m-1" @onclick="DeleteLesson">Delete Lesson</button>
                                     }
                                 </Authorized>
                             </AuthorizeView>
 
-                            <a href="/availableLessons" class="btn btn-primary w-100">Back to list</a>
+                            <a href="/availableLessons" class="btn btn-info w-100  m-1">Back to list</a>
                         </div>
                     </div>
                 </div>
@@ -112,22 +112,22 @@
         {
             hiddenBookButton = true;
         }
-        if(user is not null)
+        if (user is not null)
         {
             if (lesson.StudentId == user.Id)
             {
-                if(lesson.Start > DateTime.Now.AddHours(48)) { hiddenCancelButton = false; }
-                if(lesson.Stop < DateTime.Now && lesson.Completed == false) { hiddenRateButton = false; }
+                if (lesson.Start > DateTime.Now.AddHours(48)) { hiddenCancelButton = false; }
+                if (lesson.Stop < DateTime.Now && lesson.Completed == false) { hiddenRateButton = false; }
 
             }
-            if(lesson.TeacherId == user.Id)
+            if (lesson.TeacherId == user.Id)
             {
                 if (lesson.StudentId is null)
                 {
                     hiddenEditButton = false;
                     hiddenDeleteButton = false;
                 }
-                else if(lesson.Start > DateTime.Now.AddHours(24))
+                else if (lesson.Start > DateTime.Now.AddHours(24))
                 {
                     hiddenDeleteButton = false;
                 }
@@ -322,7 +322,7 @@
     {
         hiddenDeleteMessage = true;
 
-        if(user is not null)
+        if (user is not null)
         {
             var instrumentDTO = await Client.GetFromJsonAsync<ResponseInstrumentDTO>("https://localhost:44397/api/instrument/GetOneByLessonId/" + lessonId);
             if (instrumentDTO is not null)
@@ -339,7 +339,7 @@
                         var responseLocationDelete = await Client.DeleteAsync("https://localhost:44397/api/location/delete/" + deletedLesson.LocationId);
                         if (responseLessonDelete.IsSuccessStatusCode)
                         {
-                            if(deletedLesson.StudentId is not null)
+                            if (deletedLesson.StudentId is not null)
                             {
                                 var alert = new CreateAlertDTO { AlertType = AlertType.Cancelled, Message = $"Your lesson on {deletedLesson.Start.ToShortDateString()} has been cancelled.", PersonId = deletedLesson.StudentId.GetValueOrDefault() };
                                 var alertResponse = await Client.PostAsJsonAsync("https://localhost:44397/api/alert/create", alert);

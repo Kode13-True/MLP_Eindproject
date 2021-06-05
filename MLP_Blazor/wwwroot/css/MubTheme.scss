@@ -1,0 +1,12 @@
+﻿/*https: //stackoverflow.com/questions/38792005/how-to-change-the-bootstrap-primary-color*/
+/*To implement in bootstrap.scss at first line, to overwrite standard themes*/
+$theme-colors: ( "primary":#1C3144, "secondary": #6c757d, "succes":#679289, "info":#E1E7F4, "danger":#A63A50, "warning":#FA9500);
+@mixin alert-variant($background, $border, $color) {
+    color: $color;
+    @include gradient-bg($background);
+    border-color: $border;
+
+    .alert-link {
+        color: shade-color($color, 20%);
+    }
+}

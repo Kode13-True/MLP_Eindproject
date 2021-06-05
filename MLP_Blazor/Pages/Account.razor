@@ -31,7 +31,7 @@
                         {
                             @foreach (var alert in alerts)
                             {
-                                <div class="alert alert-info">@alert.AlertType.ToString(): @alert.Message <span class="float-end" style="cursor: pointer" @onclick="() => DeleteAlert(alert.Id)">x</span> </div>
+                                <div class="alert alert-danger text-center">@alert.AlertType.ToString(): @alert.Message <span class="float-end" style="cursor: pointer" @onclick="() => DeleteAlert(alert.Id)">x</span> </div>
                             }
                             <hr class="my-4" hidden="@hiddenAlertLine" />
                             <div class="container pb-3">
@@ -50,7 +50,7 @@
                         {
                             @foreach (var alert in alerts)
                             {
-                                <div class="alert alert-info">@alert.AlertType.ToString(): @alert.Message <span class="float-end" style="cursor: pointer" @onclick="() => DeleteAlert(alert.Id)">x</span> </div>
+                                <div class="alert alert-danger text-center">@alert.AlertType.ToString(): @alert.Message <span class="float-end" style="cursor: pointer" @onclick="() => DeleteAlert(alert.Id)">x</span> </div>
                             }
                             <hr class="my-4" hidden="@hiddenAlertLine" />
                             <div class="container pb-3">
