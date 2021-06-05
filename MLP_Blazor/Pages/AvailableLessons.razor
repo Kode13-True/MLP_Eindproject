@@ -1,6 +1,6 @@
 ﻿@page "/AvailableLessons"
 
-@using Microsoft.AspNetCore.Components.Authorization;
+
 @inject IMapper Mapper
 @inject HttpClient Client
 @inject NavigationManager NavManager
@@ -126,6 +126,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        await Authentication();
 
         var lessons = await Client.GetFromJsonAsync<List<ResponseLessonDTO>>("https://localhost:44397/api/Lesson/GetAllUnbooked");
 
@@ -148,17 +149,12 @@ else
                 minValue = Convert.ToInt32(price);
             }
         }
-        var localStateAuthProvider = (LocalStateAuthProvider)AuthStateProvider;
-        var sessionExpired = await localStateAuthProvider.AuthenticationForLoginSession(Client);
-        if (sessionExpired is true)
-        {
-            NavManager.NavigateTo("/auth/login");
-        }
-
     }
 
     public async void SearchLessons()
     {
+        await Authentication();
+
         if (searchLessonVM.TeacherName is "")
         {
             searchLessonVM.TeacherName = null;
@@ -217,6 +213,16 @@ else
     }
 
     private void NotifyChangedState() => StateHasChanged();
+
+    public async Task Authentication()
+    {
+        var localStateAuthProvider = (LocalStateAuthProvider)AuthStateProvider;
+        var sessionExpired = await localStateAuthProvider.AuthenticationForLoginSession(Client);
+        if (sessionExpired is true)
+        {
+            NavManager.NavigateTo("/auth/login");
+        }
+    }
 
     protected override void OnAfterRender(bool firstRender)
     {

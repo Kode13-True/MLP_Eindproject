@@ -2,7 +2,7 @@
 
 @inject HttpClient Client
 @inject NavigationManager NavManager
-
+@inject AuthenticationStateProvider AuthStateProvider
 <CascadingAuthenticationState>
     <div class="container-fluid p-5">
         <h1 class="display-3">Mubster Report</h1>
@@ -85,6 +85,11 @@
     [Parameter]
     public int personId { get; set; }
 
+    protected override async Task OnInitializedAsync()
+    {
+        await Authentication();
+    }
+
     public void SelectionChanged(ChangeEventArgs args)
     {
         selectedAnswer = args.Value.ToString();
@@ -92,6 +97,7 @@
 
     public async void SendReport()
     {
+        await Authentication();
         var alert = new CreateReportDTO { Message = $"User {personId} was reported for : " + selectedAnswer + ". With the extra message : " + extraInfo };
         var alertResponse = await Client.PostAsJsonAsync("https://localhost:44397/api/alert/Report", alert);
         if (alertResponse.IsSuccessStatusCode)
@@ -112,5 +118,31 @@
     public void HideMessage()
     {
         hiddenMessage = true;
+    }
+
+    public async Task Authentication()
+    {
+        var localStateAuthProvider = (LocalStateAuthProvider)AuthStateProvider;
+        var sessionExpired = await localStateAuthProvider.AuthenticationForLoginSession(Client);
+        if (sessionExpired is true)
+        {
+            NavManager.NavigateTo("/auth/login");
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        var navUri = NavManager.Uri;
+        if (firstRender)
+        {
+            var timer = new Timer(new TimerCallback(_ =>
+            {
+                if (navUri == NavManager.Uri)
+                {
+                    NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
+                }
+
+            }), null, 600000, 600000);
+        }
     }
 }

@@ -258,6 +258,7 @@
 
     public async void GiveRating()
     {
+        await Authentication();
         hiddenRateMessage = true;
         var rating = new GiveRatingDTO { LessonId = lessonId, TeacherId = lesson.TeacherId.GetValueOrDefault(), Rating = Rating };
 
@@ -354,7 +355,7 @@
                         }
                         else
                         {
-                            message = "Something wnet wrong while deleting the location.";
+                            message = "Something went wrong while deleting the location.";
                             hiddenMessage = false;
                         }
                     }

@@ -1,8 +1,10 @@
 ﻿@page "/"
 
-
 @inject HttpClient Client
+@inject AuthenticationStateProvider AuthStateProvider
 @inject IMapper _mapper
+@inject ILocalStorageService LocalStorageService
+@inject NavigationManager NavManager
 
 
 <div class="jumbotron p-5 mb-0" style="background-image: url(/images/dominik-vanyi-horses.jpg); background-size: cover; background-position-x: center; height:100vh;">
@@ -24,13 +26,12 @@
     <h1 class="display-3">Top 5 rated teachers</h1>
     <hr class="my-4">
 </div>
-    <div class="container align-content-center p-5">
-        <div class="card-columns">
-            <div class="row">
+  <div class="container align-content-center p-5">
+      <div class="card-columns">
+          <div class="row">
 
                 @foreach (var teacher in teachers)
                 {
-
                     <div class="card d-inline-block m-1" style="width: 14.4rem;">
                         @*<img src="/images/users.png" class="card-img-top" alt="...">*@
 
@@ -42,13 +43,10 @@
                             <a href="TeacherDetails/@teacher.Id" class="btn btn-succes w-100">More info</a>
                         </div>
                     </div>
-
-
                 }
-
-            </div>
-        </div>
+         </div>
     </div>
+</div>
 
 
 
@@ -60,6 +58,8 @@
 
     protected override async Task OnInitializedAsync()
     {
+        await Authentication();
+
         var teachersDTO = await Client.GetFromJsonAsync<List<ResponseTeacherDTO>>("https://localhost:44397/api/Teacher/GetAll");
         var allTeachers = _mapper.Map<List<ResponseTeacherVM>>(teachersDTO);
         var allOrderTeachers = allTeachers.OrderByDescending(x => x.Rating);
@@ -71,6 +71,33 @@
         for (int i = 0; i < 5; i++)
         {
             teachers.Add(teacherQueue.Dequeue());
+        }
+    }
+
+    //method
+    public async Task Authentication()
+    {
+        var localStateAuthProvider = (LocalStateAuthProvider)AuthStateProvider;
+        var sessionExpired = await localStateAuthProvider.AuthenticationForLoginSession(Client);
+        if (sessionExpired is true)
+        {
+            NavManager.NavigateTo("/auth/login");
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        var navUri = NavManager.Uri;
+        if (firstRender)
+        {
+            var timer = new Timer(new TimerCallback(_ =>
+            {
+                if (navUri == NavManager.Uri)
+                {
+                    NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
+                }
+
+            }), null, 600000, 600000);
         }
     }
 
