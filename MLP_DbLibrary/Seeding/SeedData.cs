@@ -394,113 +394,113 @@ namespace MLP_DbLibrary.Seeding
                     {
                         DOC = DateTime.Now.AddHours(-24),
                         AlertType = AlertType.Booked,
-                        Message = "Lesson has been booked",
+                        Message = "Your lesson on 03/02/2021 has been booked.",
                         PersonId = 5
                     });
                     db.Alerts.Add(new Alert
                     {
                         DOC = DateTime.Now.AddHours(-48),
                         AlertType = AlertType.Cancelled,
-                        Message = "Lesson has been cancelled",
+                        Message = "Your lesson on 05/04/2021 has been cancelled.",
                         PersonId = 6
                     });
                     db.Alerts.Add(new Alert
                     {
                         DOC = DateTime.Now.AddHours(-8),
                         AlertType = AlertType.Rate,
-                        Message = "Lesson has ended, please rate the teacher",
-                        PersonId = 15
+                        Message = "Your lesson on 22/05/2021 has been rated 4/5.",
+                        PersonId = 8
                     });
                     db.Alerts.Add(new Alert
                     {
                         DOC = DateTime.Now.AddHours(-4),
                         AlertType = AlertType.Booked,
-                        Message = "Lesson has been booked",
+                        Message = "Your lesson on 21/05/2021 has been booked.",
                         PersonId = 7
                     });
                     db.Alerts.Add(new Alert
                     {
                         DOC = DateTime.Now.AddHours(-1),
                         AlertType = AlertType.Report,
-                        Message = "Report Alert 1",
+                        Message = "User 5 was reported for: Multiple No-Shows. With the extra message: Teacher hasn't showed up last three times.",
                         PersonId = 1
                     });
                     db.Alerts.Add(new Alert
                     {
                         DOC = DateTime.Now.AddHours(-72),
                         AlertType = AlertType.Cancelled,
-                        Message = "Lesson has been cancelled by Student",
-                        PersonId = 11
+                        Message = "Your lesson on 17/05/2021 has been cancelled.",
+                        PersonId = 8
                     });
                     db.Alerts.Add(new Alert
                     {
                         DOC = DateTime.Now.AddHours(-26),
                         AlertType = AlertType.Cancelled,
-                        Message = "Lesson has been cancelled by Student",
+                        Message = "Your lesson on 05/04/2021 has been cancelled.",
                         PersonId = 5
                     });
                     db.Alerts.Add(new Alert
                     {
                         DOC = DateTime.Now.AddHours(-24),
                         AlertType = AlertType.Report,
-                        Message = "Report Alert 2",
-                        PersonId = 2
+                        Message = "User 7 was reported for: Inadequate. With the extra message: Teacher claimed to be expert, which he clearly wasn't",
+                        PersonId = 1
                     });
                     db.Alerts.Add(new Alert
                     {
                         DOC = DateTime.Now.AddHours(-24),
                         AlertType = AlertType.Rate,
-                        Message = "Lesson has ended, please rate the teacher",
-                        PersonId = 16
+                        Message = "Your lesson on 22/05/2021 has been rated 2/5.",
+                        PersonId = 6
                     });
                     db.Alerts.Add(new Alert
                     {
                         DOC = DateTime.Now.AddHours(-58),
                         AlertType = AlertType.Booked,
-                        Message = "Lesson has been booked",
+                        Message = "Your lesson on 02/02/2021 has been booked.",
                         PersonId = 9
                     });
                     db.Alerts.Add(new Alert
                     {
                         DOC = DateTime.Now.AddHours(-36),
                         AlertType = AlertType.Booked,
-                        Message = "Lesson has been booked",
+                        Message = "Your lesson on 23/04/2021 has been booked.",
                         PersonId = 10
                     });
                     db.Alerts.Add(new Alert
                     {
                         DOC = DateTime.Now.AddHours(-4),
                         AlertType = AlertType.Booked,
-                        Message = "Lesson has been booked",
+                        Message = "Your lesson on 08/03/2021 has been booked.",
                         PersonId = 7
                     });
                     db.Alerts.Add(new Alert
                     {
                         DOC = DateTime.Now.AddHours(-42),
                         AlertType = AlertType.Cancelled,
-                        Message = "Lesson has been cancelled by teacher",
-                        PersonId = 10
+                        Message = "Your lesson on 05/04/2021 has been cancelled.",
+                        PersonId = 17
                     });
                     db.Alerts.Add(new Alert
                     {
                         DOC = DateTime.Now.AddHours(-18),
                         AlertType = AlertType.Booked,
-                        Message = "Lesson has been booked",
+                        Message = "Your lesson on 13/03/2021 has been booked.",
                         PersonId = 6
                     });
                     db.Alerts.Add(new Alert
                     {
                         DOC = DateTime.Now.AddHours(-24),
                         AlertType = AlertType.Report,
-                        Message = "Alert Report 3",
-                        PersonId = 4
+                        Message = "User 5 was reported for: Inadequate. With the extra message: The dude was bad, like really bad",
+                        PersonId = 1
                     });
                     db.Alerts.Add(new Alert
                     {
                         DOC = DateTime.Now.AddHours(-24),
                         AlertType = AlertType.Booked,
-                        Message = "Lesson has been booked",
-                        PersonId = 5
+                        Message = "Your lesson on 18/04/2021 has been booked.",
+                        PersonId = 6
                     });
                     db.SaveChanges();
                     if (!db.Instruments.Any())

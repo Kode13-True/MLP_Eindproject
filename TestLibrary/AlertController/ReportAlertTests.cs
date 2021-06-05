@@ -16,7 +16,7 @@ namespace MLP_TestLibrary.AlertController
     [TestFixture]
     public class ReportAlertTests
     {
-        [TestCase("We'll test this I guess")]
+        [TestCase("User 16 was reported for: Multiple No-Shows. With the extra message: Student didn't show up, without cancelling our session.")]
         public void ReportUser_Succeeds(string message)
         {
             //Arrange
