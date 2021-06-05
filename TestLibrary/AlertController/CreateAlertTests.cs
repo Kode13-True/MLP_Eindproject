@@ -16,10 +16,9 @@ namespace MLP_TestLibrary.AlertController
     [TestFixture]
     public class CreateAlertTests
     {
-        [TestCase( AlertType.Cancelled, "Lesson Got cancelled", 16)]
-        [TestCase( AlertType.Booked, "Lesson Got Booked", 16)]
-        [TestCase( AlertType.Rate, "Lesson Got Rated", 16)]
-        [TestCase( AlertType.Report, "Lesson Got Reported", 16)]
+        [TestCase( AlertType.Cancelled, "Your lesson on 25/04/2021 has been cancelled.", 16)]
+        [TestCase( AlertType.Booked, "Your lesson on 13/03/2021 has been booked.", 8)]
+        [TestCase( AlertType.Rate, "Your lesson on 22/05/2021 has been rated 4/5.", 7)]
         public void Create_Alert_Succeeds(AlertType alertType, string message, int aimedPersonId)
         {
             //Arrange

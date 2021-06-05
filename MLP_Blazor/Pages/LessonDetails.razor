@@ -153,7 +153,12 @@
             var bookingResponse = await Client.GetFromJsonAsync<ResponseLessonDTO>("https://localhost:44397/api/lesson/BookLesson/" + user.Id + "/" + lessonId);
             if (bookingResponse is not null)
             {
-                var alert = new CreateAlertDTO { AlertType = AlertType.Booked, Message = $"Your lesson on {bookingResponse.Start.ToShortDateString()} has been booked.", PersonId = bookingResponse.TeacherId.GetValueOrDefault() };
+                var alert = new CreateAlertDTO 
+                { 
+                    AlertType = AlertType.Booked,
+                    Message = $"Your lesson on {bookingResponse.Start.ToShortDateString()} has been booked.", 
+                    PersonId = bookingResponse.TeacherId.GetValueOrDefault() 
+                };
                 var alertResponse = await Client.PostAsJsonAsync("https://localhost:44397/api/alert/create", alert);
                 if (alertResponse.IsSuccessStatusCode)
                 {
@@ -210,7 +215,12 @@
             var cancelResponse = await Client.GetFromJsonAsync<ResponseLessonDTO>("https://localhost:44397/api/lesson/CancelLesson/" + lessonId);
             if (cancelResponse is not null)
             {
-                var alert = new CreateAlertDTO { AlertType = AlertType.Cancelled, Message = $"Your lesson on {cancelResponse.Start.ToShortDateString()} has been cancelled.", PersonId = cancelResponse.TeacherId.GetValueOrDefault() };
+                var alert = new CreateAlertDTO 
+                { 
+                    AlertType = AlertType.Cancelled,
+                    Message = $"Your lesson on {cancelResponse.Start.ToShortDateString()} has been cancelled.",
+                    PersonId = cancelResponse.TeacherId.GetValueOrDefault()
+                };
                 var alertResponse = await Client.PostAsJsonAsync("https://localhost:44397/api/alert/create", alert);
                 if (alertResponse.IsSuccessStatusCode)
                 {
@@ -270,7 +280,11 @@
             var ratedLesson = (ResponseLessonDTO)JsonConvert.DeserializeObject(lessonContent, typeof(ResponseLessonDTO));
             if (ratedLesson is not null)
             {
-                var alert = new CreateAlertDTO { AlertType = AlertType.Rate, Message = $"Your lesson on {ratedLesson.Start.ToShortDateString()} has been rated {Rating}/5.", PersonId = ratedLesson.TeacherId.GetValueOrDefault() };
+                var alert = new CreateAlertDTO 
+                { 
+                    AlertType = AlertType.Rate,
+                    Message = $"Your lesson on {ratedLesson.Start.ToShortDateString()} has been rated {Rating}/5.",
+                    PersonId = ratedLesson.TeacherId.GetValueOrDefault() };
                 var alertResponse = await Client.PostAsJsonAsync("https://localhost:44397/api/alert/create", alert);
                 if (alertResponse.IsSuccessStatusCode)
                 {
@@ -341,7 +355,11 @@
                         {
                             if(deletedLesson.StudentId is not null)
                             {
-                                var alert = new CreateAlertDTO { AlertType = AlertType.Cancelled, Message = $"Your lesson on {deletedLesson.Start.ToShortDateString()} has been cancelled.", PersonId = deletedLesson.StudentId.GetValueOrDefault() };
+                                var alert = new CreateAlertDTO 
+                                { 
+                                    AlertType = AlertType.Cancelled, 
+                                    Message = $"Your lesson on {deletedLesson.Start.ToShortDateString()} has been cancelled.", 
+                                    PersonId = deletedLesson.StudentId.GetValueOrDefault() };
                                 var alertResponse = await Client.PostAsJsonAsync("https://localhost:44397/api/alert/create", alert);
                                 if (alertResponse.IsSuccessStatusCode)
                                 {
