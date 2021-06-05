@@ -1,0 +1,152 @@
+﻿@page "/deleteUser/{AlertId:int}"
+
+@inject HttpClient Client
+@inject AuthenticationStateProvider AuthStateProvider
+@inject IMapper _mapper
+@inject ILocalStorageService LocalStorageService
+@inject NavigationManager NavManager
+
+
+<CascadingAuthenticationState>
+    <div class="container-fluid p-5">
+        <h1 class="display-3">Delete User</h1>
+        <hr class="my-4">
+        <form class="container">
+            <AuthorizeView Context="AuthorizeContext">
+                <Authorized>
+                    @if (AuthorizeContext.User.IsInRole("Admin"))
+                    {
+                        @if (alert is not null)
+                        {
+                            <div class="container align-content-center p-md-5">
+                                <div class="card d-inline-block m-auto" style="width: 36rem;">
+                                    <div class="card-body align-content-center">
+                                        <div hidden="@hiddenMessage" class="alert alert-info col-md-12">@message <span @onclick="HideMessage">x</span></div>
+                                        <p class="card-text over">@alert.Message</p>
+                                        <EditForm Model="deleteUserDTO" OnValidSubmit="ProceedDelete">
+                                            <label class="label">Person Type</label>
+                                            <InputSelect @bind-Value="deleteUserDTO.PersonType">
+                                                @foreach (var value in Enum.GetValues(typeof(PersonType)))
+                                                        {
+                                                    <option value="@value">@value</option>
+                                                        }
+                                            </InputSelect>
+                                            <label class="label">User Id</label>
+                                            <input type="number" @bind-value="deleteUserDTO.Id" />
+
+                                            <button class="btn-danger" type="submit">delete</button>
+                                            <button class="btn-primary" type="button" @onclick="CancelDelete">cancel</button>
+                                        </EditForm>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                            else
+                            {
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            }
+                            }
+                            else
+                            {
+                            <h1>You are not authorized!</h1>
+                            }
+                        </Authorized>
+                <NotAuthorized>
+                    <h1>You are not authorized!</h1>
+                </NotAuthorized>
+            </AuthorizeView>
+        </form>
+    </div>
+</CascadingAuthenticationState>
+
+@code {
+    DeleteUserDTO deleteUserDTO = new DeleteUserDTO();
+
+    string message = string.Empty;
+    bool hiddenMessage = true;
+
+    LocalAuthUser user;
+
+    [Parameter]
+    public int AlertId { get; set; }
+
+    ResponseAlertDTO alert;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Authentication();
+
+        user = await LocalStorageService.GetItemAsync<LocalAuthUser>("User");
+
+        if (user is not null)
+        {
+            if (user.Role is not PersonType.Admin)
+            {
+                NavManager.NavigateTo("/auth/login");
+            }
+        }
+        else
+        {
+            NavManager.NavigateTo("/auth/login");
+        }
+
+        alert = await Client.GetFromJsonAsync<ResponseAlertDTO>("https://localhost:44397/api/alert/one/" + AlertId);
+    }
+
+
+    public async void ProceedDelete()
+    {
+        await Authentication();
+        var deleteResponse = await Client.PutAsJsonAsync("https://localhost:44397/api/admin/DeleteUser", deleteUserDTO);
+        if (deleteResponse.IsSuccessStatusCode)
+        {
+            NavManager.NavigateTo("/account");
+        }
+        else
+        {
+            message = "Delete failed";
+            hiddenMessage = false;
+        }
+        NotifyChangedState();
+    }
+    public void CancelDelete()
+    {
+        NavManager.NavigateTo("/Account");
+    }
+
+
+    //methods
+    private void NotifyChangedState() => StateHasChanged();
+    public void HideMessage() { hiddenMessage = true; }
+
+    public async Task Authentication()
+    {
+        var localStateAuthProvider = (LocalStateAuthProvider)AuthStateProvider;
+        var sessionExpired = await localStateAuthProvider.AuthenticationForLoginSession(Client);
+        if (sessionExpired is true)
+        {
+            NavManager.NavigateTo("/auth/login");
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        var navUri = NavManager.Uri;
+        if (firstRender)
+        {
+            var timer = new Timer(new TimerCallback(_ =>
+            {
+                if (navUri == NavManager.Uri)
+                {
+                    NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
+                }
+
+            }), null, 600000, 600000);
+        }
+    }
+
+
+}

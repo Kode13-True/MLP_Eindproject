@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MLP_DbLibrary.DTO.PersonDTO;
 using MLP_DbLibrary.MLPContext;
 using MLP_DbLibrary.Models;
 using MLP_Eindproject.API.Services.Interfaces;
@@ -102,5 +103,50 @@ namespace MLP_Eindproject.API.Services
             return countlist;
         }
 
+        public async Task<bool> DeleteUserByAdmin(DeleteUserDTO deleteUserDTO)
+        {
+            bool succeeds = false;
+            if(deleteUserDTO.PersonType is PersonType.Admin)
+            {
+                var admin = _context.Admins.Find(deleteUserDTO.Id);
+                _context.Admins.Remove(admin);
+                await _context.SaveChangesAsync();
+                succeeds = true;
+            }
+            else if(deleteUserDTO.PersonType is PersonType.Student) 
+            {
+                var lessons = _context.Lessons.Where(x => x.StudentId == deleteUserDTO.Id).ToList();
+                foreach (var lesson in lessons)
+                {
+                    lesson.StudentId = null;
+                }
+                var student = _context.Students.Find(deleteUserDTO.Id);
+                _context.Students.Remove(student);
+                await _context.SaveChangesAsync();
+                succeeds = true;
+
+            }
+            else if(deleteUserDTO.PersonType is PersonType.Teacher)
+            {
+                var lessons = _context.Lessons.Where(x => x.TeacherId == deleteUserDTO.Id)
+                    .Include(x => x.Instrument)
+                    .Include(x => x.Location)
+                    .ToList();
+
+                foreach (var lesson in lessons)
+                {
+                    _context.Instruments.Remove(lesson.Instrument);
+                    _context.Lessons.Remove(lesson);
+                    _context.Locations.Remove(lesson.Location);
+                }
+
+                var teacher = _context.Teachers.Find(deleteUserDTO.Id);
+                _context.Teachers.Remove(teacher);
+                await _context.SaveChangesAsync();
+                succeeds = true;
+            }
+
+            return succeeds;
+        }
     }
 }

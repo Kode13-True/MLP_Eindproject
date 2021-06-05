@@ -84,10 +84,10 @@
                                 </thead>
                                 <tbody>
 
-                                    @foreach (var alerts in alerts)
+                                    @foreach (var alert in alerts)
                                     {
-                                        <tr>
-                                            <td><div class="d-block">@alerts.Message</div></td>
+                                        <tr @onclick="() => GoDeleteUser(alert.Id)">
+                                            <td><div class="d-block">@alert.Message</div></td>
                                         </tr>
                                     }
                                         
@@ -304,6 +304,11 @@
 
         }
         NotifyChangedState();
+    }
+
+    public void GoDeleteUser(int id)
+    {
+        NavManager.NavigateTo($"/DeleteUser/{id}");
     }
 
     public void LessonDetails(int id)
