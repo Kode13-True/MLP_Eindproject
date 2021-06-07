@@ -8,102 +8,139 @@
 @inject AuthenticationStateProvider AuthStateProvider
 
 <CascadingAuthenticationState>
-    <div class="container-fluid pt-5 d-flex justify-content-center">
-        <div class="row g-3">
-            <div class="form-control col-md-6">
-                <h4>Create Lesson</h4>
-                <AuthorizeView Context="AuthorizeContext">
-                    <Authorized>
-                        @if (AuthorizeContext.User.IsInRole("Teacher"))
-                        {
+    <form class="container-fluid p-5">
+        <h1 class="display-3">Create Lesson</h1>
+        <hr class="my-4">
+        <div class="container">
+            <AuthorizeView Context="AuthorizeContext">
+                <Authorized>
+                    @if (AuthorizeContext.User.IsInRole("Teacher"))
+                    {
                         <EditForm Model="lessonModel" Context="EditformContext" OnValidSubmit="SubmitLesson">
                             <DataAnnotationsValidator />
-                            <ValidationSummary />
-
-                            <div hidden="@hiddenMessage" class="alert alert-info col-md-12">@message <span @onclick="HideMessage">x</span></div>
-
-                            <div class="col-md-12">
-                                <label class="label">Instrument Name</label>
-                                <InputSelect @bind-Value="lessonModel.InstrumentName">
-                                    @foreach (var value in Enum.GetValues(typeof(InstrumentName)))
-                                        {
-                                        <option>@value</option>
-                                        }
-                                </InputSelect>
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Instrument Style</label>
-                                <InputSelect @bind-Value="lessonModel.InstrumentStyle">
-                                    @foreach (var value in Enum.GetValues(typeof(InstrumentStyle)))
-                                        {
-                                        <option>@value</option>
-                                        }
-                                </InputSelect>
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Lesson Level</label>
-                                <InputSelect @bind-Value="lessonModel.LessonLevel">
-                                    @foreach (var value in Enum.GetValues(typeof(LessonLevel)))
-                                        {
-                                        <option>@value</option>
-                                        }
-                                </InputSelect>
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Price</label>
-                                <InputNumber @bind-Value:format="F2" @bind-Value="lessonModel.Price" />
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Date</label>
-                                <InputDate @bind-Value="date" />
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Start</label>
-                                <input type="time" @bind-value="startTime" />
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Stop</label>
-                                <input type="time" @bind-value="stopTime" />
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Street</label>
-                                <input type="text" placeholder="Street" @bind-value="lessonModel.Street" />
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Number</label>
-                                <input type="text" placeholder="Number" @bind-value="lessonModel.Number" />
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Postal</label>
-                                <input type="text" placeholder="Postal" @bind-value="lessonModel.Postal" />
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Township</label>
-                                <input type="text" placeholder="Township" @bind-value="lessonModel.Township" />
+                            <div class="row">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4">
+                                    <div><ValidationSummary /></div>
+                                </div>
+                                <div class="col-md-4"></div>
                             </div>
 
-                            <br />
+                            <div hidden="@hiddenMessage" class="alert alert-info col-md-12">@message <span @onclick="HideMessage" class="float-end" style="cursor:pointer">x</span></div>
 
-                            <div class="col-12 d-flex justify-content-center">
-                                <button disabled="@isBusy" class="btn-register" style="" type="submit">Create</button>
+                            <div class="row mb-1">
+                                <div class="col-md-2"></div>
+                                <label class="col-md-1 form-label" for="instrument">Instrument</label>
+                                <div class="col-md-2">
+                                    <InputSelect @bind-Value="lessonModel.InstrumentName" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px")" CollapsedButtonIcon="C1IconTemplate.ChevronDown">
+                                        <option></option>
+                                        @foreach (var value in Enum.GetValues(typeof(InstrumentName)))
+                                            {
+                                            <option>@value</option>
+                                            }
+                                    </InputSelect>
+                                </div>
+                                <div class="col-md-2"></div>
+                                <label class="col-md-1 form-label" for="style">Style</label>
+                                <div class="col-md-2">
+                                    <InputSelect @bind-Value="lessonModel.InstrumentStyle" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px")" CollapsedButtonIcon="C1IconTemplate.ChevronDown">
+                                        <option></option>
+                                        @foreach (var value in Enum.GetValues(typeof(InstrumentStyle)))
+                                            {
+                                            <option>@value</option>
+                                            }
+                                    </InputSelect>
+                                </div>
                             </div>
-                            <div class="col-12 d-flex justify-content-center">
-                                <button disabled="@isBusy" class="btn-register" style="" type="button" @onclick="CancelCreation">Cancel</button>
+                            <div class="row mb-1">
+                                <div class="col-md-2"></div>
+                                <label class="col-md-1 form-label" for="level">Level</label>
+                                <div class="col-md-2">
+                                    <InputSelect @bind-Value="lessonModel.LessonLevel" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px; border-width:thin")" CollapsedButtonIcon="C1IconTemplate.ChevronDown">
+                                        <option></option>
+                                        @foreach (var value in Enum.GetValues(typeof(LessonLevel)))
+                                            {
+                                            <option>@value</option>
+                                            }
+                                    </InputSelect>
+                                </div>
+                                <div class="col-md-2"></div>
+                                <label class="col-md-1 form-label" for="price">Price</label>
+                                <div class="col-md-2">
+                                    <InputNumber class="form form-control" @bind-Value:format="F2" @bind-Value="lessonModel.Price" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px;focus:invisible; border-width:thin")" />
+                                </div>
                             </div>
+                            <div class="row mb-1">
+                                <div class="col-md-2"></div>
+                                <label class="col-md-1 form-label" for="date">Date</label>
+                                <div class="col-md-2">
+                                    <InputDate class="form form-control" @bind-Value="date" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px; border-width:thin")" />
+                                </div>
+                                <div class="col-md-2"></div>
+                                <label class="col-md-1 form-label" for="start">Start</label>
+                                <div class="col-md-2">
+                                    <input class="form form-control" type="time" @bind-value="startTime" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px; border-width:thin")" />
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-md-7"></div>
+                                <label class="col-md-1 form-label" for="stop">End</label>
+                                <div class="col-md-2">
+                                    <input class="form form-control" type="time" @bind-value="startTime" />
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-md-2"></div>
+                                <label class="col-md-1 form-label" for="street">Street</label>
+                                <div class="col-md-7">
+                                    <input class="form form-control" type="text" placeholder="Street" @bind-value="lessonModel.Street" />
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-md-2"></div>
+                                <label class="col-md-1 form-label" for="number">Number</label>
+                                <div class="col-md-7">
+                                    <input class="form form-control" type="text" placeholder="Number" @bind-value="lessonModel.Number" />
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-md-2"></div>
+                                <label class="col-md-1 form-label" for="postal">Postal</label>
+                                <div class="col-md-7">
+                                    <input class="form form-control" type="text" placeholder="Postal Code" @bind-value="lessonModel.Street" />
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-md-2"></div>
+                                <label class="col-md-1 form-label" for="township">Township</label>
+                                <div class="col-md-7">
+                                    <input class="form form-control" type="text" placeholder="Street" @bind-value="lessonModel.Street" />
+                                </div>
+                            </div>
+
+                            <div class="row pt-1">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8">
+                                    <button onclick="window.history.back()" class="btn btn-primary w-25 m-1  float-end">Back</button>
+                                    <button disabled="@isBusy" class="btn btn-succes w-25 m-1  float-end" style="" type="submit">Create</button>
+                                </div>
+                            </div>
+
                         </EditForm>
-                        }
-                        else
-                        { 
-                            <h3>You have no access to this page!<br />Go to <a href="/">Home</a></h3>
-                        }
-                    </Authorized>
-                    <NotAuthorized>
-                        <h3>You have no access to this page!<br />Go to <a href="/">Home</a></h3>                        
-                    </NotAuthorized>
-                </AuthorizeView>
-            </div>
+                    }
+                    else
+                    {
+                        <h3>You have no access to this page!<br />Go to <a href="/">Home</a></h3>
+                    }
+                </Authorized>
+                <NotAuthorized>
+                    <h3>You have no access to this page!<br />Go to <a href="/">Home</a></h3>
+                </NotAuthorized>
+            </AuthorizeView>
         </div>
-    </div>
+    </form>
+
+
 </CascadingAuthenticationState>
 
 @code {
@@ -210,10 +247,6 @@
 
     }
 
-    public void CancelCreation()
-    {
-        NavManager.NavigateTo("/account");
-    }
 
     //methods
 
