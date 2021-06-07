@@ -161,16 +161,32 @@
             isBusy = true;
             lessonModel.Start = new DateTime( date.Year, date.Month, date.Day, startTime.Hour, startTime.Minute, 0);
             lessonModel.Stop = new DateTime( date.Year, date.Month, date.Day, stopTime.Hour, stopTime.Minute, 0);
-            EditLessonDTO lessonDTO = _mapper.Map<EditLessonDTO>(lessonModel);
-
-            var responseLesson = await Client.PutAsJsonAsync("https://localhost:44397/api/lesson/UpdateLesson/" + lessonId, lessonDTO);
-            if (responseLesson.IsSuccessStatusCode)
+            if (lessonModel.Start > DateTime.Now)
             {
-                NavManager.NavigateTo("/account");
+                if (lessonModel.Stop > lessonModel.Start)
+                {
+                    EditLessonDTO lessonDTO = _mapper.Map<EditLessonDTO>(lessonModel);
+
+                    var responseLesson = await Client.PutAsJsonAsync("https://localhost:44397/api/lesson/UpdateLesson/" + lessonId, lessonDTO);
+                    if (responseLesson.IsSuccessStatusCode)
+                    {
+                        NavManager.NavigateTo("/account");
+                    }
+                    else
+                    {
+                        message = "Something went wrong while editing your lesson.";
+                        hiddenMessage = false;
+                    }
+                }
+                else
+                {
+                    message = "End of lesson should be after the beginning!";
+                    hiddenMessage = false;
+                }
             }
             else
             {
-                message = "Something went wrong while editing your lesson.";
+                message = "Incorrect Date!";
                 hiddenMessage = false;
             }
 

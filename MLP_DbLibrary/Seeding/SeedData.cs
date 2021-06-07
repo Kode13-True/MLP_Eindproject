@@ -17,7 +17,7 @@ namespace MLP_DbLibrary.Seeding
             db.Database.EnsureCreated();
             if (!db.Admins.Any())
             {
-                db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "abubakr.Boone@gmail.com", FirstName = "Abubakr", LastName = "Boone", Password = "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=" });
+                db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "admin@mub", FirstName = "admin", LastName = "admin", Password = "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=" });
                 db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "dougie.casey@gmail.com", FirstName = "Dougie", LastName = "Casey", Password = "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=" });
                 db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "duncan.schultz@hotmail.com", FirstName = "Duncan", LastName = "Schultz", Password = "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=" });
                 db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "martine.matthams@skynet.be", FirstName = "Martine", LastName = "Matthams", Password = "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=" });
@@ -422,7 +422,7 @@ namespace MLP_DbLibrary.Seeding
                     {
                         DOC = DateTime.Now.AddHours(-1),
                         AlertType = AlertType.Report,
-                        Message = "User 5 was reported for: Multiple No-Shows. With the extra message: Teacher hasn't showed up last three times.",
+                        Message = "User 5: Teacher : was reported for: Multiple No-Shows. With the extra message: Teacher hasn't showed up last three times.",
                         PersonId = 1
                     });
                     db.Alerts.Add(new Alert
@@ -443,7 +443,7 @@ namespace MLP_DbLibrary.Seeding
                     {
                         DOC = DateTime.Now.AddHours(-24),
                         AlertType = AlertType.Report,
-                        Message = "User 7 was reported for: Inadequate. With the extra message: Teacher claimed to be expert, which he clearly wasn't",
+                        Message = "User 7: Teacher : was reported for: Inadequate. With the extra message: Teacher claimed to be expert, which he clearly wasn't",
                         PersonId = 1
                     });
                     db.Alerts.Add(new Alert
@@ -492,7 +492,7 @@ namespace MLP_DbLibrary.Seeding
                     {
                         DOC = DateTime.Now.AddHours(-24),
                         AlertType = AlertType.Report,
-                        Message = "User 5 was reported for: Inadequate. With the extra message: The dude was bad, like really bad",
+                        Message = "User 5 : Teacher : was reported for: Inadequate. With the extra message: The dude was bad, like really bad",
                         PersonId = 1
                     });
                     db.Alerts.Add(new Alert

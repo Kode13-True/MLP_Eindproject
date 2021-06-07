@@ -22,16 +22,19 @@
                                 <div class="card d-inline-block m-auto" style="width: 36rem;">
                                     <div class="card-body align-content-center">
                                         <div hidden="@hiddenMessage" class="alert alert-info col-md-12">@message <span @onclick="HideMessage">x</span></div>
+                                        <div id="AreYouSureMessage" hidden="@hiddenDeleteMessage" class="alert alert-danger col-md-12 text-center">
+                                            Are you sure? <span @onclick="ProceedDelete" style="cursor:pointer"> [yes] </span> / <span @onclick="NoDelete" style="cursor:pointer"> [no] </span>
+                                        </div>
                                         <p class="card-text over">@alert.Message</p>
-                                        <EditForm Model="deleteUserDTO" OnValidSubmit="ProceedDelete">
-                                            <label class="label">Person Type</label>
+                                        <EditForm Model="deleteUserDTO" OnValidSubmit="CertainDeleteUser">
+                                            <label class="form-label text-primary">Person Type</label>
                                             <InputSelect @bind-Value="deleteUserDTO.PersonType">
                                                 @foreach (var value in Enum.GetValues(typeof(PersonType)))
                                                         {
                                                     <option value="@value">@value</option>
                                                         }
                                             </InputSelect>
-                                            <label class="label">User Id</label>
+                                            <label class="form-label  text-primary">User Id</label>
                                             <input type="number" @bind-value="deleteUserDTO.Id" />
 
                                             <button class="btn-danger" type="submit">delete</button>
@@ -66,8 +69,9 @@
 
     string message = string.Empty;
     bool hiddenMessage = true;
+    bool hiddenDeleteMessage = true;
 
-    LocalAuthUser user;
+    LocalAuthUser User;
 
     [Parameter]
     public int AlertId { get; set; }
@@ -79,11 +83,11 @@
     {
         await Authentication();
 
-        user = await LocalStorageService.GetItemAsync<LocalAuthUser>("User");
+        User = await LocalStorageService.GetItemAsync<LocalAuthUser>("User");
 
-        if (user is not null)
+        if (User is not null)
         {
-            if (user.Role is not PersonType.Admin)
+            if (User.Role is not PersonType.Admin)
             {
                 NavManager.NavigateTo("/auth/login");
             }
@@ -100,17 +104,62 @@
     public async void ProceedDelete()
     {
         await Authentication();
-        var deleteResponse = await Client.PutAsJsonAsync("https://localhost:44397/api/admin/DeleteUser", deleteUserDTO);
-        if (deleteResponse.IsSuccessStatusCode)
+        if(deleteUserDTO.Id != 1)
         {
-            NavManager.NavigateTo("/account");
+            if(deleteUserDTO.PersonType == PersonType.Admin)
+            {
+                if(User.Id == 1)
+                {
+                    var deleteResponse = await Client.PutAsJsonAsync("https://localhost:44397/api/admin/DeleteUser", deleteUserDTO);
+                    if (deleteResponse.IsSuccessStatusCode)
+                    {
+                        NavManager.NavigateTo("/account");
+                    }
+                    else
+                    {
+                        message = "Delete failed";
+                        hiddenMessage = false;
+                    }
+                }
+                else
+                {
+                    message = "You are not authorized for this delete";
+                    hiddenMessage = false;
+                }
+            }
+            else
+            {
+                var deleteResponse = await Client.PutAsJsonAsync("https://localhost:44397/api/admin/DeleteUser", deleteUserDTO);
+                if (deleteResponse.IsSuccessStatusCode)
+                {
+                    NavManager.NavigateTo("/account");
+                }
+                else
+                {
+                    message = "Delete failed";
+                    hiddenMessage = false;
+                }
+            }
         }
         else
         {
-            message = "Delete failed";
+            message = "admin@mub cannot be deleted.";
             hiddenMessage = false;
         }
+
         NotifyChangedState();
+    }
+
+    public async void CertainDeleteUser()
+    {
+        await Authentication();
+
+        hiddenDeleteMessage = false;
+        NotifyChangedState();
+    }
+    public void NoDelete()
+    {
+        hiddenDeleteMessage = true;
     }
     public void CancelDelete()
     {

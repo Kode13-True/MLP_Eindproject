@@ -16,7 +16,7 @@ namespace MLP_TestLibrary.UserController
     [TestFixture]
     public class RegisterUserTestFail
     {
-        [TestCase("abubakr.Boone@gmail.com", "Test1234", "Abubakr","Boone", false, false)]
+        [TestCase("admin@mub", "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40", "admin", "admin", false, false)]
         public void Register_User_Fails_Duplicate_Email(string email, string password, string firstName, string lastName, bool isTeacher, bool isAdmin)
         {
             //Arrange
