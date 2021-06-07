@@ -12,16 +12,16 @@ namespace MLP_DbLibrary.VM.LessonVM
     {
         //LocationVariables
         //LocationVariables
-        [Required]
+        [Required(ErrorMessage ="Street is required!")]
         [StringLength(50, ErrorMessage = "Street name has a max length of 50 characters.")]
         public string Street { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Number is required!")]
         [StringLength(6, ErrorMessage = "Street number has a max length of 6 characters.")]
         public string Number { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Postal is required!")]
         [StringLength(5, ErrorMessage = "Postal has a max length of 5 characters.")]
         public string Postal { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Township is required!")]
         [StringLength(25, ErrorMessage = "Township has a max length of 25 characters.")]
         public string Township { get; set; }
 
@@ -32,12 +32,12 @@ namespace MLP_DbLibrary.VM.LessonVM
         public InstrumentStyle InstrumentStyle { get; set; }
 
         //LessonVariables
-        [Required]
+        [Required(ErrorMessage = "Start is required!")]
         public DateTime Start { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Stop is required!")]
         public DateTime Stop { get; set; }
-        [Required]/*Fully reset number, to reset error decimals*/
-        [RegularExpression(@"\d+(\.\d{1,2})?", ErrorMessage = "The price can maximally have two decimals!")]
+        [Required(ErrorMessage = "Price is required!")]
+        [RegularExpression(@"^(0|-?\d{0,16}(\,\d{0,2})?)$", ErrorMessage = "The price can maximally have two decimals!")]
         [Range(0, 9999999999999999.99)]
         public decimal Price { get; set; }
         [Required]

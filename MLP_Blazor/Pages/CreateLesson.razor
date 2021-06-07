@@ -122,7 +122,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        
+
         user = await LocalStorageService.GetItemAsync<LocalAuthUser>("User");
         if (user is null)
         {
@@ -143,46 +143,62 @@
 
             lessonModel.Start = new DateTime(date.Year, date.Month, date.Day, startTime.Hour, startTime.Minute, 0);
             lessonModel.Stop = new DateTime(date.Year, date.Month, date.Day, stopTime.Hour, stopTime.Minute, 0);
-
-            var lessonDTO = _mapper.Map<CreateLessonDTO>(lessonModel);
-            var locationDTO = _mapper.Map<CreateLocationDTO>(lessonModel);
-            var instrumentDTO = _mapper.Map<CreateInstrumentDTO>(lessonModel);
-
-            var responseLocation = await Client.PostAsJsonAsync("https://localhost:44397/api/location/create", locationDTO);
-            if (responseLocation.IsSuccessStatusCode)
+            if(lessonModel.Start > DateTime.Now)
             {
-                var locationString = await responseLocation.Content.ReadAsStringAsync();
-                var location = (ResponseLocationDTO)JsonConvert.DeserializeObject(locationString, typeof(ResponseLocationDTO));
-                lessonDTO.LocationId = location.Id;
-
-                var responseLesson = await Client.PostAsJsonAsync("https://localhost:44397/api/lesson/createlesson/" + user.Id, lessonDTO);
-                if (responseLesson.IsSuccessStatusCode)
+                if(lessonModel.Stop > lessonModel.Start)
                 {
-                    var lessonString = await responseLesson.Content.ReadAsStringAsync();
-                    var lesson = (ResponseLessonDTO)JsonConvert.DeserializeObject(lessonString, typeof(ResponseLessonDTO));
+                    var lessonDTO = _mapper.Map<CreateLessonDTO>(lessonModel);
+                    var locationDTO = _mapper.Map<CreateLocationDTO>(lessonModel);
+                    var instrumentDTO = _mapper.Map<CreateInstrumentDTO>(lessonModel);
 
-                    var responseInstrument = await Client.PostAsJsonAsync("https://localhost:44397/api/instrument/Create/" + lesson.Id, instrumentDTO);
-                    if (responseInstrument.IsSuccessStatusCode)
+                    var responseLocation = await Client.PostAsJsonAsync("https://localhost:44397/api/location/create", locationDTO);
+                    if (responseLocation.IsSuccessStatusCode)
                     {
-                        NavManager.NavigateTo("/account");
+                        var locationString = await responseLocation.Content.ReadAsStringAsync();
+                        var location = (ResponseLocationDTO)JsonConvert.DeserializeObject(locationString, typeof(ResponseLocationDTO));
+                        lessonDTO.LocationId = location.Id;
+
+                        var responseLesson = await Client.PostAsJsonAsync("https://localhost:44397/api/lesson/createlesson/" + user.Id, lessonDTO);
+                        if (responseLesson.IsSuccessStatusCode)
+                        {
+                            var lessonString = await responseLesson.Content.ReadAsStringAsync();
+                            var lesson = (ResponseLessonDTO)JsonConvert.DeserializeObject(lessonString, typeof(ResponseLessonDTO));
+
+                            var responseInstrument = await Client.PostAsJsonAsync("https://localhost:44397/api/instrument/Create/" + lesson.Id, instrumentDTO);
+                            if (responseInstrument.IsSuccessStatusCode)
+                            {
+                                NavManager.NavigateTo("/account");
+                            }
+                            else
+                            {
+                                message = "Something went wrong with creating the Instrument.";
+                                hiddenMessage = false;
+                            }
+                        }
+                        else
+                        {
+                            message = "Something went wrong with creating the Lesson.";
+                            hiddenMessage = false;
+                        }
                     }
                     else
                     {
-                        message = "Something went wrong with creating the Instrument.";
+                        message = "Something went wrong with creating the location.";
                         hiddenMessage = false;
                     }
                 }
                 else
                 {
-                    message = "Something went wrong with creating the Lesson.";
+                    message = "End of lesson should be after the beginning!";
                     hiddenMessage = false;
                 }
             }
             else
             {
-                message = "Something went wrong with creating the location.";
+                message = "Incorrect Date!";
                 hiddenMessage = false;
             }
+
         }
         else
         {

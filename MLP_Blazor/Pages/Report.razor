@@ -3,6 +3,8 @@
 @inject HttpClient Client
 @inject NavigationManager NavManager
 @inject AuthenticationStateProvider AuthStateProvider
+@inject ILocalStorageService LocalStorageService
+
 <CascadingAuthenticationState>
     <div class="container-fluid p-5">
         <h1 class="display-3">Report a Mubster</h1>
@@ -14,7 +16,7 @@
                     @if (AuthorizeContext.User.IsInRole("Teacher"))
                     {
                         <EditForm Model="reportAlert" OnValidSubmit="SendReport">
-                            
+
                             <div class="row">
                                 <div class="col-md-2"></div>
                                 <label class="col-md-2">Reason</label>
@@ -27,7 +29,7 @@
                                             <input class="form-check-input mx-1" type="radio" value="@reason" id="@reason" @onchange="SelectionChanged" checked=@(selectedAnswer.Equals(reason,StringComparison.OrdinalIgnoreCase)) />
                                             <label class="form-label" for="@reason"> @reason</label>
                                         </div>
-                                     }
+                                    }
                                 </div>
                                 <div class="col-md-2"></div>
                             </div>
@@ -57,10 +59,10 @@
                                 <div class="col-md-7">
                                     @foreach (var reason in studentReasons)
                                     {
-                                    <div class="input-group mx-1">
-                                        <input class="form-check-input mx-1" type="radio" value="@reason" id="@reason" @onchange="SelectionChanged" checked=@(selectedAnswer.Equals(reason,StringComparison.OrdinalIgnoreCase)) />
-                                        <label class="form-label" for="@reason"> @reason</label>
-                                    </div>
+                                        <div class="input-group mx-1">
+                                            <input class="form-check-input mx-1" type="radio" value="@reason" id="@reason" @onchange="SelectionChanged" checked=@(selectedAnswer.Equals(reason,StringComparison.OrdinalIgnoreCase)) />
+                                            <label class="form-label" for="@reason"> @reason</label>
+                                        </div>
                                     }
                                 </div>
                                 <div class="col-md-2"></div>
@@ -100,9 +102,20 @@
     [Parameter]
     public int personId { get; set; }
 
+    LocalAuthUser User;
+
     protected override async Task OnInitializedAsync()
     {
-        await Authentication();
+        User = await LocalStorageService.GetItemAsync<LocalAuthUser>("User");
+        if (User is null)
+        {
+            NavManager.NavigateTo("/Auth/Login");
+        }
+        else
+        {
+            await Authentication();
+        }
+
     }
 
     public void SelectionChanged(ChangeEventArgs args)
@@ -113,7 +126,16 @@
     public async void SendReport()
     {
         await Authentication();
-        var alert = new CreateReportDTO { Message = $"User {personId} was reported for : " + selectedAnswer + ". With the extra message : " + extraInfo };
+        CreateReportDTO alert = new CreateReportDTO();
+        if(User.Role is PersonType.Teacher)
+        {
+            alert = new CreateReportDTO { Message = $"User {personId}: Student : was reported for : " + selectedAnswer + ". With the extra message : " + extraInfo };
+
+        }
+        if (User.Role is PersonType.Student)
+        {
+            alert = new CreateReportDTO { Message = $"User {personId}: Teacher : was reported for : " + selectedAnswer + ". With the extra message : " + extraInfo };            
+        }
         var alertResponse = await Client.PostAsJsonAsync("https://localhost:44397/api/alert/Report", alert);
         if (alertResponse.IsSuccessStatusCode)
         {
@@ -124,6 +146,7 @@
             message = "The report has failed";
             hiddenMessage = false;
         }
+
         NotifyChangedState();
     }
 
