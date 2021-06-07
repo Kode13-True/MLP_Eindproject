@@ -1,5 +1,7 @@
 @inject AuthenticationStateProvider authenticationStateProvider
 @inject NavigationManager navManager
+@inject ILocalStorageService LocalStorageService
+@inject HttpClient Client
 
 <CascadingAuthenticationState>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom mb-3 fixed-top">
@@ -16,8 +18,8 @@
                         <a class="nav-link text-dark" href="" Match="NavLinkMatch.All">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="/availableLessons" >Available Lessons</a>
-                        
+                        <a class="nav-link text-dark" href="/availableLessons">Available Lessons</a>
+
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="teachers">Teachers</a>
@@ -34,9 +36,21 @@
                                 </li>
 
                             }
-                            <li class="nav-item">
+                        <li class="nav-item">
+                            @if (context.User.IsInRole("Admin"))
+                            {
                                 <a class="nav-link text-dark" href="Account">Account</a>
-                            </li>
+                            }
+                            else
+                            {
+                                @if (alertCount > 0)
+                                {<a class="nav-link text-dark" href="Account">Account <span class="badge bg-danger rounded-pill mt-0">@alertCount</span></a>}
+                                else
+                                {<a class="nav-link text-dark" href="Account">Account <span class="badge bg-secondary rounded-pill mt-0">@alertCount</span></a>}
+                            }
+
+
+                        </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" style="cursor: pointer" @onclick="logout">Logout</a>
                             </li>
@@ -57,9 +71,31 @@
 </CascadingAuthenticationState>
 
 @code {
+
     bool collapseNavMenu = true;
 
     string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    int alertCount = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var user = await LocalStorageService.GetItemAsync<LocalAuthUser>("User");
+        if(user is not null)
+        {
+            if (user.Role is PersonType.Admin)
+            {
+
+            }
+            else
+            {
+                var alertsResponse = await Client.GetFromJsonAsync<List<ResponseAlertDTO>>("https://localhost:44397/api/alert/GetAllByPersonId/" + user.Id);
+                alertCount = alertsResponse.Count();
+            }
+        }
+    }
+
+
 
     void ToggleNavMenu()
     {
@@ -72,4 +108,7 @@
         await localStateAuthProvider.LogoutAsync();
         navManager.NavigateTo("/auth/login");
     }
+    public void NotifyStateChange() => StateHasChanged();
+        
+       
 }

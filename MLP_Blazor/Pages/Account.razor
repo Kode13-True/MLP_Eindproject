@@ -263,11 +263,9 @@
     {
         user = await LocalStorageService.GetItemAsync<LocalAuthUser>("User");
 
-        await Authentication();
-
         if (user is not null)
         {
-
+            await Authentication();
 
             var persontype = user.Role.ToString();
             var personId = user.Id;
@@ -376,7 +374,8 @@
                 hiddenAlertLine = true;
             }
         }
-        NotifyChangedState();
+
+        NavManager.NavigateTo("/Account", true);
     }
 
     //methods
