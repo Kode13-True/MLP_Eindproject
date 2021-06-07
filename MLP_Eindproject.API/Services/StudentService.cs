@@ -51,6 +51,11 @@ namespace MLP_Eindproject.API.Services
 
         public async Task DeleteStudentById(int personId)
         {
+            var lessons = _context.Lessons.Where(x => x.StudentId == personId).ToList();
+            foreach (var lesson in lessons)
+            {
+                lesson.StudentId = null;
+            }
             var PersonToDelete = _context.Students.Find(personId);
             _context.Students.Remove(PersonToDelete);
             await _context.SaveChangesAsync();

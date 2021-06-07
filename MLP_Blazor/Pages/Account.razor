@@ -107,23 +107,22 @@
                     <Authorized>
                         @if (@context.User.IsInRole("Admin"))
                         {
+
                             <div class="container">
                                 <table class="table table-succes table-striped table-hover m-auto">
-                                    <thead>
-                                        <tr>
-                                            <th><div class="d-block">Reports</div></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        @foreach (var alerts in alerts)
-                                        {
-                                            <tr>
-                                                <td><div class="d-block">@alerts.Message</div></td>
-                                            </tr>
-                                        }
-
-                                    </tbody>
+                                      <thead>
+                                          <tr>
+                                              <th><div class="d-block">Reports</div></th>
+                                          </tr>
+                                  </thead>
+                                  <tbody>
+                                      @foreach (var alert in alerts)
+                                      {
+                                          <tr @onclick="() => GoDeleteUser(alert.Id)">
+                                              <td><div class="d-block">@alert.Message</div></td>
+                                          </tr>
+                                      }
+                                  </tbody>
                                 </table>
                             </div>
                         }
@@ -337,6 +336,11 @@
 
         }
         NotifyChangedState();
+    }
+
+    public void GoDeleteUser(int id)
+    {
+        NavManager.NavigateTo($"/DeleteUser/{id}");
     }
 
     public void LessonDetails(int id)
