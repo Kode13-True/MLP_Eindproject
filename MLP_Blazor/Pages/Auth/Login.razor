@@ -99,7 +99,7 @@
 
                 await LocalStorage.SetItemAsync<LocalAuthUser>("User", userInfo);
                 await AuthStateProvider.GetAuthenticationStateAsync();
-                NavManager.NavigateTo($"/account");
+                NavManager.NavigateTo($"/account",true);
             }
             else
             {
