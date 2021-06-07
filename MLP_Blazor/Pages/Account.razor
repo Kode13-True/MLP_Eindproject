@@ -16,16 +16,24 @@
                     <Authorized>
                         @if (@context.User.IsInRole("Admin"))
                         {
-                            <div class="container pb-3">
-                                Mubster Name : @admin.FirstName @admin.LastName<br />
-                                Mubster Email : @admin.Email<br />
-                                Mubster Since : @admin.DOC.ToShortDateString()<br />
-                            </div>
-                            <div class="col-12 d-flex justify-content-center">
-                                <a href="AccountEdit" class="btn btn-warning w-25">Edit</a>
-                                <a href="AccountDelete" class="btn btn-danger w-25">Delete</a>
-                            </div>
+                            <div class="card-columns">
+                                <div class="row">
+                                    @*<div class="card d-inline-block m-auto" style="width: 18rem;">
+                                        <img src="/images/users.png" class="card-img-top" alt="...">
+                                    </div>*@
+                                    <div class="card d-inline-block m-auto" style="width: 36rem;">
 
+                                        <div class="card-body align-content-center">
+                                            <h1 class="card-title text-center">@admin.FirstName @admin.LastName</h1>
+                                            <h6 class="card-title text-center">Mubster admin since: @admin.DOC.ToShortDateString()</h6>
+                                            <p class="card-text mx-1">Mail: <div class="float-end">@admin.Email</div></p>
+                                            <a href="AccountEdit" class="btn btn-warning w-100 m-1">Edit Account</a>
+                                            <a href="AccountDelete" class="btn btn-danger w-100 m-1">Delete Account</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
                         }
                         else if (@context.User.IsInRole("Teacher"))
                         {
@@ -34,17 +42,27 @@
                                 <div class="alert alert-danger text-center">@alert.AlertType.ToString(): @alert.Message <span class="float-end" style="cursor: pointer" @onclick="() => DeleteAlert(alert.Id)">x</span> </div>
                             }
                             <hr class="my-4" hidden="@hiddenAlertLine" />
-                            <div class="container pb-3">
-                                Mubster Name : @teacher.FirstName @teacher.LastName<br />
-                                Mubster Email : @teacher.Email<br />
-                                Mubster Since : @teacher.DOC.ToShortDateString()<br />
-                                Mubster Rating : @teacher.Rating / 5<br />
-                                Mubster Description : @teacher.Description<br />
+
+                            <div class="card-columns">
+                                <div class="row">
+                                    @*<div class="card d-inline-block m-auto" style="width: 18rem;">
+                                        <img src="/images/users.png" class="card-img-top" alt="...">
+                                    </div>*@
+                                    <div class="card d-inline-block m-auto" style="width: 36rem;">
+
+                                        <div class="card-body align-content-center">
+                                            <h1 class="card-title text-center">@teacher.FirstName @teacher.LastName</h1>
+                                            <h6 class="card-title text-center">Mubster teacher since: @teacher.DOC.ToShortDateString()</h6>
+                                            <p class="card-text mx-1">Mail: <div class="float-end">@teacher.Email</div></p>
+                                            <p class="card-text text-succes overflow-hidden" style="height: 10vh; max-height:10vh;">@teacher.Description</p>
+                                            <p class="card-footer">Rating = <div class="float-end">@teacher.Rating</div></p>
+                                            <a href="AccountEdit" class="btn btn-warning w-100 m-1">Edit Account</a>
+                                            <a href="AccountDelete" class="btn btn-danger w-100 m-1">Delete Account</a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-12 d-flex justify-content-center">
-                                <a href="AccountEdit" class="btn btn-warning w-25">Edit</a>
-                                <a href="AccountDelete" class="btn btn-danger w-25">Delete</a>
-                            </div>
+
                         }
                         else
                         {
@@ -53,15 +71,28 @@
                                 <div class="alert alert-danger text-center">@alert.AlertType.ToString(): @alert.Message <span class="float-end" style="cursor: pointer" @onclick="() => DeleteAlert(alert.Id)">x</span> </div>
                             }
                             <hr class="my-4" hidden="@hiddenAlertLine" />
-                            <div class="container pb-3">
-                                Mubster Name : @student.FirstName @student.LastName<br />
-                                Mubster Email : @student.Email<br />
-                                Mubster Since : @student.DOC.ToShortDateString()<br />
+                            <div class="container align-content-center p-md-5">
+                                <div class="card-columns">
+                                    <div class="row">
+                                        @*<div class="card d-inline-block m-auto" style="width: 18rem;">
+                                            <img src="/images/users.png" class="card-img-top" alt="...">
+                                        </div>*@
+                                        <div class="card d-inline-block m-auto" style="width: 36rem;">
+
+                                            <div class="card-body align-content-center">
+                                                <h1 class="card-title text-center">@student.FirstName @student.LastName</h1>
+                                                <h6 class="card-title text-center">Mubster student since: @student.DOC.ToShortDateString()</h6>
+                                                <p class="card-text mx-1">Mail: <div class="float-end">@student.Email</div></p>
+
+
+                                                <a href="AccountEdit" class="btn btn-warning w-100 m-1">Edit Account</a>
+                                                <a href="AccountDelete" class="btn btn-danger w-100 m-1">Delete Account</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-12 d-flex justify-content-center">
-                                <a href="AccountEdit" class="btn btn-warning w-25">Edit</a>
-                                <a href="AccountDelete" class="btn btn-danger w-25">Delete</a>
-                            </div>
+
                         }
 
                     </Authorized>
@@ -76,23 +107,25 @@
                     <Authorized>
                         @if (@context.User.IsInRole("Admin"))
                         {
-                            <table class="table table-striped table-hover m-auto">
-                                <thead>
-                                    <tr>
-                                        <th><div class="d-block">Reports</div></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                    @foreach (var alerts in alerts)
-                                    {
+                            <div class="container">
+                                <table class="table table-succes table-striped table-hover m-auto">
+                                    <thead>
                                         <tr>
-                                            <td><div class="d-block">@alerts.Message</div></td>
+                                            <th><div class="d-block">Reports</div></th>
                                         </tr>
-                                    }
-                                        
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var alerts in alerts)
+                                        {
+                                            <tr>
+                                                <td><div class="d-block">@alerts.Message</div></td>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
                         }
                         else if (@context.User.IsInRole("Teacher"))
                         {

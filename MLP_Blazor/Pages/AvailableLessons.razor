@@ -1,6 +1,5 @@
 ﻿@page "/AvailableLessons"
 
-
 @inject IMapper Mapper
 @inject HttpClient Client
 @inject NavigationManager NavManager
@@ -62,7 +61,7 @@ else
                         <div class="col-md-2"></div>
                         <label class="col-md-1 form-label">Max Price</label>
                         <div class="col-md-2">
-                            <input class="progress-bar-animated" type="range" placeholder="Price" @bind-value="searchLessonVM.Price" min="@minValue" max="@maxValue" />
+                            <input class="progress-bar" type="range" placeholder="Price" @bind-value="searchLessonVM.Price" min="@minValue" max="@maxValue"/>
                             <label class="col-md-1 form-label float-end">@searchLessonVM.Price</label>
                         </div>
                     </div>

@@ -5,69 +5,84 @@
 @inject AuthenticationStateProvider AuthStateProvider
 <CascadingAuthenticationState>
     <div class="container-fluid p-5">
-        <h1 class="display-3">Mubster Report</h1>
+        <h1 class="display-3">Report a Mubster</h1>
         <hr class="my-4" />
-        <div class="container">
+        <form class="container">
             <AuthorizeView Context="AuthorizeContext">
                 <Authorized>
-                    <div id="errorMessage" hidden="@hiddenMessage" class="alert alert-danger col-md-12">@message <span @onclick="HideMessage">x</span></div>
+                    <div id="errorMessage" hidden="@hiddenMessage" class="alert alert-danger text-center col-md-12">@message <span @onclick="HideMessage" class="float-end">x</span></div>
                     @if (AuthorizeContext.User.IsInRole("Teacher"))
                     {
                         <EditForm Model="reportAlert" OnValidSubmit="SendReport">
-                            <div class="form-control col-md-6">
-                                <div class="col-md-12 pb-3">
-                                    <label class="form-label">Reason</label>
-                                    <p></p>
+                            
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <label class="col-md-2">Reason</label>
+                                <div class="col-md-8"></div>
+                                <div class="col-md-3"></div>
+                                <div class="col-md-7">
                                     @foreach (var reason in teacherReasons)
                                     {
-                                        <input type="radio" value="@reason" id="@reason" @onchange="SelectionChanged" checked=@(selectedAnswer.Equals(reason,StringComparison.OrdinalIgnoreCase)) />
-                                        <label for="@reason">@reason</label>
-                                        <p></p>
-                                    }
-
+                                        <div class="input-group mx-1">
+                                            <input class="form-check-input mx-1" type="radio" value="@reason" id="@reason" @onchange="SelectionChanged" checked=@(selectedAnswer.Equals(reason,StringComparison.OrdinalIgnoreCase)) />
+                                            <label class="form-label" for="@reason"> @reason</label>
+                                        </div>
+                                     }
                                 </div>
+                                <div class="col-md-2"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <label class="col-md-1 form-label">Extra info</label>
+                                <div class="col-md-7 pb-1"><textarea placeholder="Give us a short explanation..." rows="5" class="form-control" @bind="extraInfo" style="width:100%" /></div>
 
-                                <div class="col-md-12 pb-3">
-                                    <label class="form-label">Extra Info</label><br />
-                                    <textarea placeholder="Give us a short explanation..." rows="5" class="form-control" @bind="extraInfo" style="width:100%" />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-7">
+                                    <a href="Account" class="btn btn-primary w-25">Back</a>
+                                    <button class="btn btn-danger w-25 float-end" type="submit">Report</button>
                                 </div>
                             </div>
-                            <div class="col-12 d-flex justify-content-center p-2">
-                                    <button class="btn btn-primary w-25" type="submit">Report</button>
-                                    <a href="Account" class="btn btn-danger w-25">Back</a>
-                                </div>
                         </EditForm>
                     }
                     @if (AuthorizeContext.User.IsInRole("Student"))
                     {
                         <EditForm Model="reportAlert" OnValidSubmit="SendReport">
-                            <div class="form-control col-md-6">
-                                <div class="col-md-12 pb-3">
-                                    <label class="form-label">Reason</label>
-                                    <p></p>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <label class="col-md-2">Reason</label>
+                                <div class="col-md-8"></div>
+                                <div class="col-md-3"></div>
+                                <div class="col-md-7">
                                     @foreach (var reason in studentReasons)
                                     {
-                                        <input type="radio" value="@reason" id="@reason" @onchange="SelectionChanged" checked=@(selectedAnswer.Equals(reason,StringComparison.OrdinalIgnoreCase)) />
-                                        <label for="@reason">@reason</label>
-                                        <p></p>
+                                    <div class="input-group mx-1">
+                                        <input class="form-check-input mx-1" type="radio" value="@reason" id="@reason" @onchange="SelectionChanged" checked=@(selectedAnswer.Equals(reason,StringComparison.OrdinalIgnoreCase)) />
+                                        <label class="form-label" for="@reason"> @reason</label>
+                                    </div>
                                     }
-
                                 </div>
+                                <div class="col-md-2"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <label class="col-md-1 form-label">Extra info</label>
+                                <div class="col-md-7 pb-1"><textarea placeholder="Give us a short explanation..." rows="5" class="form-control" @bind="extraInfo" style="width:100%" /></div>
 
-                                <div class="col-md-12 pb-3">
-                                    <label class="form-label">Extra Info</label><br />
-                                    <textarea placeholder="Give us a short explanation..." rows="5" class="form-control" @bind="extraInfo" style="width:100%" />
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-7">
+                                    <a href="Account" class="btn btn-primary w-25">Back</a>
+                                    <button class="btn btn-danger w-25 float-end" type="submit">Report</button>
                                 </div>
                             </div>
-                            <div class="col-12 d-flex justify-content-center p-2">
-                                    <button class="btn btn-primary w-25" type="submit">Report</button>
-                                    <a href="Account" class="btn btn-danger w-25">Back</a>
-                                </div>
                         </EditForm>
                     }
                 </Authorized>
             </AuthorizeView>
-        </div>
+        </form>
     </div>
 </CascadingAuthenticationState>
 
