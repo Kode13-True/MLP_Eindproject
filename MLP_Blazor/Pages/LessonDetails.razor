@@ -44,6 +44,14 @@
                             <p class="card-text mx-md-5">Stop: <div class="float-end">@lesson.Stop.ToShortTimeString() @lesson.Stop.ToShortDateString()</div></p>
                             <p class="card-text mx-md-5">Address: <div class="float-end">@lesson.Street @lesson.Number, @lesson.Postal @lesson.Township</div></p>
                             <p class="card-text mx-md-5">Teacher: <div class="float-end">@lesson.TeacherFirstName @lesson.TeacherLastName</div></p>
+                            @if (lesson.Price == 0)
+                            {
+                             <p class="card-text mx-md-5">Price: <div class="float-end">@free</div></p>
+                            }
+                            else
+                            {
+                            <p class="card-text mx-md-5">Price: <div class="float-end">&euro;@lesson.Price</div></p>
+                            }
 
                             <AuthorizeView>
                                 <Authorized>
@@ -82,6 +90,7 @@
     LocalAuthUser user;
 
     string message = string.Empty;
+    string free = "Free";
 
     public int Rating = 1;
 

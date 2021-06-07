@@ -14,6 +14,6 @@ namespace MLP_DbLibrary.VM.PersonVM
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Description { get; set; }
-        public double Rating { get; set; }
+        public string Rating { get; set; }
     }
 }
