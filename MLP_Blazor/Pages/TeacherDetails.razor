@@ -90,6 +90,10 @@
             var lessonsDTO = await Client.GetFromJsonAsync<List<ResponseLessonDTO>>("https://localhost:44397/api/Lesson/GetAllTeacherLessons/" + teacherId);
 
             teacher = _mapper.Map<ResponseTeacherVM>(teacherDTO);
+            if(teacher.Rating == "0")
+            {
+                teacher.Rating = "N/A";
+            }
             var allLessonsVM = _mapper.Map<List<ResponseLessonVM>>(lessonsDTO);
 
             foreach (var lesson in allLessonsVM)

@@ -50,6 +50,13 @@ else
         await Authentication();
         var teachersDTO = await Client.GetFromJsonAsync<List<ResponseTeacherDTO>>("https://localhost:44397/api/Teacher/GetAll");
         teachers = _mapper.Map<List<ResponseTeacherVM>>(teachersDTO);
+        foreach(var teacher in teachers)
+        {
+            if(teacher.Rating == "0")
+            {
+                teacher.Rating = "N/A";
+            }
+        }
     }
 
     //methods

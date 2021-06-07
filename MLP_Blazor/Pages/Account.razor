@@ -298,6 +298,10 @@
                 var lessonsDTO = await Client.GetFromJsonAsync<List<ResponseLessonDTO>>("https://localhost:44397/api/Lesson/GetAllTeacherLessons/" + personId);
 
                 teacher = _mapper.Map<ResponseTeacherVM>(teacherDTO);
+                if(teacher.Rating == "0")
+                {
+                    teacher.Rating = "N/A";
+                }
                 var teacherLessons = _mapper.Map<List<ResponseLessonVM>>(lessonsDTO);
                 foreach(var lesson in teacherLessons)
                 {
@@ -345,7 +349,7 @@
 
     public void LessonDetails(int id)
     {
-        
+
         NavManager.NavigateTo($"/lessondetails/{id}");
     }
 

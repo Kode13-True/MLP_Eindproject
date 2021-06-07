@@ -94,17 +94,25 @@ else
                     @foreach (var lesson in lessonsVM)
                     {
 
-                        <tr @onclick="() => LessonDetails(lesson.Id)">
-                            <td><div class="d-block">@lesson.InstrumentName</div></td>
-                            <td><div class="d-block">@lesson.InstrumentStyle</div></td>
-                            <td><div class="d-none d-md-block">@lesson.LessonLevel</div></td>
-                            <td><div class="d-block">@lesson.Postal @lesson.Township</div></td>
-                            <td><div class="d-none d-md-block">@lesson.Start.ToShortDateString()</div></td>
-                            <td><div class="d-none d-md-block">@lesson.Start.ToShortTimeString()</div></td>
-                            <td><div class="d-none d-md-block">@lesson.Stop.ToShortTimeString()</div></td>
-                            <td><div class="d-none d-md-block">@lesson.TeacherFirstName @lesson.TeacherLastName</div></td>
-                            <td><div class="d-none d-md-block">@lesson.Price</div></td>
-                        </tr>
+                    <tr @onclick="() => LessonDetails(lesson.Id)">
+                        <td><div class="d-block">@lesson.InstrumentName</div></td>
+                        <td><div class="d-block">@lesson.InstrumentStyle</div></td>
+                        <td><div class="d-none d-md-block">@lesson.LessonLevel</div></td>
+                        <td><div class="d-block">@lesson.Postal @lesson.Township</div></td>
+                        <td><div class="d-none d-md-block">@lesson.Start.ToShortDateString()</div></td>
+                        <td><div class="d-none d-md-block">@lesson.Start.ToShortTimeString()</div></td>
+                        <td><div class="d-none d-md-block">@lesson.Stop.ToShortTimeString()</div></td>
+                        <td><div class="d-none d-md-block">@lesson.TeacherFirstName @lesson.TeacherLastName</div></td>
+                        @if (lesson.Price == 0)
+                        {
+                            <td><div class="d-none d-md-block">Free</div></td>
+                        }
+                        else
+                        {
+                            <td><div class="d-none d-md-block">&euro;@lesson.Price</div></td>
+                        }
+
+                    </tr>
                     }
                 </tbody>
             </table>

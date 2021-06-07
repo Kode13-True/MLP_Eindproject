@@ -12,7 +12,9 @@ namespace MLP_Blazor.Profiles
     {
         public TeacherProfile()
         {
-            CreateMap<ResponseTeacherDTO, ResponseTeacherVM>().ReverseMap();
+            CreateMap<ResponseTeacherDTO, ResponseTeacherVM>()
+                .ForMember(dest => dest.Rating, opt => opt.MapFrom(src => src.Rating.ToString()))
+                .ReverseMap();
             CreateMap<EditTeacherDTO, EditTeacherVM>().ReverseMap();
         }
     }
