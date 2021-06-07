@@ -15,83 +15,161 @@
                     <Authorized>
                         @if (AuthorizeContext.User.IsInRole("Teacher"))
                         {
-                        <EditForm Model="lessonModel" Context="EditformContext" OnValidSubmit="SubmitLesson">
-                            <DataAnnotationsValidator />
-                            <ValidationSummary />
+                            <EditForm Model="lessonModel" Context="EditformContext" OnValidSubmit="SubmitLesson">
+                                <DataAnnotationsValidator />
+                                <ValidationSummary />
 
-                            <div hidden="@hiddenMessage" class="alert alert-info col-md-12">@message <span @onclick="HideMessage">x</span></div>
+                                <div hidden="@hiddenMessage" class="alert alert-info col-md-12">@message <span @onclick="HideMessage">x</span></div>
 
-                            <div class="col-md-12">
-                                <label class="label">Instrument Name</label>
-                                <InputSelect @bind-Value="lessonModel.InstrumentName">
-                                    @foreach (var value in Enum.GetValues(typeof(InstrumentName)))
-                                        {
-                                        <option value="@value">@value</option>
-                                        }
-                                </InputSelect>
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Instrument Style</label>
-                                <InputSelect @bind-Value="lessonModel.InstrumentStyle">
-                                    @foreach (var value in Enum.GetValues(typeof(InstrumentStyle)))
-                                        {
-                                        <option value="@value">@value</option>
-                                        }
-                                </InputSelect>
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Lesson Level</label>
-                                <InputSelect @bind-Value="lessonModel.LessonLevel">
-                                    @foreach (var value in Enum.GetValues(typeof(LessonLevel)))
-                                        {
-                                        <option value="@value">@value</option>
-                                        }
-                                </InputSelect>
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Price</label>
-                                <InputNumber @bind-Value="lessonModel.Price" @bind-Value:format="F2" />
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Date</label>
-                                <InputDate  @bind-Value="date" />
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Start</label>
-                                <input type="time" @bind-value="startTime" />
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Stop</label>
-                                <input type="time"  @bind-value="stopTime" />
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Street</label>
-                                <input type="text" placeholder="@lessonModel.Street" @bind-value="lessonModel.Street" />
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Number</label>
-                                <input type="text" placeholder="@lessonModel.Number" @bind-value="lessonModel.Number" />
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Postal</label>
-                                <input type="text" placeholder="@lessonModel.Postal" @bind-value="lessonModel.Postal" />
-                            </div>
-                            <div class="col-md-12">
-                                <label class="label">Township</label>
-                                <input type="text" placeholder="@lessonModel.Township" @bind-value="lessonModel.Township" />
-                            </div>
+                                <div class="col-md-12">
+                                    <label class="label">Instrument Name</label>
+                                    <InputSelect @bind-Value="lessonModel.InstrumentName">
+                                        @foreach (var value in Enum.GetValues(typeof(InstrumentName)))
+                                            {
+                                            <option value="@value">@value</option>
+                                            }
+                                    </InputSelect>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Instrument Style</label>
+                                    <InputSelect @bind-Value="lessonModel.InstrumentStyle">
+                                        @foreach (var value in Enum.GetValues(typeof(InstrumentStyle)))
+                                            {
+                                            <option value="@value">@value</option>
+                                            }
+                                    </InputSelect>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Lesson Level</label>
+                                    <InputSelect @bind-Value="lessonModel.LessonLevel">
+                                        @foreach (var value in Enum.GetValues(typeof(LessonLevel)))
+                                            {
+                                            <option value="@value">@value</option>
+                                            }
+                                    </InputSelect>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Price</label>
+                                    <InputNumber @bind-Value="lessonModel.Price" @bind-Value:format="F2" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Date</label>
+                                    <InputDate @bind-Value="date" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Start</label>
+                                    <input type="time" @bind-value="startTime" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Stop</label>
+                                    <input type="time" @bind-value="stopTime" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Street</label>
+                                    <input type="text" placeholder="@lessonModel.Street" @bind-value="lessonModel.Street" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Number</label>
+                                    <input type="text" placeholder="@lessonModel.Number" @bind-value="lessonModel.Number" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Postal</label>
+                                    <input type="text" placeholder="@lessonModel.Postal" @bind-value="lessonModel.Postal" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Township</label>
+                                    <input type="text" placeholder="@lessonModel.Township" @bind-value="lessonModel.Township" />
+                                </div>
 
-                            <br />
+                                <br />
 
-                            <div class="col-12 d-flex justify-content-center">
-                                <button disabled="@isBusy" class="btn-register" style="" type="submit">Edit</button>
-                            </div>
-                            <div class="col-12 d-flex justify-content-center">
-                                <button disabled="@isBusy" class="btn-register" style="" type="button" @onclick="CancelEdit">Cancel</button>
-                            </div>
-                        </EditForm>
+                                <div class="col-12 d-flex justify-content-center">
+                                    <button disabled="@isBusy" class="btn-register" style="" type="submit">Edit</button>
+                                </div>
+                                <div class="col-12 d-flex justify-content-center">
+                                    <button disabled="@isBusy" class="btn-register" style="" type="button" @onclick="CancelEdit">Cancel</button>
+                                </div>
+                            </EditForm>
                         }
-                        else
+                        @if (AuthorizeContext.User.IsInRole("Admin"))
+                        {
+                            <EditForm Model="lessonModel" Context="EditformContext" OnValidSubmit="SubmitLesson">
+                                <DataAnnotationsValidator />
+                                <ValidationSummary />
+
+                                <div hidden="@hiddenMessage" class="alert alert-info col-md-12">@message <span @onclick="HideMessage">x</span></div>
+
+                                <div class="col-md-12">
+                                    <label class="label">Instrument Name</label>
+                                    <InputSelect @bind-Value="lessonModel.InstrumentName">
+                                        @foreach (var value in Enum.GetValues(typeof(InstrumentName)))
+                                            {
+                                            <option value="@value">@value</option>
+                                            }
+                                    </InputSelect>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Instrument Style</label>
+                                    <InputSelect @bind-Value="lessonModel.InstrumentStyle">
+                                        @foreach (var value in Enum.GetValues(typeof(InstrumentStyle)))
+                                            {
+                                            <option value="@value">@value</option>
+                                            }
+                                    </InputSelect>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Lesson Level</label>
+                                    <InputSelect @bind-Value="lessonModel.LessonLevel">
+                                        @foreach (var value in Enum.GetValues(typeof(LessonLevel)))
+                                            {
+                                            <option value="@value">@value</option>
+                                            }
+                                    </InputSelect>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Price</label>
+                                    <InputNumber @bind-Value="lessonModel.Price" @bind-Value:format="F2" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Date</label>
+                                    <InputDate @bind-Value="date" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Start</label>
+                                    <input type="time" @bind-value="startTime" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Stop</label>
+                                    <input type="time" @bind-value="stopTime" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Street</label>
+                                    <input type="text" placeholder="@lessonModel.Street" @bind-value="lessonModel.Street" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Number</label>
+                                    <input type="text" placeholder="@lessonModel.Number" @bind-value="lessonModel.Number" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Postal</label>
+                                    <input type="text" placeholder="@lessonModel.Postal" @bind-value="lessonModel.Postal" />
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="label">Township</label>
+                                    <input type="text" placeholder="@lessonModel.Township" @bind-value="lessonModel.Township" />
+                                </div>
+
+                                <br />
+
+                                <div class="col-12 d-flex justify-content-center">
+                                    <button disabled="@isBusy" class="btn-register" style="" type="submit">Edit</button>
+                                </div>
+                                <div class="col-12 d-flex justify-content-center">
+                                    <button disabled="@isBusy" class="btn-register" style="" type="button" @onclick="CancelEdit">Cancel</button>
+                                </div>
+                            </EditForm>
+                        }
+                        @if (AuthorizeContext.User.IsInRole("Student"))
                         {
                             <div class="container">
                                 <div class="text-center">You are not authorized!</div>
