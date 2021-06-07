@@ -7386,6 +7386,10 @@ h3, .h3, .display-3 {
 h5, .h5, .card-title {
   color: #679289 !important; }
 
+h6, .h6 {
+  font-size: 0.8rem;
+  color: #E1E7F4; }
+
 /*.btn-link {
     
 }

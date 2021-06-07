@@ -34,6 +34,7 @@
                                 </div>
                             </div>
                             
+                            
                         }
                         else if (@context.User.IsInRole("Teacher"))
                         {
@@ -109,120 +110,124 @@
                         {
 
                             <div class="container">
-                                <table class="table table-succes table-striped table-hover m-auto">
-                                      <thead>
-                                          <tr>
-                                              <th><div class="d-block">Reports</div></th>
-                                          </tr>
-                                  </thead>
-                                  <tbody>
-                                      @foreach (var alert in alerts)
-                                      {
-                                          <tr @onclick="() => GoDeleteUser(alert.Id)">
-                                              <td><div class="d-block">@alert.Message</div></td>
-                                          </tr>
-                                      }
-                                  </tbody>
+                                <table class="table table-succes table-striped table-hover mx-4" style="width: 75rem;">
+                                    <thead>
+                                        <tr>
+                                            <th><div class="d-block">Reports</div></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var alert in alerts)
+                                        {
+                                            <tr @onclick="() => GoDeleteUser(alert.Id)">
+                                                <td><div class="d-block">@alert.Message</div></td>
+                                            </tr>
+                                        }
+                                    </tbody>
                                 </table>
                             </div>
+                            <hr class="my-4">
+                            
+                            <AdminStats />
+                            
                         }
                         else if (@context.User.IsInRole("Teacher"))
                         {
-                        <table class="table table-striped table-hover m-auto">
-                            <thead>
-                                <tr>
-                                    <th><div class="d-block">Instrument</div></th>
-                                    <th><div class="d-block">Style</div></th>
-                                    <th><div class="d-none d-md-block">Level</div></th>
-                                    <th><div class="d-block">Location</div></th>
-                                    <th><div class="d-none d-md-block">Date</div></th>
-                                    <th><div class="d-none d-md-block">Start</div></th>
-                                    <th><div class="d-none d-md-block">End</div></th>
-                                    <th><div class="d-none d-md-block">Student</div></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ><td colspan="8" style="cursor:default">Upcoming Lessons</td></tr>
-                                @foreach (var lesson in teacherFutureLessons)
-                                {
-                                    <tr @onclick="() => LessonDetails(lesson.Id)">
-                                        <td><div class="d-block">@lesson.InstrumentName</div></td>
-                                        <td><div class="d-block">@lesson.InstrumentStyle</div></td>
-                                        <td><div class="d-none d-md-block">@lesson.LessonLevel</div></td>
-                                        <td><div class="d-block">@lesson.Township</div></td>
-                                        <td><div class="d-none d-md-block">@lesson.Start.ToShortDateString()</div></td>
-                                        <td><div class="d-none d-md-block">@lesson.Start.ToShortTimeString()</div></td>
-                                        <td><div class="d-none d-md-block">@lesson.Stop.ToShortTimeString()</div></td>
-                                        <td><div class="d-none d-md-block">@lesson.StudentFirstName @lesson.StudentLastName</div></td>
+                            <table class="table table-striped table-hover m-auto">
+                                <thead>
+                                    <tr>
+                                        <th><div class="d-block">Instrument</div></th>
+                                        <th><div class="d-block">Style</div></th>
+                                        <th><div class="d-none d-md-block">Level</div></th>
+                                        <th><div class="d-block">Location</div></th>
+                                        <th><div class="d-none d-md-block">Date</div></th>
+                                        <th><div class="d-none d-md-block">Start</div></th>
+                                        <th><div class="d-none d-md-block">End</div></th>
+                                        <th><div class="d-none d-md-block">Student</div></th>
                                     </tr>
-                                }
-                            </tbody>                            
-                            <tbody>
-                                <tr><td colspan="8" style="cursor:default">Expired Lessons</td></tr>
-                                @foreach (var lesson in teacherPastLessons)
-                                {
-                                    <tr @onclick="() => LessonDetails(lesson.Id)">
-                                        <td><div class="d-block">@lesson.InstrumentName</div></td>
-                                        <td><div class="d-block">@lesson.InstrumentStyle</div></td>
-                                        <td><div class="d-none d-md-block">@lesson.LessonLevel</div></td>
-                                        <td><div class="d-block">@lesson.Township</div></td>
-                                        <td><div class="d-none d-md-block">@lesson.Start.ToShortDateString()</div></td>
-                                        <td><div class="d-none d-md-block">@lesson.Start.ToShortTimeString()</div></td>
-                                        <td><div class="d-none d-md-block">@lesson.Stop.ToShortTimeString()</div></td>
-                                        <td><div class="d-none d-md-block">@lesson.StudentFirstName @lesson.StudentLastName</div></td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <tr><td colspan="8" style="cursor:default">Upcoming Lessons</td></tr>
+                                    @foreach (var lesson in teacherFutureLessons)
+                                    {
+                                        <tr @onclick="() => LessonDetails(lesson.Id)">
+                                            <td><div class="d-block">@lesson.InstrumentName</div></td>
+                                            <td><div class="d-block">@lesson.InstrumentStyle</div></td>
+                                            <td><div class="d-none d-md-block">@lesson.LessonLevel</div></td>
+                                            <td><div class="d-block">@lesson.Township</div></td>
+                                            <td><div class="d-none d-md-block">@lesson.Start.ToShortDateString()</div></td>
+                                            <td><div class="d-none d-md-block">@lesson.Start.ToShortTimeString()</div></td>
+                                            <td><div class="d-none d-md-block">@lesson.Stop.ToShortTimeString()</div></td>
+                                            <td><div class="d-none d-md-block">@lesson.StudentFirstName @lesson.StudentLastName</div></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tbody>
+                                    <tr><td colspan="8" style="cursor:default">Expired Lessons</td></tr>
+                                    @foreach (var lesson in teacherPastLessons)
+                                    {
+                                        <tr @onclick="() => LessonDetails(lesson.Id)">
+                                            <td><div class="d-block">@lesson.InstrumentName</div></td>
+                                            <td><div class="d-block">@lesson.InstrumentStyle</div></td>
+                                            <td><div class="d-none d-md-block">@lesson.LessonLevel</div></td>
+                                            <td><div class="d-block">@lesson.Township</div></td>
+                                            <td><div class="d-none d-md-block">@lesson.Start.ToShortDateString()</div></td>
+                                            <td><div class="d-none d-md-block">@lesson.Start.ToShortTimeString()</div></td>
+                                            <td><div class="d-none d-md-block">@lesson.Stop.ToShortTimeString()</div></td>
+                                            <td><div class="d-none d-md-block">@lesson.StudentFirstName @lesson.StudentLastName</div></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
                         }
                         else
                         {
-                    <table class="table table-striped table-hover m-auto">
-                        <thead>
-                            <tr>
-                                <th><div class="d-block">Instrument</div></th>
-                                <th><div class="d-block">Style</div></th>
-                                <th><div class="d-none d-md-block">Level</div></th>
-                                <th><div class="d-block">Location</div></th>
-                                <th><div class="d-none d-md-block">Date</div></th>
-                                <th><div class="d-none d-md-block">Start</div></th>
-                                <th><div class="d-none d-md-block">End</div></th>
-                                <th><div class="d-none d-md-block">Teacher</div></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td colspan="8" style="cursor:default">Upcoming Lessons</td></tr>
-                            @foreach (var lesson in studentFutureLessons)
-                            {
-                                <tr @onclick="() => LessonDetails(lesson.Id)">
-                                    <td><div class="d-block">@lesson.InstrumentName</div></td>
-                                    <td><div class="d-block">@lesson.InstrumentStyle</div></td>
-                                    <td><div class="d-none d-md-block">@lesson.LessonLevel</div></td>
-                                    <td><div class="d-block">@lesson.Township</div></td>
-                                    <td><div class="d-none d-md-block">@lesson.Start.ToShortDateString()</div></td>
-                                    <td><div class="d-none d-md-block">@lesson.Start.ToShortTimeString()</div></td>
-                                    <td><div class="d-none d-md-block">@lesson.Stop.ToShortTimeString()</div></td>
-                                    <td><div class="d-none d-md-block">@lesson.TeacherFirstName @lesson.TeacherLastName</div></td>
-                                </tr>
-                            }
-                        </tbody>
-                        <tbody>
-                            <tr><td colspan="8" style="cursor:default">Expired Lessons</td></tr>
-                            @foreach (var lesson in studentPastLessons)
-                            {
-                                <tr @onclick="() => LessonDetails(lesson.Id)">
-                                    <td><div class="d-block">@lesson.InstrumentName</div></td>
-                                    <td><div class="d-block">@lesson.InstrumentStyle</div></td>
-                                    <td><div class="d-none d-md-block">@lesson.LessonLevel</div></td>
-                                    <td><div class="d-block">@lesson.Township</div></td>
-                                    <td><div class="d-none d-md-block">@lesson.Start.ToShortDateString()</div></td>
-                                    <td><div class="d-none d-md-block">@lesson.Start.ToShortTimeString()</div></td>
-                                    <td><div class="d-none d-md-block">@lesson.Stop.ToShortTimeString()</div></td>
-                                    <td><div class="d-none d-md-block">@lesson.TeacherFirstName @lesson.TeacherLastName</div></td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                            <table class="table table-striped table-hover m-auto">
+                                <thead>
+                                    <tr>
+                                        <th><div class="d-block">Instrument</div></th>
+                                        <th><div class="d-block">Style</div></th>
+                                        <th><div class="d-none d-md-block">Level</div></th>
+                                        <th><div class="d-block">Location</div></th>
+                                        <th><div class="d-none d-md-block">Date</div></th>
+                                        <th><div class="d-none d-md-block">Start</div></th>
+                                        <th><div class="d-none d-md-block">End</div></th>
+                                        <th><div class="d-none d-md-block">Teacher</div></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td colspan="8" style="cursor:default">Upcoming Lessons</td></tr>
+                                    @foreach (var lesson in studentFutureLessons)
+                                    {
+                                        <tr @onclick="() => LessonDetails(lesson.Id)">
+                                            <td><div class="d-block">@lesson.InstrumentName</div></td>
+                                            <td><div class="d-block">@lesson.InstrumentStyle</div></td>
+                                            <td><div class="d-none d-md-block">@lesson.LessonLevel</div></td>
+                                            <td><div class="d-block">@lesson.Township</div></td>
+                                            <td><div class="d-none d-md-block">@lesson.Start.ToShortDateString()</div></td>
+                                            <td><div class="d-none d-md-block">@lesson.Start.ToShortTimeString()</div></td>
+                                            <td><div class="d-none d-md-block">@lesson.Stop.ToShortTimeString()</div></td>
+                                            <td><div class="d-none d-md-block">@lesson.TeacherFirstName @lesson.TeacherLastName</div></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tbody>
+                                    <tr><td colspan="8" style="cursor:default">Expired Lessons</td></tr>
+                                    @foreach (var lesson in studentPastLessons)
+                                    {
+                                        <tr @onclick="() => LessonDetails(lesson.Id)">
+                                            <td><div class="d-block">@lesson.InstrumentName</div></td>
+                                            <td><div class="d-block">@lesson.InstrumentStyle</div></td>
+                                            <td><div class="d-none d-md-block">@lesson.LessonLevel</div></td>
+                                            <td><div class="d-block">@lesson.Township</div></td>
+                                            <td><div class="d-none d-md-block">@lesson.Start.ToShortDateString()</div></td>
+                                            <td><div class="d-none d-md-block">@lesson.Start.ToShortTimeString()</div></td>
+                                            <td><div class="d-none d-md-block">@lesson.Stop.ToShortTimeString()</div></td>
+                                            <td><div class="d-none d-md-block">@lesson.TeacherFirstName @lesson.TeacherLastName</div></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
                         }
                     </Authorized>
                     <NotAuthorized>

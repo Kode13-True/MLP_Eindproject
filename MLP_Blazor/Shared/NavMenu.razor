@@ -24,12 +24,6 @@
                     </li>
                     <AuthorizeView>
                         <Authorized>
-                            @if (context.User.IsInRole("Admin"))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" href="AdminStats">Statistics</a>
-                                </li>
-                            }
                             @if (context.User.IsInRole("Teacher"))
                             {
                                 <li class="nav-item">
