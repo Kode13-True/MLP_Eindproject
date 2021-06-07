@@ -56,6 +56,19 @@ else
             {
                 teacher.Rating = "N/A";
             }
+            if(teacher.Description is not null)
+            {
+                if (teacher.Description.Length > 80)
+                {
+                    teacher.Description = teacher.Description.Substring(0, 80);
+                    if (teacher.Description.EndsWith("."))
+                    {
+                        teacher.Description += "..";
+                    }
+                    else { teacher.Description += "..."; }
+                }
+            }
+
         }
     }
 

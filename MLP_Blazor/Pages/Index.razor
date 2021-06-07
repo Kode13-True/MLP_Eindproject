@@ -69,6 +69,22 @@
         {
             teachers.Add(teacherQueue.Dequeue());
         }
+        foreach(var teacher in teachers)
+        {
+            if(teacher.Description is not null)
+            {
+                if (teacher.Description.Length > 65)
+                {
+                    teacher.Description = teacher.Description.Substring(0, 65);
+                    if (teacher.Description.EndsWith("."))
+                    {
+                        teacher.Description += "..";
+                    }
+                    else { teacher.Description += "..."; }
+                }
+            }
+
+        }
     }
 
     //method
