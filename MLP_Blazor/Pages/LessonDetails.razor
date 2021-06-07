@@ -21,22 +21,22 @@
                             <hr />
                             <div id="errorMessage" hidden="@hiddenMessage" class="alert alert-danger col-md-12 text-center">@message <span @onclick="HideMessage" class="float-end" style="cursor:pointer">x</span></div>
                             <div id="AreYouSureMessage" hidden="@hiddenDeleteMessage" class="alert alert-danger col-md-12 text-center">
-                                Are you sure?<span class="float-end" @onclick="YesDelete" style="cursor:pointer">[yes]</span>/<span class="float-end" @onclick="NoDelete" style="cursor:pointer">[no]</span>
+                                Are you sure? <span @onclick="YesDelete" style="cursor:pointer"> [yes] </span> / <span @onclick="NoDelete" style="cursor:pointer"> [no] </span>
                             </div>
                             <div id="AreYouSureMessage" hidden="@hiddenCancelMessage" class="alert alert-danger col-md-12 text-center">
-                                Are you sure?<span class="float-end" @onclick="YesCancel" style="cursor:pointer">[yes]</span>/<span class="float-end" @onclick="NoCancel" style="cursor:pointer">[no]</span>
+                                Are you sure? <span @onclick="YesCancel" style="cursor:pointer"> [yes] </span> / <span @onclick="NoCancel" style="cursor:pointer"> [no] </span>
                             </div>
-                            <div id="GiveRatingMessage" hidden="@hiddenRateMessage" class="alert alert-succes col-md-12 text-center">
+                            <div id="GiveRatingMessage" hidden="@hiddenRateMessage" class="alert alert-info col-md-12 text-center">
                                 Give a rating from 1 to 5 please:
                                 <EditForm Model="Rating" OnValidSubmit="GiveRating">
-                                    <InputSelect @bind-Value="Rating" Style="@("margin:8px 0;background-color:#679289;width:25%;border-radius:5px;padding:7px 12px;focus:invisible")">
+                                    <InputSelect @bind-Value="Rating" Style="@("margin:10px 0;background-color:#679289;width:25%;border-radius:5px;padding:7px 12px")">
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>
                                         <option value="5">5</option>
                                     </InputSelect>
-                                    <button class="btn-sm btn-succes" type="submit">submit</button>
+                                    <button class="btn-sm btn-info" type="submit" Style="@("margin:10px 0;background-color:#679289;width:25%;border-radius:5px;padding:8px 0px 4px 0px; border-color:#1C3144; border-width:thin")">submit</button>
                                 </EditForm>
                             </div>
                             <p class="card-text mx-md-5">Difficulty: <div class="float-end">@lesson.LessonLevel</div></p>
@@ -140,7 +140,7 @@
             }
         }
 
-
+        NotifyChangedState();
     }
 
     //bookingForStudent

@@ -15,50 +15,74 @@
             <Authorized>
                 @if (@context.User.IsInRole("Admin"))
                 {
-                    <div class="container">
-                        Mubster Name : @admin.FirstName @admin.LastName<br />
-                        Mubster Email : @admin.Email<br />
-                        Mubster Since : @admin.DOC.ToShortDateString()<br />
-                    </div>
-                    <div class="container text-center pb-4">
-                        You're account will be permanently deleted are you sure ?
-                    </div>
-                    <div class="col-12 d-flex justify-content-center">
-                        <a href="Account" class="btn btn-warning w-25">NO</a> 
-                        <button class="btn btn-primary w-25" @onclick="DeleteAdmin">YES</button>
-                    </div>
+                    <div class="card-columns">
+                        <div class="row">
+                            @*<div class="card d-inline-block m-auto" style="width: 18rem;">
+                                <img src="/images/users.png" class="card-img-top" alt="...">
+                            </div>*@
+                            <div class="card d-inline-block m-auto" style="width: 36rem;">
 
+                                <div class="card-body align-content-center">
+                                    <h1 class="card-title text-center">@admin.FirstName @admin.LastName</h1>
+                                    <h6 class="card-title text-center">Mubster admin since: @admin.DOC.ToShortDateString()</h6>
+                                    <p class="card-text mx-1">Mail: <div class="float-end">@admin.Email</div></p>
+                                    <h6 class="card-title text-center" mx-1>You're account will be permanently deleted are you sure ?</h6>
+                                    <p class="card-footer text-center">
+                                        <a href="Account" class="btn btn-succes w-25">NO</a>
+                                        <button class="btn btn-danger w-25" @onclick="DeleteAdmin">YES</button>
+                                    </p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 }
                 else if (@context.User.IsInRole("Teacher"))
                 {
-                    <div class="container">
-                        Mubster Name : @teacher.FirstName @teacher.LastName<br />
-                        Mubster Email : @teacher.Email<br />
-                        Mubster Since : @teacher.DOC.ToShortDateString()<br />
-                        Mubster Rating : @teacher.Rating / 5<br />
-                        Mubster Description : @teacher.Description<br />
-                    </div>
-                    <div class="container text-center pb-4">
-                        You're account will be permanently deleted are you sure ?
-                    </div>
-                    <div class="col-12 d-flex justify-content-center">
-                        <a href="Account" class="btn btn-warning w-25">NO</a> 
-                        <button class="btn btn-primary w-25" @onclick="DeleteTeacher">YES</button>
+                    <div class="card-columns">
+                        <div class="row">
+                            @*<div class="card d-inline-block m-auto" style="width: 18rem;">
+                                <img src="/images/users.png" class="card-img-top" alt="...">
+                            </div>*@
+                            <div class="card d-inline-block m-auto" style="width: 36rem;">
+
+                                <div class="card-body align-content-center">
+                                    <h1 class="card-title text-center">@teacher.FirstName @teacher.LastName</h1>
+                                    <h6 class="card-title text-center">Mubster teacher since: @teacher.DOC.ToShortDateString()</h6>
+                                    <p class="card-text mx-1">Mail: <div class="float-end">@teacher.Email</div></p>
+                                    <h6 class="card-title text-center" mx-1>You're account will be permanently deleted are you sure ?</h6>
+                                    <p class="card-footer text-center">
+                                        <a href="Account" class="btn btn-succes w-25">NO</a>
+                                        <button class="btn btn-danger w-25" @onclick="DeleteTeacher">YES</button>
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 }
                 else
                 {
-                    <div class="container">
-                        Mubster Name : @student.FirstName @student.LastName<br />
-                        Mubster Email : @student.Email<br />
-                        Mubster Since : @student.DOC.ToShortDateString()<br />
-                    </div>
-                    <div class="container text-center pb-4">
-                        You're account will be permanently deleted are you sure ?
-                    </div>
-                    <div class="col-12 d-flex justify-content-center">
-                        <a href="Account" class="btn btn-warning w-25">NO</a> 
-                        <button class="btn btn-primary w-25" @onclick="DeleteStudent">YES</button>
+                    <div class="card-columns">
+                        <div class="row">
+                            @*<div class="card d-inline-block m-auto" style="width: 18rem;">
+                                <img src="/images/users.png" class="card-img-top" alt="...">
+                            </div>*@
+                            <div class="card d-inline-block m-auto" style="width: 36rem;">
+
+                                <div class="card-body align-content-center">
+                                    <h1 class="card-title text-center">@student.FirstName @student.LastName</h1>
+                                    <h6 class="card-title text-center">Mubster student since: @student.DOC.ToShortDateString()</h6>
+                                    <p class="card-text mx-1">Mail: <div class="float-end">@student.Email</div></p>
+                                    <h6 class="card-title text-center" mx-1>You're account will be permanently deleted are you sure ?</h6>
+                                    <p class="card-footer text-center">
+                                        <a href="Account" class="btn btn-succes w-25">NO</a>
+                                        <button class="btn btn-danger w-25" @onclick="DeleteTeacher">YES</button>
+                                    </p>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 }
 
@@ -69,7 +93,7 @@
                 </div>
             </NotAuthorized>
         </AuthorizeView>
-        <hr class="my-4">
+        
 
 
     </CascadingAuthenticationState>

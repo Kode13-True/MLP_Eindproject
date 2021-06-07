@@ -9,7 +9,7 @@
 <div class="container-fluid p-5">
 
     <CascadingAuthenticationState>
-        <h1 class="display-3">Mubster Account</h1>
+        <h1 class="display-3">Mubster Account Edit</h1>
         <hr class="my-4">
         <div class="container">
             <AuthorizeView>
@@ -18,78 +18,120 @@
                     @if (@context.User.IsInRole("Admin"))
                     {
                         <EditForm Model="admin" OnSubmit="EditAdmin" Context="EditAdmin">
-                            <div class="form-control col-md-6">
-                                <div class="col-md-12">
-                                    <label class="form-label">Firstname</label>
-                                    <input type="text" class="form-control" placeholder=@admin.FirstName @bind-value="admin.FirstName" />
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label">Firstname</label>
-                                    <input type="text" class="form-control" placeholder=@admin.LastName @bind-value="admin.LastName" />
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label">Firstname</label>
-                                    <input type="text" class="form-control" placeholder=@admin.Email @bind-value="admin.Email" />
-                                </div>
-                                <div class="col-12 d-flex justify-content-center">
-                                    <button class="btn btn-primary w-25" type="submit">Save</button>
-                                    <a href="Account" class="btn btn-danger w-25">Back</a>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <label class="col-md-2 form-label">FirstName</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form form-control" placeholder=@admin.FirstName @bind-value="admin.FirstName" />
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <label class="col-md-2 form-label">LastName</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form form-control" placeholder=@admin.LastName @bind-value="admin.LastName" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <label class="col-md-2 form-label">Email</label>
+                                <div class="col-md-6">
+                                    <input type="text" class="form form-control" placeholder=@admin.Email @bind-value="admin.Email" />
+                                </div>
+                            </div>
+                       
+                            <div class="row pt-1">
+                                <div class="col-md-4"></div>
+                                <div class="col-md-3 float-end">
+                                    <a href="Account" class="btn btn-primary w-50 m-1 float-end">Back</a>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-succes w-50 m-1" type="submit">Save</button>
+                                </div>
+                            </div>
+                        
                         </EditForm>
                     }
                     else if (@context.User.IsInRole("Teacher"))
                     {
-                        <EditForm Model="teacher" OnSubmit="EditTeacher" Context="EditTeacher">
-                            <div class="form-control col-md-6">
-                                <div class="col-md-12">
-                                    <label for="firstname" class="form-label">Firstname</label>
-                                    <input type="text" class="form-control" id="firstname" placeholder=@teacher.FirstName @bind-value="teacher.FirstName" />
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label">Lastname</label>
-                                    <input type="text" class="form-control" placeholder=@teacher.LastName @bind-value="teacher.LastName" />
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label">Email</label>
-                                    <input type="text" class="form-control" placeholder=@teacher.Email @bind-value="teacher.Email" />
-                                </div>
-                                <div class="col-md-12 pb-3">
-                                    <label class="form-label">Description</label><br />
-                                    <textarea placeholder=@teacher.Description rows="5" class="form-control" @bind="teacher.Description" style="width:100%" />
-                                </div>
-                                <div class="col-12 d-flex justify-content-center p-2">
-                                    <button class="btn btn-primary w-25" type="submit">Save</button>
-                                    <a href="Account" class="btn btn-danger w-25">Back</a>
-                                </div>
-                            </div>
-                        </EditForm>
+                <EditForm Model="teacher" OnSubmit="EditTeacher" Context="EditTeacher">
+
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <label class="col-md-2 form-label">FirstName</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form form-control" placeholder=@teacher.FirstName @bind-value="teacher.FirstName" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <label class="col-md-2 form-label">LastName</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form form-control" placeholder=@teacher.LastName @bind-value="teacher.LastName" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <label class="col-md-2 form-label">Email</label>
+                        <div class="col-md-6">
+                            <input type="text" class="form form-control" placeholder=@teacher.Email @bind-value="teacher.Email" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <label class="col-md-2 form-label">Description</label>
+                        <div class="col-md-6">
+                            <textarea placeholder=@teacher.Description rows="5" class="form-control" @bind="teacher.Description" style="width:100%" />
+                        </div>
+                    </div>
+                    <div class="row pt-1">
+                        <div class="col-md-4"></div>
+                        <div class="col-md-3 float-end">
+                            <a href="Account" class="btn btn-primary float-end w-50 m-1">Back</a>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-succes w-50 m-1" type="submit">Save</button>
+                        </div>
+                    </div>
+                </EditForm>
                     }
                     else if (@context.User.IsInRole("Student"))
                     {
-                        <div class="container">
+                        
                             <EditForm Model="student" OnSubmit="EditStudent" Context="EditStudent">
-                                <div class="form-control col-md-6">
-                                    <div class="col-md-12">
-                                        <label class="form-label">Firstname</label>
-                                        <input type="text" class="form-control" placeholder=@student.FirstName @bind-value="student.FirstName" />
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <label class="col-md-2 form-label">FirstName</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form form-control" placeholder=@student.FirstName @bind-value="student.FirstName" />
                                     </div>
-                                    <div class="col-md-12">
-                                        <label class="form-label">Firstname</label>
-                                        <input type="text" class="form-control" placeholder=@student.LastName @bind-value="student.LastName" />
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <label class="col-md-2 form-label">LastName</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form form-control" placeholder=@student.LastName @bind-value="student.LastName" />
                                     </div>
-                                    <div class="col-md-12">
-                                        <label class="form-label">Email</label>
-                                        <input type="text" class="form-control" placeholder=@student.Email @bind-value="student.Email" />
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <label class="col-md-2 form-label">Email</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form form-control" placeholder=@student.Email @bind-value="student.Email" />
                                     </div>
-                                    <div class="col-12 d-flex justify-content-center">
-                                        <button class="btn btn-primary w-25" type="submit">Save</button>
-                                        <a href="Account" class="btn btn-danger w-25">Back</a>
+                                </div>
+
+                                <div class="row pt-1">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-3 float-end">
+                                        <a href="Account" class="btn btn-primary float-end w-50 m-1">Back</a>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button class="btn btn-succes w-50  m-1" type="submit">Save</button>
                                     </div>
                                 </div>
                             </EditForm>
-
-                        </div>
+                        
                     }
 
                 </Authorized>

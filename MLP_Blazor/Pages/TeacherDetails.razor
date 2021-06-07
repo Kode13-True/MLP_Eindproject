@@ -6,128 +6,135 @@
 @inject AuthenticationStateProvider AuthStateProvider
 
 
+<CascadingAuthenticationState>
+    <div class="container-fluid p-5">
+        <h1 class="display-3">Teacher Details</h1>
+        <hr class="my-4">
 
-<div class="container-fluid p-5">
-    <h1 class="display-3">Teacher Details</h1>
-    <hr class="my-4">
 
+        <div class="container align-content-center p-md-5">
+            <div class="card-columns">
+                <div class="row">
+                    @*<div class="card d-inline-block m-auto" style="width: 18rem;">
+                            <img src="/images/users.png" class="card-img-top" alt="...">
+                        </div>*@
+                    <div class="card d-inline-block m-auto" style="width: 36rem;">
 
-    <div class="container align-content-center p-md-5">
-        <div class="card-columns">
-            <div class="row">
-                @*<div class="card d-inline-block m-auto" style="width: 18rem;">
-                    <img src="/images/users.png" class="card-img-top" alt="...">
-                </div>*@
-                <div class="card d-inline-block m-auto" style="width: 36rem;">
-
-                    <div class="card-body align-content-center">
-                        <h1 class="card-title text-center">@teacher.FirstName @teacher.LastName</h1>
-                        <h6 class="card-title text-center">Mubster since : @teacher.DOC.ToShortDateString()</h6>
-                        <p class="card-text over">@teacher.Description</p>
-                        <p class="card-footer text-center">Rating = @teacher.Rating</p>
-                        <a href="report/@teacher.Id" class="btn btn-danger w-100 m-1">Report Teacher</a>
-                        <a href="teachers" class="btn btn-info w-100 m-1">Back to list</a>
+                        <div class="card-body align-content-center">
+                            <h1 class="card-title text-center">@teacher.FirstName @teacher.LastName</h1>
+                            <h6 class="card-title text-center">Mubster since : @teacher.DOC.ToShortDateString()</h6>
+                            <p class="card-text">@teacher.Description</p>
+                            <p class="card-footer text-center">Rating = @teacher.Rating</p>
+                            <AuthorizeView>
+                                <Authorized>
+                                    @if (context.User.IsInRole("Student"))
+                                    {
+                                        <a href="report/@teacher.Id" class="btn btn-danger w-100 m-1">Report Teacher</a>
+                                    }
+                                    </Authorized>
+                            </AuthorizeView>
+                            <a href="teachers" class="btn btn-info w-100 m-1">Back to list</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <table class="table table-striped table-hover mt-4 container p-0">
-        <thead>
-            <tr>
-                <th><div class="d-block">Instrument</div></th>
-                <th><div class="d-block">Style</div></th>
-                <th><div class="d-none d-md-block">Level</div></th>
-                <th><div class="d-block">Location</div></th>
-                <th><div class="d-none d-md-block">Date</div></th>
-                <th><div class="d-none d-md-block">Start</div></th>
-                <th><div class="d-none d-md-block">End</div></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var lesson in lessons)
-            {
-                <tr @onclick="()=>GoToLessonDetails(lesson.Id)">
-                    <td><div class="d-block">@lesson.InstrumentName</div></td>
-                    <td><div class="d-block">@lesson.InstrumentStyle</div></td>
-                    <td><div class="d-none d-md-block">@lesson.LessonLevel</div></td>
-                    <td><div class="d-block">@lesson.Township</div></td>
-                    <td><div class="d-none d-md-block">@lesson.Start.ToShortDateString()</div></td>
-                    <td><div class="d-none d-md-block">@lesson.Start.ToShortTimeString()</div></td>
-                    <td><div class="d-none d-md-block">@lesson.Stop.ToShortTimeString()</div></td>
+        <table class="table table-striped table-hover mt-4 container p-0">
+            <thead>
+                <tr>
+                    <th><div class="d-block">Instrument</div></th>
+                    <th><div class="d-block">Style</div></th>
+                    <th><div class="d-none d-md-block">Level</div></th>
+                    <th><div class="d-block">Location</div></th>
+                    <th><div class="d-none d-md-block">Date</div></th>
+                    <th><div class="d-none d-md-block">Start</div></th>
+                    <th><div class="d-none d-md-block">End</div></th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
-
-
-
-
-
-
-
-@code {
-    public ResponseTeacherVM teacher = new ResponseTeacherVM();
-    public List<ResponseLessonVM> lessons = new List<ResponseLessonVM>();
-
-    [Parameter]
-    public int teacherId { get; set; }
-
-
-    protected override async Task OnInitializedAsync()
-    {
-        await Authentication();
-
-        var teacherDTO = await Client.GetFromJsonAsync<ResponseTeacherDTO>("https://localhost:44397/api/Teacher/One/" + teacherId);
-        var lessonsDTO = await Client.GetFromJsonAsync <List<ResponseLessonDTO>>("https://localhost:44397/api/Lesson/GetAllTeacherLessons/" + teacherId);
-
-        teacher = _mapper.Map<ResponseTeacherVM>(teacherDTO);
-        var allLessonsVM = _mapper.Map<List<ResponseLessonVM>>(lessonsDTO);
-
-        foreach (var lesson in allLessonsVM)
-        {
-            if (lesson.Start > DateTime.Now)
-            {
-                lessons.Add(lesson);
-            }
-        }
-    }
-
-    public void GoToLessonDetails(int id)
-    {
-        NavManager.NavigateTo($"/lessondetails/{id}");
-    }
-
-
-    //methods
-
-    public async Task Authentication()
-    {
-        var localStateAuthProvider = (LocalStateAuthProvider)AuthStateProvider;
-        var sessionExpired = await localStateAuthProvider.AuthenticationForLoginSession(Client);
-        if (sessionExpired is true)
-        {
-            NavManager.NavigateTo("/auth/login");
-        }
-    }
-
-    protected override void OnAfterRender(bool firstRender)
-    {
-        var navUri = NavManager.Uri;
-        if (firstRender)
-        {
-            var timer = new Timer(new TimerCallback(_ =>
-            {
-                if (navUri == NavManager.Uri)
+            </thead>
+            <tbody>
+                @foreach (var lesson in lessons)
                 {
-                    NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
+                    <tr @onclick="()=>GoToLessonDetails(lesson.Id)">
+                        <td><div class="d-block">@lesson.InstrumentName</div></td>
+                        <td><div class="d-block">@lesson.InstrumentStyle</div></td>
+                        <td><div class="d-none d-md-block">@lesson.LessonLevel</div></td>
+                        <td><div class="d-block">@lesson.Township</div></td>
+                        <td><div class="d-none d-md-block">@lesson.Start.ToShortDateString()</div></td>
+                        <td><div class="d-none d-md-block">@lesson.Start.ToShortTimeString()</div></td>
+                        <td><div class="d-none d-md-block">@lesson.Stop.ToShortTimeString()</div></td>
+                    </tr>
                 }
+            </tbody>
+        </table>
+    </div>
+</CascadingAuthenticationState>
 
-            }), null, 600000, 600000);
+
+
+
+
+
+    @code {
+        public ResponseTeacherVM teacher = new ResponseTeacherVM();
+        public List<ResponseLessonVM> lessons = new List<ResponseLessonVM>();
+
+        [Parameter]
+        public int teacherId { get; set; }
+
+
+        protected override async Task OnInitializedAsync()
+        {
+            await Authentication();
+
+            var teacherDTO = await Client.GetFromJsonAsync<ResponseTeacherDTO>("https://localhost:44397/api/Teacher/One/" + teacherId);
+            var lessonsDTO = await Client.GetFromJsonAsync<List<ResponseLessonDTO>>("https://localhost:44397/api/Lesson/GetAllTeacherLessons/" + teacherId);
+
+            teacher = _mapper.Map<ResponseTeacherVM>(teacherDTO);
+            var allLessonsVM = _mapper.Map<List<ResponseLessonVM>>(lessonsDTO);
+
+            foreach (var lesson in allLessonsVM)
+            {
+                if (lesson.Start > DateTime.Now)
+                {
+                    lessons.Add(lesson);
+                }
+            }
+        }
+
+        public void GoToLessonDetails(int id)
+        {
+            NavManager.NavigateTo($"/lessondetails/{id}");
+        }
+
+
+        //methods
+
+        public async Task Authentication()
+        {
+            var localStateAuthProvider = (LocalStateAuthProvider)AuthStateProvider;
+            var sessionExpired = await localStateAuthProvider.AuthenticationForLoginSession(Client);
+            if (sessionExpired is true)
+            {
+                NavManager.NavigateTo("/auth/login");
+            }
+        }
+
+        protected override void OnAfterRender(bool firstRender)
+        {
+            var navUri = NavManager.Uri;
+            if (firstRender)
+            {
+                var timer = new Timer(new TimerCallback(_ =>
+                {
+                    if (navUri == NavManager.Uri)
+                    {
+                        NavManager.NavigateTo(NavManager.Uri, forceLoad: true);
+                    }
+
+                }), null, 600000, 600000);
+            }
         }
     }
-}
 
 
 
