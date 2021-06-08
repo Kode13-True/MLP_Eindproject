@@ -25,7 +25,7 @@ namespace MLP_TestLibrary.StudentController
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
-                SeedData.DatabaseSeeding(db);
+                SeedData.TestDatabaseSeeding(db);
             }
             //Act
             var response = TestFixture.Client.GetAsync($"api/Student/GetAll").Result;

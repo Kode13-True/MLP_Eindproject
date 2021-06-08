@@ -27,7 +27,7 @@ namespace MLP_TestLibrary.UserController
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
-                SeedData.DatabaseSeeding(db);
+                SeedData.TestDatabaseSeeding(db);
             }
 
             var editPwDTO = new EditPasswordDTO
@@ -74,7 +74,7 @@ namespace MLP_TestLibrary.UserController
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
-                SeedData.DatabaseSeeding(db);
+                SeedData.TestDatabaseSeeding(db);
             }
 
             var editPwDTO = new EditPasswordDTO
@@ -121,7 +121,7 @@ namespace MLP_TestLibrary.UserController
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
-                SeedData.DatabaseSeeding(db);
+                SeedData.TestDatabaseSeeding(db);
             }
 
             var editPwDTO = new EditPasswordDTO

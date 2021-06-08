@@ -35,7 +35,7 @@ namespace MLP_TestLibrary.AdminController
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
-                SeedData.DatabaseSeeding(db);
+                SeedData.TestDatabaseSeeding(db);
 
                 db.Teachers.Add(teacher);
                 db.SaveChanges();
@@ -77,7 +77,7 @@ namespace MLP_TestLibrary.AdminController
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
-                SeedData.DatabaseSeeding(db);
+                SeedData.TestDatabaseSeeding(db);
 
                 db.Students.Add(student);
                 db.SaveChanges();
@@ -118,7 +118,7 @@ namespace MLP_TestLibrary.AdminController
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
-                SeedData.DatabaseSeeding(db);
+                SeedData.TestDatabaseSeeding(db);
 
                 db.Admins.Add(admin);
                 db.SaveChanges();

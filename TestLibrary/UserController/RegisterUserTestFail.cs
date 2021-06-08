@@ -33,7 +33,7 @@ namespace MLP_TestLibrary.UserController
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
-                SeedData.DatabaseSeeding(db);
+                SeedData.TestDatabaseSeeding(db);
             }
             //Act
             var response = TestFixture.Client.PostJson("api/User/Register", userToRegister);

@@ -30,7 +30,7 @@ namespace MLP_TestLibrary.TeacherController
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
-                SeedData.DatabaseSeeding(db);
+                SeedData.TestDatabaseSeeding(db);
             }
 
             //Act

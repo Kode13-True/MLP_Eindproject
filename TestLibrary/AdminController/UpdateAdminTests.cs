@@ -31,7 +31,7 @@ namespace MLP_TestLibrary.AdminController
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
-                SeedData.DatabaseSeeding(db);
+                SeedData.TestDatabaseSeeding(db);
             }
 
             //Act

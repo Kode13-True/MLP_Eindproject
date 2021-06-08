@@ -45,7 +45,7 @@ namespace MLP_Eindproject.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MLP_Eindproject.API", Version = "v1" });
             });
             services.AddDbContext<MLPDbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("MLPDb").ToString(), x => x.MigrationsAssembly("MLP_MigrationLibrary")));
+                    options.UseSqlServer(Configuration.GetConnectionString("TheMub").ToString(), x => x.MigrationsAssembly("MLP_MigrationLibrary")));
             services.AddScoped<IInstrumentService, InstrumentService>();
 
             services.AddScoped<ILessonService, LessonService>();

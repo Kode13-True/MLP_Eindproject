@@ -12,16 +12,26 @@ namespace MLP_DbLibrary.Seeding
     {
         static public void DatabaseSeeding(MLPDbContext db)
         {
+            db.Database.EnsureCreated();
+            if (!db.Admins.Any())
+            {
+                db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "keith@mub", FirstName = "Keith", LastName = "Voorhelst", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=" });
+                db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "Ko@mub", FirstName = "Ko", LastName = "De Schepper", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=" });
+                db.SaveChanges();
+            }
+        }
+        static public void TestDatabaseSeeding(MLPDbContext db)
+        {
             //password = test1234
             //password = test voor id = 2,9,17
 
             db.Database.EnsureCreated();
             if (!db.Admins.Any())
             {
-                db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "admin@mub", FirstName = "admin", LastName = "admin", Password = "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=" });
-                db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "dougie.casey@gmail.com", FirstName = "Dougie", LastName = "Casey", Password = "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=" });
-                db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "duncan.schultz@hotmail.com", FirstName = "Duncan", LastName = "Schultz", Password = "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=" });
-                db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "martine.matthams@skynet.be", FirstName = "Martine", LastName = "Matthams", Password = "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=" });
+                db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "admin@mub", FirstName = "admin", LastName = "admin", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=" });
+                db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "dougie.casey@gmail.com", FirstName = "Dougie", LastName = "Casey", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=" });
+                db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "duncan.schultz@hotmail.com", FirstName = "Duncan", LastName = "Schultz", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=" });
+                db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "martine.matthams@skynet.be", FirstName = "Martine", LastName = "Matthams", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=" });
                 db.SaveChanges();
             }
             if (!db.Teachers.Any())
@@ -30,7 +40,7 @@ namespace MLP_DbLibrary.Seeding
                 {
                     DOC = DateTime.Now,
                     Email = "zaine.rodrigues@hotmail.com",
-                    Password = "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=",
+                    Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
                     FirstName = "Zaine",
                     LastName = "Rodrigues",
                     Description = "Now enrolling in Music Theory for Everyday Guitarists, a group class especially for guitarists eager to understand music and the guitar at a deeper level.  You'll learn to find the notes on the fretboard and how to construct chords and scales independently of charts and diagrams.",
@@ -41,7 +51,7 @@ namespace MLP_DbLibrary.Seeding
                 {
                     DOC = DateTime.Now,
                     Email = "mallory.kearns@outlook.com",
-                    Password = "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=",
+                    Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
                     FirstName = "Mallory",
                     LastName = "Kearns",
                     Description = "Mallory Kearns guitar, piano, ukulele, voice, banjo, songwriting.  Mallory graduated Cum Laude from Berklee College of Music as a guitar principle with a B.A. in Songwriting.  He plays and teaches rock, jazz, blues, classical, pop, folk, bluegrass and other traditional music genres.",
@@ -52,7 +62,7 @@ namespace MLP_DbLibrary.Seeding
                 {
                     DOC = DateTime.Now,
                     Email = "rehaan.hamer@telenet.be",
-                    Password = "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=",
+                    Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
                     FirstName = "Rehaan",
                     LastName = "Hamer",
                     Description = "Den enigen echte!",
@@ -63,7 +73,7 @@ namespace MLP_DbLibrary.Seeding
                 {
                     DOC = DateTime.Now,
                     Email = "ferne.woolley@hotmail.com",
-                    Password = "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=",
+                    Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
                     FirstName = "Ferne",
                     LastName = "Woolley",
                     Description = "I'm cuddly!",
@@ -74,7 +84,7 @@ namespace MLP_DbLibrary.Seeding
                 {
                     DOC = DateTime.Now,
                     Email = "usman.mata@skynet.be",
-                    Password = "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=",
+                    Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
                     FirstName = "Usman",
                     LastName = "Mata",
                     Description = "I always Mata!",
@@ -85,7 +95,7 @@ namespace MLP_DbLibrary.Seeding
                 {
                     DOC = DateTime.Now,
                     Email = "nicole.nunez@hotmail.com",
-                    Password = "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=",
+                    Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
                     FirstName = "Nicole",
                     LastName = "Nunez",
                     Description = "I'm the old harsh spanish teacher lady!",
@@ -96,7 +106,7 @@ namespace MLP_DbLibrary.Seeding
                 {
                     DOC = DateTime.Now,
                     Email = "claire.soto@gmail.com",
-                    Password = "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=",
+                    Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
                     FirstName = "Claire",
                     LastName = "Soto",
                     Description = "Its a pleasure to meet you!",
@@ -108,7 +118,7 @@ namespace MLP_DbLibrary.Seeding
                     
                     DOC = DateTime.Now,
                     Email = "sean.jean@gmail.com",
-                    Password = "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=",
+                    Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
                     FirstName = "Sean",
                     LastName = "Jean",
                     Description = "99 problems but piano ain't one",
@@ -119,12 +129,12 @@ namespace MLP_DbLibrary.Seeding
             }
             if (!db.Students.Any())
             {
-                db.Students.Add(new Student { DOC = DateTime.Now, Email = "lillie.delaney@hotmail.com", Password = "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=", FirstName = "Lillie", LastName = "Delaney" });
-                db.Students.Add(new Student { DOC = DateTime.Now, Email = "brodie.dunn@gmail.com", Password = "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=", FirstName = "Brodie", LastName = "Dunn" });
-                db.Students.Add(new Student { DOC = DateTime.Now, Email = "kayia.summons@telenet.be", Password = "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=", FirstName = "Kayia", LastName = "Summons" });
-                db.Students.Add(new Student { DOC = DateTime.Now, Email = "bill.york@newyork.com", Password = "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=", FirstName = "Bill", LastName = "York" });
-                db.Students.Add(new Student { DOC = DateTime.Now, Email = "keanu.beard@gmail.com", Password = "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=", FirstName = "Keanu", LastName = "Beard" });
-                db.Students.Add(new Student { DOC = DateTime.Now, Email = "dick.tracey@syntra.be", Password = "lk5kfT7uwnU7UYsnf7bZIVu5BoJl1ixSn6eGOmSqh40=", FirstName = "Dick", LastName = "Tracey" });
+                db.Students.Add(new Student { DOC = DateTime.Now, Email = "lillie.delaney@hotmail.com", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Lillie", LastName = "Delaney" });
+                db.Students.Add(new Student { DOC = DateTime.Now, Email = "brodie.dunn@gmail.com", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Brodie", LastName = "Dunn" });
+                db.Students.Add(new Student { DOC = DateTime.Now, Email = "kayia.summons@telenet.be", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Kayia", LastName = "Summons" });
+                db.Students.Add(new Student { DOC = DateTime.Now, Email = "bill.york@newyork.com", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Bill", LastName = "York" });
+                db.Students.Add(new Student { DOC = DateTime.Now, Email = "keanu.beard@gmail.com", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Keanu", LastName = "Beard" });
+                db.Students.Add(new Student { DOC = DateTime.Now, Email = "dick.tracey@syntra.be", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Dick", LastName = "Tracey" });
                 db.SaveChanges();
             }
             if (!db.Locations.Any())

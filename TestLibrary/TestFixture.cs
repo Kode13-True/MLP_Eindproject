@@ -30,7 +30,7 @@ namespace MLP_TestLibrary
 
             Connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True");
             Connection.Open();
-            TestResetDb(Configuration.GetConnectionString("MLPDb").ToString());
+            TestResetDb(Configuration.GetConnectionString("TheMubTest").ToString());
 
             var builder = new WebHostBuilder()
                 .UseConfiguration(new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false).Build())
@@ -59,7 +59,7 @@ namespace MLP_TestLibrary
 
 
             services.AddDbContext<MLPDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("MLPDb").ToString(),
+                options.UseSqlServer(configuration.GetConnectionString("TheMubTest").ToString(),
                 x => x.MigrationsAssembly("MLP_MigrationLibrary")));
             var sp = services.BuildServiceProvider();
 
@@ -70,12 +70,7 @@ namespace MLP_TestLibrary
                 db.Database.Migrate();
                 db.Database.EnsureCreated();
             }
-            //voor permanent jobs testing
-            //var descriptorPortal = services.SingleOrDefault(
-            //   d => d.ServiceType ==
-            //       typeof(IPortalService));
-            //services.Remove(descriptorPortal);
-            //services.AddScoped<IPortalService, PortalServiceMock>();
+            
             ServiceProvider = sp;
         }
         public void TestResetDb(string connectionString)

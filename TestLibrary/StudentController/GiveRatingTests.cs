@@ -26,7 +26,7 @@ namespace MLP_TestLibrary.StudentController
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
-                SeedData.DatabaseSeeding(db);
+                SeedData.TestDatabaseSeeding(db);
             }
             var testItem = new GiveRatingDTO 
             {

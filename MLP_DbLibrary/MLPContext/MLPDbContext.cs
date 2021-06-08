@@ -14,11 +14,6 @@ namespace MLP_DbLibrary.MLPContext
         {
 
         }
-
-        public MLPDbContext()
-        {
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
