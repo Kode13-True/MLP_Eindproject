@@ -8,14 +8,14 @@
 @inject AuthenticationStateProvider AuthStateProvider
 
 <CascadingAuthenticationState>
-    <div class="container-fluid p-5">
+    <div class="container-fluid p-5 vh-100">
         <h1 class="display-3">Login</h1>
         <hr class="my-4">
         <form class="container">
             <AuthorizeView Context="AuthorizeContext">
                 <Authorized>
                     <div class="container text-center pb-4">
-                        <h3>You are already logged in. <br />Go to <a href="/">Home</a></h3>
+                        <h6>You are already logged in.</h6>
                     </div>
                 </Authorized>
                 <NotAuthorized>
