@@ -8,56 +8,59 @@
 
 
 <CascadingAuthenticationState>
-    <div class="container-fluid p-5">
-        <h1 class="display-3">Delete User</h1>
+    <div class="container-fluid p-5 vh-100">
+        <h1 class="display-3">Mubster Liquidation</h1>
         <hr class="my-4">
-        <form class="container">
+        <form class="container pb-0">
             <AuthorizeView Context="AuthorizeContext">
                 <Authorized>
                     @if (AuthorizeContext.User.IsInRole("Admin"))
                     {
                         @if (alert is not null)
                         {
-                            <div class="container align-content-center p-md-5">
-                                <div class="card d-inline-block m-auto" style="width: 36rem;">
-                                    <div class="card-body align-content-center">
-                                        <div hidden="@hiddenMessage" class="alert alert-info col-md-12">@message <span @onclick="HideMessage">x</span></div>
-                                        <div id="AreYouSureMessage" hidden="@hiddenDeleteMessage" class="alert alert-danger col-md-12 text-center">
-                                            Are you sure? <span @onclick="ProceedDelete" style="cursor:pointer"> [yes] </span> / <span @onclick="NoDelete" style="cursor:pointer"> [no] </span>
-                                        </div>
-                                        <p class="card-text over">@alert.Message</p>
-                                        <EditForm Model="deleteUserDTO" OnValidSubmit="CertainDeleteUser">
-                                            <label class="form-label text-primary">Person Type</label>
-                                            <InputSelect @bind-Value="deleteUserDTO.PersonType">
-                                                @foreach (var value in Enum.GetValues(typeof(PersonType)))
-                                                        {
-                                                    <option value="@value">@value</option>
-                                                        }
-                                            </InputSelect>
-                                            <label class="form-label  text-primary">User Id</label>
-                                            <input type="number" @bind-value="deleteUserDTO.Id" />
+                            <div class="card-columns">
+                                <div class="row">
+                                   <div class="card d-inline-block m-auto" style="width: 36rem;">
 
-                                            <button class="btn-danger" type="submit">delete</button>
-                                            <button class="btn-primary" type="button" @onclick="CancelDelete">cancel</button>
-                                        </EditForm>
+                                       <div class="card-body align-content-center">
+                                           <div hidden="@hiddenMessage" class="alert alert-info text-center">@message <span class="float-end" @onclick="HideMessage" style="cursor:pointer">x</span></div>
+                                           <div id="AreYouSureMessage" hidden="@hiddenDeleteMessage" class="alert alert-danger col-md-12 text-center">
+                                               Are you sure? <span @onclick="ProceedDelete" style="cursor:pointer"> [yes] </span> / <span @onclick="NoDelete" style="cursor:pointer"> [no] </span>
+                                           </div>
+                                           <p class="card-text over">@alert.Message</p>
+                                           <EditForm Model="deleteUserDTO" OnValidSubmit="CertainDeleteUser">
+                                               <label class="form-label text-info">Person Type</label>
+                                               <InputSelect @bind-Value="deleteUserDTO.PersonType" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px")" CollapsedButtonIcon="C1IconTemplate.ChevronDown">
+                                                   @foreach (var value in Enum.GetValues(typeof(PersonType)))
+                                                           {
+                                                       <option value="@value">@value</option>
+                                                           }
+                                               </InputSelect>
+                                               <label class="form-label  text-info">User Id</label>
+                                               <input type="number" @bind-value="deleteUserDTO.Id" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px;focus:invisible; border-width:thin")" />
+
+                                               <div class=" card-footer text-center">
+                                                   <button class="btn btn-info w-25 text-center m-3" type="button" @onclick="CancelDelete">cancel</button>
+                                                   <button class="btn btn-danger w-25 text-center m-3" type="submit">delete</button>
+                                               </div>
+                                           </EditForm>  
+                                       </div>
                                     </div>
                                 </div>
                             </div>
-                            }
-                            else
-                            {
-                            <div class="spinner-border text-primary" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                            }
-                            }
-                            else
-                            {
-                            <h1>You are not authorized!</h1>
-                            }
-                        </Authorized>
+                        }
+                        else
+                        {
+                            <h6>You are not authorized!</h6>
+                        }
+                    }
+                    else
+                    {
+                        <h6>You are not authorized!</h6>
+                    }
+                </Authorized>
                 <NotAuthorized>
-                    <h1>You are not authorized!</h1>
+                    <h6>You are not authorized!</h6>
                 </NotAuthorized>
             </AuthorizeView>
         </form>
