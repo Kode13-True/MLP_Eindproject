@@ -5,14 +5,9 @@
 @inject ILocalStorageService LocalStorageService
 @inject NavigationManager NavManager
 
-<div class="container-fluid p-5">
-    <h1 class="display-3">Administrator Statistics</h1>
-    <hr class="my-4">
-</div>
-
 <div class="container align-content-center p-5">
     <div class="card-columns">
-        <div class="row">
+        <div class="row align-content-center">
 
             <div class="card d-inline-block m-2" style="width: 24rem;">
                 <div class="card-body align-content-center">
@@ -54,66 +49,81 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
-                <div class="card d-inline-block m-2" style="width: 37rem;">
+                <div class="card d-inline-block m-2" style="width: 36rem;">
                     <div class="card-body align-content-center">
                         <h5 class="card-title text-center"># Style division</h5>
-
-                        <div class="progress m-1">
-                            <div class="progress-bar" role="progressbar" style="@($"width: {classicProgress}%")" aria-valuenow="@classicProgress" aria-valuemin="0" aria-valuemax="100">Classic @classicProgress %</div>
+                        <h6 class="m-1">Classic @classicProgress %</h6>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-succes" role="progressbar" style="@($"width: {classicProgress}%")" aria-valuenow="@classicProgress" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <div class="progress m-1">
-                            <div class="progress-bar" role="progressbar" style="@($"width: {rockProgress}%")" aria-valuenow="@rockProgress" aria-valuemin="0" aria-valuemax="100">Rock @rockProgress %</div>
+                        <h6 class="m-1">Rock @rockProgress %</h6>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-succes" role="progressbar" style="@($"width: {rockProgress}%")" aria-valuenow="@rockProgress" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <div class="progress m-1">
-                            <div class="progress-bar" role="progressbar" style="@($"width: {jazzProgress}%")" aria-valuenow="@jazzProgress" aria-valuemin="0" aria-valuemax="100">Jazz @jazzProgress %</div>
+                        <h6 class="m-1">Jazz @jazzProgress %</h6>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-succes" role="progressbar" style="@($"width: {jazzProgress}%")" aria-valuenow="@jazzProgress" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <div class="progress m-1">
-                            <div class="progress-bar" role="progressbar" style="@($"width: {popProgress}%")" aria-valuenow="@popProgress" aria-valuemin="0" aria-valuemax="100">Pop @popProgress %</div>
+                        <h6 class="m-1">Pop @popProgress %</h6>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-succes" role="progressbar" style="@($"width: {popProgress}%")" aria-valuenow="@popProgress" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <div class="progress m-1">
-                            <div class="progress-bar" role="progressbar" style="@($"width: {reggaeProgress}%")" aria-valuenow="@reggaeProgress" aria-valuemin="0" aria-valuemax="100">Reggae @reggaeProgress %</div>
+                        <h6 class="m-1">Reggae @reggaeProgress %</h6>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-succes" role="progressbar" style="@($"width: {reggaeProgress}%")" aria-valuenow="@reggaeProgress" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
+            
+            
                 <div class="card d-inline-block m-2" style="width: 37rem;">
                     <div class="card-body align-content-center">
                         <h5 class="card-title text-center"># Instrument division</h5>
-
-                        <div class="progress m-1">
-                            <div class="progress-bar" role="progressbar" style="@($"width: {vocalsProgress}%")" aria-valuenow="@vocalsProgress" aria-valuemin="0" aria-valuemax="100">Vocals @vocalsProgress %</div>
+                        <h6 class="m-1">Vocals @vocalsProgress %</h6>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-succes" role="progressbar" style="@($"width: {vocalsProgress}%")" aria-valuenow="@vocalsProgress" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <div class="progress m-1">
-                            <div class="progress-bar" role="progressbar" style="@($"width: {pianoProgress}%")" aria-valuenow="@pianoProgress" aria-valuemin="0" aria-valuemax="100">Piano @pianoProgress %</div>
+                        <h6 class="m-1">Piano @pianoProgress %</h6>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-succes" role="progressbar" style="@($"width: {pianoProgress}%")" aria-valuenow="@pianoProgress" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <div class="progress m-1">
-                            <div class="progress-bar" role="progressbar" style="@($"width: {guitarProgress}%")" aria-valuenow="@guitarProgress" aria-valuemin="0" aria-valuemax="100">Guitar @guitarProgress %</div>
+                        <h6 class="m-1">Guitar @guitarProgress %</h6>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-succes" role="progressbar" style="@($"width: {guitarProgress}%")" aria-valuenow="@guitarProgress" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <div class="progress m-1">
-                            <div class="progress-bar" role="progressbar" style="@($"width: {violinProgress}%")" aria-valuenow="@violinProgress" aria-valuemin="0" aria-valuemax="100">Violoin @violinProgress %</div>
+                        <h6 class="m-1">Violoin @violinProgress %</h6>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-succes" role="progressbar" style="@($"width: {violinProgress}%")" aria-valuenow="@violinProgress" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <div class="progress m-1">
-                            <div class="progress-bar" role="progressbar" style="@($"width: {drumsProgress}%")" aria-valuenow="@drumsProgress" aria-valuemin="0" aria-valuemax="100">Drums @drumsProgress %</div>
+                        <h6 class="m-1">Drums @drumsProgress %</h6>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-succes" role="progressbar" style="@($"width: {drumsProgress}%")" aria-valuenow="@drumsProgress" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <div class="progress m-1">
-                            <div class="progress-bar" role="progressbar" style="@($"width: {saxophoneProgress}%")" aria-valuenow="@saxophoneProgress" aria-valuemin="0" aria-valuemax="100">Reggae @saxophoneProgress %</div>
+                        <h6 class="m-1">Saxophone @saxophoneProgress %</h6>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-succes" role="progressbar" style="@($"width: {saxophoneProgress}%")" aria-valuenow="@saxophoneProgress" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <div class="progress m-1">
-                            <div class="progress-bar" role="progressbar" style="@($"width: {fluitProgress}%")" aria-valuenow="@fluitProgress" aria-valuemin="0" aria-valuemax="100">Reggae @fluitProgress %</div>
+                        <h6 class="m-1">Fluit @fluitProgress %</h6>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-succes" role="progressbar" style="@($"width: {fluitProgress}%")" aria-valuenow="@fluitProgress" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <div class="progress m-1">
-                            <div class="progress-bar" role="progressbar" style="@($"width: {celloProgress}%")" aria-valuenow="@celloProgress" aria-valuemin="0" aria-valuemax="100">Reggae @celloProgress %</div>
+                        <h6 class="m-1">Cello @celloProgress %</h6>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-succes" role="progressbar" style="@($"width: {celloProgress}%")" aria-valuenow="@celloProgress" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <div class="progress m-1">
-                            <div class="progress-bar" role="progressbar" style="@($"width: {clarinetProgress}%")" aria-valuenow="@clarinetProgress" aria-valuemin="0" aria-valuemax="100">Reggae @clarinetProgress %</div>
+                        <h6 class="m-1">Clarinet @clarinetProgress %</h6>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-succes" role="progressbar" style="@($"width: {clarinetProgress}%")" aria-valuenow="@clarinetProgress" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <div class="progress m-1">
-                            <div class="progress-bar" role="progressbar" style="@($"width: {trumpetProgress}%")" aria-valuenow="@trumpetProgress" aria-valuemin="0" aria-valuemax="100">Reggae @trumpetProgress %</div>
+                        <h6 class="m-1">Trumpet @trumpetProgress %</h6>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-succes" role="progressbar" style="@($"width: {trumpetProgress}%")" aria-valuenow="@trumpetProgress" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <div class="progress m-1">
-                            <div class="progress-bar" role="progressbar" style="@($"width: {harpProgress}%")" aria-valuenow="@harpProgress" aria-valuemin="0" aria-valuemax="100">Reggae @harpProgress %</div>
+                        <h6 class="m-1">Harp @harpProgress %</h6>
+                        <div class="progress mb-3">
+                            <div class="progress-bar bg-succes" role="progressbar" style="@($"width: {harpProgress}%")" aria-valuenow="@harpProgress" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </div>
                 </div>
