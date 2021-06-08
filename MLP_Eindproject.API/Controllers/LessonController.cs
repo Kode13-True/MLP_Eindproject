@@ -66,9 +66,9 @@ namespace MLP_Eindproject.API.Controllers
 
         // GET api/<LessonController>/5
         [HttpGet("GetOne/{id}")]
-        public async Task<ActionResult<ResponseLessonDTO>> GetOne(int id)
+        public ActionResult<ResponseLessonDTO> GetOne(int id)
         {
-            var lesson = await _lessonService.GetOneLessonById(id);
+            var lesson = _lessonService.GetOneLessonById(id);
             var responseLessonDTO = _mapper.Map<ResponseLessonDTO>(lesson);
             return Ok(responseLessonDTO);
         }

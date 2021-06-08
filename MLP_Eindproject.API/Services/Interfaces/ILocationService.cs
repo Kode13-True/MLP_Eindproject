@@ -10,7 +10,7 @@ namespace MLP_Eindproject.API.Services.Interfaces
     {
         Task<Location> CreateLocation(Location location);
         List<Location> GetAllLocations();
-        Task<Location> GetLocationById(int id);
+        Location GetLocationById(int id);
         Task<Location> UpdateLocation(int id, Location location);
         Task<Location> DeleteLocationById(int id);
     }

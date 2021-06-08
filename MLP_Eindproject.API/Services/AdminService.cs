@@ -22,25 +22,23 @@ namespace MLP_Eindproject.API.Services
         public async Task<Admin> CreateAdmin(Admin admin)
         {
             admin.DOC = DateTime.Now;
-            await _context.Admins.AddAsync(admin);
+            _context.Admins.Add(admin);
             await _context.SaveChangesAsync();
             return admin;
         }
-        public async Task<Admin> GetAdmin(int personId)
-        {
-            var admin = await _context.Admins.FindAsync(personId);
-            return admin;
+        public Admin GetAdmin(int personId)
+        {            
+            return _context.Admins.Find(personId);
         }
 
         public List<Admin> GetAllAdmins()
-        {
-            var listOfAdmins = _context.Admins.ToList();
-            return listOfAdmins;
+        {            
+            return _context.Admins.ToList();
         }
 
         public async Task<Admin> UpdateAdminById(int personIdToEdit, Admin adminEditValue)
         {
-            var personToEdit = await _context.Admins.FindAsync(personIdToEdit);
+            var personToEdit = _context.Admins.Find(personIdToEdit);
             personToEdit.FirstName = adminEditValue.FirstName;
             personToEdit.LastName = adminEditValue.LastName;
             personToEdit.Email = adminEditValue.Email;

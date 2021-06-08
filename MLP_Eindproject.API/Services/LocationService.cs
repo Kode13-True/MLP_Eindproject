@@ -17,14 +17,14 @@ namespace MLP_Eindproject.API.Services
         }
         public async Task<Location> CreateLocation(Location location)
         {
-            await _context.Locations.AddAsync(location);
+            _context.Locations.Add(location);
             await _context.SaveChangesAsync();
             return location;
         }
 
         public async Task<Location> DeleteLocationById(int id)
         {
-            var locationToRemove = await _context.Locations.FindAsync(id);
+            var locationToRemove = _context.Locations.Find(id);
             _context.Locations.Remove(locationToRemove);
             await _context.SaveChangesAsync();
             return locationToRemove;
@@ -35,14 +35,14 @@ namespace MLP_Eindproject.API.Services
             return _context.Locations.ToList();
         }
 
-        public async Task<Location> GetLocationById(int id)
+        public Location GetLocationById(int id)
         {
-            return await _context.Locations.FindAsync(id);
+            return _context.Locations.Find(id);
         }
 
         public async Task<Location> UpdateLocation(int id, Location location)
         {
-            var locationToEdit = await _context.Locations.FindAsync(id);
+            var locationToEdit = _context.Locations.Find(id);
             locationToEdit.Street = location.Street;
             locationToEdit.Number = location.Number;
             locationToEdit.Postal = location.Postal;

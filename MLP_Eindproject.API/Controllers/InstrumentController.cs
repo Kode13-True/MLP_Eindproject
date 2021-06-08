@@ -38,9 +38,9 @@ namespace MLP_Eindproject.API.Controllers
 
         // GET api/<InstrumentController>/5
         [HttpGet("One/{Id}")]
-        public async Task<ActionResult<ResponseInstrumentDTO>> GetInstrument(int Id)
+        public ActionResult<ResponseInstrumentDTO> GetInstrument(int Id)
         {
-            var instrument = await _instrumentService.GetInstrument(Id);
+            var instrument = _instrumentService.GetInstrument(Id);
             if (instrument == null)
             {
                 return NotFound();

@@ -10,7 +10,7 @@ namespace MLP_Eindproject.API.Services.Interfaces
     public interface ILessonService
     {
         List<Lesson> GetAllUnbookedLessons();
-        Task<Lesson> GetOneLessonById(int id);
+        Lesson GetOneLessonById(int id);
         Task<Lesson> CreateLessonByTeacherId(int teacherId, Lesson lesson);
         Task<Lesson> UpdateLessonByTeacherId(int lessonId, EditLessonDTO lesson);
         Task<Lesson> CancelLesson(int lessonId);

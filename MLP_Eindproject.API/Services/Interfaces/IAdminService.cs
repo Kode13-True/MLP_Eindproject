@@ -10,7 +10,7 @@ namespace MLP_Eindproject.API.Services.Interfaces
     public interface IAdminService
     {
         Task<Admin> CreateAdmin(Admin admin);
-        Task<Admin> GetAdmin(int personId);
+        Admin GetAdmin(int personId);
         List<Admin> GetAllAdmins();
         Task<Admin> UpdateAdminById(int personIdToEdit, Admin adminEditValue);
         Task DeleteAdminById(int personId);

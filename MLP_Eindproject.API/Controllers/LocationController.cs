@@ -39,9 +39,9 @@ namespace MLP_Eindproject.API.Controllers
 
         // GET api/<LocationController>/5
         [HttpGet("GetOne/{id}")]
-        public async Task<ActionResult<ResponseLocationDTO>> Get(int id)
+        public  ActionResult<ResponseLocationDTO> Get(int id)
         {
-            var location = await _locationService.GetLocationById(id);
+            var location = _locationService.GetLocationById(id);
             if(location is null)
             {
                 return NotFound();

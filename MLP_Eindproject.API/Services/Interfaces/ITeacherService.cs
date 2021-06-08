@@ -9,7 +9,7 @@ namespace MLP_Eindproject.API.Services.Interfaces
     public interface ITeacherService
     {
         Task<Teacher> CreateTeacher(Teacher teacher);
-        Task<Teacher> GetTeacher(int personId);
+        Teacher GetTeacher(int personId);
         List<Teacher> GetAllTeachers();
         Task<Teacher> UpdateTeacherById(int personIdToEdit, Teacher teacherEditValue);
         Task DeleteTeacherById(int personId);

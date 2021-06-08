@@ -26,15 +26,13 @@ namespace MLP_Eindproject.API.Services
         }
 
         public Alert GetAlert(int alertId)
-        {
-            var alert =  _context.Alerts.Where(x => x.Id == alertId).FirstOrDefault();
-            return alert;
+        {            
+            return _context.Alerts.Where(x => x.Id == alertId).FirstOrDefault();
         }
 
         public List<Alert> GetAllAlerts()
-        {
-            var listOfAlerts = _context.Alerts.ToList();
-            return listOfAlerts;
+        {            
+            return _context.Alerts.ToList();
         }
 
         public async Task DeleteAlertById(int alertId)
@@ -45,9 +43,8 @@ namespace MLP_Eindproject.API.Services
         }
 
         public List<Alert> GetAlertsByPersonId(int id)
-        {
-            var alerts = _context.Alerts.Where(x => x.PersonId == id).ToList();
-            return alerts;
+        {            
+            return _context.Alerts.Where(x => x.PersonId == id).ToList();
         }
 
         public async Task<Alert> ReportUser(Alert newAlert)

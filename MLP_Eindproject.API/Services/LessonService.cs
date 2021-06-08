@@ -22,18 +22,18 @@ namespace MLP_Eindproject.API.Services
             lesson.TeacherId = teacherId;
             lesson.DOC = DateTime.Now;
             lesson.Completed = false;
-            await _context.Lessons.AddAsync(lesson);
+            _context.Lessons.Add(lesson);
             await _context.SaveChangesAsync();
             return lesson;
         }
 
         public async Task<Lesson> BookLesson(int studentId, int lessonId)
         {
-            var lessonToBook = await _context.Lessons.Include(x => x.Location)
+            var lessonToBook = _context.Lessons.Include(x => x.Location)
                                                         .Include(x => x.Teacher)
                                                         .Include(x => x.Student)
                                                         .Include(x => x.Instrument)
-                                                        .FirstOrDefaultAsync(x => x.Id == lessonId);
+                                                        .FirstOrDefault(x => x.Id == lessonId);
             if(lessonToBook.StudentId == null)
             {
                 lessonToBook.StudentId = studentId;
@@ -49,11 +49,11 @@ namespace MLP_Eindproject.API.Services
         }
         public async Task<Lesson> CancelLesson(int lessonId)
         {
-            var lessonToCancel = await _context.Lessons.Include(x => x.Location)
+            var lessonToCancel = _context.Lessons.Include(x => x.Location)
                                                         .Include(x => x.Teacher)
                                                         .Include(x => x.Student)
                                                         .Include(x => x.Instrument)
-                                                        .FirstOrDefaultAsync(x => x.Id == lessonId);
+                                                        .FirstOrDefault(x => x.Id == lessonId);
             if (lessonToCancel.Start > DateTime.Now.AddHours(48))
             {
                 lessonToCancel.StudentId = null;
@@ -64,11 +64,11 @@ namespace MLP_Eindproject.API.Services
         }
         public async Task<Lesson> UpdateLessonByTeacherId(int lessonId, EditLessonDTO lesson)
         {
-            var lessonToUpdate = await _context.Lessons.Include(x => x.Location)
+            var lessonToUpdate = _context.Lessons.Include(x => x.Location)
                                                         .Include(x => x.Teacher)
                                                         .Include(x => x.Student)
                                                         .Include(x => x.Instrument)
-                                                        .FirstOrDefaultAsync(x => x.Id == lessonId);
+                                                        .FirstOrDefault(x => x.Id == lessonId);
             if (lessonToUpdate.StudentId is null)
             {
                 //lesson
@@ -91,7 +91,7 @@ namespace MLP_Eindproject.API.Services
         }
         public async Task<Lesson> DeleteLesson(int id)
         {
-            var lessonToDelete = await _context.Lessons.FindAsync(id);
+            var lessonToDelete = _context.Lessons.Find(id);
             if (lessonToDelete.StudentId is null)
             {
                 _context.Remove(lessonToDelete);
@@ -131,13 +131,13 @@ namespace MLP_Eindproject.API.Services
                                     .Where(x => x.StudentId == studentId)
                                     .OrderBy(l => l.Start).ToList();
         }
-        public async Task<Lesson> GetOneLessonById(int id)
+        public Lesson GetOneLessonById(int id)
         {
-            return await _context.Lessons.Include(x => x.Location)
+            return _context.Lessons.Include(x => x.Location)
                                             .Include(x => x.Teacher)
                                             .Include(x => x.Student)
                                             .Include(x => x.Instrument)
-                                            .FirstOrDefaultAsync(x => x.Id == id);
+                                            .FirstOrDefault(x => x.Id == id);
         }
 
 

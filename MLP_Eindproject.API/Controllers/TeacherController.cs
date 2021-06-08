@@ -36,9 +36,9 @@ namespace MLP_Eindproject.API.Controllers
 
         // GET: api/<TeacherController>
         [HttpGet("One/{Id}")]
-        public async Task<ActionResult<ResponseTeacherDTO>> GetTeacher(int Id)
+        public  ActionResult<ResponseTeacherDTO> GetTeacher(int Id)
         {
-            var teacher = await _teacherService.GetTeacher(Id);
+            var teacher = _teacherService.GetTeacher(Id);
             if (teacher == null)
             {
                 return NotFound();
