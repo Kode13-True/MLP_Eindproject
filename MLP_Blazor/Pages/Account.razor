@@ -28,6 +28,8 @@
                                         <h1 class="card-title text-center">@admin.FirstName @admin.LastName</h1>
                                         <h6 class="card-title text-center">Mubster admin since: @admin.DOC.ToShortDateString()</h6>
                                         <p class="card-text mx-1">Mail: <div class="float-end">@admin.Email</div></p>
+
+                                        <a href="ChangePassword" class="btn btn-warning w-100 m-1">Edit Password</a>
                                         <a href="AccountEdit" class="btn btn-warning w-100 m-1">Edit Account</a>
                                         <a href="AccountDelete" class="btn btn-danger w-100 m-1">Delete Account</a>
                                     </div>
@@ -62,6 +64,8 @@
                                         <p class="card-text mx-1">Mail: <div class="float-end">@teacher.Email</div></p>
                                         <p class="card-text text-succes overflow-hidden" style="height: 10vh; max-height:10vh;">@teacher.Description</p>
                                         <p class="card-footer">Rating = <div class="float-end">@teacher.Rating</div></p>
+
+                                        <a href="ChangePassword" class="btn btn-warning w-100 m-1">Edit Password</a>
                                         <a href="AccountEdit" class="btn btn-warning w-100 m-1">Edit Account</a>
                                         <a href="AccountDelete" class="btn btn-danger w-100 m-1">Delete Account</a>
                                     </div>
@@ -94,7 +98,7 @@
                                             <h6 class="card-title text-center">Mubster student since: @student.DOC.ToShortDateString()</h6>
                                             <p class="card-text mx-1">Mail: <div class="float-end">@student.Email</div></p>
 
-
+                                            <a href="ChangePassword" class="btn btn-warning w-100 m-1">Edit Password</a>
                                             <a href="AccountEdit" class="btn btn-warning w-100 m-1">Edit Account</a>
                                             <a href="AccountDelete" class="btn btn-danger w-100 m-1">Delete Account</a>
                                         </div>
