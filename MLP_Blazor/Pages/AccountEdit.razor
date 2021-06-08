@@ -17,45 +17,60 @@
 
                     @if (@context.User.IsInRole("Admin"))
                     {
-                        <EditForm Model="admin" OnSubmit="EditAdmin" Context="EditAdmin">
-                            <div class="row">
-                                <div class="col-md-2"></div>
-                                <label class="col-md-2 form-label">FirstName</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form form-control" placeholder=@admin.FirstName @bind-value="admin.FirstName" />
+                            <EditForm Model="admin" OnValidSubmit="EditAdmin" Context="EditAdmin">
+                                <DataAnnotationsValidator />
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8">
+                                        <div><ValidationSummary /></div>
+                                    </div>
+                                    <div class="col-md-2"></div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-2"></div>
-                                <label class="col-md-2 form-label">LastName</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form form-control" placeholder=@admin.LastName @bind-value="admin.LastName" />
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <label class="col-md-2 form-label">FirstName</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form form-control" placeholder=@admin.FirstName @bind-value="admin.FirstName" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-2"></div>
-                                <label class="col-md-2 form-label">Email</label>
-                                <div class="col-md-6">
-                                    <input type="text" class="form form-control" placeholder=@admin.Email @bind-value="admin.Email" />
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <label class="col-md-2 form-label">LastName</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form form-control" placeholder=@admin.LastName @bind-value="admin.LastName" />
+                                    </div>
                                 </div>
-                            </div>
-                       
-                            <div class="row pt-1">
-                                <div class="col-md-4"></div>
-                                <div class="col-md-3 float-end">
-                                    <a href="Account" class="btn btn-primary w-50 m-1 float-end">Back</a>
+                                <div class="row">
+                                    <div class="col-md-2"></div>
+                                    <label class="col-md-2 form-label">Email</label>
+                                    <div class="col-md-6">
+                                        <input type="text" class="form form-control" placeholder=@admin.Email @bind-value="admin.Email" />
+                                    </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <button class="btn btn-succes w-50 m-1" type="submit">Save</button>
+
+                                <div class="row pt-1">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-3 float-end">
+                                        <a href="Account" class="btn btn-primary w-50 m-1 float-end">Back</a>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button class="btn btn-succes w-50 m-1" type="submit">Save</button>
+                                    </div>
                                 </div>
-                            </div>
-                        
-                        </EditForm>
+
+                            </EditForm>
                     }
                     else if (@context.User.IsInRole("Teacher"))
                     {
-                        <EditForm Model="teacher" OnSubmit="EditTeacher" Context="EditTeacher">
-
+                        <EditForm Model="teacher" OnValidSubmit="EditTeacher" Context="EditTeacher">
+                            <DataAnnotationsValidator />
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8">
+                                    <div><ValidationSummary /></div>
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-2"></div>
                                 <label class="col-md-2 form-label">FirstName</label>
@@ -98,7 +113,15 @@
                     else if (@context.User.IsInRole("Student"))
                     {
                         
-                        <EditForm Model="student" OnSubmit="EditStudent" Context="EditStudent">
+                        <EditForm Model="student" OnValidSubmit="EditStudent" Context="EditStudent">
+                            <DataAnnotationsValidator />
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-8">
+                                    <div><ValidationSummary /></div>
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-2"></div>
                                 <label class="col-md-2 form-label">FirstName</label>

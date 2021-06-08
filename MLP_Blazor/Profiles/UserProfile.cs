@@ -14,6 +14,10 @@ namespace MLP_Blazor.Profiles
         {
             CreateMap<RegisterUserDTO, RegisterUserVM>().ReverseMap();
             CreateMap<LoginUserDTO, LoginUserVM>().ReverseMap();
+            CreateMap<EditPasswordDTO, EditPasswordVM>()
+                .ForMember(dest => dest.OldPassword, opt => opt.MapFrom(src => src.OldPassword))
+                .ForMember(dest => dest.NewPassword, opt => opt.MapFrom(src => src.NewPassword))
+                .ReverseMap();
         }
     }
 }
