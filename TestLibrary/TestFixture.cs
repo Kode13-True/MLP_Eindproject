@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MLP_DbLibrary.MLPContext;
+using MLP_DbLibrary.Seeding;
 using MLP_Eindproject.API;
 using NUnit.Framework;
 using System;
@@ -26,6 +27,7 @@ namespace MLP_TestLibrary
         [OneTimeSetUp]
         public void TestFixtureSetUp()
         {
+            SeedData.IsTest = true;
             Configuration = new ConfigurationBuilder().AddJsonFile("appsettings.json", optional: false).Build();
 
             Connection = new SqlConnection("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True");

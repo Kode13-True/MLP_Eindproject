@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace MLP_Eindproject.API
 {
     public class Program
-    {
+    {        
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();

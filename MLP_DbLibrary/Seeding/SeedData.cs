@@ -10,15 +10,20 @@ namespace MLP_DbLibrary.Seeding
 {
     public static class SeedData
     {
+        public static bool IsTest;
         static public void DatabaseSeeding(MLPDbContext db)
         {
-            db.Database.EnsureCreated();
-            if (!db.Admins.Any())
+            if(IsTest == false) 
             {
-                db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "keith@mub", FirstName = "Keith", LastName = "Voorhelst", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=" });
-                db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "Ko@mub", FirstName = "Ko", LastName = "De Schepper", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=" });
-                db.SaveChanges();
+                db.Database.EnsureCreated();                
+                if (!db.Admins.Any())
+                {
+                    db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "keith@mub", FirstName = "Keith", LastName = "Voorhelst", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=" });
+                    db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "Ko@mub", FirstName = "Ko", LastName = "De Schepper", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=" });
+                    db.SaveChanges();
+                }
             }
+           
         }
         static public void TestDatabaseSeeding(MLPDbContext db)
         {
