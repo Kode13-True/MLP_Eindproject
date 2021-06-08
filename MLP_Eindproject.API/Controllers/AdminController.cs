@@ -34,9 +34,9 @@ namespace MLP_Eindproject.API.Controllers
 
         // GET: api/<AdminController>
         [HttpGet("One/{Id}")]
-            public async Task<ActionResult<ResponseAdminDTO>> GetAdmin(int Id)
+            public ActionResult<ResponseAdminDTO> GetAdmin(int Id)
             {
-                var admin = await _adminService.GetAdmin(Id);
+                var admin = _adminService.GetAdmin(Id);
                 if (admin == null)
                 {
                     return NotFound();

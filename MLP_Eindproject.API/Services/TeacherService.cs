@@ -21,25 +21,24 @@ namespace MLP_Eindproject.API.Services
         public async Task<Teacher> CreateTeacher(Teacher teacher)
         {
             teacher.DOC = DateTime.Now;
-            await _context.Teachers.AddAsync(teacher);
+            _context.Teachers.Add(teacher);
             await _context.SaveChangesAsync();
             return teacher;
         }
-        public async Task<Teacher> GetTeacher(int personId)
+        public Teacher GetTeacher(int personId)
         {
-            var teacher = await _context.Teachers.FindAsync(personId);
-            return teacher;
+            
+            return _context.Teachers.Find(personId);
         }
 
         public List<Teacher> GetAllTeachers()
-        {
-            var listOfTeachers = _context.Teachers.OrderByDescending(t => t.Rating).ToList();
-            return listOfTeachers;
+        {            
+            return _context.Teachers.OrderByDescending(t => t.Rating).ToList();
         }
 
         public async Task<Teacher> UpdateTeacherById(int personIdToEdit, Teacher teacherEditValue)
         {
-            var personToEdit = await _context.Teachers.FindAsync(personIdToEdit);
+            var personToEdit = _context.Teachers.Find(personIdToEdit);
             personToEdit.FirstName = teacherEditValue.FirstName;
             personToEdit.LastName = teacherEditValue.LastName;
             personToEdit.Email = teacherEditValue.Email;

@@ -42,9 +42,9 @@ namespace MLP_Eindproject.API.Controllers
 
         // GET: api/<StudentController>
         [HttpGet("One/{Id}")]
-        public async Task<ActionResult<ResponseStudentDTO>> GetStudent(int Id)
+        public  ActionResult<ResponseStudentDTO> GetStudent(int Id)
         {
-            var student = await _studentService.GetStudent(Id);
+            var student = _studentService.GetStudent(Id);
             if (student == null)
             {
                 return NotFound();

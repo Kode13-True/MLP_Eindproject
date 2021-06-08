@@ -8,7 +8,7 @@ namespace MLP_Eindproject.API.Services.Interfaces
     public interface IStudentService
     {
         Task<Student> CreateStudent(Student student);
-        Task<Student> GetStudent(int personId);
+        Student GetStudent(int personId);
         List<Student> GetAllStudents();
         Task<Student> UpdateStudentById(int personIdToEdit, Student studentEditValue);
         Task DeleteStudentById(int personId);

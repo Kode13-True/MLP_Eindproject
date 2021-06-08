@@ -20,26 +20,23 @@ namespace MLP_Eindproject.API.Services
         public async Task<Instrument> CreateInstrument(Instrument instrument, int lessonId)
         {
                 instrument.LessonId = lessonId;
-                await _context.Instruments.AddAsync(instrument);
+                _context.Instruments.Add(instrument);
                 await _context.SaveChangesAsync();
                 return instrument;            
         }
 
-        public async Task<Instrument> GetInstrument(int instrumentId)
-        {
-                var instrument = await _context.Instruments.FindAsync(instrumentId);
-                return instrument;
+        public Instrument GetInstrument(int instrumentId)
+        {                
+                return _context.Instruments.Find(instrumentId);
         }
 
         public Instrument GetInstrumentByLessonId(int lessonId)
-        {
-            var instrument = _context.Instruments.Where(x => x.LessonId == lessonId).FirstOrDefault();
-            return instrument;
+        {            
+            return _context.Instruments.Where(x => x.LessonId == lessonId).FirstOrDefault();
         }
         public List<Instrument> GetAllInstruments()
-        {
-                var listOfInstruments = _context.Instruments.ToList();
-                return listOfInstruments; 
+        {                
+                return _context.Instruments.ToList();
         }
 
         public async Task DeleteInstrumentById(int instrumentId)
