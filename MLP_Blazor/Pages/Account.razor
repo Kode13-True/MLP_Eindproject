@@ -19,9 +19,6 @@
                     {
                         <div class="card-columns">
                             <div class="row">
-                                @*<div class="card d-inline-block m-auto" style="width: 18rem;">
-                                <img src="/images/users.png" class="card-img-top" alt="...">
-                                </div>*@
                                 <div class="card d-inline-block m-auto" style="width: 36rem;">
 
                                     <div class="card-body align-content-center">
@@ -51,16 +48,13 @@
 
                         <div class="card-columns">
                             <div class="row">
-                                @*<div class="card d-inline-block m-auto" style="width: 18rem;">
-                                <img src="/images/users.png" class="card-img-top" alt="...">
-                            </div>*@
                                 <div class="card d-inline-block m-auto" style="width: 36rem;">
 
                                     <div class="card-body align-content-center">
                                         <h1 class="card-title text-center">@teacher.FirstName @teacher.LastName</h1>
                                         <h6 class="card-title text-center">Mubster teacher since: @teacher.DOC.ToShortDateString()</h6>
                                         <p class="card-text mx-1">Mail: <div class="float-end">@teacher.Email</div></p>
-                                        <p class="card-text text-succes overflow-hidden" style="height: 10vh; max-height:10vh;">@teacher.Description</p>
+                                        <p class="card-text text-succes overflow-auto">@teacher.Description</p>
                                         <p class="card-footer">Rating = <div class="float-end">@teacher.Rating</div></p>
                                         <a href="AccountEdit" class="btn btn-warning w-100 m-1">Edit Account</a>
                                         <a href="AccountDelete" class="btn btn-danger w-100 m-1">Delete Account</a>
@@ -84,9 +78,6 @@
                         <div class="container align-content-center p-md-5">
                             <div class="card-columns">
                                 <div class="row">
-                                    @*<div class="card d-inline-block m-auto" style="width: 18rem;">
-                                    <img src="/images/users.png" class="card-img-top" alt="...">
-                                </div>*@
                                     <div class="card d-inline-block m-auto" style="width: 36rem;">
 
                                         <div class="card-body align-content-center">
