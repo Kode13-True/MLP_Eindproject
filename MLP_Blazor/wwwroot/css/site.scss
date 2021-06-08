@@ -2,12 +2,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
 
 
-html, body {
+html {
     font-family: 'Ubuntu', sans-serif !important;
     background-color: #E1E7F4 !important;
     color: #1C3144 !important;
 }
-
+body {
+    font-family: 'Ubuntu', sans-serif !important;
+    background-color: #E1E7F4 !important;
+    color: #1C3144 !important;
+    overflow: overlay;
+}
 h1, p, .jumbotron {
     color: #E1E7F4 !important;
 }
@@ -70,22 +75,19 @@ h6 {
     color: #E1E7F4;
 }
 
-/*.btn-link {
-    
+body::-webkit-scrollbar {
+    width: 14px;
 }
-a {
-    color: #679289 !important;
-    border-color: #679289 !important;
+body::-webkit-scrollbar-track {
+    background-color : transparent !important;    
 }
-*/
-/*.btn-primary {
-    color: #679289 !important;
-    background-color: #1C3144 !important;
-    border-color: #679289 !important;
+body::-webkit-scrollbar-thumb {
+    background: #1C3144;
+    border-radius: 6px;
 }
-*/
-
-
+body::-webkit-scrollbar-thumb:hover {
+    background: #679289;
+}
 .content {
     padding-top: 1.1rem;
 }
