@@ -25,9 +25,10 @@
                                 </div>
                                 <div class="col-md-4"></div>
                             </div>
-
-                            <div hidden="@hiddenMessage" class="alert alert-info col-md-12">@message <span @onclick="HideMessage" class="float-end" style="cursor:pointer">x</span></div>
-
+                            <div class="row mb-1">
+                                <div class="col-md-2"></div>
+                                <div hidden="@hiddenMessage" class="alert alert-danger col-md-8">@message <span @onclick="HideMessage" class="float-end" style="cursor:pointer">x</span></div>
+                             </div>
                             <div class="row mb-1">
                                 <div class="col-md-2"></div>
                                 <label class="col-md-1 form-label" for="instrument">Instrument</label>
@@ -117,7 +118,6 @@
                                     <input class="form form-control" type="text" placeholder="Township" @bind-value="lessonModel.Township" />
                                 </div>
                             </div>
-
                             <div class="row pt-1">
                                 <div class="col-md-2"></div>
                                 <div class="col-md-8">
