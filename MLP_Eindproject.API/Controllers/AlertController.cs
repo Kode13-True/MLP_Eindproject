@@ -89,5 +89,11 @@ namespace MLP_Eindproject.API.Controllers
             await _alertService.DeleteAlertById(id);
             return Ok();
         }
+        [HttpDelete("DeleteAll/{id}")]
+        public async Task<ActionResult> DeleteAllAlerts(int id)
+        {
+            await _alertService.DeleteAllALertsById(id);
+            return Ok();
+        }
     }
 }
