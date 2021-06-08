@@ -36,7 +36,7 @@ namespace MLP_TestLibrary.InstrumentController
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
-                SeedData.DatabaseSeeding(db);
+                SeedData.TestDatabaseSeeding(db);
             }
             var lessonResponse = TestFixture.Client.PostJson($"api/Lesson/CreateLesson/8", testItemLesson);
             var lessonContent = lessonResponse.GetContent<ResponseLessonDTO>();

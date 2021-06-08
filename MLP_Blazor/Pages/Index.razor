@@ -58,31 +58,35 @@
         await Authentication();
 
         var teachersDTO = await Client.GetFromJsonAsync<List<ResponseTeacherDTO>>("https://localhost:44397/api/Teacher/GetAll");
-        var allTeachers = _mapper.Map<List<ResponseTeacherVM>>(teachersDTO);
-        var allOrderTeachers = allTeachers.OrderByDescending(x => x.Rating);
-        Queue<ResponseTeacherVM> teacherQueue = new Queue<ResponseTeacherVM>();
-        foreach (var teacher in allOrderTeachers)
+        if(teachersDTO.Count != 0) 
         {
-            teacherQueue.Enqueue(teacher);
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            teachers.Add(teacherQueue.Dequeue());
-        }
-        foreach(var teacher in teachers)
-        {
-            if(teacher.Description is not null)
+            var allTeachers = _mapper.Map<List<ResponseTeacherVM>>(teachersDTO);
+            var allOrderTeachers = allTeachers.OrderByDescending(x => x.Rating);
+            Queue<ResponseTeacherVM> teacherQueue = new Queue<ResponseTeacherVM>();
+            foreach (var teacher in allOrderTeachers)
             {
-                if (teacher.Description.Length > 65)
+                teacherQueue.Enqueue(teacher);
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                teachers.Add(teacherQueue.Dequeue());
+            }
+            foreach (var teacher in teachers)
+            {
+                if (teacher.Description is not null)
                 {
-                    teacher.Description = teacher.Description.Substring(0, 65);
-                    if (teacher.Description.EndsWith("."))
+                    if (teacher.Description.Length > 65)
                     {
-                        teacher.Description += "..";
+                        teacher.Description = teacher.Description.Substring(0, 65);
+                        if (teacher.Description.EndsWith("."))
+                        {
+                            teacher.Description += "..";
+                        }
+                        else { teacher.Description += "..."; }
                     }
-                    else { teacher.Description += "..."; }
                 }
             }
+
 
         }
     }

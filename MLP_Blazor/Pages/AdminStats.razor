@@ -229,19 +229,23 @@
                 futureLessonCount = futureLessonCountArray[0];
                 futureBookedLessonCount = futureLessonCountArray[1];
                 futureUnbookedLessonCount = futureLessonCountArray[2];
-                futureBookedLessonProgress = (100.0 * futureBookedLessonCount / futureLessonCount).ToString("0");
-                futureUnbookedLessonProgress = (100.0 * futureUnbookedLessonCount / futureLessonCount).ToString("0");
-                futureLessonProgress = int.Parse(futureBookedLessonProgress) + int.Parse(futureUnbookedLessonProgress);
-                if (futureLessonProgress < 100)
+                if (futureLessonCount != 0)
                 {
-                    futureUnbookedLessonCount += 1;
-                    futureUnbookedLessonProgress = (100.0 * adminCount / userCount).ToString("0");
+                    futureBookedLessonProgress = (100.0 * futureBookedLessonCount / futureLessonCount).ToString("0");
+                    futureUnbookedLessonProgress = (100.0 * futureUnbookedLessonCount / futureLessonCount).ToString("0");
+                    futureLessonProgress = int.Parse(futureBookedLessonProgress) + int.Parse(futureUnbookedLessonProgress);
+                    if (futureLessonProgress < 100)
+                    {
+                        futureUnbookedLessonCount += 1;
+                        futureUnbookedLessonProgress = (100.0 * adminCount / userCount).ToString("0");
+                    }
+                    if (futureLessonProgress > 100)
+                    {
+                        futureUnbookedLessonCount -= 1;
+                        futureUnbookedLessonProgress = (100.0 * adminCount / userCount).ToString("0");
+                    }
                 }
-                if (futureLessonProgress > 100)
-                {
-                    futureUnbookedLessonCount -= 1;
-                    futureUnbookedLessonProgress = (100.0 * adminCount / userCount).ToString("0");
-                }
+
 
 
 
@@ -251,20 +255,24 @@
                 noviceCount = levelCountArray[0];
                 intermediateCount = levelCountArray[1];
                 expertCount = levelCountArray[2];
-                noviceProgress = (100.0 * noviceCount / levelTotal).ToString("0");
-                intermediateProgress = (100.0 * intermediateCount / levelTotal).ToString("0");
-                expertProgress = (100.0 * expertCount / levelTotal).ToString("0");
-                var levelProgress = int.Parse(noviceProgress) + int.Parse(intermediateProgress) + int.Parse(expertProgress);
-                if (levelProgress < 100)
+                if(levelTotal != 0)
                 {
-                    noviceCount += 1;
-                    noviceProgress = (100.0 * adminCount / userCount).ToString("0");
+                    noviceProgress = (100.0 * noviceCount / levelTotal).ToString("0");
+                    intermediateProgress = (100.0 * intermediateCount / levelTotal).ToString("0");
+                    expertProgress = (100.0 * expertCount / levelTotal).ToString("0");
+                    var levelProgress = int.Parse(noviceProgress) + int.Parse(intermediateProgress) + int.Parse(expertProgress);
+                    if (levelProgress < 100)
+                    {
+                        noviceCount += 1;
+                        noviceProgress = (100.0 * adminCount / userCount).ToString("0");
+                    }
+                    if (levelProgress > 100)
+                    {
+                        noviceCount -= 1;
+                        noviceProgress = (100.0 * adminCount / userCount).ToString("0");
+                    }
                 }
-                if (levelProgress > 100)
-                {
-                    noviceCount -= 1;
-                    noviceProgress = (100.0 * adminCount / userCount).ToString("0");
-                }
+
 
 
                 styleCountArray = await Client.GetFromJsonAsync<int[]>("https://localhost:44397/api/Admin/GetStyleNumbers");
@@ -274,11 +282,14 @@
                 var jazzCount = styleCountArray[2];
                 var popCount = styleCountArray[3];
                 var reggaeCount = styleCountArray[4];
-                classicProgress = (100.0 * classicCount / styleTotal).ToString("0");
-                rockProgress = (100.0 * rockCount / styleTotal).ToString("0");
-                jazzProgress = (100.0 * jazzCount / styleTotal).ToString("0");
-                popProgress = (100.0 * popCount / styleTotal).ToString("0");
-                reggaeProgress = (100.0 * reggaeCount / styleTotal).ToString("0");
+                if (styleTotal != 0) {
+                    classicProgress = (100.0 * classicCount / styleTotal).ToString("0");
+                    rockProgress = (100.0 * rockCount / styleTotal).ToString("0");
+                    jazzProgress = (100.0 * jazzCount / styleTotal).ToString("0");
+                    popProgress = (100.0 * popCount / styleTotal).ToString("0");
+                    reggaeProgress = (100.0 * reggaeCount / styleTotal).ToString("0");
+                }
+
 
                 var instrumentCountArray = await Client.GetFromJsonAsync<int[]>("https://localhost:44397/api/Admin/GetInstrumentNumbers");
                 var instrumentTotal = instrumentCountArray.Sum();
@@ -293,17 +304,21 @@
                 var clarinetCount = instrumentCountArray[8];
                 var trumpetCount = instrumentCountArray[9];
                 var harpCount = instrumentCountArray[10];
-                vocalsProgress = (100.0 * vocalsCount / instrumentTotal).ToString("0");
-                pianoProgress = (100.0 * pianoCount / instrumentTotal).ToString("0");
-                guitarProgress = (100.0 * guitarCount / instrumentTotal).ToString("0");
-                violinProgress = (100.0 * violinCount / instrumentTotal).ToString("0");
-                drumsProgress = (100.0 * drumsCount / instrumentTotal).ToString("0");
-                saxophoneProgress = (100.0 * saxophoneCount / instrumentTotal).ToString("0");
-                fluitProgress = (100.0 * fluitCount / instrumentTotal).ToString("0");
-                celloProgress = (100.0 * celloCount / instrumentTotal).ToString("0");
-                clarinetProgress = (100.0 * clarinetCount / instrumentTotal).ToString("0");
-                trumpetProgress = (100.0 * trumpetCount / instrumentTotal).ToString("0");
-                harpProgress = (100.0 * harpCount / instrumentTotal).ToString("0");
+                if(instrumentTotal != 0) 
+                {
+                    vocalsProgress = (100.0 * vocalsCount / instrumentTotal).ToString("0");
+                    pianoProgress = (100.0 * pianoCount / instrumentTotal).ToString("0");
+                    guitarProgress = (100.0 * guitarCount / instrumentTotal).ToString("0");
+                    violinProgress = (100.0 * violinCount / instrumentTotal).ToString("0");
+                    drumsProgress = (100.0 * drumsCount / instrumentTotal).ToString("0");
+                    saxophoneProgress = (100.0 * saxophoneCount / instrumentTotal).ToString("0");
+                    fluitProgress = (100.0 * fluitCount / instrumentTotal).ToString("0");
+                    celloProgress = (100.0 * celloCount / instrumentTotal).ToString("0");
+                    clarinetProgress = (100.0 * clarinetCount / instrumentTotal).ToString("0");
+                    trumpetProgress = (100.0 * trumpetCount / instrumentTotal).ToString("0");
+                    harpProgress = (100.0 * harpCount / instrumentTotal).ToString("0");
+                }
+
 
             }
             else

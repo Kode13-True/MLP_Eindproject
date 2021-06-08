@@ -22,7 +22,7 @@ namespace MLP_TestLibrary.AlertController
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
-                SeedData.DatabaseSeeding(db);
+                SeedData.TestDatabaseSeeding(db);
 
                 var alert1 = new Alert() { AlertType = AlertType.Booked, DOC = DateTime.Now, Message = "", PersonId = 5 };
                 db.Add(alert1);
