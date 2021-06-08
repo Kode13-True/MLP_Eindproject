@@ -1,11 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using MLP_DbLibrary.DTO.PersonDTO;
+using MLP_DbLibrary.DTO.UserDTO;
 using MLP_DbLibrary.MLPContext;
 using MLP_DbLibrary.Models;
 using MLP_Eindproject.API.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MLP_Eindproject.API.Services
@@ -13,10 +17,12 @@ namespace MLP_Eindproject.API.Services
     public class AdminService : IAdminService
     {
         private readonly MLPDbContext _context;
+        private readonly string hmacsha256Key;
 
-        public AdminService(MLPDbContext context)
+        public AdminService(MLPDbContext context, IConfiguration configuration)
         {
             _context = context;
+            hmacsha256Key = configuration.GetSection("Keys").GetSection("HMACSHA256").Value;
         }
 
         public async Task<Admin> CreateAdmin(Admin admin)
@@ -145,6 +151,43 @@ namespace MLP_Eindproject.API.Services
             }
 
             return succeeds;
+        }
+
+        public async Task<bool> UpdatePassword(int id, EditPasswordDTO editPasswordDTO)
+        {
+            if (editPasswordDTO is null)
+            {
+                throw new ArgumentNullException(nameof(editPasswordDTO));
+            }
+            bool passwordCorrect = false;
+            var encoding = new ASCIIEncoding();
+
+            Byte[] textBytes = encoding.GetBytes(editPasswordDTO.OldPassword);
+            Byte[] keyBytes = encoding.GetBytes(hmacsha256Key);
+            Byte[] hashBytes;
+            using (HMACSHA256 hash = new HMACSHA256(keyBytes))
+            {
+                hashBytes = hash.ComputeHash(textBytes);
+            }
+            var oldPassword = Convert.ToBase64String(hashBytes);
+
+            var admin = _context.Admins.FirstOrDefault(x => x.Id == id);
+            if(admin.Password == oldPassword)
+            {
+                passwordCorrect = true;
+
+                textBytes = encoding.GetBytes(editPasswordDTO.NewPassword);
+                keyBytes = encoding.GetBytes(hmacsha256Key);                
+                using (HMACSHA256 hash = new HMACSHA256(keyBytes))
+                {
+                    hashBytes = hash.ComputeHash(textBytes);
+                }
+                var newPassword = Convert.ToBase64String(hashBytes);
+
+                admin.Password = newPassword;
+                await _context.SaveChangesAsync();
+            }
+            return passwordCorrect;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MLP_DbLibrary.DTO.PersonDTO;
+using MLP_DbLibrary.DTO.UserDTO;
 using MLP_DbLibrary.Models;
 using MLP_Eindproject.API.Services.Interfaces;
 using System;
@@ -99,6 +100,13 @@ namespace MLP_Eindproject.API.Controllers
             var adminResponse = await _adminService.UpdateAdminById(id, admin);
             var responseAdminDTO = _mapper.Map<ResponseAdminDTO>(adminResponse);
             return Ok(responseAdminDTO);
+        }
+        [HttpPut("UpdatePassword/{id}")]
+        public async Task<ActionResult> UpdatePassword(int id, [FromBody] EditPasswordDTO editPasswordDTO)
+        {
+            var adminResponse = await _adminService.UpdatePassword(id, editPasswordDTO);
+            if(adminResponse == false) { return BadRequest(); }
+            return Ok();
         }
 
         // DELETE api/<AdminController>/5

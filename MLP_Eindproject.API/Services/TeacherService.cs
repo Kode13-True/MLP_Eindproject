@@ -1,10 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using MLP_DbLibrary.DTO.UserDTO;
 using MLP_DbLibrary.MLPContext;
 using MLP_DbLibrary.Models;
 using MLP_Eindproject.API.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MLP_Eindproject.API.Services
@@ -12,10 +16,11 @@ namespace MLP_Eindproject.API.Services
     public class TeacherService : ITeacherService
     {
         private readonly MLPDbContext _context;
-
-        public TeacherService(MLPDbContext context)
+        private readonly string hmacsha256Key;
+        public TeacherService(MLPDbContext context, IConfiguration configuration)
         {
             _context = context;
+            hmacsha256Key = configuration.GetSection("Keys").GetSection("HMACSHA256").Value;
         }
 
         public async Task<Teacher> CreateTeacher(Teacher teacher)
@@ -69,6 +74,42 @@ namespace MLP_Eindproject.API.Services
             return teacherLessons;
         }
 
-        
+        public async Task<bool> UpdatePassword(int id, EditPasswordDTO editPasswordDTO)
+        {
+            if (editPasswordDTO is null)
+            {
+                throw new ArgumentNullException(nameof(editPasswordDTO));
+            }
+            bool passwordCorrect = false;
+            var encoding = new ASCIIEncoding();
+
+            Byte[] textBytes = encoding.GetBytes(editPasswordDTO.OldPassword);
+            Byte[] keyBytes = encoding.GetBytes(hmacsha256Key);
+            Byte[] hashBytes;
+            using (HMACSHA256 hash = new HMACSHA256(keyBytes))
+            {
+                hashBytes = hash.ComputeHash(textBytes);
+            }
+            var oldPassword = Convert.ToBase64String(hashBytes);
+
+            var teacher = _context.Teachers.FirstOrDefault(x => x.Id == id);
+            if (teacher.Password == oldPassword)
+            {
+                passwordCorrect = true;
+
+                textBytes = encoding.GetBytes(editPasswordDTO.NewPassword);
+                keyBytes = encoding.GetBytes(hmacsha256Key);
+                using (HMACSHA256 hash = new HMACSHA256(keyBytes))
+                {
+                    hashBytes = hash.ComputeHash(textBytes);
+                }
+                var newPassword = Convert.ToBase64String(hashBytes);
+
+                teacher.Password = newPassword;
+                await _context.SaveChangesAsync();
+            }
+            return passwordCorrect;
+        }
+
     }
 }

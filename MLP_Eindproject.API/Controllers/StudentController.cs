@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MLP_DbLibrary.DTO.LessonDTO;
 using MLP_DbLibrary.DTO.PersonDTO;
 using MLP_DbLibrary.DTO.RatingDTO;
+using MLP_DbLibrary.DTO.UserDTO;
 using MLP_DbLibrary.Models;
 using MLP_Eindproject.API.Services.Interfaces;
 using System;
@@ -76,6 +77,14 @@ namespace MLP_Eindproject.API.Controllers
             var responseStudentDTO = _mapper.Map<ResponseStudentDTO>(studentResponse);
             return Ok(responseStudentDTO);
         }
+        [HttpPut("UpdatePassword/{id}")]
+        public async Task<ActionResult> UpdatePassword(int id, [FromBody] EditPasswordDTO editPasswordDTO)
+        {
+            var studentResponse = await _studentService.UpdatePassword(id, editPasswordDTO);
+            if (studentResponse == false) { return BadRequest(); }
+            return Ok();
+        }
+
         [HttpPut("RateTeacher")]
         public async Task<ActionResult<ResponseLessonDTO>> RateTeacher([FromBody] GiveRatingDTO giveRatingDTO)
         {

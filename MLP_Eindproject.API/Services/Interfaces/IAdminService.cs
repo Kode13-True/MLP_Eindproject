@@ -1,4 +1,5 @@
 ﻿using MLP_DbLibrary.DTO.PersonDTO;
+using MLP_DbLibrary.DTO.UserDTO;
 using MLP_DbLibrary.Models;
 using System;
 using System.Collections.Generic;
@@ -20,5 +21,6 @@ namespace MLP_Eindproject.API.Services.Interfaces
         int[] GetNumberOfStyles();
         public int[] GetNumberOfInstruments();
         Task<bool> DeleteUserByAdmin(DeleteUserDTO deleteUserDTO);
+        Task<bool> UpdatePassword(int id, EditPasswordDTO editPasswordDTO);
     }
 }

@@ -13,6 +13,7 @@ namespace MLP_DbLibrary.Seeding
         static public void DatabaseSeeding(MLPDbContext db)
         {
             //password = test1234
+            //password = test voor id = 2,9,17
 
             db.Database.EnsureCreated();
             if (!db.Admins.Any())
