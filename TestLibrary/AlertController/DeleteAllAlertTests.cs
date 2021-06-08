@@ -12,10 +12,10 @@ using System.Threading.Tasks;
 namespace MLP_TestLibrary.AlertController
 {
     [TestFixture]
-    public class DeleteAlertTests
+    class DeleteAllAlertTests
     {
-        [TestCase(7)]
-        public void Delete_Alert_Succeeds(int id)
+        [TestCase]
+        public void DeleteAlertsById_Succeeds()
         {
             //Arrange
             using (var scope = TestFixture.ServiceProvider.CreateScope())
@@ -23,24 +23,34 @@ namespace MLP_TestLibrary.AlertController
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
                 SeedData.DatabaseSeeding(db);
+
+                var alert1 = new Alert() { AlertType = AlertType.Booked, DOC = DateTime.Now, Message = "", PersonId = 5 };
+                db.Add(alert1);
+                var alert2 = new Alert() { AlertType = AlertType.Booked, DOC = DateTime.Now, Message = "", PersonId = 5 };
+                db.Add(alert2);
+                var alert3 = new Alert() { AlertType = AlertType.Booked, DOC = DateTime.Now, Message = "", PersonId = 5 };
+                db.Add(alert3);
+                var alert4 = new Alert() { AlertType = AlertType.Booked, DOC = DateTime.Now, Message = "", PersonId = 5 };
+                db.Add(alert4);
+                db.SaveChanges();
             }
 
             //Act
-            var response = TestFixture.Client.DeleteAsync($"api/Alert/Delete/{id}").Result;
+            var response = TestFixture.Client.DeleteAsync($"api/Alert/DeleteAll/5").Result;
 
-            Alert alert;
+            List<Alert> alert;
             using (var scope = TestFixture.ServiceProvider.CreateScope())
             {
                 var scopedServices = scope.ServiceProvider;
                 var db = scopedServices.GetRequiredService<MLPDbContext>();
-                alert = db.Alerts.Where(x => x.Id == id).FirstOrDefault();
+                alert = db.Alerts.Where(x => x.PersonId == 5).ToList();
             }
             //Assert
 
             Assert.Multiple(() =>
             {
                 Assert.That(response.IsSuccessStatusCode, "Statuscode");
-                Assert.That(alert is null, "Alerts deleted in Db");
+                Assert.That(alert.Count is 0, "Alerts deleted in db");
             });
         }
     }

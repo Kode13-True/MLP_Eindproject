@@ -65,5 +65,15 @@ namespace MLP_Eindproject.API.Services
             var alerts = _context.Alerts.Where(x => x.PersonId == admin.Id).ToList();
             return alerts;
         }
+
+        public async Task DeleteAllALertsById(int id)
+        {
+            var alerts = _context.Alerts.Where(x => x.PersonId == id).ToList();
+            foreach (var alert in alerts)
+            {
+                _context.Remove(alert);
+            }
+            await _context.SaveChangesAsync();
+        }
     }
 }

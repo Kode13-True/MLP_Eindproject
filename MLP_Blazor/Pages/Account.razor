@@ -1,10 +1,11 @@
-﻿@page "/Account"
+@page "/Account"
 
 @inject HttpClient Client
 @inject AuthenticationStateProvider AuthStateProvider
 @inject IMapper _mapper
 @inject ILocalStorageService LocalStorageService
 @inject NavigationManager NavManager
+
 
     <CascadingAuthenticationState>
         <div class="container-fluid p-5">
@@ -101,7 +102,6 @@
                                 </div>
                             </div>
                         </div>
-
                     }
 
                 </Authorized>
@@ -238,15 +238,10 @@
                         </table>
                     }
                 </Authorized>
-                <NotAuthorized>
-
-                </NotAuthorized>
             </AuthorizeView>
 
         </div>
     </CascadingAuthenticationState>
-
-
 
 @code {
 
@@ -282,7 +277,7 @@
             var persontype = user.Role.ToString();
             var personId = user.Id;
 
-            if(user.Role is PersonType.Admin)
+            if (user.Role is PersonType.Admin)
             {
                 var alertsResponse = await Client.GetFromJsonAsync<List<ResponseAlertDTO>>("https://localhost:44397/api/alert/GetReportsByAdmin");
                 if (alertsResponse.Count != 0)
@@ -314,12 +309,12 @@
                 var lessonsDTO = await Client.GetFromJsonAsync<List<ResponseLessonDTO>>("https://localhost:44397/api/Lesson/GetAllTeacherLessons/" + personId);
 
                 teacher = _mapper.Map<ResponseTeacherVM>(teacherDTO);
-                if(teacher.Rating == "0")
+                if (teacher.Rating == "0")
                 {
                     teacher.Rating = "N/A";
                 }
                 var teacherLessons = _mapper.Map<List<ResponseLessonVM>>(lessonsDTO);
-                foreach(var lesson in teacherLessons)
+                foreach (var lesson in teacherLessons)
                 {
                     if (lesson.Stop > DateTime.Now)
                     {
