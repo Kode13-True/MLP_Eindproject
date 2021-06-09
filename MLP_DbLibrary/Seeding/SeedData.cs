@@ -20,21 +20,32 @@ namespace MLP_DbLibrary.Seeding
                 if (!db.Admins.Any())
                 {
                     db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "keith@mub", FirstName = "Keith", LastName = "Voorhelst", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=" });
-                    db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "Ko@mub", FirstName = "Ko", LastName = "De Schepper", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=" });
+                    db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "ko@mub", FirstName = "Ko", LastName = "De Schepper", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=" });
                     db.SaveChanges();
                 }
-                if (!db.Teachers.Any())
+                if (!db.Teachers.Any()) //20 waarvan 5 met lessen
                 {
 
                 }
-                if (!db.Students.Any())
+                if (!db.Students.Any()) //20
                 {
 
                 }
-                if (!db.Locations.Any())
+                if (!db.Locations.Any()) //5 voor de lessen
                 {
 
-                }               
+                }
+                /*  type lessons: 40
+                        Unbooked lessons future: start: add(x<24) not deletable: 5
+                        Unbooked lessons future: start: add(x>24) deletable: 5
+                        Unbooked lessons future: start: add(x>48) book to cancel: 5
+                        Booked lessons future: start: add(x<48) uncancelable: 5
+                        Booked lessons future: start: add(x>48) cancelable: 5
+                        
+                        Unbooked lessons passed: stop: add(x<0) reference: 5
+                        booked lessons passed: stop: add(x<0) Rating: 5
+                        booked lessons passed: stop: add(x<0) Rated:  5              
+                 */
                 if (!db.Lessons.Any())
                 {
 
