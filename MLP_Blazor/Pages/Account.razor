@@ -112,23 +112,30 @@
                     @if (@context.User.IsInRole("Admin"))
                     {
 
-                        <div class="container">
-                            <table class="table table-succes table-striped table-hover mx-4" style="width: 75rem;">
-                                <thead>
-                                    <tr>
-                                        <th><div class="d-block">Reports</div></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var alert in alerts)
-                                    {
-                                        <tr @onclick="() => GoDeleteUser(alert.Id)">
-                                            <td><div class="d-block">@alert.Message</div></td>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-8">
+                                <table class="table table-succes table-striped table-hover mx-4">
+                                    <thead>
+                                        <tr>
+                                            <th><div class="d-block">Reports</div></th>
                                         </tr>
-                                    }
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var alert in alerts)
+                                        {
+                                            <tr @onclick="() => GoDeleteUser(alert.Id)">
+                                                <td><div class="d-block">@alert.Message</div></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-2"></div>
                         </div>
+                        
+                    </div>
                         <hr class="my-4">
 
                         <AdminStats />
