@@ -38,7 +38,7 @@ namespace MLP_DbLibrary.VM.LessonVM
         public DateTime Stop { get; set; }
         [Required(ErrorMessage = "Price is required!")]
         [RegularExpression(@"^(0|-?\d{0,16}(\,\d{0,2})?)$", ErrorMessage = "The price can maximally have two decimals!")]
-        [Range(0, 9999999999999999.99)]
+        [Range(0, 999.99)]
         public decimal Price { get; set; }
         [Required]
         public LessonLevel LessonLevel { get; set; }

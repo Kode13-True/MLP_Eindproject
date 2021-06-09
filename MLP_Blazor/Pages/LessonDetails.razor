@@ -145,9 +145,17 @@
             }
             if (user.Role.Equals(PersonType.Admin))
             {
-                hiddenCancelButton = false;
-                hiddenEditButton = false;
-                hiddenDeleteButton = false;
+                if (lesson.Start > DateTime.Now.AddHours(48)) { hiddenCancelButton = false; }
+                if (lesson.StudentId is null)
+                {
+                    hiddenEditButton = false;
+                    hiddenDeleteButton = false;
+                }
+                else if (lesson.Start > DateTime.Now.AddHours(24))
+                {
+                    hiddenDeleteButton = false;
+                }
+
             }
         }
 

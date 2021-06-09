@@ -107,6 +107,7 @@
     public async void ProceedDelete()
     {
         await Authentication();
+        hiddenDeleteMessage = true;
         if(deleteUserDTO.Id != 1)
         {
             if(deleteUserDTO.PersonType == PersonType.Admin)
