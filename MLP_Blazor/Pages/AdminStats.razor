@@ -227,8 +227,8 @@
 
                 futureLessonCountArray = await Client.GetFromJsonAsync<int[]>("https://localhost:44397/api/Admin/GetLessonNumbers");
                 futureLessonCount = futureLessonCountArray[0];
-                futureBookedLessonCount = futureLessonCountArray[1];
-                futureUnbookedLessonCount = futureLessonCountArray[2];
+                futureUnbookedLessonCount = futureLessonCountArray[1];
+                futureBookedLessonCount = futureLessonCountArray[2];
                 if (futureLessonCount != 0)
                 {
                     futureBookedLessonProgress = (100.0 * futureBookedLessonCount / futureLessonCount).ToString("0");
@@ -304,7 +304,7 @@
                 var clarinetCount = instrumentCountArray[8];
                 var trumpetCount = instrumentCountArray[9];
                 var harpCount = instrumentCountArray[10];
-                if(instrumentTotal != 0) 
+                if(instrumentTotal != 0)
                 {
                     vocalsProgress = (100.0 * vocalsCount / instrumentTotal).ToString("0");
                     pianoProgress = (100.0 * pianoCount / instrumentTotal).ToString("0");

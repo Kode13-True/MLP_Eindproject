@@ -126,6 +126,11 @@ namespace MLP_Eindproject.API.Services
                 }
                 var student = _context.Students.Find(deleteUserDTO.Id);
                 _context.Students.Remove(student);
+                var alertsList = _context.Alerts.Where(x => x.Message.Contains($"User {deleteUserDTO.Id}")).ToList();
+                foreach (var alert in alertsList)
+                {
+                    _context.Alerts.Remove(alert);
+                }
                 await _context.SaveChangesAsync();
                 succeeds = true;
 
@@ -146,6 +151,11 @@ namespace MLP_Eindproject.API.Services
 
                 var teacher = _context.Teachers.Find(deleteUserDTO.Id);
                 _context.Teachers.Remove(teacher);
+                var alertsList = _context.Alerts.Where(x => x.Message.Contains($"User {deleteUserDTO.Id}")).ToList();
+                foreach (var alert in alertsList)
+                {
+                    _context.Alerts.Remove(alert);
+                }
                 await _context.SaveChangesAsync();
                 succeeds = true;
             }
