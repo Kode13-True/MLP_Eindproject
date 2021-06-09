@@ -79,7 +79,7 @@ namespace MLP_Eindproject.API.Controllers
         {
             if (createLessonDTO is null)
             {
-                throw new ArgumentNullException(nameof(createLessonDTO));
+                return BadRequest();
             }
 
             var lessonToCreate = _mapper.Map<Lesson>(createLessonDTO);
@@ -94,7 +94,7 @@ namespace MLP_Eindproject.API.Controllers
         {
             if (editLessonDTO is null)
             {
-                throw new ArgumentNullException(nameof(editLessonDTO));
+                return BadRequest();
             }
 
             var responseLesson = await _lessonService.UpdateLessonByTeacherId(lessonId, editLessonDTO);

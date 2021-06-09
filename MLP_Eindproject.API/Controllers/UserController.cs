@@ -48,6 +48,10 @@ namespace MLP_Eindproject.API.Controllers
         [HttpPost("LogIn")]
         public async Task<ActionResult<string>> LogIn(LoginUserDTO loginUserDTO)
         {
+            if (loginUserDTO is null)
+            {
+                return BadRequest();
+            }
             //var encryptedEmail = _userService.HashForRegistrationAndLogin(loginUserDTO.Email); ;
             var encryptedPassword = _userService.HashForRegistrationAndLogin(loginUserDTO.Password);
             var user = _userService.GetUserFromDb(loginUserDTO.Email, encryptedPassword);
@@ -93,6 +97,11 @@ namespace MLP_Eindproject.API.Controllers
         [HttpPost("LogOut")]
         public async Task<ActionResult> LogOut(string token)
         {
+            if (token is null)
+            {
+                return BadRequest();
+            }
+
             await _userService.LogUserOut(token);
             return Ok("user is logged out");
         }

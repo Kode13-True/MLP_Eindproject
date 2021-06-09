@@ -72,12 +72,7 @@ namespace MLP_Eindproject.API.Services
         }
 
         public async Task<Lesson> GiveRating(GiveRatingDTO giveRatingDTO)
-        {
-            if (giveRatingDTO is null)
-            {
-                throw new ArgumentNullException(nameof(giveRatingDTO));
-            }
-
+        {          
             var teacher = _context.Teachers.Find(giveRatingDTO.TeacherId);
             if(teacher is not null)
             {
@@ -105,10 +100,6 @@ namespace MLP_Eindproject.API.Services
 
         public async Task<bool> UpdatePassword(int id, EditPasswordDTO editPasswordDTO)
         {
-            if (editPasswordDTO is null)
-            {
-                throw new ArgumentNullException(nameof(editPasswordDTO));
-            }
             bool passwordCorrect = false;
             var encoding = new ASCIIEncoding();
 

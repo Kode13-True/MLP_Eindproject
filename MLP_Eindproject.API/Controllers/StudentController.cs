@@ -32,7 +32,7 @@ namespace MLP_Eindproject.API.Controllers
         {
             if (createStudentDTO is null)
             {
-                throw new ArgumentNullException(nameof(createStudentDTO));
+                return BadRequest();
             }
 
             var newStudent = _mapper.Map<Student>(createStudentDTO);
@@ -69,7 +69,7 @@ namespace MLP_Eindproject.API.Controllers
         {
             if (editStudentDTO is null)
             {
-                throw new ArgumentNullException(nameof(editStudentDTO));
+                return BadRequest();
             }
 
             var student = _mapper.Map<Student>(editStudentDTO);
@@ -80,6 +80,11 @@ namespace MLP_Eindproject.API.Controllers
         [HttpPut("UpdatePassword/{id}")]
         public async Task<ActionResult> UpdatePassword(int id, [FromBody] EditPasswordDTO editPasswordDTO)
         {
+            if (editPasswordDTO is null)
+            {
+                return BadRequest();
+            }
+
             var studentResponse = await _studentService.UpdatePassword(id, editPasswordDTO);
             if (studentResponse == false) { return BadRequest(); }
             return Ok();
@@ -90,7 +95,7 @@ namespace MLP_Eindproject.API.Controllers
         {
             if (giveRatingDTO is null)
             {
-                throw new ArgumentNullException(nameof(giveRatingDTO));
+                return BadRequest();
             }
 
             var completedLesson = await _studentService.GiveRating(giveRatingDTO);

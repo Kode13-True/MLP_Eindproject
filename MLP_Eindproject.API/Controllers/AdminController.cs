@@ -28,7 +28,12 @@ namespace MLP_Eindproject.API.Controllers
         [HttpPost("Create")]
             public async Task<ActionResult<Admin>> CreateAdmin(CreateAdminDTO createAdminDTO)
             {
-                var newAdmin = _mapper.Map<Admin>(createAdminDTO);
+            if (createAdminDTO is null)
+            {
+                return BadRequest();
+            }
+
+            var newAdmin = _mapper.Map<Admin>(createAdminDTO);
                 var admin = await _adminService.CreateAdmin(newAdmin);
                 return Ok(admin);
             }
@@ -96,6 +101,11 @@ namespace MLP_Eindproject.API.Controllers
         [HttpPut("Update/{id}")]
         public async Task<ActionResult<ResponseAdminDTO>> Update(int id, [FromBody] EditAdminDTO editAdminDTO)
         {
+            if (editAdminDTO is null)
+            {
+                return BadRequest();
+            }
+
             var admin = _mapper.Map<Admin>(editAdminDTO);
             var adminResponse = await _adminService.UpdateAdminById(id, admin);
             var responseAdminDTO = _mapper.Map<ResponseAdminDTO>(adminResponse);
@@ -104,6 +114,11 @@ namespace MLP_Eindproject.API.Controllers
         [HttpPut("UpdatePassword/{id}")]
         public async Task<ActionResult> UpdatePassword(int id, [FromBody] EditPasswordDTO editPasswordDTO)
         {
+            if (editPasswordDTO is null)
+            {
+                return BadRequest();
+            }
+
             var adminResponse = await _adminService.UpdatePassword(id, editPasswordDTO);
             if(adminResponse == false) { return BadRequest(); }
             return Ok();
@@ -120,6 +135,10 @@ namespace MLP_Eindproject.API.Controllers
         [HttpPut("DeleteUser")]
         public async Task<ActionResult> DeletUserByAdmin(DeleteUserDTO deleteUserDTO)
         {
+            if (deleteUserDTO is null)
+            {
+                return BadRequest();
+            }
             bool deleteSucceed = await _adminService.DeleteUserByAdmin(deleteUserDTO);
             if(deleteSucceed is false) { return BadRequest(); }
             return Ok();
