@@ -30,6 +30,10 @@ namespace MLP_Eindproject.API.Controllers
         [HttpPost("Create/{lessonId}")]
         public async Task<ActionResult<CreateInstrumentDTO>> CreateNewInstrument(int lessonId, [FromBody] CreateInstrumentDTO createInstrumentDTO)
         {
+            if (createInstrumentDTO is null)
+            {
+                return BadRequest();
+            }
             var newInstrument = _mapper.Map<Instrument>(createInstrumentDTO);
             var instrument = await _instrumentService.CreateInstrument(newInstrument, lessonId);
             var instrumentDTO = _mapper.Map<ResponseInstrumentDTO>(instrument);

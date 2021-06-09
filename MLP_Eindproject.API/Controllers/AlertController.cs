@@ -29,6 +29,11 @@ namespace MLP_Eindproject.API.Controllers
         [HttpPost("Create")]
         public async Task<ActionResult<CreateAlertDTO>> CreateNewAlert([FromBody] CreateAlertDTO createAlertDTO)
         {
+            if (createAlertDTO is null)
+            {
+                return BadRequest();
+            }
+
             var newAlert = _mapper.Map<Alert>(createAlertDTO);
             var alert = await _alertService.CreateAlert(newAlert);
             if(alert == null) { return BadRequest(); }
@@ -39,6 +44,11 @@ namespace MLP_Eindproject.API.Controllers
         [HttpPost("Report")]
         public async Task<ActionResult<CreateReportDTO>> ReportUserToAdmin([FromBody] CreateReportDTO createReportDTO)
         {
+            if (createReportDTO is null)
+            {
+                return BadRequest();
+            }
+
             var newAlert = new Alert() { AlertType = AlertType.Report, Message = createReportDTO.Message };
             var alert = await _alertService.ReportUser(newAlert);
             if(alert == null) { return BadRequest(); }

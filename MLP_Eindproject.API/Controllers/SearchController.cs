@@ -27,8 +27,13 @@ namespace MLP_Eindproject.API.Controllers
         }
         // POST: api/<SearchController> 
         [HttpPost ("SearchLessons")]
-        public ActionResult<List<ResponseLessonDTO>> SearchLessons (SearchLessonDTO searchLessonDTO)
+        public ActionResult<List<ResponseLessonDTO>> SearchLessons([FromBody]SearchLessonDTO searchLessonDTO)
         {
+            if (searchLessonDTO is null)
+            {
+                return BadRequest();
+            }
+
             var searchLessonsDTO = new List<ResponseLessonDTO>();
             var searchedLessons = _searchService.SearchLessons(searchLessonDTO.InstrumentName, searchLessonDTO.InstrumentStyle, searchLessonDTO.Price,searchLessonDTO.Postal,searchLessonDTO.TeacherName);
             foreach (var l in searchedLessons)

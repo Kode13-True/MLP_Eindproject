@@ -29,6 +29,11 @@ namespace MLP_Eindproject.API.Controllers
         [HttpPost("Create")]
         public async Task<ActionResult<ResponseTeacherDTO>> CreateNewTeacher(CreateTeacherDTO createTeacherDTO)
         {
+            if (createTeacherDTO is null)
+            {
+                return BadRequest();
+            }
+
             var newTeacher = _mapper.Map<Teacher>(createTeacherDTO);
             var teacher = await _teacherService.CreateTeacher(newTeacher);
             var teacherDTO = _mapper.Map<ResponseTeacherDTO>(teacher);
@@ -61,6 +66,11 @@ namespace MLP_Eindproject.API.Controllers
         [HttpPut("Update/{id}")]
         public async Task<ActionResult<ResponseTeacherDTO>> Update(int id, [FromBody] EditTeacherDTO editTeacherDTO)
         {
+            if (editTeacherDTO is null)
+            {
+                return BadRequest();
+            }
+
             var teacher = _mapper.Map<Teacher>(editTeacherDTO);
             var teacherResponse = await _teacherService.UpdateTeacherById(id, teacher);
             var responseTeacherDTO = _mapper.Map<ResponseTeacherDTO>(teacherResponse);
@@ -70,6 +80,11 @@ namespace MLP_Eindproject.API.Controllers
         [HttpPut("UpdatePassword/{id}")]
         public async Task<ActionResult> UpdatePassword(int id, [FromBody] EditPasswordDTO editPasswordDTO)
         {
+            if (editPasswordDTO is null)
+            {
+                return BadRequest();
+            }
+
             var studentResponse = await _teacherService.UpdatePassword(id, editPasswordDTO);
             if (studentResponse == false) { return BadRequest(); }
             return Ok();

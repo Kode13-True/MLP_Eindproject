@@ -90,7 +90,6 @@ namespace MLP_Eindproject.API.Services
             {
                 throw new ArgumentNullException(nameof(token));
             }
-
             
             var encoding = new ASCIIEncoding();
 

@@ -75,11 +75,7 @@ namespace MLP_Eindproject.API.Services
         }
 
         public async Task<bool> UpdatePassword(int id, EditPasswordDTO editPasswordDTO)
-        {
-            if (editPasswordDTO is null)
-            {
-                throw new ArgumentNullException(nameof(editPasswordDTO));
-            }
+        {            
             bool passwordCorrect = false;
             var encoding = new ASCIIEncoding();
 

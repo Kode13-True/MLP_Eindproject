@@ -57,7 +57,7 @@ namespace MLP_Eindproject.API.Controllers
         {
             if (createLocationDTO is null)
             {
-                throw new ArgumentNullException(nameof(createLocationDTO));
+                return BadRequest();
             }
             var location = _mapper.Map<Location>(createLocationDTO);
             var locationResponse = await _locationService.CreateLocation(location);
@@ -70,7 +70,7 @@ namespace MLP_Eindproject.API.Controllers
         {
             if (createLocationDTO is null)
             {
-                throw new ArgumentNullException(nameof(createLocationDTO));
+                return BadRequest();
             }
 
             var location = _mapper.Map<Location>(createLocationDTO);
