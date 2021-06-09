@@ -25,6 +25,229 @@ namespace MLP_DbLibrary.Seeding
                 }
                 if (!db.Teachers.Any()) //20 waarvan 5 met lessen
                 {
+                    db.Teachers.Add(new Teacher
+                    {
+                        DOC = DateTime.Now.AddDays(-150.2),
+                        Email = "nico.duquesne@hotmail.com",
+                        Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
+                        FirstName = "Nico",
+                        LastName = "Duquesne",
+                        Description = "Nico Duquesne is a professional Guitarist and Singer-Songwriter. He has been teaching music to students of all ages, privately and in groups, since 1997.  After graduating from William Paterson University with a Bachelors Degree in Jazz Performance , Matt spent 10 years in New York City working as a freelance musician and operating the Macaulay Guitar Studio. With a comprehensive background in Jazz, Classical and Rock guitar as well as electric bass, piano, arranging and voice, Matt is uniquely qualified to teach students of all ages and levels.   He has also released three albums of original songs under his own name.",
+                        Rating = 4.4,
+                        RatingCount = 5
+                    });
+                    db.Teachers.Add(new Teacher
+                    {
+                        DOC = DateTime.Now.AddDays(-548.7),
+                        Email = "pianolove74@gmail.com",
+                        Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
+                        FirstName = "Debbie",
+                        LastName = "Pollet",
+                        Description = "I have been teaching private music lessons for over 20 years. Having studied under some amazing professionals throughout primary and secondary school, and then at Ohio University, I learned the value of positive reinforcement in music education. No two students are the same - nor do they learn the same way or at the same pace.  Therefore, I make no comparisons from student to student. I structure each student’s program to his/her specific needs and talents. I believe in a well-rounded approach that includes music theory.",
+                        Rating = 4.2,
+                        RatingCount = 8
+                    });
+                    db.Teachers.Add(new Teacher
+                    {
+                        DOC = DateTime.Now.AddDays(-748.3),
+                        Email = "jvc_music@yahoo.com",
+                        Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
+                        FirstName = "Janne",
+                        LastName = "Van Crudsem",
+                        Description = "Janne is a graduate of the University of Northern Iowa's instrumental music education program and is an inductee of Pi Kappa Lambda, the national music education honor society. Currently, she maintains a private lesson studio in the Twin Cities and coaches rockers of all ages at She Rock She Rock summer camps.",
+                        Rating = 3.8,
+                        RatingCount = 1
+                    });
+                    db.Teachers.Add(new Teacher
+                    {
+                        DOC = DateTime.Now.AddDays(-353.2),
+                        Email = "timmermansgilles@gmail.com",
+                        Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
+                        FirstName = "Gilles",
+                        LastName = "Timmermans",
+                        Description = "guitar, piano, ukulele, voice, banjo, songwriting.  Gilles graduated Cum Laude from Berklee College of Music as a guitar principle with a B.A. in Songwriting.  He plays and teaches rock, jazz, blues, classical, pop, folk, bluegrass and other traditional music genres. A guitarist, pianist, songwriter, and multi-instrumentalist who has been teaching for 10 years, his specialities include classical guitar, acoustic guitar, electric guitar, piano, ukulele, voice, banjo, and songwriting.  Teaching all ages and all levels",
+                        Rating = 4.0,
+                        RatingCount = 7
+                    });
+                    db.Teachers.Add(new Teacher
+                    {
+                        DOC = DateTime.Now.AddDays(-642.6),
+                        Email = "frenson@yahoo.com",
+                        Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
+                        FirstName = "Felix",
+                        LastName = "Renson",
+                        Description = "Electric guitar player, composer and producer (Shwesmo, HAGO, Distorted Harmony), Conservatorium(Antwerp) graduate (Summa Cum Laude) Felix Renson is known for blending musical styles such as Progressive Metal, Jazz, Fusion, Electronic and Middle Eastern music.",
+                        Rating = 4.8,
+                        RatingCount = 8
+                    });
+                    db.Teachers.Add(new Teacher
+                    {
+                        DOC = DateTime.Now.AddDays(-320.6),
+                        Email = "kareldminor@google.com",
+                        Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
+                        FirstName = "Karel",
+                        LastName = "Deramoudt",
+                        Description = "An active musician for the past 19 years, Karel has been teaching  Guitar and Music Theory privately for the past 8. After earning a Masters Degree in Ethnomusicology from the University of Ghent",
+                        Rating = 3.7,
+                        RatingCount = 5
+                    });
+                    db.Teachers.Add(new Teacher
+                    {
+                        DOC = DateTime.Now.AddDays(-603.0),
+                        Email = "lydie.de.wolf@gmail.com",
+                        Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
+                        FirstName = "Lydie",
+                        LastName = "De Wolf",
+                        Description = "vocals, piano, violin, fluit, trumpet, you name it, I teach it",
+                        Rating = 4.0,
+                        RatingCount = 10
+                    });
+                    db.Teachers.Add(new Teacher
+                    {
+                        DOC = DateTime.Now.AddDays(-159.9),
+                        Email = "liza@marissens.be",
+                        Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
+                        FirstName = "Liza",
+                        LastName = "Marissens",
+                        Description = "Artist Development, Voice, Singing, Musical Theatre, Pop Voice, Singing for Actors, Audition Prep, Country Voice, Jazz Voice, Opera, Classical Voice, Audition Prep from Broadway Performer, Stage Training, Audition Prep for Actors, College Audition Prep, College Audition Prep for Actors, Music Theory, R&B Voice, Rock Voice, Self Taping for Actors, Self Taping for Musical Theatre",
+                        Rating = 3.2,
+                        RatingCount = 4
+                    });
+                    db.Teachers.Add(new Teacher
+                    {
+                        DOC = DateTime.Now.AddDays(-412.2),
+                        Email = "efe007@pandora.be",
+                        Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
+                        FirstName = "Efe",
+                        LastName = "Sparks",
+                        Description = "Metal, Jazz, Fusion, Electronic and Middle Eastern music.",
+                        Rating = 4.6,
+                        RatingCount = 9
+                    });
+                    db.Teachers.Add(new Teacher
+                    {
+                        DOC = DateTime.Now.AddDays(-20),
+                        Email = "pacer@hotmail.com",
+                        Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
+                        FirstName = "Anisha",
+                        LastName = "Pace",
+                        Description = "Voice, Singing, Ukulele, Acoustic Guitar, Musical Theatre, Classical Voice, Rock Voice, Music Theory, Recorder, Pop Voice, Singing for Actors, Country Voice, Guitar, Opera",
+                        Rating = 3.2,
+                        RatingCount = 3
+                    });
+                    db.Teachers.Add(new Teacher
+                    {
+                        DOC = DateTime.Now.AddDays(-90.7),
+                        Email = "naturalmystic@pandora.be",
+                        Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
+                        FirstName = "Blake",
+                        LastName = "Flynn",
+                        Description = "Born and Raised in Jamaica, Reggae is flowing threw my vaines",
+                        Rating = 4.5,
+                        RatingCount = 2
+                    });
+                    db.Teachers.Add(new Teacher
+                    {
+                        DOC = DateTime.Now.AddDays(-270.9),
+                        Email = "cecil@belgacom.be",
+                        Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
+                        FirstName = "Cecil",
+                        LastName = "Decker",
+                        Description = "Piano, flute, harp teacher for 20 years",
+                        Rating = 4.5,
+                        RatingCount = 3
+                    });
+                    db.Teachers.Add(new Teacher
+                    {
+                        DOC = DateTime.Now.AddDays(-95.2),
+                        Email = "kieren.maynard@hotmail.com",
+                        Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
+                        FirstName = "Kieren",
+                        LastName = "Maynard",
+                        Description = "Metal, Jazz, Fusion, Electronic and Middle Eastern music.",
+                        Rating = 2.4,
+                        RatingCount = 1
+                    });
+                    db.Teachers.Add(new Teacher
+                    {
+                        DOC = DateTime.Now.AddDays(-40.4),
+                        Email = "musicislife@gmail.com",
+                        Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
+                        FirstName = "Clarisse",
+                        LastName = "Maynard",
+                        Description = "I am an experienced music teacher of piano and voice for over 12 years with a degree in music",
+                        Rating = 3.5,
+                        RatingCount = 15
+                    });
+                    db.Teachers.Add(new Teacher
+                    {
+                        DOC = DateTime.Now.AddDays(-172.4),
+                        Email = "smart.flora@jawadde.be",
+                        Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
+                        FirstName = "Flora",
+                        LastName = "Smart",
+                        Description = "is a fun, experienced, and patient teacher. She has taught over 13,000 lessons in various instruments to over 250 students in private lessons and small groups in person and online. Her students range from age 3 through adults. ",
+                        Rating = 4.0,
+                        RatingCount = 5
+                    });
+                    db.Teachers.Add(new Teacher
+                    {
+                        DOC = DateTime.Now.AddDays(-100),
+                        Email = "oamuziek@yahoo.com",
+                        Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
+                        FirstName = "Omer",
+                        LastName = "Aguirre",
+                        Description = "is a 26 year old father of 1 who has a passion for teaching and performing music. A Berklee College of Music Alumnus (class of 2017), Rich has spent much of the last few years teaching flute, saxophone, clarinet, and music theory lessons to students of all ages,",
+                        Rating = 4.1,
+                        RatingCount = 6
+                    });
+                    db.Teachers.Add(new Teacher
+                    {
+                        DOC = DateTime.Now.AddDays(-320.6),
+                        Email = "graham@google.com",
+                        Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
+                        FirstName = "Hailie",
+                        LastName = "Graham",
+                        Description = "Accepting new students for new availability for summer schedule beginning July!",
+                        Rating = 3.8,
+                        RatingCount = 2
+                    });
+                    db.Teachers.Add(new Teacher
+                    {
+                        DOC = DateTime.Now.AddDays(-58),
+                        Email = "a.guzman@gmail.com",
+                        Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
+                        FirstName = "Aniela",
+                        LastName = "Guzman",
+                        Description = "I have been playing music for 18 years over a variety of instruments including piano, bass guitar, vocals, kit, trumpet, flute, and many more.  I have recently finished my Music Degree with a specialization in Education. ",
+                        Rating = 3.1,
+                        RatingCount = 7
+                    });
+                    db.Teachers.Add(new Teacher
+                    {
+                        DOC = DateTime.Now.AddDays(-403.6),
+                        Email = "ryad.mercer@music.com",
+                        Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
+                        FirstName = "Ryad",
+                        LastName = "Mercer",
+                        Description = "Reggae, Rock, Fusion, Electronic and Middle Eastern music.",
+                        Rating = 4.7,
+                        RatingCount = 3
+                    });
+                    db.Teachers.Add(new Teacher
+                    {
+                        DOC = DateTime.Now.AddDays(-287.4),
+                        Email = "susan@vdh.be",
+                        Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=",
+                        FirstName = "Susan",
+                        LastName = "Van Den Heuvel",
+                        Description = "Welcome to my profile and I can't wait to make music together!",
+                        Rating = 3.9,
+                        RatingCount = 19
+                    });
+
+
+                    db.SaveChanges();
 
                 }
                 if (!db.Students.Any()) //20
@@ -33,7 +256,11 @@ namespace MLP_DbLibrary.Seeding
                 }
                 if (!db.Locations.Any()) //5 voor de lessen
                 {
-
+                    db.Locations.Add(new Location { Street = "Augustijnenstraat", Number = "5", Postal = "2800", Township = "Mechelen" });
+                    db.Locations.Add(new Location { Street = "Nationalestraat", Number = "127", Postal = "2000", Township = "Antwerpen" });
+                    db.Locations.Add(new Location { Street = "Perklaan", Number = "562", Postal = "1800", Township = "Vilvoorde" });
+                    db.Locations.Add(new Location { Street = "Turnhoutsebaan", Number = "286", Postal = "2140", Township = "Borgerhout" });
+                    db.Locations.Add(new Location { Street = "Duffelsesteenweg", Number = "101", Postal = "2550", Township = "Kontich" });
                 }
                 /*  type lessons: 40
                         Unbooked lessons future: start: add(x<24) not deletable: 5

@@ -10,3 +10,18 @@ $theme-colors: ( "primary":#1C3144, "secondary": #6c757d, "succes":#679289, "inf
         color: shade-color($color, 20%);
     }
 }
+$form-range-track-width: 100%;
+$form-range-track-height: .5rem;
+$form-range-track-cursor: pointer;
+$form-range-track-bg: #1C3144;
+$form-range-track-border-radius: 1rem;
+
+$form-range-thumb-width: 1rem;
+$form-range-thumb-height: $form-range-thumb-width;
+$form-range-thumb-bg: #679289;
+$form-range-thumb-border: 0;
+$form-range-thumb-border-radius: 1rem;
+$form-range-thumb-box-shadow: 0 .1rem .25rem rgba(#000, .1);
+$form-range-thumb-focus-box-shadow: 0 0 0 1px #E1E7F4;
+$form-range-thumb-active-bg: tint-color(#679289, 70%);
+$form-range-thumb-transition: background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
