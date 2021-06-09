@@ -13,7 +13,8 @@ namespace MLP_DbLibrary.Seeding
         public static bool IsTest;
         static public void DatabaseSeeding(MLPDbContext db)
         {
-            if(IsTest == false) 
+            //password = test1234
+            if (IsTest == false) 
             {
                 db.Database.EnsureCreated();                
                 if (!db.Admins.Any())
@@ -22,9 +23,37 @@ namespace MLP_DbLibrary.Seeding
                     db.Admins.Add(new Admin { DOC = DateTime.Now, Email = "Ko@mub", FirstName = "Ko", LastName = "De Schepper", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=" });
                     db.SaveChanges();
                 }
-            }
-           
+                if (!db.Teachers.Any())
+                {
+
+                }
+                if (!db.Students.Any())
+                {
+
+                }
+                if (!db.Locations.Any())
+                {
+
+                }               
+                if (!db.Lessons.Any())
+                {
+
+                }
+                if (!db.Instruments.Any())
+                {
+
+                }
+                if (!db.Alerts.Any())
+                {
+
+                }
+            }           
         }
+
+
+
+
+
         static public void TestDatabaseSeeding(MLPDbContext db)
         {
             //password = test1234
