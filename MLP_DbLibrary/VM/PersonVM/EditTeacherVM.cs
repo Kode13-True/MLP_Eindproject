@@ -19,7 +19,7 @@ namespace MLP_DbLibrary.VM.PersonVM
         [Required]
         [StringLength(25)] 
         public string LastName { get; set; }        
-        [StringLength(140)] 
+        [StringLength(655)] 
         public string Description { get; set; }
     }
 }

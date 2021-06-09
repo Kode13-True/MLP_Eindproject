@@ -36,7 +36,7 @@
                                 </li>
 
                             }
-                        <li class="nav-item float-end">
+                        <li class="nav-item">
                             @if (context.User.IsInRole("Admin"))
                             {
                                 <a class="nav-link text-dark" href="Account">Account</a>
@@ -51,16 +51,17 @@
 
 
                         </li>
-                            <li class="nav-item float-end">
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" style="cursor: pointer" @onclick="logout">Logout</a>
                             </li>
                         </Authorized>
                         <NotAuthorized>
-                            <li class="nav-item float-end">
-                                <a class="nav-link text-dark" href="/auth/register">Register</a>
-                            </li>
+                            
                             <li class="nav-item">
                                 <a class="nav-link text-dark" href="/auth/login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="/auth/register">Register</a>
                             </li>
                         </NotAuthorized>
                     </AuthorizeView>

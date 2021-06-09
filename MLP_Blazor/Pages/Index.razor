@@ -38,7 +38,7 @@
                         <div class="card-body align-content-center">
                             <h5 class="card-title text-center">@teacher.FirstName @teacher.LastName</h5>
                             <h6 class="card-title text-center">Mubster since : @teacher.DOC.ToShortDateString()</h6>
-                            <p class="card-text overflow-hidden" style="height: 4.5rem;">@teacher.Description</p>
+                            <p class="card-text overflow-hidden" style="height: 6rem;">@teacher.Description</p>
                             <p class="card-footer text-center">Rating = @teacher.Rating</p>
                             <a href="TeacherDetails/@teacher.Id" class="btn btn-succes w-100">More info</a>
                         </div>
@@ -58,8 +58,9 @@
         await Authentication();
 
         var teachersDTO = await Client.GetFromJsonAsync<List<ResponseTeacherDTO>>("https://localhost:44397/api/Teacher/GetAll");
-        if(teachersDTO.Count != 0) 
+        if (teachersDTO.Count != 0)
         {
+            int j = teachersDTO.Count();
             var allTeachers = _mapper.Map<List<ResponseTeacherVM>>(teachersDTO);
             var allOrderTeachers = allTeachers.OrderByDescending(x => x.Rating);
             Queue<ResponseTeacherVM> teacherQueue = new Queue<ResponseTeacherVM>();
@@ -67,12 +68,27 @@
             {
                 teacherQueue.Enqueue(teacher);
             }
-            for (int i = 0; i < 5; i++)
+            if (j < 5)
             {
-                teachers.Add(teacherQueue.Dequeue());
+                for (int i = 0; i < j; i++)
+                {
+                    teachers.Add(teacherQueue.Dequeue());
+                }
             }
+            else
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    teachers.Add(teacherQueue.Dequeue());
+                }
+            }
+
             foreach (var teacher in teachers)
             {
+                if (teacher.Rating is "0")
+                {
+                    teacher.Rating = "N/A";
+                }
                 if (teacher.Description is not null)
                 {
                     if (teacher.Description.Length > 65)

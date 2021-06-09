@@ -112,7 +112,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await Authentication();
+
 
         user = await LocalStorageService.GetItemAsync<LocalAuthUser>("User");
 
@@ -124,6 +124,7 @@
         }
         if (user is not null)
         {
+            await Authentication();
             if (lesson.StudentId == user.Id)
             {
                 if (lesson.Start > DateTime.Now.AddHours(48)) { hiddenCancelButton = false; }
