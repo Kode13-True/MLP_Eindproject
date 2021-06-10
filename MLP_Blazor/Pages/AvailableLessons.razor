@@ -138,9 +138,7 @@ else
         await Authentication();
 
         var lessons = await Client.GetFromJsonAsync<List<ResponseLessonDTO>>("https://localhost:44397/api/Lesson/GetAllUnbooked");
-
-        var allLessonsVM = Mapper.Map<List<ResponseLessonVM>>(lessons);
-
+        var allLessonsVM = Mapper.Map<List<ResponseLessonVM>>(lessons);        
         foreach (var lesson in allLessonsVM)
         {
             if (lesson.Start > DateTime.Now)
@@ -157,7 +155,7 @@ else
                 var price = Math.Floor(lesson.Price);
                 minValue = Convert.ToInt32(price);
             }
-        }
+        }        
     }
 
     public async void SearchLessons()
@@ -180,12 +178,12 @@ else
             var responseString = await responseSearch.Content.ReadAsStringAsync();
             var lessons = (List<ResponseLessonDTO>)JsonConvert.DeserializeObject(responseString, typeof(List<ResponseLessonDTO>));
             var allLessonsVM = Mapper.Map<List<ResponseLessonVM>>(lessons);
-
+            var lessonsTempVM = new List<ResponseLessonVM>();
             foreach (var lesson in allLessonsVM)
             {
                 if (lesson.Start > DateTime.Now)
                 {
-                    lessonsVM.Add(lesson);
+                    lessonsTempVM.Add(lesson);
                 }
                 if (lesson.Price > maxValue)
                 {
@@ -198,6 +196,7 @@ else
                     minValue = Convert.ToInt32(price);
                 }
             }
+            lessonsVM = lessonsTempVM.OrderBy(x => x.Start).ToList();
         }
         NotifyChangedState();
     }
