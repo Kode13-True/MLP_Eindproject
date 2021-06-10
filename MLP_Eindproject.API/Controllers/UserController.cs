@@ -96,11 +96,7 @@ namespace MLP_Eindproject.API.Controllers
         }
         [HttpPost("LogOut")]
         public async Task<ActionResult> LogOut(string token)
-        {
-            if (token is null)
-            {
-                return BadRequest();
-            }
+        {  
 
             await _userService.LogUserOut(token);
             return Ok("user is logged out");
