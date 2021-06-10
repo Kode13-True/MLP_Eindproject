@@ -511,6 +511,248 @@ namespace MLP_DbLibrary.Seeding
 
                     db.SaveChanges();
 
+                    //Booked lessons future: start: add(x > 48) cancelable: 5
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-125),
+                        Start = DateTime.Now.AddHours(220),
+                        Stop = DateTime.Now.AddHours(221),
+                        Price = 30,
+                        LessonLevel = LessonLevel.Intermediate,
+                        LocationId = 1,
+                        TeacherId = 3,
+                        Booked = DateTime.Now.AddHours(-75),
+                        StudentId = 23
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-124),
+                        Start = DateTime.Now.AddHours(340),
+                        Stop = DateTime.Now.AddHours(341),
+                        Price = 15,
+                        LessonLevel = LessonLevel.Novice,
+                        LocationId = 2,
+                        TeacherId = 4,
+                        Booked = DateTime.Now.AddHours(-55),
+                        StudentId = 24
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-123),
+                        Start = DateTime.Now.AddHours(280),
+                        Stop = DateTime.Now.AddHours(281),
+                        Price = 40,
+                        LessonLevel = LessonLevel.Expert,
+                        LocationId = 3,
+                        TeacherId = 5,
+                        Booked = DateTime.Now.AddHours(-22),
+                        StudentId = 25
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-122),
+                        Start = DateTime.Now.AddHours(265),
+                        Stop = DateTime.Now.AddHours(266),
+                        Price = 0,
+                        LessonLevel = LessonLevel.Intermediate,
+                        LocationId = 4,
+                        TeacherId = 6,
+                        Booked = DateTime.Now.AddHours(-37),
+                        StudentId = 23
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-121),
+                        Start = DateTime.Now.AddHours(210),
+                        Stop = DateTime.Now.AddHours(210.5),
+                        Price = 75,
+                        LessonLevel = LessonLevel.Expert,
+                        LocationId = 5,
+                        TeacherId = 7,
+                        Booked = DateTime.Now.AddHours(-44),
+                        StudentId = 25
+                    });
+
+                    //    Unbooked lessons passed: stop: add(x < 0) reference: 5
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddDays(-10),
+                        Start = DateTime.Now.AddHours(-120),
+                        Stop = DateTime.Now.AddHours(-119),
+                        Price = 10,
+                        LessonLevel = LessonLevel.Novice,
+                        LocationId = 1,
+                        TeacherId = 3
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddDays(-14),
+                        Start = DateTime.Now.AddHours(-140),
+                        Stop = DateTime.Now.AddHours(-139),
+                        Price = 25,
+                        LessonLevel = LessonLevel.Intermediate,
+                        LocationId = 2,
+                        TeacherId = 4
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddDays(-25),
+                        Start = DateTime.Now.AddHours(-160),
+                        Stop = DateTime.Now.AddHours(-159),
+                        Price = 25,
+                        LessonLevel = LessonLevel.Expert,
+                        LocationId = 3,
+                        TeacherId = 5
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddDays(-26),
+                        Start = DateTime.Now.AddHours(-145),
+                        Stop = DateTime.Now.AddHours(-144),
+                        Price = 19.99M,
+                        LessonLevel = LessonLevel.Novice,
+                        LocationId = 4,
+                        TeacherId = 6
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddDays(-15),
+                        Start = DateTime.Now.AddHours(-125),
+                        Stop = DateTime.Now.AddHours(-123),
+                        Price = 100,
+                        LessonLevel = LessonLevel.Expert,
+                        LocationId = 5,
+                        TeacherId = 7
+                    });
+                    //    booked lessons passed: stop: add(x < 0) Rating: 5
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddDays(-15),
+                        Start = DateTime.Now.AddDays(-10).AddHours(2),
+                        Stop = DateTime.Now.AddDays(-10).AddHours(3),
+                        Price = 0,
+                        LessonLevel = LessonLevel.Intermediate,
+                        LocationId = 1,
+                        TeacherId = 3,
+                        Booked = DateTime.Now.AddDays(-12).AddHours(5),
+                        StudentId = 23
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddDays(-17),
+                        Start = DateTime.Now.AddDays(-12).AddHours(2),
+                        Stop = DateTime.Now.AddDays(-12).AddHours(3),
+                        Price = 14,
+                        LessonLevel = LessonLevel.Novice,
+                        LocationId = 2,
+                        TeacherId = 4,
+                        Booked = DateTime.Now.AddDays(-14).AddHours(5),
+                        StudentId = 25
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddDays(-19),
+                        Start = DateTime.Now.AddDays(-14).AddHours(2),
+                        Stop = DateTime.Now.AddDays(-14).AddHours(3),
+                        Price = 24.99M,
+                        LessonLevel = LessonLevel.Expert,
+                        LocationId = 3,
+                        TeacherId = 5,
+                        Booked = DateTime.Now.AddDays(-16).AddHours(5),
+                        StudentId = 24
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddDays(-21),
+                        Start = DateTime.Now.AddDays(-16).AddHours(2),
+                        Stop = DateTime.Now.AddDays(-16).AddHours(3),
+                        Price = 30,
+                        LessonLevel = LessonLevel.Intermediate,
+                        LocationId = 4,
+                        TeacherId = 6,
+                        Booked = DateTime.Now.AddDays(-18).AddHours(5),
+                        StudentId = 23
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddDays(-23),
+                        Start = DateTime.Now.AddDays(-18).AddHours(2),
+                        Stop = DateTime.Now.AddDays(-18).AddHours(3),
+                        Price = 5,
+                        LessonLevel = LessonLevel.Novice,
+                        LocationId = 5,
+                        TeacherId = 7,
+                        Booked = DateTime.Now.AddDays(-20).AddHours(5),
+                        StudentId = 25
+                    });
+
+                    //    booked lessons passed: stop: add(x < 0) Rated: 5
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddDays(-15),
+                        Start = DateTime.Now.AddDays(-9).AddHours(2),
+                        Stop = DateTime.Now.AddDays(-9).AddHours(3),
+                        Price = 0,
+                        LessonLevel = LessonLevel.Intermediate,
+                        LocationId = 1,
+                        TeacherId = 3,
+                        Booked = DateTime.Now.AddDays(-10).AddHours(5),
+                        StudentId = 25,
+                        Completed = true
+                        
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddDays(-17),
+                        Start = DateTime.Now.AddDays(-11).AddHours(2),
+                        Stop = DateTime.Now.AddDays(-11).AddHours(3),
+                        Price = 19.99M,
+                        LessonLevel = LessonLevel.Novice,
+                        LocationId = 2,
+                        TeacherId = 4,
+                        Booked = DateTime.Now.AddDays(-12).AddHours(5),
+                        StudentId = 23,
+                        Completed = true
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddDays(-19),
+                        Start = DateTime.Now.AddDays(-13).AddHours(2),
+                        Stop = DateTime.Now.AddDays(-13).AddHours(3),
+                        Price = 24.99M,
+                        LessonLevel = LessonLevel.Expert,
+                        LocationId = 3,
+                        TeacherId = 5,
+                        Booked = DateTime.Now.AddDays(-14).AddHours(5),
+                        StudentId = 24,
+                        Completed = true
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddDays(-21),
+                        Start = DateTime.Now.AddDays(-17).AddHours(2),
+                        Stop = DateTime.Now.AddDays(-17).AddHours(3),
+                        Price = 35,
+                        LessonLevel = LessonLevel.Intermediate,
+                        LocationId = 4,
+                        TeacherId = 6,
+                        Booked = DateTime.Now.AddDays(-18).AddHours(5),
+                        StudentId = 24,
+                        Completed = true
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddDays(-23),
+                        Start = DateTime.Now.AddDays(-18).AddHours(2),
+                        Stop = DateTime.Now.AddDays(-18).AddHours(3),
+                        Price = 5,
+                        LessonLevel = LessonLevel.Novice,
+                        LocationId = 5,
+                        TeacherId = 7,
+                        Booked = DateTime.Now.AddDays(-19).AddHours(5),
+                        StudentId = 25,
+                        Completed = true
+                    });
                 }
                 if (!db.Instruments.Any())
                 {
