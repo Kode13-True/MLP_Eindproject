@@ -30,5 +30,6 @@ namespace MLP_DbLibrary.VM.LessonVM
         public string StudentLastName { get; set; }
         public LessonLevel LessonLevel { get; set; }
         public bool Completed { get; set; }
+        public string Rated { get; set; }
     }
 }

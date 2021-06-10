@@ -203,10 +203,11 @@
                                     <th><div class="d-none d-md-block">Start</div></th>
                                     <th><div class="d-none d-md-block">End</div></th>
                                     <th><div class="d-none d-md-block">Teacher</div></th>
+                                    <th><div class="d-none d-md-block">Rated</div></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td colspan="8" style="cursor:default">Upcoming Lessons</td></tr>
+                                <tr><td colspan="9" style="cursor:default">Upcoming Lessons</td></tr>
                                 @foreach (var lesson in studentFutureLessons)
                                 {
                                     <tr @onclick="() => LessonDetails(lesson.Id)">
@@ -218,11 +219,12 @@
                                         <td><div class="d-none d-md-block">@lesson.Start.ToShortTimeString()</div></td>
                                         <td><div class="d-none d-md-block">@lesson.Stop.ToShortTimeString()</div></td>
                                         <td><div class="d-none d-md-block">@lesson.TeacherFirstName @lesson.TeacherLastName</div></td>
+                                        <td><div class="d-none d-md-block">N/A</div></td>
                                     </tr>
                                 }
                             </tbody>
                             <tbody>
-                                <tr><td colspan="8" style="cursor:default">Expired Lessons</td></tr>
+                                <tr><td colspan="9" style="cursor:default">Expired Lessons</td></tr>
                                 @foreach (var lesson in studentPastLessons)
                                 {
                                     <tr @onclick="() => LessonDetails(lesson.Id)">
@@ -234,6 +236,7 @@
                                         <td><div class="d-none d-md-block">@lesson.Start.ToShortTimeString()</div></td>
                                         <td><div class="d-none d-md-block">@lesson.Stop.ToShortTimeString()</div></td>
                                         <td><div class="d-none d-md-block">@lesson.TeacherFirstName @lesson.TeacherLastName</div></td>
+                                        <td><div class="d-none d-md-block">@lesson.Rated</div></td>
                                     </tr>
                                 }
                             </tbody>
@@ -348,6 +351,17 @@
                         studentPastLessons.Add(lesson);
                     }
                     studentPastLessons = studentPastLessons.OrderByDescending(x => x.Stop).ToList();
+                    foreach(var l in studentPastLessons)
+                    {
+                        if (l.Completed)
+                        {
+                            l.Rated = "Yes";
+                        }
+                        else
+                        {
+                            l.Rated = "No";
+                        }
+                    }
                 }
             }
 
