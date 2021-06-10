@@ -213,16 +213,7 @@
                 teacherProgress = (100.0 * teacherCount / userCount).ToString("0");
                 adminProgress = (100.0 * adminCount / userCount).ToString("0");
                 userProgress = int.Parse(studentProgress) + int.Parse(teacherProgress) + int.Parse(adminProgress);
-                if (userProgress < 100)
-                {
-                    adminCount += 1;
-                    adminProgress = (100.0 * adminCount / userCount).ToString("0");
-                }
-                if (userProgress > 100)
-                {
-                    adminCount -= 1;
-                    adminProgress = (100.0 * adminCount / userCount).ToString("0");
-                }
+                
 
 
                 futureLessonCountArray = await Client.GetFromJsonAsync<int[]>("https://localhost:44397/api/Admin/GetLessonNumbers");
@@ -234,16 +225,7 @@
                     futureBookedLessonProgress = (100.0 * futureBookedLessonCount / futureLessonCount).ToString("0");
                     futureUnbookedLessonProgress = (100.0 * futureUnbookedLessonCount / futureLessonCount).ToString("0");
                     futureLessonProgress = int.Parse(futureBookedLessonProgress) + int.Parse(futureUnbookedLessonProgress);
-                    if (futureLessonProgress < 100)
-                    {
-                        futureUnbookedLessonCount += 1;
-                        futureUnbookedLessonProgress = (100.0 * adminCount / userCount).ToString("0");
-                    }
-                    if (futureLessonProgress > 100)
-                    {
-                        futureUnbookedLessonCount -= 1;
-                        futureUnbookedLessonProgress = (100.0 * adminCount / userCount).ToString("0");
-                    }
+                    
                 }
 
 
@@ -261,16 +243,7 @@
                     intermediateProgress = (100.0 * intermediateCount / levelTotal).ToString("0");
                     expertProgress = (100.0 * expertCount / levelTotal).ToString("0");
                     var levelProgress = int.Parse(noviceProgress) + int.Parse(intermediateProgress) + int.Parse(expertProgress);
-                    if (levelProgress < 100)
-                    {
-                        noviceCount += 1;
-                        noviceProgress = (100.0 * adminCount / userCount).ToString("0");
-                    }
-                    if (levelProgress > 100)
-                    {
-                        noviceCount -= 1;
-                        noviceProgress = (100.0 * adminCount / userCount).ToString("0");
-                    }
+                    
                 }
 
 
