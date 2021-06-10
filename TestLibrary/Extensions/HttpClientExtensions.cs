@@ -12,15 +12,13 @@ namespace MLP_TestLibrary.Extensions
     {
         public static HttpResponseMessage PostJson(this HttpClient client, string requestUri, object content)
         {
-            var settings = new JsonSerializerSettings();
-            //settings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
+            var settings = new JsonSerializerSettings();            
             var contentString = JsonConvert.SerializeObject(content, settings);
             return client.PostAsync(requestUri, new StringContent(contentString, Encoding.UTF8, "application/json")).Result;
         }
         public static HttpResponseMessage PutJson(this HttpClient client, string requestUri, object content)
         {
-            var settings = new JsonSerializerSettings();
-            //settings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
+            var settings = new JsonSerializerSettings();            
             var contentString = JsonConvert.SerializeObject(content, settings);
             return client.PutAsync(requestUri, new StringContent(contentString, Encoding.UTF8, "application/json")).Result;
         }
