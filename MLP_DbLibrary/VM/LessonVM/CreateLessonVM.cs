@@ -11,7 +11,6 @@ namespace MLP_DbLibrary.VM.LessonVM
     public class CreateLessonVM
     {
         //LocationVariables
-        //LocationVariables
         [Required(ErrorMessage ="Street is required!")]
         [StringLength(50, ErrorMessage = "Street name has a max length of 50 characters.")]
         public string Street { get; set; }
