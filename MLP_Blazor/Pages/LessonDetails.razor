@@ -29,7 +29,7 @@
                             <div id="GiveRatingMessage" hidden="@hiddenRateMessage" class="alert alert-info col-md-12 text-center">
                                 Give a rating from 1 to 5 please:
                                 <EditForm Model="Rating" OnValidSubmit="GiveRating">
-                                    <InputSelect @bind-Value="Rating" Style="@("margin:10px 0;background-color:#679289;width:25%;border-radius:5px;padding:7px 12px")">
+                                    <InputSelect @bind-Value="Rating" class="form form-control form-select" Style="@("margin:10px 0;background-color:#679289;width:25%;border-radius:5px;padding:7px 12px")">
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -380,9 +380,7 @@
                         var lessonContent = await responseLessonDelete.Content.ReadAsStringAsync();
                         var deletedLesson = (ResponseLessonDTO)JsonConvert.DeserializeObject(lessonContent, typeof(ResponseLessonDTO));
 
-                        var responseLocationDelete = await Client.DeleteAsync("https://localhost:44397/api/location/delete/" + deletedLesson.LocationId);
-                        if (responseLessonDelete.IsSuccessStatusCode)
-                        {
+                        
                             if (deletedLesson.StudentId is not null)
                             {
                                 var alert = new CreateAlertDTO
@@ -400,12 +398,8 @@
                             {
                                 NavManager.NavigateTo("/account");
                             }
-                        }
-                        else
-                        {
-                            message = "Something went wrong while deleting the location.";
-                            hiddenMessage = false;
-                        }
+                        
+                        
                     }
                     else { message = "Somthing went wrong while deleting the lesson."; }
                     hiddenMessage = false;

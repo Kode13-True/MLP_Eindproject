@@ -31,7 +31,7 @@
                                     <div class="col-md-2"></div>
                                     <label class="col-md-1 form-label" for="instrument">Instrument</label>
                                     <div class="col-md-2">
-                                        <InputSelect @bind-Value="lessonModel.InstrumentName" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px")" CollapsedButtonIcon="C1IconTemplate.ChevronDown">
+                                        <InputSelect @bind-Value="lessonModel.InstrumentName" class="form form-control form-select" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px")" CollapsedButtonIcon="C1IconTemplate.ChevronDown">
                                             <option></option>
                                             @foreach (var value in Enum.GetValues(typeof(InstrumentName)))
                                                 {
@@ -42,7 +42,7 @@
                                     <div class="col-md-2"></div>
                                     <label class="col-md-1 form-label" for="style">Style</label>
                                     <div class="col-md-2">
-                                        <InputSelect @bind-Value="lessonModel.InstrumentStyle" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px")" CollapsedButtonIcon="C1IconTemplate.ChevronDown">
+                                        <InputSelect @bind-Value="lessonModel.InstrumentStyle" class="form form-control form-select" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px")" CollapsedButtonIcon="C1IconTemplate.ChevronDown">
                                             <option></option>
                                             @foreach (var value in Enum.GetValues(typeof(InstrumentStyle)))
                                                 {
@@ -55,7 +55,7 @@
                                     <div class="col-md-2"></div>
                                     <label class="col-md-1 form-label" for="level">Level</label>
                                     <div class="col-md-2">
-                                        <InputSelect @bind-Value="lessonModel.LessonLevel" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px; border-width:thin")" CollapsedButtonIcon="C1IconTemplate.ChevronDown">
+                                        <InputSelect @bind-Value="lessonModel.LessonLevel" class="form form-control form-select" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px; border-width:thin")" CollapsedButtonIcon="C1IconTemplate.ChevronDown">
                                             <option></option>
                                             @foreach (var value in Enum.GetValues(typeof(LessonLevel)))
                                                 {
@@ -145,7 +145,7 @@
                                         <div class="col-md-2"></div>
                                         <label class="col-md-1 form-label" for="instrument">Instrument</label>
                                         <div class="col-md-2">
-                                            <InputSelect @bind-Value="lessonModel.InstrumentName" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px")" CollapsedButtonIcon="C1IconTemplate.ChevronDown">
+                                            <InputSelect @bind-Value="lessonModel.InstrumentName" class="form form-control form-select" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px")" CollapsedButtonIcon="C1IconTemplate.ChevronDown">
                                                 <option></option>
                                                 @foreach (var value in Enum.GetValues(typeof(InstrumentName)))
                                                     {
@@ -156,7 +156,7 @@
                                         <div class="col-md-2"></div>
                                         <label class="col-md-1 form-label" for="style">Style</label>
                                         <div class="col-md-2">
-                                            <InputSelect @bind-Value="lessonModel.InstrumentStyle" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px")" CollapsedButtonIcon="C1IconTemplate.ChevronDown">
+                                            <InputSelect @bind-Value="lessonModel.InstrumentStyle" class="form form-control form-select" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px")" CollapsedButtonIcon="C1IconTemplate.ChevronDown">
                                                 <option></option>
                                                 @foreach (var value in Enum.GetValues(typeof(InstrumentStyle)))
                                                     {
@@ -169,7 +169,7 @@
                                         <div class="col-md-2"></div>
                                         <label class="col-md-1 form-label" for="level">Level</label>
                                         <div class="col-md-2">
-                                            <InputSelect @bind-Value="lessonModel.LessonLevel" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px; border-width:thin")" CollapsedButtonIcon="C1IconTemplate.ChevronDown">
+                                            <InputSelect @bind-Value="lessonModel.LessonLevel" class="form form-control form-select" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px; border-width:thin")" CollapsedButtonIcon="C1IconTemplate.ChevronDown">
                                                 <option></option>
                                                 @foreach (var value in Enum.GetValues(typeof(LessonLevel)))
                                                     {

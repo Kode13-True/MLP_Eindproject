@@ -38,7 +38,7 @@ else
                     <div class="col-md-2"></div>
                     <label class="col-md-1 form-label" for="instrument">Instrument</label>
                     <div class="col-md-2">
-                        <InputSelect @bind-Value="searchLessonVM.InstrumentName" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px;focus:invisible")" CollapsedButtonIcon="C1IconTemplate.ChevronDown">
+                        <InputSelect @bind-Value="searchLessonVM.InstrumentName" class="form form-control form-select" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px;focus:invisible")" CollapsedButtonIcon="C1IconTemplate.ChevronDown">
                             <option></option>
                             @foreach (var value in Enum.GetValues(typeof(InstrumentName)))
                                 {
@@ -49,7 +49,7 @@ else
                     <div class="col-md-2"></div>
                     <label class="col-md-1 form-label" for="style">Style</label>
                     <div class="col-md-2">
-                        <InputSelect @bind-Value="searchLessonVM.InstrumentStyle" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px")" CollapsedButtonIcon="C1IconTemplate.ChevronDown">
+                        <InputSelect @bind-Value="searchLessonVM.InstrumentStyle" class="form form-control form-select" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px")" CollapsedButtonIcon="C1IconTemplate.ChevronDown">
                             <option></option>
                             @foreach (var value in Enum.GetValues(typeof(InstrumentStyle)))
                                 {

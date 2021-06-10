@@ -44,8 +44,8 @@ namespace MLP_DbLibrary.Seeding
                         FirstName = "Debbie",
                         LastName = "Pollet",
                         Description = "I have been teaching private music lessons for over 20 years. Having studied under some amazing professionals throughout primary and secondary school, and then at Ohio University, I learned the value of positive reinforcement in music education. No two students are the same - nor do they learn the same way or at the same pace.  Therefore, I make no comparisons from student to student. I structure each student’s program to his/her specific needs and talents. I believe in a well-rounded approach that includes music theory.",
-                        Rating = 4.2,
-                        RatingCount = 8
+                        Rating = 4.8,
+                        RatingCount = 2
                     });
                     db.Teachers.Add(new Teacher
                     {
@@ -187,7 +187,7 @@ namespace MLP_DbLibrary.Seeding
                         FirstName = "Flora",
                         LastName = "Smart",
                         Description = "is a fun, experienced, and patient teacher. She has taught over 13,000 lessons in various instruments to over 250 students in private lessons and small groups in person and online. Her students range from age 3 through adults. ",
-                        Rating = 4.0,
+                        Rating = 4.6,
                         RatingCount = 5
                     });
                     db.Teachers.Add(new Teacher
@@ -198,8 +198,8 @@ namespace MLP_DbLibrary.Seeding
                         FirstName = "Omer",
                         LastName = "Aguirre",
                         Description = "is a 26 year old father of 1 who has a passion for teaching and performing music. A Berklee College of Music Alumnus (class of 2017), Rich has spent much of the last few years teaching flute, saxophone, clarinet, and music theory lessons to students of all ages,",
-                        Rating = 4.1,
-                        RatingCount = 6
+                        Rating = 5,
+                        RatingCount = 2
                     });
                     db.Teachers.Add(new Teacher
                     {
@@ -209,8 +209,8 @@ namespace MLP_DbLibrary.Seeding
                         FirstName = "Hailie",
                         LastName = "Graham",
                         Description = "Accepting new students for new availability for summer schedule beginning July!",
-                        Rating = 0,
-                        RatingCount = 0
+                        Rating = 4.7,
+                        RatingCount = 1
                     });
                     db.Teachers.Add(new Teacher
                     {
@@ -220,8 +220,8 @@ namespace MLP_DbLibrary.Seeding
                         FirstName = "Aniela",
                         LastName = "Guzman",
                         Description = "I have been playing music for 18 years over a variety of instruments including piano, bass guitar, vocals, kit, trumpet, flute, and many more.  I have recently finished my Music Degree with a specialization in Education. ",
-                        Rating = 3.1,
-                        RatingCount = 7
+                        Rating = 4.8,
+                        RatingCount = 3
                     });
                     db.Teachers.Add(new Teacher
                     {

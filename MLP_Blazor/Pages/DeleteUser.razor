@@ -30,7 +30,7 @@
                                            <p class="card-text over">@alert.Message</p>
                                            <EditForm Model="deleteUserDTO" OnValidSubmit="CertainDeleteUser">
                                                <label class="form-label text-info">Person Type</label>
-                                               <InputSelect @bind-Value="deleteUserDTO.PersonType" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px")" CollapsedButtonIcon="C1IconTemplate.ChevronDown">
+                                               <InputSelect @bind-Value="deleteUserDTO.PersonType" class="form form-control form-select" Style="@("margin:8px 0;background-color:#E1E7F4;width:100%;border-radius:5px;padding:7px 12px")" CollapsedButtonIcon="C1IconTemplate.ChevronDown">
                                                    @foreach (var value in Enum.GetValues(typeof(PersonType)))
                                                            {
                                                        <option value="@value">@value</option>
