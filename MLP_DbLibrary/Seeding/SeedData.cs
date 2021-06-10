@@ -799,7 +799,119 @@ namespace MLP_DbLibrary.Seeding
                 }
                 if (!db.Alerts.Any())
                 {
+                    //booked lessons passed: stop: add(x < 0) Rated: 5 --> yes
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddDays(-6).AddHours(3),
+                        AlertType = AlertType.Rate,
+                        Message = $"Your lesson on {DateTime.Now.AddDays(-9).ToShortDateString()} has been rated 4/5.",
+                        PersonId = 3
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddDays(-8).AddHours(3),
+                        AlertType = AlertType.Rate,
+                        Message = $"Your lesson on {DateTime.Now.AddDays(-11).ToShortDateString()} has been rated 3/5.",
+                        PersonId = 4
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddDays(-10).AddHours(3),
+                        AlertType = AlertType.Rate,
+                        Message = $"Your lesson on {DateTime.Now.AddDays(-13).ToShortDateString()} has been rated 2/5.",
+                        PersonId = 5
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddDays(-12).AddHours(3),
+                        AlertType = AlertType.Rate,
+                        Message = $"Your lesson on {DateTime.Now.AddDays(-17).ToShortDateString()} has been rated 5/5.",
+                        PersonId = 6
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddDays(-15).AddHours(3),
+                        AlertType = AlertType.Rate,
+                        Message = $"Your lesson on {DateTime.Now.AddDays(-18).ToShortDateString()} has been rated 1/5.",
+                        PersonId = 7
+                    });
 
+                    //Report Alerts Students
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddDays(-6).AddHours(-1),
+                        AlertType = AlertType.Report,
+                        Message = "User 27: Student : was reported for: Multiple No-Shows. With the extra message: Student hasn't showed up last three times.",
+                        PersonId = 1
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddDays(-6).AddHours(-1),
+                        AlertType = AlertType.Report,
+                        Message = "User 27: Student : was reported for: Refused to pay. With the extra message: Student didn't want to pay the price.",
+                        PersonId = 1
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddDays(-6).AddHours(-1),
+                        AlertType = AlertType.Report,
+                        Message = "User 28: Student : was reported for: Multiple No-Shows. With the extra message: Student hasn't showed up last three times.",
+                        PersonId = 1
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddDays(-6).AddHours(-1),
+                        AlertType = AlertType.Report,
+                        Message = "User 29: Student : was reported for: Multiple No-Shows. With the extra message: Student hasn't showed up last three times.",
+                        PersonId = 1
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddDays(-6).AddHours(-1),
+                        AlertType = AlertType.Report,
+                        Message = "User 30: Student : was reported for: Multiple No-Shows. With the extra message: Student hasn't showed up last three times.",
+                        PersonId = 1
+                    });
+
+                    //Report Alerts teachers
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddDays(-6).AddHours(-1),
+                        AlertType = AlertType.Report,
+                        Message = "User 8: Teacher : was reported for: Multiple No-Shows. With the extra message: Teacher hasn't showed up last three times.",
+                        PersonId = 1
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddDays(-6).AddHours(-1),
+                        AlertType = AlertType.Report,
+                        Message = "User 8: Teacher : was reported for: Inadequate. With the extra message: This teacher was bad.",
+                        PersonId = 1
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddDays(-6).AddHours(-1),
+                        AlertType = AlertType.Report,
+                        Message = "User 9: Teacher : was reported for: Multiple No-Shows. With the extra message: Teacher hasn't showed up last three times.",
+                        PersonId = 1
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddDays(-6).AddHours(-1),
+                        AlertType = AlertType.Report,
+                        Message = "User 10: Teacher : was reported for: Multiple No-Shows. With the extra message: Teacher hasn't showed up last three times.",
+                        PersonId = 1
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddDays(-6).AddHours(-1),
+                        AlertType = AlertType.Report,
+                        Message = "User 11: Teacher : was reported for: Multiple No-Shows. With the extra message: Teacher hasn't showed up last three times.",
+                        PersonId = 1
+                    });
+
+
+                    //savechanges
                     db.SaveChanges();
                 }
             }           
