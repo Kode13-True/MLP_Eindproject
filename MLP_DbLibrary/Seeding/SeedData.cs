@@ -799,6 +799,78 @@ namespace MLP_DbLibrary.Seeding
                 }
                 if (!db.Alerts.Any())
                 {
+                    //Booked lessons future: start: add(x < 48) uncancelable: 5-- > yes
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-24),
+                        AlertType = AlertType.Booked,
+                        Message = $"Your lesson on {DateTime.Now.AddHours(24).ToShortDateString()} has been cancelled.",
+                        PersonId = 3
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-24),
+                        AlertType = AlertType.Booked,
+                        Message = $"Your lesson on {DateTime.Now.AddHours(25).ToShortDateString()} has been cancelled.",
+                        PersonId = 4
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-26),
+                        AlertType = AlertType.Booked,
+                        Message = $"Your lesson on {DateTime.Now.AddHours(30).ToShortDateString()} has been cancelled.",
+                        PersonId = 5
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-27),
+                        AlertType = AlertType.Booked,
+                        Message = $"Your lesson on {DateTime.Now.AddHours(36).ToShortDateString()} has been cancelled.",
+                        PersonId = 5
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-21),
+                        AlertType = AlertType.Booked,
+                        Message = $"Your lesson on {DateTime.Now.AddHours(30).ToShortDateString()} has been cancelled.",
+                        PersonId = 4
+                    });
+                    //Booked lessons future: start: add(x > 48) cancelable: 5-- > yes
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-75),
+                        AlertType = AlertType.Booked,
+                        Message = $"Your lesson on {DateTime.Now.AddHours(220).ToShortDateString()} has been cancelled.",
+                        PersonId = 3
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-55),
+                        AlertType = AlertType.Booked,
+                        Message = $"Your lesson on {DateTime.Now.AddHours(340).ToShortDateString()} has been cancelled.",
+                        PersonId = 4
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-22),
+                        AlertType = AlertType.Booked,
+                        Message = $"Your lesson on {DateTime.Now.AddHours(280).ToShortDateString()} has been cancelled.",
+                        PersonId = 5
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-37),
+                        AlertType = AlertType.Booked,
+                        Message = $"Your lesson on {DateTime.Now.AddHours(265).ToShortDateString()} has been cancelled.",
+                        PersonId = 6
+                    });
+                    db.Alerts.Add(new Alert
+                    {
+                        DOC = DateTime.Now.AddHours(-44),
+                        AlertType = AlertType.Booked,
+                        Message = $"Your lesson on {DateTime.Now.AddHours(210).ToShortDateString()} has been cancelled.",
+                        PersonId = 7
+                    });
                     //booked lessons passed: stop: add(x < 0) Rated: 5 --> yes
                     db.Alerts.Add(new Alert
                     {
