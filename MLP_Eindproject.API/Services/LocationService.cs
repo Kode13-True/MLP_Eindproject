@@ -17,8 +17,18 @@ namespace MLP_Eindproject.API.Services
         }
         public async Task<Location> CreateLocation(Location location)
         {
-            _context.Locations.Add(location);
-            await _context.SaveChangesAsync();
+            var locSearch = _context.Locations.Where(x => x.Street == location.Street && x.Number == location.Number && x.Postal == location.Postal && x.Township == location.Township).FirstOrDefault();
+
+            if(locSearch is null)
+            {
+                _context.Locations.Add(location);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                location = locSearch;
+            }
+            
             return location;
         }
 

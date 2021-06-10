@@ -94,12 +94,12 @@ namespace MLP_Eindproject.API.Services
             var lessonToDelete = _context.Lessons.Find(id);
             if (lessonToDelete.StudentId is null)
             {
-                _context.Remove(lessonToDelete);
+                _context.Lessons.Remove(lessonToDelete);
                 await _context.SaveChangesAsync();
             }
             else if (lessonToDelete.Start > DateTime.Now.AddHours(24))
             {
-                _context.Remove(lessonToDelete);
+                _context.Lessons.Remove(lessonToDelete);
                 await _context.SaveChangesAsync();
             }
             return lessonToDelete;
