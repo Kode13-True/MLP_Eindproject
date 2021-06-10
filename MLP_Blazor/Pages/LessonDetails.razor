@@ -86,86 +86,91 @@
 </CascadingAuthenticationState>
 
 @code {
-        public ResponseLessonVM lesson = new ResponseLessonVM();
+    public ResponseLessonVM lesson = new ResponseLessonVM();
 
-        LocalAuthUser user;
+    LocalAuthUser user;
 
-        string message = string.Empty;
-        string free = "Free";
+    string message = string.Empty;
+    string free = "Free";
 
-        public int Rating = 1;
+    public int Rating = 1;
 
-        public bool hiddenMessage = true;
-        public bool hiddenDeleteMessage = true;
-        public bool hiddenCancelMessage = true;
-        public bool hiddenRateMessage = true;
-        public bool hiddenBookButton = false;
-        public bool hiddenCancelButton = true;
-        public bool hiddenEditButton = true;
-        public bool hiddenDeleteButton = true;
-        public bool hiddenRateButton = true;
+    public bool hiddenMessage = true;
+    public bool hiddenDeleteMessage = true;
+    public bool hiddenCancelMessage = true;
+    public bool hiddenRateMessage = true;
+    public bool hiddenBookButton = false;
+    public bool hiddenCancelButton = true;
+    public bool hiddenEditButton = true;
+    public bool hiddenDeleteButton = true;
+    public bool hiddenRateButton = true;
 
-        ResponseLessonDTO lessonDTO;
+    ResponseLessonDTO lessonDTO;
 
-        [Parameter]
-        public int lessonId { get; set; }
+    [Parameter]
+    public int lessonId { get; set; }
 
-        protected override async Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
+    {
+
+
+        user = await LocalStorageService.GetItemAsync<LocalAuthUser>("User");
+        try
         {
+            lessonDTO = await Client.GetFromJsonAsync<ResponseLessonDTO>("https://localhost:44397/api/lesson/GetOne/" + lessonId);
+            lesson = _mapper.Map<ResponseLessonVM>(lessonDTO);
+        }
+        catch (Exception ex)
+        {
+            NavManager.NavigateTo("/Error404");
+        }
 
 
-            user = await LocalStorageService.GetItemAsync<LocalAuthUser>("User");
-            try
+
+        if (lesson.StudentId is not null)
+        {
+            hiddenBookButton = true;
+        }
+        if (user is not null)
+        {
+            await Authentication();
+            if (lesson.StudentId == user.Id)
             {
-                lessonDTO = await Client.GetFromJsonAsync<ResponseLessonDTO>("https://localhost:44397/api/lesson/GetOne/" + lessonId);
-                if (lesson.StudentId is not null)
+                if (lesson.Start > DateTime.Now.AddHours(48)) { hiddenCancelButton = false; }
+                if (lesson.Stop < DateTime.Now && lesson.Completed == false) { hiddenRateButton = false; }
+
+            }
+            if (lesson.TeacherId == user.Id)
+            {
+                if (lesson.StudentId is null)
                 {
-                    hiddenBookButton = true;
+                    hiddenEditButton = false;
+                    hiddenDeleteButton = false;
                 }
-                if (user is not null)
+                else if (lesson.Start > DateTime.Now.AddHours(24))
                 {
-                    await Authentication();
-                    if (lesson.StudentId == user.Id)
-                    {
-                        if (lesson.Start > DateTime.Now.AddHours(48)) { hiddenCancelButton = false; }
-                        if (lesson.Stop < DateTime.Now && lesson.Completed == false) { hiddenRateButton = false; }
-
-                    }
-                    if (lesson.TeacherId == user.Id)
-                    {
-                        if (lesson.StudentId is null)
-                        {
-                            hiddenEditButton = false;
-                            hiddenDeleteButton = false;
-                        }
-                        else if (lesson.Start > DateTime.Now.AddHours(24))
-                        {
-                            hiddenDeleteButton = false;
-                        }
-                    }
-                    if (user.Role.Equals(PersonType.Admin))
-                    {
-                        if (lesson.Start > DateTime.Now.AddHours(48)) { hiddenCancelButton = false; }
-                        if (lesson.StudentId is null)
-                        {
-                            hiddenEditButton = false;
-                            hiddenDeleteButton = false;
-                        }
-                        else if (lesson.Start > DateTime.Now.AddHours(24))
-                        {
-                            hiddenDeleteButton = false;
-                        }
-
-                    }
+                    hiddenDeleteButton = false;
                 }
             }
-            catch (Exception ex)
+            if (user.Role.Equals(PersonType.Admin))
             {
-                NavManager.NavigateTo("/Error404");
+                if (lesson.Start > DateTime.Now.AddHours(48)) { hiddenCancelButton = false; }
+                if (lesson.StudentId is null)
+                {
+                    hiddenEditButton = false;
+                    hiddenDeleteButton = false;
+                }
+                else if (lesson.Start > DateTime.Now.AddHours(24))
+                {
+                    hiddenDeleteButton = false;
+                }
+
             }
-            lesson = _mapper.Map<ResponseLessonVM>(lessonDTO);       
+        }
 
         NotifyChangedState();
+
+
     }
 
     //bookingForStudent
