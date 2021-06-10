@@ -40,7 +40,7 @@ Lecturers have a profile in which they can write down their experience.
 Created lessons can be deleted and changed by the teacher.
 Teachers can request both unbooked and booked lessons.
 Teachers are notified when a lesson has been booked.
-The Teacher's profile page shows the average score after being rated at least 3 times
+The Teacher's profile page shows the average score after being rated.
 To provide a platform where musicians can search and book lessons.
 Students have a profile where they can find and change their personal data
 They can find the lessons taken and give the teacher a score, after following a lesson,
