@@ -270,6 +270,7 @@ namespace MLP_DbLibrary.Seeding
                     db.Students.Add(new Student { DOC = DateTime.Now.AddHours(-10), Email = "josephina.roos@student.mub", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Josephina", LastName = "Roos" });
                     db.Students.Add(new Student { DOC = DateTime.Now.AddHours(-120), Email = "bert.vanbrunt@student.mub", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Bert", LastName = "Van Brunt" });
                     db.Students.Add(new Student { DOC = DateTime.Now.AddHours(-135), Email = "rie.lem@student.mub", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Rie", LastName = "Lem" });
+                    db.SaveChanges();
                 }
                 if (!db.Locations.Any()) //5 voor de lessen
                 {
