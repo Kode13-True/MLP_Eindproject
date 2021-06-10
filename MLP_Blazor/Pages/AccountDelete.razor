@@ -16,10 +16,7 @@
                 @if (@context.User.IsInRole("Admin"))
                 {
                     <div class="card-columns">
-                        <div class="row">
-                            @*<div class="card d-inline-block m-auto" style="width: 18rem;">
-                                <img src="/images/users.png" class="card-img-top" alt="...">
-                            </div>*@
+                        <div class="row">                            
                             <div class="card d-inline-block m-auto" style="width: 36rem;">
 
                                 <div class="card-body align-content-center">
@@ -40,10 +37,7 @@
                 else if (@context.User.IsInRole("Teacher"))
                 {
                     <div class="card-columns">
-                        <div class="row">
-                            @*<div class="card d-inline-block m-auto" style="width: 18rem;">
-                                <img src="/images/users.png" class="card-img-top" alt="...">
-                            </div>*@
+                        <div class="row">                           
                             <div class="card d-inline-block m-auto" style="width: 36rem;">
 
                                 <div class="card-body align-content-center">
@@ -64,12 +58,8 @@
                 else
                 {
                     <div class="card-columns">
-                        <div class="row">
-                            @*<div class="card d-inline-block m-auto" style="width: 18rem;">
-                                <img src="/images/users.png" class="card-img-top" alt="...">
-                            </div>*@
+                        <div class="row">                            
                             <div class="card d-inline-block m-auto" style="width: 36rem;">
-
                                 <div class="card-body align-content-center">
                                     <h1 class="card-title text-center">@student.FirstName @student.LastName</h1>
                                     <h6 class="card-title text-center">Mubster student since: @student.DOC.ToShortDateString()</h6>
