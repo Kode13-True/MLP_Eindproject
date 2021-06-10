@@ -176,8 +176,8 @@ namespace MLP_DbLibrary.Seeding
                         FirstName = "Clarisse",
                         LastName = "Maynard",
                         Description = "I am an experienced music teacher of piano and voice for over 12 years with a degree in music",
-                        Rating = 3.5,
-                        RatingCount = 15
+                        Rating = 0,
+                        RatingCount = 0
                     });
                     db.Teachers.Add(new Teacher
                     {
@@ -209,8 +209,8 @@ namespace MLP_DbLibrary.Seeding
                         FirstName = "Hailie",
                         LastName = "Graham",
                         Description = "Accepting new students for new availability for summer schedule beginning July!",
-                        Rating = 3.8,
-                        RatingCount = 2
+                        Rating = 0,
+                        RatingCount = 0
                     });
                     db.Teachers.Add(new Teacher
                     {
@@ -242,11 +242,9 @@ namespace MLP_DbLibrary.Seeding
                         FirstName = "Susan",
                         LastName = "Van Den Heuvel",
                         Description = "Welcome to my profile and I can't wait to make music together!",
-                        Rating = 3.9,
-                        RatingCount = 19
+                        Rating = 0,
+                        RatingCount = 0
                     });
-
-
                     db.SaveChanges();
 
                 }
@@ -258,9 +256,10 @@ namespace MLP_DbLibrary.Seeding
                 {
                     db.Locations.Add(new Location { Street = "Augustijnenstraat", Number = "5", Postal = "2800", Township = "Mechelen" });
                     db.Locations.Add(new Location { Street = "Nationalestraat", Number = "127", Postal = "2000", Township = "Antwerpen" });
-                    db.Locations.Add(new Location { Street = "Perklaan", Number = "562", Postal = "1800", Township = "Vilvoorde" });
+                    db.Locations.Add(new Location { Street = "Dorplaan", Number = "25", Postal = "1860", Township = "Meise" });
                     db.Locations.Add(new Location { Street = "Turnhoutsebaan", Number = "286", Postal = "2140", Township = "Borgerhout" });
                     db.Locations.Add(new Location { Street = "Duffelsesteenweg", Number = "101", Postal = "2550", Township = "Kontich" });
+                    db.SaveChanges();
                 }
                 /*  type lessons: 40
                         Unbooked lessons future: start: add(x<24) not deletable: 5
@@ -275,6 +274,222 @@ namespace MLP_DbLibrary.Seeding
                  */
                 if (!db.Lessons.Any())
                 {
+                    //Unbooked lessons future: start: add(x < 24) not deletable: 5
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-72),
+                        Start = DateTime.Now.AddHours(8),
+                        Stop = DateTime.Now.AddHours(9),
+                        Price = 0,
+                        LessonLevel = LessonLevel.Novice,
+                        LocationId = 1,
+                        TeacherId = 3
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-144),
+                        Start = DateTime.Now.AddHours(12),
+                        Stop = DateTime.Now.AddHours(13),
+                        Price = 22,
+                        LessonLevel = LessonLevel.Expert,
+                        LocationId = 2,
+                        TeacherId = 4
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-80),
+                        Start = DateTime.Now.AddHours(2),
+                        Stop = DateTime.Now.AddHours(3),
+                        Price = 25,
+                        LessonLevel = LessonLevel.Novice,
+                        LocationId = 3,
+                        TeacherId = 5
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-120),
+                        Start = DateTime.Now.AddHours(6),
+                        Stop = DateTime.Now.AddHours(6.5),
+                        Price = 12,
+                        LessonLevel = LessonLevel.Expert,
+                        LocationId = 4,
+                        TeacherId = 6
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-60),
+                        Start = DateTime.Now.AddHours(18),
+                        Stop = DateTime.Now.AddHours(19),
+                        Price = 20,
+                        LessonLevel = LessonLevel.Intermediate,
+                        LocationId = 5,
+                        TeacherId = 7
+                    });
+                    //Unbooked lessons future: start: add(x > 24) deletable: 5
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-72),
+                        Start = DateTime.Now.AddHours(72),
+                        Stop = DateTime.Now.AddHours(72.5),
+                        Price = 30,
+                        LessonLevel = LessonLevel.Expert,
+                        LocationId = 1,
+                        TeacherId = 3
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-144),
+                        Start = DateTime.Now.AddHours(108),
+                        Stop = DateTime.Now.AddHours(109),
+                        Price = 22,
+                        LessonLevel = LessonLevel.Intermediate,
+                        LocationId = 2,
+                        TeacherId = 4
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-80.5),
+                        Start = DateTime.Now.AddHours(112),
+                        Stop = DateTime.Now.AddHours(113),
+                        Price = 25,
+                        LessonLevel = LessonLevel.Novice,
+                        LocationId = 3,
+                        TeacherId = 5
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-120),
+                        Start = DateTime.Now.AddHours(56),
+                        Stop = DateTime.Now.AddHours(56.5),
+                        Price = 15,
+                        LessonLevel = LessonLevel.Novice,
+                        LocationId = 4,
+                        TeacherId = 6
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-60),
+                        Start = DateTime.Now.AddHours(70),
+                        Stop = DateTime.Now.AddHours(71),
+                        Price = 23,
+                        LessonLevel = LessonLevel.Intermediate,
+                        LocationId = 5,
+                        TeacherId = 7
+                    });
+                    // Unbooked lessons future: start: add(x > 48) book to cancel: 5
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-72.2),
+                        Start = DateTime.Now.AddHours(144),
+                        Stop = DateTime.Now.AddHours(144.5),
+                        Price = 30,
+                        LessonLevel = LessonLevel.Expert,
+                        LocationId = 1,
+                        TeacherId = 3
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-144.2),
+                        Start = DateTime.Now.AddHours(216),
+                        Stop = DateTime.Now.AddHours(217),
+                        Price = 22.5M,
+                        LessonLevel = LessonLevel.Intermediate,
+                        LocationId = 2,
+                        TeacherId = 4
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-80.7),
+                        Start = DateTime.Now.AddHours(113),
+                        Stop = DateTime.Now.AddHours(114),
+                        Price = 25,
+                        LessonLevel = LessonLevel.Intermediate,
+                        LocationId = 3,
+                        TeacherId = 5
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-120.2),
+                        Start = DateTime.Now.AddHours(58),
+                        Stop = DateTime.Now.AddHours(58.5),
+                        Price = 15.9M,
+                        LessonLevel = LessonLevel.Novice,
+                        LocationId = 4,
+                        TeacherId = 6
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-60.2),
+                        Start = DateTime.Now.AddHours(140),
+                        Stop = DateTime.Now.AddHours(141),
+                        Price = 23,
+                        LessonLevel = LessonLevel.Intermediate,
+                        LocationId = 5,
+                        TeacherId = 7
+                    });
+                    // Booked lessons future: start: add(x < 48) uncancelable: 5
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-25),
+                        Start = DateTime.Now.AddHours(24),
+                        Stop = DateTime.Now.AddHours(25),
+                        Price = 25,
+                        LessonLevel = LessonLevel.Expert,
+                        LocationId = 1,
+                        TeacherId = 3,
+                        Booked = DateTime.Now.AddHours(-24),
+                        StudentId = 23
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-48),
+                        Start = DateTime.Now.AddHours(25),
+                        Stop = DateTime.Now.AddHours(26),
+                        Price = 22.5M,
+                        LessonLevel = LessonLevel.Novice,
+                        LocationId = 2,
+                        TeacherId = 4,
+                        Booked = DateTime.Now.AddHours(-24),
+                        StudentId = 24
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-48),
+                        Start = DateTime.Now.AddHours(30),
+                        Stop = DateTime.Now.AddHours(30.5),
+                        Price = 22,
+                        LessonLevel = LessonLevel.Expert,
+                        LocationId = 3,
+                        TeacherId = 5,
+                        Booked = DateTime.Now.AddHours(-26),
+                        StudentId = 25
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-48),
+                        Start = DateTime.Now.AddHours(36),
+                        Stop = DateTime.Now.AddHours(37),
+                        Price = 22,
+                        LessonLevel = LessonLevel.Expert,
+                        LocationId = 3,
+                        TeacherId = 5,
+                        Booked = DateTime.Now.AddHours(-27),
+                        StudentId = 25
+                    });
+                    db.Lessons.Add(new Lesson
+                    {
+                        DOC = DateTime.Now.AddHours(-48),
+                        Start = DateTime.Now.AddHours(30),
+                        Stop = DateTime.Now.AddHours(30.5),
+                        Price = 22,
+                        LessonLevel = LessonLevel.Expert,
+                        LocationId = 2,
+                        TeacherId = 4,
+                        Booked = DateTime.Now.AddHours(-21),
+                        StudentId = 23
+                    });
+
+                    db.SaveChanges();
 
                 }
                 if (!db.Instruments.Any())
