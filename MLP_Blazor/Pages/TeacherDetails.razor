@@ -82,11 +82,20 @@
         public int teacherId { get; set; }
 
 
+
         protected override async Task OnInitializedAsync()
         {
+            ResponseTeacherDTO teacherDTO = new ResponseTeacherDTO();
             await Authentication();
+            try
+            {
+                teacherDTO = await Client.GetFromJsonAsync<ResponseTeacherDTO>("https://localhost:44397/api/Teacher/One/" + teacherId);
+            }
+            catch (Exception ex)
+            {
+                NavManager.NavigateTo("/Error404");
+            }
 
-            var teacherDTO = await Client.GetFromJsonAsync<ResponseTeacherDTO>("https://localhost:44397/api/Teacher/One/" + teacherId);
             var lessonsDTO = await Client.GetFromJsonAsync<List<ResponseLessonDTO>>("https://localhost:44397/api/Lesson/GetAllTeacherLessons/" + teacherId);
 
             teacher = _mapper.Map<ResponseTeacherVM>(teacherDTO);
@@ -112,6 +121,8 @@
 
 
         //methods
+
+
 
         public async Task Authentication()
         {
