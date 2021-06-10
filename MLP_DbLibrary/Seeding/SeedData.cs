@@ -868,7 +868,7 @@ namespace MLP_DbLibrary.Seeding
                     {
                         DOC = DateTime.Now.AddHours(-44),
                         AlertType = AlertType.Booked,
-                        Message = $"Your lesson on {DateTime.Now.AddHours(210).ToShortDateString()} has been cancelled.",
+                        Message = $"Your lesson on {DateTime.Now.AddHours(210).ToShortDateString()} has been booked.",
                         PersonId = 7
                     });
                     //booked lessons passed: stop: add(x < 0) Rated: 5 --> yes
