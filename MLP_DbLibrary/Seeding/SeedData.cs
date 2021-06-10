@@ -29,7 +29,26 @@ namespace MLP_DbLibrary.Seeding
                 }
                 if (!db.Students.Any()) //20
                 {
-
+                    db.Students.Add(new Student { DOC = DateTime.Now.AddHours(-105), Email = "hannes.lint@student.mub", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Hannes", LastName = "Lint" });
+                    db.Students.Add(new Student { DOC = DateTime.Now.AddHours(-115), Email = "antje.diercks@student.mub", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Antje", LastName = "Diercks" });
+                    db.Students.Add(new Student { DOC = DateTime.Now.AddHours(-125), Email = "bjorn.leick@student.mub", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Bjorn", LastName = "Leick" });
+                    db.Students.Add(new Student { DOC = DateTime.Now.AddHours(-95), Email = "marlies.kleinjan@student.mub", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Marlies", LastName = "Kleinjan" });
+                    db.Students.Add(new Student { DOC = DateTime.Now.AddHours(-85), Email = "karen.kates@student.mub", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Karen", LastName = "Kates" });
+                    db.Students.Add(new Student { DOC = DateTime.Now.AddHours(-75), Email = "Judith.Bogard@student.mub", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Judith", LastName = "Bogard" });
+                    db.Students.Add(new Student { DOC = DateTime.Now.AddHours(-57), Email = "henk.vliet@student.mub", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Henk", LastName = "Vliet" });
+                    db.Students.Add(new Student { DOC = DateTime.Now.AddHours(-102), Email = "robbert.verhaeghe@student.mub", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Robbert", LastName = "Verhaeghe" });
+                    db.Students.Add(new Student { DOC = DateTime.Now.AddHours(-99), Email = "mariska.lier@student.mub", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Mariska", LastName = "Lier" });
+                    db.Students.Add(new Student { DOC = DateTime.Now.AddHours(-22), Email = "miranda.deremer@student.mub", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Miranda", LastName = "Deremer" });
+                    db.Students.Add(new Student { DOC = DateTime.Now.AddHours(-53), Email = "jo.schei@student.mub", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Jo", LastName = "Schei" });
+                    db.Students.Add(new Student { DOC = DateTime.Now.AddHours(-45), Email = "olga.peerman@student.mub", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Olga", LastName = "Peerman" });
+                    db.Students.Add(new Student { DOC = DateTime.Now.AddHours(-68), Email = "thomas.provine@student.mub", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Thomas", LastName = "Provine" });
+                    db.Students.Add(new Student { DOC = DateTime.Now.AddHours(-69), Email = "lammert.manes@student.mub", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Lammert", LastName = "Manes" });
+                    db.Students.Add(new Student { DOC = DateTime.Now.AddHours(-47), Email = "marloes.winand@student.mub", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Marloes", LastName = "Winand" });
+                    db.Students.Add(new Student { DOC = DateTime.Now.AddHours(-97), Email = "wilco.kin@student.mub", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Wilco", LastName = "Kin" });
+                    db.Students.Add(new Student { DOC = DateTime.Now.AddHours(-83), Email = "heidi.marris@student.mub", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Heidi", LastName = "Marris" });
+                    db.Students.Add(new Student { DOC = DateTime.Now.AddHours(-10), Email = "josephina.roos@student.mub", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Josephina", LastName = "Roos" });
+                    db.Students.Add(new Student { DOC = DateTime.Now.AddHours(-120), Email = "bert.vanbrunt@student.mub", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Bert", LastName = "Van Brunt" });
+                    db.Students.Add(new Student { DOC = DateTime.Now.AddHours(-135), Email = "rie.lem@student.mub", Password = "Zb/gaeRgKLHUewP6srisQqI/7gjThAx0Yhnz+3uV4oQ=", FirstName = "Rie", LastName = "Lem" });
                 }
                 if (!db.Locations.Any()) //5 voor de lessen
                 {
