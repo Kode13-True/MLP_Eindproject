@@ -507,9 +507,7 @@ namespace MLP_DbLibrary.Seeding
                         TeacherId = 4,
                         Booked = DateTime.Now.AddHours(-21),
                         StudentId = 23
-                    });
-
-                    db.SaveChanges();
+                    });                   
 
                     //Booked lessons future: start: add(x > 48) cancelable: 5
                     db.Lessons.Add(new Lesson
@@ -753,14 +751,17 @@ namespace MLP_DbLibrary.Seeding
                         StudentId = 25,
                         Completed = true
                     });
+                    db.SaveChanges();
                 }
                 if (!db.Instruments.Any())
                 {
 
+                    db.SaveChanges();
                 }
                 if (!db.Alerts.Any())
                 {
 
+                    db.SaveChanges();
                 }
             }           
         }
