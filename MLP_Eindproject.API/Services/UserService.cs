@@ -47,7 +47,6 @@ namespace MLP_Eindproject.API.Services
                     {
                         using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
                         {
-                            //Write all data to the stream.
                             swEncrypt.Write(original);
                         }
                         encrypted = msEncrypt.ToArray();

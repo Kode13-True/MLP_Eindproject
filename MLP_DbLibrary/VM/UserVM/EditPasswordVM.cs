@@ -12,7 +12,7 @@ namespace MLP_DbLibrary.VM.UserVM
         [Required(ErrorMessage = "Old password is required")]
         public string OldPassword { get; set; }
         [Required(ErrorMessage = "New password is required")]
-        [StringLength(25, MinimumLength = 6, ErrorMessage = "Must be between 6 and 25 characters")]
+        [StringLength(25, MinimumLength = 6, ErrorMessage = "Password must be between 6 and 25 characters")]
         public string NewPassword { get; set; }
         [Required(ErrorMessage = "Confirm password is required")]
         public string ConfirmNewPassword { get; set; }

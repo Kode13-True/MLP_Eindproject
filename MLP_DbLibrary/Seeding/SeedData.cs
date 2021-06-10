@@ -281,17 +281,6 @@ namespace MLP_DbLibrary.Seeding
                     db.Locations.Add(new Location { Street = "Duffelsesteenweg", Number = "101", Postal = "2550", Township = "Kontich" });
                     db.SaveChanges();
                 }
-                /*  type lessons: 40
-                        Unbooked lessons future: start: add(x<24) not deletable: 5
-                        Unbooked lessons future: start: add(x>24) deletable: 5
-                        Unbooked lessons future: start: add(x>48) book to cancel: 5
-                        Booked lessons future: start: add(x<48) uncancelable: 5 --> yes
-                        Booked lessons future: start: add(x>48) cancelable: 5 --> yes
-                        
-                        Unbooked lessons passed: stop: add(x<0) reference: 5
-                        booked lessons passed: stop: add(x<0) Rating: 5
-                        booked lessons passed: stop: add(x<0) Rated:  5 --> yes
-                 */
                 if (!db.Lessons.Any())
                 {
                     //Unbooked lessons future: start: add(x < 24) not deletable: 5

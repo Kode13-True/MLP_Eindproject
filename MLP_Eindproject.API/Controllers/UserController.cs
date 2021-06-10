@@ -52,7 +52,6 @@ namespace MLP_Eindproject.API.Controllers
             {
                 return BadRequest();
             }
-            //var encryptedEmail = _userService.HashForRegistrationAndLogin(loginUserDTO.Email); ;
             var encryptedPassword = _userService.HashForRegistrationAndLogin(loginUserDTO.Password);
             var user = _userService.GetUserFromDb(loginUserDTO.Email, encryptedPassword);
             if(user is null) { return BadRequest("user does not exist"); }
