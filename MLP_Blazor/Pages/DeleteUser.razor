@@ -100,7 +100,14 @@
             NavManager.NavigateTo("/auth/login");
         }
 
-        alert = await Client.GetFromJsonAsync<ResponseAlertDTO>("https://localhost:44397/api/alert/one/" + AlertId);
+        try
+        {
+            alert = await Client.GetFromJsonAsync<ResponseAlertDTO>("https://localhost:44397/api/alert/one/" + AlertId);
+        }
+        catch (Exception ex)
+        {
+            NavManager.NavigateTo("/Error404");
+        }
     }
 
 
