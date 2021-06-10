@@ -35,22 +35,22 @@
 <p>Blazor Web Assembly App with Bootstrap 5.0 UI</p>
 
 ## Application Purpose
-<p>Providing a platform where music teachers can offer lessons.
-Lecturers have a profile in which they can write down their experience.
-Created lessons can be deleted and changed by the teacher.
-Teachers can request both unbooked and booked lessons.
-Teachers are notified when a lesson has been booked.
-The Teacher's profile page shows the average score after being rated.
-To provide a platform where musicians can search and book lessons.
-Students have a profile where they can find and change their personal data
-They can find the lessons taken and give the teacher a score, after following a lesson,
-Lessons can be searched by instrument, style, maximum price, zip code and teacher name</p>
+- Providing a platform where music teachers can offer lessons.
+- Lecturers have a profile in which they can write down their experience.
+- Created lessons can be deleted and changed by the teacher.
+- Teachers can request both unbooked and booked lessons.
+- Teachers are notified when a lesson has been booked.
+- The Teacher's profile page shows the average score after being rated.
+- To provide a platform where musicians can search and book lessons.
+- Students have a profile where they can find and change their personal data
+- They can find the lessons taken and give the teacher a score, after following a lesson,
+- Lessons can be searched by instrument, style, maximum price, zip code and teacher name</p>
   
   
 ## Commercial opportunities
 <p>As soon as the application is ready, it can be offered to music stores (cfr BAX musicstore, Keymusic, etc ), 
 they can run the application next to their webshop to build a larger customer base and to make targeted personalized advertising to music teachers and students. 
-If there is not enough interest from the retail instruments to support the platform, personalized advertising can also be switched to via the web application itself. (eg offer advertisements for guitars on the search page when the parameters “guitar/classical” and “beginner” are given.</p>
+If there is not enough interest from the retail instruments to support the platform, personalized advertising can also be switched to via the web application itself. (eg offer advertisements for guitars on the search page when the parameters “guitar/classical” and “beginner” are used.)</p>
 
 
 ## Quick Start
