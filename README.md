@@ -32,14 +32,16 @@
 ## Application Framework
 <h3>Back-end:</h3>
 <p>ASP.NET Core Web API</p>
+<p align="center"><a href="https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-5.0"><img src="https://estradaci.com/wp-content/uploads/2019/04/asp-net-core-logo.png" width="300"></a></p>
 <h3>Front-end:</h3>
 <p>Blazor Web Assembly App with Bootstrap 5.0 UI</p>
+<p align="center">
+<a href="https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor"><img src="https://static.gunnarpeipman.com/wp-content/uploads/2019/11/blazor-featured.png" width="300"></a>
+<a href="https://getbootstrap.com/"><img src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo-shadow.png" alt="Bootstrap logo" width="200" height="165"></a>
+</p>
 <h3>Testing:</h3>
 <p>NUnit.org</p>
-<p align="center">
- <a href="https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor"><img src="https://static.gunnarpeipman.com/wp-content/uploads/2019/11/blazor-featured.png" width="300"></a>
-  <a href="https://getbootstrap.com/"><img src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo-shadow.png" alt="Bootstrap logo" width="200" height="165"></a> 
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/nunit"><img src="https://avatars.githubusercontent.com/u/2678858?s=200&v=4" width="160"></a>
+<p align="center"><a href="https://github.com/nunit"><img src="https://avatars.githubusercontent.com/u/2678858?s=200&v=4" width="160"></a>
 </p>
 
 
