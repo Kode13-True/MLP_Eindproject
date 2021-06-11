@@ -27,17 +27,17 @@
                                 Are you sure? <span @onclick="YesCancel" style="cursor:pointer"> [yes] </span> / <span @onclick="NoCancel" style="cursor:pointer"> [no] </span>
                             </div>
                             <div id="GiveRatingMessage" hidden="@hiddenRateMessage" class="alert alert-info col-md-12 text-center">
-                                Give a rating from 1 to 5 please:
-                                <EditForm Model="Rating" OnValidSubmit="GiveRating">
-                                    <InputSelect @bind-Value="Rating" class="form form-control form-select" Style="@("margin:10px 0;background-color:#679289;width:25%;border-radius:5px;padding:7px 12px")">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </InputSelect>
-                                    <button class="btn-sm btn-info" type="submit" Style="@("margin:10px 0;background-color:#679289;width:25%;border-radius:5px;padding:8px 0px 4px 0px; border-color:#1C3144; border-width:thin")">submit</button>
-                                </EditForm>
+                                Give a rating from 1 to 5 please.
+                                    <EditForm Model="Rating" OnValidSubmit="GiveRating">
+                                        <InputSelect @bind-Value="Rating" Style="@("margin:10px 0;background-color:#679289;width:25%;border-radius:5px;padding:7px 12px")">
+                                                                    <option value="1">1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+                                                                    <option value="4">4</option>
+                                                                    <option value="5">5</option>
+                                                                </InputSelect>
+                                        <button class="btn-sm btn-info text-center" type="submit" Style="@("margin:10px 0;background-color:#679289;width:25%;border-radius:5px;padding:8px 0px 4px 0px; border-color:#1C3144; border-width:thin")">submit</button>
+                                    </EditForm>
                             </div>
                             <p class="card-text mx-md-5">Difficulty: <div class="float-end">@lesson.LessonLevel</div></p>
                             <p class="card-text mx-md-5">Start: <div class="float-end">@lesson.Start.ToShortTimeString() @lesson.Start.ToShortDateString()</div></p>
@@ -46,11 +46,11 @@
                             <p class="card-text mx-md-5">Teacher: <div class="float-end">@lesson.TeacherFirstName @lesson.TeacherLastName</div></p>
                             @if (lesson.Price == 0)
                             {
-                             <p class="card-text mx-md-5">Price: <div class="float-end">@free</div></p>
+                                <p class="card-text mx-md-5">Price: <div class="float-end">@free</div></p>
                             }
                             else
                             {
-                            <p class="card-text mx-md-5">Price: <div class="float-end">&euro;@lesson.Price</div></p>
+                                <p class="card-text mx-md-5">Price: <div class="float-end">&euro;@lesson.Price</div></p>
                             }
 
                             <AuthorizeView>
@@ -77,6 +77,7 @@
 
                             <button @onclick="ViewTeacherDetails" class="btn btn-info w-100  m-1">Teacher details</button>
                             <button onclick="window.history.back()" class="btn btn-info w-100  m-1">Back</button>
+                            
                         </div>
                     </div>
                 </div>
