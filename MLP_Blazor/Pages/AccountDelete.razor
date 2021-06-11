@@ -67,7 +67,7 @@
                                     <h6 class="card-title text-center" mx-1>You're account will be permanently deleted are you sure ?</h6>
                                     <p class="card-footer text-center">
                                         <a href="Account" class="btn btn-succes w-25">NO</a>
-                                        <button class="btn btn-danger w-25" @onclick="DeleteTeacher">YES</button>
+                                        <button class="btn btn-danger w-25" @onclick="DeleteStudent">YES</button>
                                     </p>
 
                                 </div>
@@ -94,13 +94,14 @@
     public ResponseStudentVM student = new ResponseStudentVM();
     public ResponseAdminVM admin = new ResponseAdminVM();
 
+    LocalAuthUser user;
     [Parameter]
     public int PersonId { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         await Authentication();
-        var user = await LocalStorageService.GetItemAsync<LocalAuthUser>("User");
+        user = await LocalStorageService.GetItemAsync<LocalAuthUser>("User");
 
         if (user is not null)
         {
@@ -144,7 +145,7 @@
     protected async void DeleteTeacher()
     {
         await Authentication();
-        var response = await Client.DeleteAsync("https://localhost:44397/api/Teacher/Delete/" + PersonId);
+        var response = await Client.DeleteAsync("https://localhost:44397/api/Teacher/Delete/" + user.Id);
 
         if (response.IsSuccessStatusCode)
         {
