@@ -154,7 +154,13 @@
             }
             if (user.Role.Equals(PersonType.Admin))
             {
-                if (lesson.Start > DateTime.Now.AddHours(48)) { hiddenCancelButton = false; }
+                if (lesson.Start > DateTime.Now.AddHours(48))
+                {
+                    if(lesson.StudentId is not null)
+                    {
+                        hiddenCancelButton = false;
+                    }
+                }
                 if (lesson.StudentId is null)
                 {
                     hiddenEditButton = false;
@@ -380,26 +386,26 @@
                         var lessonContent = await responseLessonDelete.Content.ReadAsStringAsync();
                         var deletedLesson = (ResponseLessonDTO)JsonConvert.DeserializeObject(lessonContent, typeof(ResponseLessonDTO));
 
-                        
-                            if (deletedLesson.StudentId is not null)
+
+                        if (deletedLesson.StudentId is not null)
+                        {
+                            var alert = new CreateAlertDTO
                             {
-                                var alert = new CreateAlertDTO
-                                {
-                                    AlertType = AlertType.Cancelled,
-                                    Message = $"Your lesson on {deletedLesson.Start.ToShortDateString()} has been cancelled.",
-                                    PersonId = deletedLesson.StudentId.GetValueOrDefault() };
-                                var alertResponse = await Client.PostAsJsonAsync("https://localhost:44397/api/alert/create", alert);
-                                if (alertResponse.IsSuccessStatusCode)
-                                {
-                                    NavManager.NavigateTo("/account");
-                                }
-                            }
-                            else
+                                AlertType = AlertType.Cancelled,
+                                Message = $"Your lesson on {deletedLesson.Start.ToShortDateString()} has been cancelled.",
+                                PersonId = deletedLesson.StudentId.GetValueOrDefault() };
+                            var alertResponse = await Client.PostAsJsonAsync("https://localhost:44397/api/alert/create", alert);
+                            if (alertResponse.IsSuccessStatusCode)
                             {
                                 NavManager.NavigateTo("/account");
                             }
-                        
-                        
+                        }
+                        else
+                        {
+                            NavManager.NavigateTo("/account");
+                        }
+
+
                     }
                     else { message = "Somthing went wrong while deleting the lesson."; }
                     hiddenMessage = false;
