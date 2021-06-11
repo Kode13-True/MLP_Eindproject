@@ -292,7 +292,23 @@
             try
             {
                 lessonDTO = await Client.GetFromJsonAsync<ResponseLessonDTO>("https://localhost:44397/api/lesson/GetOne/" + lessonId);
-                if(lessonDTO.TeacherId != user.Id)
+                if(user.Role is PersonType.Admin) 
+                {
+                    lessonPreview = _mapper.Map<ResponseLessonVM>(lessonDTO);
+
+                    lessonModel.InstrumentName = lessonPreview.InstrumentName;
+                    lessonModel.InstrumentStyle = lessonPreview.InstrumentStyle;
+                    lessonModel.LessonLevel = lessonPreview.LessonLevel;
+                    lessonModel.Price = lessonPreview.Price;
+                    date = lessonPreview.Start.Date;
+                    startTime = lessonPreview.Start;
+                    stopTime = lessonPreview.Stop;
+                    lessonModel.Street = lessonPreview.Street;
+                    lessonModel.Number = lessonPreview.Number;
+                    lessonModel.Postal = lessonPreview.Postal;
+                    lessonModel.Township = lessonPreview.Township;
+                }
+                else if(lessonDTO.TeacherId != user.Id)
                 {
                     NavManager.NavigateTo("/error404");
                 }
